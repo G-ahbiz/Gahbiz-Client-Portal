@@ -1,0 +1,61 @@
+.theme-toggle-container {
+  display: inline-block;
+  position: relative;
+
+  .theme-toggle-button, .dropdown-toggle-button {
+    transition: all 0.2s ease;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      
+      .dark & {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+    
+    &:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+    }
+  }
+  
+  .theme-popover {
+    animation: scaleIn 0.15s ease-out;
+    transform-origin: top right;
+    
+    z-index: 1000;
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  .theme-option {
+    cursor: pointer;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      
+      .dark & {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+    }
+    
+    &:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: -2px;
+    }
+  }
+}
