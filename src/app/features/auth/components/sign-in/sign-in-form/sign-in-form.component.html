@@ -1,0 +1,329 @@
+<div class="min-h-screen relative">
+  <!-- Main background using login-form-bg.png -->
+  <div
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style="background-image: url('assets/images/login-form-bg.png')"
+  ></div>
+
+  <div
+    class="relative z-10 w-full grid grid-cols-1 md:grid-cols-2 items-center justify-center card-animation min-h-screen"
+  >
+    <!-- Left Side - Form -->
+    <div class="p-6 max-w-lg mx-auto flex flex-col justify-center bg-white rounded-lg shadow-md">
+      <!-- Logo + header -->
+      <div class="text-center mb-6">
+        <img src="/assets/images/logo.png" alt="Gahbiz Logo" class="mx-auto mb-4 w-40" />
+        <h1
+          class="text-[36px] font-semibold leading-[100%] tracking-[1.08px] text-[#121212] text-center"
+        >
+          Welcome Back!
+        </h1>
+        <p
+          class="w-[291px] text-[16px] font-normal leading-[100%] text-center text-black mx-auto mt-2"
+        >
+          Don't have an account?
+          <a
+            routerLink="/sign-up"
+            class="text-[#005DB5] underline decoration-solid underline-offset-auto font-medium"
+          >
+            Sign up now
+          </a>
+        </p>
+      </div>
+
+      <!-- Error Message -->
+      @if (errorMessage()) {
+      <div class="bg-red-50 border border-red-200 rounded-md p-4 mb-6">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-red-800">{{ errorMessage() }}</p>
+          </div>
+          <div class="ml-auto pl-3">
+            <div class="-mx-1.5 -my-1.5">
+              <button
+                (click)="clearError()"
+                class="inline-flex bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100"
+              >
+                <span class="sr-only">Dismiss</span>
+                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+
+      <!-- Form -->
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        class="w-full flex flex-col items-start gap-6"
+      >
+        <!-- Email -->
+        <div class="w-full flex flex-col items-start gap-3">
+          <label class="text-[16px] font-medium leading-[100%] tracking-[0.48px] text-[#121212]">
+            Email Address
+          </label>
+          <div
+            class="w-full flex items-center border rounded-lg px-[21px] py-[15px] gap-2.5"
+            [class.border-red-500]="getFieldError('identifier')"
+            [class.border-[#D0D0D0]]="!getFieldError('identifier')"
+          >
+            <input
+              id="email"
+              type="email"
+              formControlName="identifier"
+              placeholder="Enter your email"
+              class="flex-1 text-[14px] font-medium leading-[100%] text-[#121212] placeholder:text-[#B0B0B0] bg-transparent border-none outline-none"
+              [disabled]="isLoading()"
+            />
+          </div>
+          @if (getFieldError('identifier')) {
+          <div class="text-red-500 text-sm mt-1">
+            <span>{{ getFieldError('identifier') }}</span>
+          </div>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="w-full flex flex-col items-start gap-3">
+          <label class="text-[16px] font-medium leading-[100%] tracking-[0.48px] text-[#121212]">
+            Password
+          </label>
+          <div
+            class="w-full flex items-center border rounded-lg px-[21px] py-[15px] gap-2.5 relative"
+            [class.border-red-500]="getFieldError('password')"
+            [class.border-[#D0D0D0]]="!getFieldError('password')"
+          >
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Enter your password"
+              class="flex-1 text-[14px] font-medium leading-[100%] text-[#121212] placeholder:text-[#B0B0B0] bg-transparent border-none outline-none pr-8"
+              [disabled]="isLoading()"
+            />
+            <button
+              type="button"
+              aria-label="Toggle password visibility"
+              (click)="toggleShowPassword()"
+              class="absolute right-[19px] top-1/2 transform -translate-y-1/2"
+              [disabled]="isLoading()"
+            >
+              <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                @if (showPassword()) {
+                <path
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  stroke="#616161"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  stroke="#616161"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                } @else {
+                <path
+                  d="M14.5299 9.97004L9.46992 15.03C8.81992 14.38 8.41992 13.49 8.41992 12.5C8.41992 10.52 10.0199 8.92004 11.9999 8.92004C12.9899 8.92004 13.8799 9.32004 14.5299 9.97004Z"
+                  stroke="#616161"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M17.8198 6.26998C16.0698 4.94998 14.0698 4.22998 11.9998 4.22998C8.46984 4.22998 5.17984 6.30998 2.88984 9.90998C1.98984 11.32 1.98984 13.69 2.88984 15.1C3.67984 16.34 4.59984 17.41 5.59984 18.27"
+                  stroke="#616161"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.41992 20.0301C9.55992 20.5101 10.7699 20.7701 11.9999 20.7701C15.5299 20.7701 18.8199 18.6901 21.1099 15.0901C22.0099 13.6801 22.0099 11.3101 21.1099 9.90005C20.7799 9.38005 20.4199 8.89005 20.0499 8.43005"
+                  stroke="#616161"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M15.5099 13.2C15.2499 14.61 14.0999 15.76 12.6899 16.02"
+                  stroke="#616161"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M9.47 15.03L2 22.5"
+                  stroke="#616161"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M21.9998 2.5L14.5298 9.97"
+                  stroke="#616161"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                }
+              </svg>
+            </button>
+          </div>
+          @if (getFieldError('password')) {
+          <div class="text-red-500 text-sm mt-1">
+            <span>{{ getFieldError('password') }}</span>
+          </div>
+          }
+        </div>
+
+        <!-- Login button -->
+        <div class="w-full flex flex-col justify-center items-center gap-4 mt-1">
+          <button
+            type="submit"
+            class="w-full flex justify-center items-center gap-2.5 px-7 py-4 rounded-lg bg-[#005DB5] text-white text-[20px] font-medium hover:bg-[#004A94] transition-colors disabled:opacity-60"
+            [disabled]="loginForm.invalid || isLoading()"
+          >
+            @if (isLoading()) {
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            Signing in... } @else { Login }
+          </button>
+
+          <a
+            href="#"
+            class="text-[14px] font-normal leading-[100%] text-[#005DB5] underline text-center"
+          >
+            Forgot your password?
+          </a>
+        </div>
+
+        <!-- Divider + social -->
+        <div class="w-full flex flex-col items-center gap-4 mt-2">
+          <div class="w-full flex items-center gap-6">
+            <div class="flex-1 h-[0.7px] bg-[#D0D0D0]"></div>
+            <span class="text-[16px] font-normal leading-[100%] text-[#616161]">or</span>
+            <div class="flex-1 h-[0.7px] bg-[#D0D0D0]"></div>
+          </div>
+
+          <div class="w-full flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-5">
+            <!-- Google -->
+            <button
+              type="button"
+              class="w-full sm:w-[500px] h-14 flex items-center justify-between gap-3 px-[38px] py-[14px] border border-[#D0D0D0] rounded-lg hover:bg-gray-50 transition-colors"
+              [disabled]="isLoading()"
+            >
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 28 29"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="flex-shrink-0"
+              >
+                <path
+                  d="M1.90909 25.0052H6.36364V14.187L0 9.41431V23.0961C0 24.1509 0.854318 25.0052 1.90909 25.0052Z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M21.6362 25.0052H26.0908C27.1455 25.0052 27.9999 24.1509 27.9999 23.0961V9.41431L21.6362 14.187V25.0052Z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M21.6362 5.91424V14.187L27.9999 9.41424V6.86878C27.9999 4.50946 25.3065 3.16196 23.418 4.57787L21.6362 5.91424Z"
+                  fill="#FBBC04"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M6.36377 14.187V5.91431L14.0001 11.6416L21.6365 5.91431V14.187L14.0001 19.9143L6.36377 14.187Z"
+                  fill="#EA4335"
+                />
+                <path
+                  d="M0 6.86878V9.41424L6.36364 14.187V5.91424L4.58182 4.57787C2.69341 3.16196 0 4.50946 0 6.86878Z"
+                  fill="#C5221F"
+                />
+              </svg>
+              <span class="text-[16px] font-medium leading-[100%] text-[#3A3A3A]"
+                >Login with Google</span
+              >
+            </button>
+
+            <!-- Facebook -->
+            <button
+              type="button"
+              class="w-full sm:w-[500px] h-14 flex items-center justify-center gap-3 px-7 py-[14px] border border-[#D0D0D0] rounded-lg hover:bg-gray-50 transition-colors"
+              [disabled]="isLoading()"
+            >
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 28 29"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="flex-shrink-0"
+              >
+                <path
+                  d="M28 14.5C28 6.76722 21.7328 0.5 14 0.5C6.26722 0.5 0 6.76722 0 14.5C0 21.4891 5.11875 27.2805 11.8125 28.3305V18.5469H8.25778V14.5H11.8125V11.4156C11.8125 7.9074 13.9016 5.96875 17.1008 5.96875C18.632 5.96875 20.2344 6.24219 20.2344 6.24219V9.6875H18.468C16.7289 9.6875 16.1875 10.7676 16.1875 11.875V14.5H20.0703L19.4496 18.5469H16.1875V28.3305C22.8813 27.2805 28 21.4891 28 14.5Z"
+                  fill="#1877F2"
+                />
+                <path
+                  d="M19.4496 18.5469L20.0703 14.5H16.1875V11.875C16.1875 10.7676 16.7289 9.6875 18.468 9.6875H20.2344V6.24219C20.2344 6.24219 18.632 5.96875 17.1008 5.96875C13.9016 5.96875 11.8125 7.9074 11.8125 11.4156V14.5H8.25781V18.5469H11.8125V28.3305C12.5262 28.4426 13.2563 28.5 14 28.5C14.7438 28.5 15.4739 28.4426 16.1875 28.3305V18.5469H19.4496Z"
+                  fill="white"
+                />
+              </svg>
+              <span class="text-[16px] font-medium leading-[100%] text-[#3A3A3A]"
+                >Login with Facebook</span
+              >
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Right Side -->
+    <div class="hidden md:flex items-center justify-center">
+      <img
+        src="assets/images/login-bg.png"
+        alt="Login Background"
+        class="w-full h-screen object-cover"
+      />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="language-switcher flex items-center">
+  <!-- Desktop version -->
+  <div class="hidden md:flex rounded-lg bg-gray-100 dark:bg-gray-800 p-1 shadow-inner">
+    @for (language of languages; track language.code) {
+      <button
+        (click)="switch(language.code)"
+        [class]="currentLang() === language.code ? 
+          'bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm' : 
+          'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100'"
+        class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        [attr.aria-label]="'Switch to ' + language.name"
+        [attr.title]="'Switch to ' + language.name"
+      >
+        <span class="text-base mr-2" [class.mr-2]="language.code === 'en'" [class.ml-2]="language.code === 'ar'">
+          {{ language.flag }}
+        </span>
+        <span class="hidden sm:block">{{ language.name }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Mobile version (dropdown) -->
+  <div class="md:hidden relative">
+    <button
+      class="flex items-center p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+      (click)="toggleDropdown()"
+      aria-haspopup="true"
+      [attr.aria-expanded]="isOpen()"
+    >
+      <span class="text-base mr-2">
+        {{ currentLang() === 'en' ? '🇺🇸' : '🇸🇦' }}
+      </span>
+      <span class="text-sm font-medium">
+        {{ currentLang() === 'en' ? 'English' : 'العربية' }}
+      </span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transition-transform" 
+           [class.rotate-180]="isOpen()" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+
+    @if (isOpen()) {
+      <div class="absolute top-full right-0 mt-2 py-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-10">
+        @for (language of languages; track language.code) {
+          <button
+            (click)="setLanguage(language.code)"
+            class="flex items-center w-full px-4 py-2 text-sm text-left text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            [class.bg-gray-50]="currentLang() === language.code"
+            [class.dark:bg-gray-700]="currentLang() === language.code"
+          >
+            <span class="text-base mr-3">{{ language.flag }}</span>
+            <span>{{ language.name }}</span>
+            @if (currentLang() === language.code) {
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-auto text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            }
+          </button>
+        }
+      </div>
+    }
+  </div>
+</div>
