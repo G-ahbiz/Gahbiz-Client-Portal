@@ -1,3 +1,18 @@
-<p>
-  button works!
-</p>
+<button [attr.type]="type" [disabled]="disabled || loading" class="relative h-11 sm:h-12
+         bg-light-primary dark:bg-dark-primary
+         disabled:bg-light-disabled dark:disabled:bg-dark-disabled
+         text-white text-sm sm:text-base font-semibold
+         rounded-lg hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover
+         transition-colors flex items-center justify-center gap-2" [class.w-full]="fullWidth">
+
+  <!-- Loading spinner -->
+  @if (loading) {
+  <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+  </svg>
+  }
+
+  <!-- Label -->
+  <span>{{ label }}</span>
+</button>
