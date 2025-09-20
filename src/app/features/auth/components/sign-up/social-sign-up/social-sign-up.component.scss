@@ -1,0 +1,9 @@
+/* Let the component host be transparent so its children participate in parent's flex layout */
+:host {
+  display: contents;
+}
+
+/* optional local tweaks */
+.social-button {
+  width: 100%;
+}

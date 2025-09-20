@@ -1,0 +1,58 @@
+<div class="flex flex-col w-full">
+  <!-- Label -->
+  <label [for]="id" class="block text-sm sm:text-base font-semibold mb-1 text-light-text dark:text-dark-text">
+    {{ label }}
+  </label>
+
+  <!-- Control container -->
+  <div
+    class="flex items-center w-full h-11 sm:h-12 px-2 rounded-lg border bg-light-input dark:bg-dark-bg
+         text-light-text dark:text-dark-text placeholder-light-subtext dark:placeholder-dark-subtext
+         focus-within:ring-2 focus-within:ring-light-primary dark:focus-within:ring-dark-primary outline-none transition-colors"
+    [ngClass]="isInvalid
+  ? 'border-light-error dark:border-dark-error'
+  : 'border-light-border dark:border-dark-border'" role="group" [attr.aria-invalid]="isInvalid ? 'true' : 'false'">
+  
+    <!-- Country dropdown -->
+    <div class="relative">
+      <button type="button"
+        class="flex items-center gap-1 px-2 py-1 bg-light-input dark:bg-dark-bg text-sm sm:text-base rounded transition-colors w-24"
+        (click)="toggleDropdown(); $event.stopPropagation()" [attr.aria-expanded]="isOpen">
+        <span class="fi fi-{{ selectedCountry.iso2 }}"></span>
+        <span class="ml-1 text-sm sm:text-base">{{ selectedCountry.dialCode }}</span>
+
+        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      @if (isOpen) {
+      <ul
+        class="absolute z-10 w-48 left-0 mt-1 bg-light-input dark:bg-dark-bg border border-light-border dark:border-dark-border rounded shadow-md max-h-60 overflow-y-auto">
+        @for (c of countries; track c.iso2) {
+        <li (click)="selectCountry(c); $event.stopPropagation()"
+          class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+          <span class="fi fi-{{ c.iso2 }}"></span>
+          <span class="ml-2">{{ c.dialCode }}</span>
+        </li>
+        }
+      </ul>
+      }
+    </div>
+
+    <!-- Phone input -->
+    <input [id]="id" type="text" class="flex-1 outline-none text-sm sm:text-base w-10 bg-light-input dark:bg-dark-bg"
+      [(ngModel)]="phoneNumber" (input)="onInput($event)" (blur)="handleBlur()" [ngModelOptions]="{ standalone: true }"
+      [attr.placeholder]="placeholder" [attr.disabled]="disabled ? true : null" [attr.maxlength]="maxlength"
+      [attr.minlength]="minlength" [attr.aria-describedby]="errorId" />
+  </div>
+
+  <!-- Error / reserved space -->
+  <div class="error-space mt-1">
+    @if (isInvalid) {
+    <div [id]="errorId" class="text-red-600 dark:text-red-400 text-xs sm:text-sm">
+      {{ errorMessage }}
+    </div>
+    }
+  </div>
+</div>

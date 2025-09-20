@@ -1,14 +1,6 @@
 .error-space {
-  min-height: 1.25rem;
+  min-height: 1.25rem; // Reserve space for error
   line-height: 1.25rem;
-}
-
-.error-text {
-  @apply text-light-error dark:text-dark-error;
-  font-size: 0.75rem;
-  margin-top: 0;
-  opacity: 1;
-  transition: opacity 120ms ease;
 }
 
 button,
@@ -19,15 +11,10 @@ input[type='checkbox'],
 
 input:focus,
 button:focus {
-  outline: 2px solid #005db5;
   outline-offset: 2px;
 }
 
 .toggle-thumb {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-}
-
-.border-red-500 {
-  @apply border-light-error dark:border-dark-error;
 }
