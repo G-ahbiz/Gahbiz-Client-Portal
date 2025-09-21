@@ -8,24 +8,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { SignInApiService } from '../../../services/sign-in/sign-in-api.service';
 import { LoginRequest } from '../../../interfaces/sign-in/login-request';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@core/services/auth.service';
 import { REG_EXP } from '@shared/config/constants';
-import { ButtonComponent } from '@shared/components/button/button.component';
-import { InputComponent } from '@shared/components/input/input.component';
 
 @Component({
   selector: 'app-sign-in-form',
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    CommonModule,
-    RouterModule,
-    ButtonComponent,
-    InputComponent,
-  ],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, RouterModule],
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.scss'],
 })

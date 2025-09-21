@@ -76,7 +76,10 @@
       >
         <!-- Email -->
         <div class="w-full flex flex-col items-start gap-3">
-          <label class="text-[16px] font-medium leading-[100%] tracking-[0.48px] text-[#121212]">
+          <label
+            for="email"
+            class="text-[16px] font-medium leading-[100%] tracking-[0.48px] text-[#121212]"
+          >
             Email Address
           </label>
           <div
@@ -102,7 +105,10 @@
 
         <!-- Password -->
         <div class="w-full flex flex-col items-start gap-3">
-          <label class="text-[16px] font-medium leading-[100%] tracking-[0.48px] text-[#121212]">
+          <label
+            for="password"
+            class="text-[16px] font-medium leading-[100%] tracking-[0.48px] text-[#121212]"
+          >
             Password
           </label>
           <div
@@ -228,7 +234,7 @@
           </button>
 
           <a
-            href="#"
+            [routerLink]="['/auth/forgot-password']"
             class="text-[14px] font-normal leading-[100%] text-[#005DB5] underline text-center"
           >
             Forgot your password?

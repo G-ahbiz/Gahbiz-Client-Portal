@@ -5,5 +5,6 @@ export const environment = {
   account: {
     login: '/Account/login',
     refresh: '/Account/refresh-token',
+    forgotPassword: '/Account/forgot-password',
   },
 };

@@ -56,6 +56,17 @@ export class AuthService {
       );
   }
 
+  forgetPassword(email: string): Observable<ApiResponse<string>> {
+    return this.http
+      .post<ApiResponse<string>>(`${this.apiUrl}${environment.account.forgotPassword}`, { email })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   refreshToken(): Observable<TokenData> {
     const refreshToken = this.tokenService.getRefreshToken();
 
