@@ -1,20 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, OnInit, Output } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-button',
+  imports: [MatIconModule],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
-  @Input() label = '';
-  @Input() loading = false;
-  @Input() disabled = false;
-  @Input() type: 'button' | 'submit' = 'button';
-  @Input() fullWidth = true;
-  @Output() clicked = new EventEmitter<void>();
+  label = input<string>('');
+  loading = input<boolean>(false);
+  loadingText = input<string>('');
+  disabled = input<boolean>(false);
+  type = input<'button' | 'submit'>('button');
+  fullWidth = input<boolean>(true);
+  clicked = new EventEmitter<void>();
 
   onClick() {
-    if (this.type === 'button' && !this.disabled && !this.loading) {
+    if (this.type() === 'button' && !this.disabled() && !this.loading()) {
       this.clicked.emit();
     }
   }

@@ -1,8 +1,11 @@
 import { CountryCodes } from '../interfaces/country-codes';
 
 export const ROUTES = {
+  home: '/',
   signIn: '/auth/sign-in',
   signUp: '/auth/sign-up',
+  forgotPassword: '/auth/forgot-password',
+  resetPassword: '/auth/reset-password',
 };
 
 export const COUNTRIES: CountryCodes[] = [
@@ -37,5 +40,5 @@ export const LOCAL_STORAGE_KEYS = {
 export const REG_EXP = {
   EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+  OTP: /^\d{6}$/,
 };
-
