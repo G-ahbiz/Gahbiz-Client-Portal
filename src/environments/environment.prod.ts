@@ -1,4 +1,6 @@
 export const environment = {
-  production: false
-  
+  production: false,
+
+
+  confirmTokenTtlMs: 5 * 60 * 1000,
 }

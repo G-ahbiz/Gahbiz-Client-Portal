@@ -4,6 +4,7 @@
   "SIGN_UP": "Sign Up",
   "COMMON": {
     "OR": "Or",
+    "AND": "And",
     "ALREADY_HAVE_ACCOUNT": "Already have an account?",
     "SUCCESS": "Success",
     "ERROR": "Error"
@@ -17,8 +18,8 @@
       "PHONE": "Phone",
       "PASSWORD": "Password",
       "TERMS": "I agree to the",
-      "TERMS_LINK":"Terms of Service",
-      "PRIVACY_LINK":"Privacy Policy"
+      "TERMS_LINK": "Terms of Service",
+      "PRIVACY_LINK": "Privacy Policy"
     },
     "PLACEHOLDERS": {
       "FULL_NAME": "Enter your full name",
@@ -32,11 +33,12 @@
       "FACEBOOK": "Sign Up with Facebook"
     },
     "MESSAGES": {
-      "SUCCESS": "Account created successfully!",
-      "SUCCESS_DETAIL": "Please check your email ({{email}}) to verify your account.",
-      "FAILURE": "Signup failed!",
-      "FAILURE_EMAIL_EXISTS": "This email is already registered. Try logging in or use another email.",
-      "FAILURE_SERVER": "Server error occurred. Please try again later."
+      "SUCCESS_DETAIL": "We’ve sent a confirmation link to {{email}}.",
+      "FAILURE_EMAIL_EXISTS": "This email is already registered. Please log in instead.",
+      "FAILURE_INVALID_INPUT": "Some of your inputs are invalid. Please check and try again.",
+      "FAILURE_WEAK_PASSWORD": "Your password is too weak. Please choose a stronger one.",
+      "FAILURE_SERVER": "Server error occurred. Please try again later.",
+      "FAILURE": "Something went wrong. Please try again."
     },
     "ERRORS": {
       "REQUIRED": "This field is required.",
@@ -47,6 +49,42 @@
       "PHONE_PATTERN": "Please enter a valid phone number.",
       "PASSWORD_PATTERN": "Password must contain uppercase, lowercase, a number, and a special character.",
       "INVALID": "The entered value is not valid."
+    }
+  },
+  "CONFIRM_EMAIL": {
+    "TITLE": "Confirm Email",
+    "SUBTITLE": "Enter the verification code sent to your email to activate your account",
+    "FIELDS": {
+      "OTP": "Verification Code"
+    },
+    "PLACEHOLDERS": {
+      "OTP": "Enter verification code"
+    },
+    "BUTTONS": {
+      "SUBMIT": "Confirm Email",
+      "RESEND": "Resend Code",
+      "CONFIRM_WITH_EMAIL": "Confirm with Email Link"
+    },
+    "MESSAGES": {
+      "SUCCESS": "Your email has been confirmed successfully.",
+      "INVALID_OR_EXPIRED": "The verification code is invalid or has expired. Please try again or request a new one.",
+      "USER_NOT_FOUND": "We couldn’t find your account. Please sign up again.",
+      "ALREADY_VERIFIED": "Your email is already confirmed. You can sign in directly.",
+      "UPDATE_FAILED": "We couldn’t verify your email due to a system issue. Please try again later.",
+      "FAILURE": "We couldn't confirm your email right now. Please try again later.",
+      "RESEND_SUCCESS_OTP": "A new verification code has been sent to your email. Please check your inbox.",
+      "RESEND_SUCCESS_LINK": "A new verification link has been sent to your email. Please check your inbox.",
+      "RESEND_SUCCESS_GENERIC": "If your email is registered, you will receive a confirmation message shortly.",
+      "RESEND_ALREADY_VERIFIED": "Your email is already confirmed. You can sign in directly.",
+      "RESEND_FAILURE": "We couldn’t resend the confirmation email. Please try again later.",
+      "INVALID_LINK": "The confirmation link is invalid.",
+      "BLOCKED": "We couldn’t verify your registration. Please sign in again."
+    },
+    "ERRORS": {
+      "REQUIRED": "Code is required.",
+      "LENGTH": "Code must be exactly {{length}} digits.",
+      "DIGITS": "Code must contain only numbers.",
+      "INVALID": "Invalid code."
     }
   }
 }

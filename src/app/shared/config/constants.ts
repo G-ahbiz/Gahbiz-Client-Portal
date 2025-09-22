@@ -3,6 +3,7 @@ import { CountryCodes } from '../interfaces/country-codes';
 export const ROUTES = {
   signIn: '/auth/sign-in',
   signUp: '/auth/sign-up',
+  confirmEmail: '/auth/confirm-email',
 };
 
 export const COUNTRIES: CountryCodes[] = [
@@ -28,6 +29,18 @@ export const SIGNUP_CONSTANTS = {
   PASSWORD_MAX: 64,
 };
 
+export const OTP_CONSTANTS = {
+  MIN: 6,
+  MAX: 6,
+  COOLDOWN: 60,
+};
+export const SIGNUP_STORAGE_KEYS = {
+  KEY_USER_ID: 'signup:userId',
+  KEY_EMAIL: 'signup:email',
+  KEY_TOKEN: 'signup:token',
+  KEY_TOKEN_EXPIRES: 'signup:token_expires',
+};
+
 export const LOCAL_STORAGE_KEYS = {
   ACCESS_TOKEN_KEY: 'access_token',
   REFRESH_TOKEN_KEY: 'refresh_token',
@@ -38,4 +51,3 @@ export const REG_EXP = {
   EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
 };
-

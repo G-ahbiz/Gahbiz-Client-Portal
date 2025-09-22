@@ -13,8 +13,7 @@ import { LoginRequest } from '../../../interfaces/sign-in/login-request';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@core/services/auth.service';
 import { REG_EXP } from '@shared/config/constants';
-import { ButtonComponent } from '@shared/components/button/button.component';
-import { InputComponent } from '@shared/components/input/input.component';
+import { ROUTES } from '@shared/config/constants';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -22,15 +21,15 @@ import { InputComponent } from '@shared/components/input/input.component';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    RouterModule,
-    ButtonComponent,
-    InputComponent,
+    RouterModule
   ],
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.scss'],
 })
 export class SignInFormComponent {
   // TODO : handle the remmber me (add button - handle logic)
+
+  readonly ROUTES = ROUTES;
 
   rememberMe = signal<boolean>(false);
   showPassword = signal<boolean>(false);

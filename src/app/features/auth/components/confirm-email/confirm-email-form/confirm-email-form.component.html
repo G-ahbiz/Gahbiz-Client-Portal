@@ -1,0 +1,83 @@
+<div class="flex flex-col items-center justify-center mt-10 px-4 sm:px-0">
+  <!-- Header / Loading -->
+  @if (isLoading) {
+    <p class="text-gray-500 dark:text-gray-400 text-center mb-4">
+      {{ 'CONFIRM_EMAIL.MESSAGES.CONFIRMING' | translate }}
+    </p>
+  } @else if (message) {
+    <h2 class="text-xl font-semibold mb-6 text-gray-900 dark:text-white text-center">
+      {{ message }}
+    </h2>
+  }
+
+  <!-- OTP Form -->
+  <form
+    [formGroup]="confirmEmailForm"
+    (ngSubmit)="onSubmit()"
+    class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-lg"
+  >
+    <!-- OTP Input -->
+    <div class="md:col-span-2">
+      <app-input
+        [label]="'CONFIRM_EMAIL.FIELDS.OTP' | translate"
+        id="otp"
+        type="text"
+        [placeholder]="'CONFIRM_EMAIL.PLACEHOLDERS.OTP' | translate"
+        formControlName="otp"
+        [isInvalid]="!!(otp?.invalid && otp?.touched)"
+        [errorMessage]="getErrorMessageFor('otp')"
+        [minlength]="OTP_CONSTANTS.MIN"
+        [maxlength]="OTP_CONSTANTS.MAX"
+      ></app-input>
+    </div>
+
+    <!-- Submit OTP Button -->
+    <div class="md:col-span-2">
+      <app-button
+        type="submit"
+        [label]="'CONFIRM_EMAIL.BUTTONS.SUBMIT' | translate"
+        [disabled]="confirmEmailForm.invalid || isSubmitting || isLoading"
+        [loading]="isSubmitting"
+        class="w-full bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+      ></app-button>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="md:col-span-2 flex flex-col sm:flex-row gap-3 mt-2">
+      <!-- Resend OTP -->
+      <div class="flex-1 relative">
+        <button
+          type="button"
+          (click)="resendEmail()"
+          [disabled]="resendCooldown > 0 || isSubmitting || isLoading"
+          class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-light-primary to-blue-700 dark:from-dark-primary dark:to-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          <i class="fas fa-redo-alt"></i>
+          <span>{{ 'CONFIRM_EMAIL.BUTTONS.RESEND' | translate }}</span>
+        </button>
+
+        <!-- Cooldown Timer -->
+        @if (resendCooldown > 0) {
+          <span
+            class="absolute -top-2 -right-2 w-7 h-7 flex items-center justify-center text-xs font-bold rounded-full bg-white dark:bg-gray-800 shadow-md border-2 border-blue-500 text-blue-600 dark:text-blue-400 animate-pulse"
+          >
+            {{ resendCooldown }}
+          </span>
+        }
+      </div>
+
+      <!-- Confirm via Email -->
+      <div class="flex-1">
+        <button
+          type="button"
+          (click)="resendEmailLink()"
+          [disabled]="isSubmitting || isLoading"
+          class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 dark:from-emerald-600 dark:to-green-700 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          <i class="fas fa-envelope"></i>
+          <span>{{ 'CONFIRM_EMAIL.BUTTONS.CONFIRM_WITH_EMAIL' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -15,39 +15,57 @@ import { environment } from '@env/environment';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  authService = inject(AuthService);
-  tokenService = inject(TokenService);
+  private refreshTokenSubject = new BehaviorSubject<string | null>(null);
+
+  private authService = inject(AuthService);
+  private tokenService = inject(TokenService);
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const authToken = this.tokenService.getAccessToken();
+    const isPublic = this.isPublicRequest(request);
 
-    let authReq = request;
-    if (authToken && !this.isAuthRequest(request)) {
-      authReq = this.addTokenHeader(request, authToken);
+    // Only add token if not public
+    if (!isPublic) {
+      const accessToken = this.tokenService.getAccessToken();
+      if (accessToken) {
+        request = this.addTokenHeader(request, accessToken);
+      }
     }
 
-    return next.handle(authReq).pipe(
+    return next.handle(request).pipe(
       catchError((error) => {
-        if (error instanceof HttpErrorResponse && !this.isAuthRequest(request)) {
-          return this.handle401Error(authReq, next);
+        if (
+          error instanceof HttpErrorResponse &&
+          error.status === 401 && // Unauthorized
+          !this.isPublicRequest(request)
+        ) {
+          return this.handle401Error(request, next);
         }
         return throwError(() => error);
       })
     );
   }
 
+  // Attach bearer token
   private addTokenHeader(request: HttpRequest<any>, token: string): HttpRequest<any> {
     return request.clone({
       headers: request.headers.set('Authorization', `Bearer ${token}`),
     });
   }
 
-  private isAuthRequest(request: HttpRequest<any>): boolean {
-    const authEndpoints = [`${environment.account.login}`, `${environment.account.refresh}`];
-    return authEndpoints.some((endpoint) => request.url.includes(endpoint));
+  // Detect public endpoints (skip them)
+  private isPublicRequest(request: HttpRequest<any>): boolean {
+    const publicEndpoints = [
+      environment.account.signup,
+      environment.account.login,
+      environment.account.verifyOtp,
+      environment.account.resendEmailConfirmation,
+      environment.account.confirmEmail,
+      environment.account.refresh, // handled separately
+    ];
+    return publicEndpoints.some((endpoint) => request.url.includes(endpoint));
   }
 
+  // Handle expired access token
   private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
@@ -75,10 +93,11 @@ export class AuthInterceptor implements HttpInterceptor {
       }
     }
 
+    // Queue requests while refresh is in progress
     return this.refreshTokenSubject.pipe(
       filter((token) => token !== null),
       take(1),
-      switchMap((token) => next.handle(this.addTokenHeader(request, token)))
+      switchMap((token) => next.handle(this.addTokenHeader(request, token!)))
     );
   }
 }
