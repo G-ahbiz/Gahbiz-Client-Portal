@@ -12,4 +12,5 @@ export const LOCAL_STORAGE_KEYS = {
 export const REG_EXP = {
   EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+  OTP: /^\d{4}$/,
 };

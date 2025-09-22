@@ -1,6 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { ButtonComponent } from '@shared/components/button/button.component';
@@ -8,7 +10,7 @@ import { REG_EXP } from '@shared/config/constants';
 
 @Component({
   selector: 'app-forget-password-form',
-  imports: [ButtonComponent, ReactiveFormsModule, RouterLink],
+  imports: [ButtonComponent, ReactiveFormsModule, RouterLink, MatIconModule, TranslateModule],
   templateUrl: './forget-password-form.component.html',
   styleUrls: ['./forget-password-form.component.scss'],
 })
@@ -38,7 +40,7 @@ export class ForgetPasswordFormComponent {
 
     this.authService
       .forgetPassword(this.forgetPasswordForm.value.email as string)
-      .pipe(takeUntilDestroyed())
+      // .pipe(takeUntilDestroyed())
       .subscribe({
         next: (response) => {
           this.isLoading.set(false);

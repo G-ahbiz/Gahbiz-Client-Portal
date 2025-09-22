@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,24 +8,35 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 import { LoginRequest } from '../../../interfaces/sign-in/login-request';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@core/services/auth.service';
 import { REG_EXP } from '@shared/config/constants';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in-form',
-  imports: [ReactiveFormsModule, FormsModule, CommonModule, RouterModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    RouterModule,
+    MatIconModule,
+    TranslateModule,
+  ],
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.scss'],
 })
-export class SignInFormComponent {
+export class SignInFormComponent implements OnDestroy {
   // TODO : handle the remmber me (add button - handle logic)
 
   rememberMe = signal<boolean>(false);
   showPassword = signal<boolean>(false);
   isLoading = signal<boolean>(false);
   errorMessage = signal<string>('');
+
+  private destroy$ = new Subject<void>();
 
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -51,7 +62,7 @@ export class SignInFormComponent {
 
     this.authService
       .login(this.loginForm.value as LoginRequest)
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
           console.log('Login successful:', response);
@@ -94,5 +105,10 @@ export class SignInFormComponent {
       }
     }
     return '';
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

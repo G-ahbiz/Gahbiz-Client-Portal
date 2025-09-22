@@ -24,10 +24,18 @@ export const AUTH_ROUTES: Routes = [
       ),
   },
   {
-    path: 'reset-password/:id',
+    path: 'reset-password',
     loadComponent: () =>
-      import('./components/sign-in/reset-password-form/reset-password-form.component').then(
-        (m) => m.ResetPasswordFormComponent
-      ),
+      import('./pages/reset-password/reset-password').then((m) => m.ResetPassword),
+  },
+  {
+    path: 'verify-otp/:id',
+    loadComponent: () =>
+      import('./components/sign-in/verify-otp/verify-otp').then((m) => m.VerifyOtp),
+  },
+  {
+    path: 'new-password/:id',
+    loadComponent: () =>
+      import('./components/sign-in/new-password/new-password').then((m) => m.NewPassword),
   },
 ];

@@ -8,6 +8,8 @@ import { User } from '@features/auth/interfaces/sign-in/user';
 import { BehaviorSubject, Observable, map, catchError, throwError } from 'rxjs';
 import { TokenService } from './token.service';
 import { LoginResponse } from '@features/auth/interfaces/sign-in/login-response';
+import { ResetPasswordRequest } from '@features/auth/interfaces/sign-in/reset-password-request';
+import { ResetPasswordResponse } from '@features/auth/interfaces/sign-in/reset-password-response';
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +61,34 @@ export class AuthService {
   forgetPassword(email: string): Observable<ApiResponse<string>> {
     return this.http
       .post<ApiResponse<string>>(`${this.apiUrl}${environment.account.forgotPassword}`, { email })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  resetPassword(
+    useOtp: boolean,
+    resetPasswordRequest: ResetPasswordRequest
+  ): Observable<ApiResponse<ResetPasswordResponse>> {
+    return this.http
+      .post<ApiResponse<ResetPasswordResponse>>(
+        `${this.apiUrl}${environment.account.resetPassword(useOtp)}`,
+        resetPasswordRequest
+      )
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  resendCode(userId: string): Observable<ApiResponse<string>> {
+    return this.http
+      .post<ApiResponse<string>>(`${this.apiUrl}${environment.account.resendOtp}`, { userId })
       .pipe(
         map((response) => {
           return response;
