@@ -41,8 +41,8 @@ export class VerifyOtp implements OnDestroy {
   verifyPassForm = new FormGroup({
     code: new FormControl('', [
       Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(4),
+      Validators.minLength(6),
+      Validators.maxLength(6),
       Validators.pattern(REG_EXP.OTP),
     ]),
   });
@@ -65,7 +65,7 @@ export class VerifyOtp implements OnDestroy {
     this.verifyPassForm.get('code')?.setValue(newCode.join(''));
 
     // Auto-focus next input
-    if (value && index < 3) {
+    if (value && index < 5) {
       const nextInput = input.parentElement?.querySelector(
         `input:nth-child(${index + 2})`
       ) as HTMLInputElement;
@@ -88,8 +88,8 @@ export class VerifyOtp implements OnDestroy {
     if (event.key === 'v' && (event.ctrlKey || event.metaKey)) {
       event.preventDefault();
       navigator.clipboard.readText().then((text) => {
-        const digits = text.replace(/\D/g, '').slice(0, 4);
-        if (digits.length === 4) {
+        const digits = text.replace(/\D/g, '').slice(0, 6);
+        if (digits.length === 6) {
           this.verifyPassForm.get('code')?.setValue(digits);
           // Focus the last input
           const lastInput = input.parentElement?.querySelector(
@@ -148,7 +148,7 @@ export class VerifyOtp implements OnDestroy {
         return `${fieldName} is required`;
       }
       if (field.errors['minlength'] || field.errors['maxlength']) {
-        return `${fieldName} must be 4 digits`;
+        return `${fieldName} must be 6 digits`;
       }
       if (field.errors['pattern']) {
         return `${fieldName} must contain only numbers`;

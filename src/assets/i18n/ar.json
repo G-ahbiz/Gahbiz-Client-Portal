@@ -26,6 +26,7 @@
     "VERIFYING": "جاري التحقق...",
     "DIDNT_RECEIVE_CODE": "لم تستلم الرمز؟",
     "CLICK_TO_RESEND": "انقر لإعادة الإرسال",
+    "NEW_PASSWORD": "كلمة المرور الجديدة",
     "ENTER_NEW_PASSWORD": "أدخل كلمة المرور الجديدة",
     "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
     "CONFIRM_NEW_PASSWORD": "أكد كلمة المرور الجديدة",

@@ -8,8 +8,8 @@
   @if (loading()) {
   <mat-icon class="animate-spin h-5 w-5 text-white">refresh</mat-icon>
   <span>{{ loadingText() }}</span>
-  }
-
+  } @else {
   <!-- Label -->
   <span>{{ label() }}</span>
+  }
 </button>

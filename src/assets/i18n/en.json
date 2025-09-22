@@ -26,6 +26,7 @@
     "VERIFYING": "Verifying...",
     "DIDNT_RECEIVE_CODE": "Didn't receive a code?",
     "CLICK_TO_RESEND": "Click to resend",
+    "NEW_PASSWORD": "New Password",
     "ENTER_NEW_PASSWORD": "Enter your new password",
     "CONFIRM_PASSWORD": "Confirm Password",
     "CONFIRM_NEW_PASSWORD": "Confirm your new password",

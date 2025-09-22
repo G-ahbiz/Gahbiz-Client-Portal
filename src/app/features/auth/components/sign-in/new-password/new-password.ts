@@ -5,10 +5,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { REG_EXP } from '@shared/config/constants';
+import { InputComponent } from '@shared/components/inputs/input/input.component';
 
 @Component({
   selector: 'app-new-password',
-  imports: [RouterLink, ReactiveFormsModule, ButtonComponent, MatIconModule, TranslateModule],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    ButtonComponent,
+    MatIconModule,
+    TranslateModule,
+    InputComponent,
+  ],
   templateUrl: './new-password.html',
   styleUrl: './new-password.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,12 +25,11 @@ export class NewPassword {
   // Inputs from parent component
   userId = input<string>('');
   otpCode = input<string>('');
-
+  isLoading = input<boolean>(false);
   // Outputs to parent component
   passwordSubmitted = output<{ newPassword: string; confirmPassword: string }>();
   goBack = output<void>();
 
-  isLoading = signal<boolean>(false);
   showPassword = signal<boolean>(false);
   showConfirmPassword = signal<boolean>(false);
 
@@ -33,6 +40,14 @@ export class NewPassword {
       Validators.pattern(REG_EXP.PASSWORD),
     ]),
   });
+
+  get newPassword() {
+    return this.newPasswordForm.get('newPassword');
+  }
+
+  get confirmPassword() {
+    return this.newPasswordForm.get('confirmPassword');
+  }
 
   onSubmit() {
     if (this.newPasswordForm.invalid) {
@@ -45,7 +60,7 @@ export class NewPassword {
 
     // Check if passwords match
     if (newPassword !== confirmPassword) {
-      return; // Let parent component handle the error
+      this.newPasswordForm.setErrors({ mismatch: true });
     }
 
     // Emit the password data to parent component

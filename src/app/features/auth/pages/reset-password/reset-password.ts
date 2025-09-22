@@ -32,6 +32,7 @@ export class ResetPassword implements OnDestroy {
   errorMessage = signal<string>('');
   successMessage = signal<string>('');
 
+  // Services
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -41,6 +42,8 @@ export class ResetPassword implements OnDestroy {
     this.route.queryParams.subscribe((params) => {
       this.userId.set(params['id'] || '');
     });
+
+    console.log(this.userId());
   }
 
   // Called when OTP verification is successful
@@ -75,6 +78,7 @@ export class ResetPassword implements OnDestroy {
       otp: this.otpCode(),
       newPassword: this.newPassword(),
       confirmPassword: this.confirmPassword(),
+      token: '',
     };
 
     this.authService

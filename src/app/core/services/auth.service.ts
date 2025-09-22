@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ApiResponse } from '@core/interfaces/api-response';
 import { TokenData } from '@core/interfaces/token-data';
@@ -58,9 +58,12 @@ export class AuthService {
       );
   }
 
-  forgetPassword(email: string): Observable<ApiResponse<string>> {
+  forgetPassword(email: string): Observable<ApiResponse<{ userId: string }>> {
     return this.http
-      .post<ApiResponse<string>>(`${this.apiUrl}${environment.account.forgotPassword}`, { email })
+      .post<ApiResponse<{ userId: string }>>(
+        `${this.apiUrl}${environment.account.forgotPassword}`,
+        { email }
+      )
       .pipe(
         map((response) => {
           return response;
@@ -73,10 +76,12 @@ export class AuthService {
     useOtp: boolean,
     resetPasswordRequest: ResetPasswordRequest
   ): Observable<ApiResponse<ResetPasswordResponse>> {
+    let params = new HttpParams().set('useOtp', useOtp);
     return this.http
       .post<ApiResponse<ResetPasswordResponse>>(
-        `${this.apiUrl}${environment.account.resetPassword(useOtp)}`,
-        resetPasswordRequest
+        `${this.apiUrl}${environment.account.resetPassword}`,
+        resetPasswordRequest,
+        { params }
       )
       .pipe(
         map((response) => {
