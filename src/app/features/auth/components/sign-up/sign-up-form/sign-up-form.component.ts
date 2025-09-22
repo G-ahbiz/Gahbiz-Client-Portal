@@ -10,6 +10,7 @@ import { SignUpFacadeService } from '../../../services/sign-up/sign-up-facade.se
 import { Router } from '@angular/router';
 import { ToastService } from '../../../../../shared/services/toast.service';
 import { ROUTES, SIGNUP_CONSTANTS } from '../../../../../shared/config/constants';
+import { SignUpResponseStorageService } from '@features/auth/services/sign-up/sign-up-response-storage.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -37,7 +38,8 @@ export class SignUpFormComponent {
     private facade: SignUpFacadeService,
     private cdr: ChangeDetectorRef,
     private toast: ToastService,
-    private router: Router
+    private router: Router,
+    private signUpResponseStorage: SignUpResponseStorageService
   ) {
     this.signUpForm = this.fb.group({
       name: [
@@ -104,23 +106,23 @@ export class SignUpFormComponent {
       .subscribe({
         next: (res) => {
           if (res.succeeded) {
-            const userEmail = res.data?.email ?? this.signUpForm.get('email')?.value;
+            const userId = res.data?.userId;
+            const userEmail = res.data?.email ?? this.email?.value;
+
+            this.signUpResponseStorage.setUser(userId ?? '', userEmail, true);
+
             const msg = this.translate.instant('SIGNUP.MESSAGES.SUCCESS_DETAIL', {
               email: userEmail,
             });
             this.toast.success(msg);
-            this.router.navigate([ROUTES.signIn]);
+            this.router.navigate([ROUTES.confirmEmail]);
           } else {
             const errorKey = this.facade.mapError(res);
             this.toast.error(this.translate.instant(errorKey));
           }
         },
         error: (err) => {
-          console.error('Signup request error:', err);
-          const backendMsg = err?.error?.message ?? '';
-          const errorKey = backendMsg.toLowerCase().includes('already registered')
-            ? 'SIGNUP.MESSAGES.FAILURE_EMAIL_EXISTS'
-            : 'SIGNUP.MESSAGES.FAILURE_SERVER';
+          const errorKey = this.facade.mapError(err);
           this.toast.error(this.translate.instant(errorKey));
         },
       });

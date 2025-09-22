@@ -4,6 +4,7 @@ export const ROUTES = {
   home: '/',
   signIn: '/auth/sign-in',
   signUp: '/auth/sign-up',
+  confirmEmail: '/auth/confirm-email',
   forgotPassword: '/auth/forgot-password',
   resetPassword: '/auth/reset-password',
 };
@@ -29,6 +30,18 @@ export const SIGNUP_CONSTANTS = {
   NAME_MAX: 50,
   PASSWORD_MIN: 8,
   PASSWORD_MAX: 64,
+};
+
+export const OTP_CONSTANTS = {
+  MIN: 6,
+  MAX: 6,
+  COOLDOWN: 60,
+};
+export const SIGNUP_STORAGE_KEYS = {
+  KEY_USER_ID: 'signup:userId',
+  KEY_EMAIL: 'signup:email',
+  KEY_TOKEN: 'signup:token',
+  KEY_TOKEN_EXPIRES: 'signup:token_expires',
 };
 
 export const LOCAL_STORAGE_KEYS = {

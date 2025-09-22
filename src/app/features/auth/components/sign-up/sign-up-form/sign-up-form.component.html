@@ -81,6 +81,7 @@
   <!-- Submit Button -->
   <div class="md:col-span-2">
     <app-button type="submit" [label]="'SIGNUP.BUTTONS.SUBMIT' | translate" [disabled]="signUpForm.invalid"
-      [loading]="isSubmitting"></app-button>
+      [loading]="isSubmitting" [loadingText]="'SIGNUP.BUTTONS.SUBMITTING' | translate">
+    </app-button>
   </div>
 </form>
