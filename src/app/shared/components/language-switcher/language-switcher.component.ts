@@ -19,12 +19,12 @@ export class LanguageSwitcherComponent {
 
   languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' }
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
   ];
 
   toggleDropdown() {
-    this.isOpen.update(open => !open);
-    
+    this.isOpen.update((open) => !open);
+
     if (this.isOpen()) {
       setTimeout(() => {
         this.clickListener = (event: MouseEvent) => {

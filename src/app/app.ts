@@ -12,7 +12,7 @@ import { ToastContainerComponent } from './shared/components/toast-container/toa
   selector: 'app-root',
   imports: [HeaderComponent, ToastContainerComponent, RouterOutlet, TranslateModule, CommonModule],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App implements OnInit, OnDestroy {
   title = 'Gahbiz-Client-Portal';
@@ -27,19 +27,17 @@ export class App implements OnInit, OnDestroy {
   ngOnInit(): void {
     // update showHeader on each completed navigation
     this.sub.add(
-      this.router.events
-        .pipe(filter(e => e instanceof NavigationEnd))
-        .subscribe(() => {
-          // get deepest activated route snapshot
-          let snapshot = this.activatedRoute.snapshot;
-          while (snapshot.firstChild) {
-            snapshot = snapshot.firstChild;
-          }
+      this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
+        // get deepest activated route snapshot
+        let snapshot = this.activatedRoute.snapshot;
+        while (snapshot.firstChild) {
+          snapshot = snapshot.firstChild;
+        }
 
-          // if route data has hideHeader === true, we hide header
-          const hide = !!snapshot.data?.['hideHeader'];
-          this.showHeader.set(!hide);
-        })
+        // if route data has hideHeader === true, we hide header
+        const hide = !!snapshot.data?.['hideHeader'];
+        this.showHeader.set(!hide);
+      })
     );
 
     // also run once on initial load (in case there's no NavigationEnd emitted yet)

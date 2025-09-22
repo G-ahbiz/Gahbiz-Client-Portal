@@ -36,6 +36,7 @@
       <app-button
         type="submit"
         [label]="'CONFIRM_EMAIL.BUTTONS.SUBMIT' | translate"
+        [loadingText]="'CONFIRM_EMAIL.BUTTONS.SUBMITTING' | translate"
         [disabled]="confirmEmailForm.invalid || isSubmitting || isLoading"
         [loading]="isSubmitting"
         class="w-full bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300"

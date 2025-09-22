@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnDestroy, output, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,12 +8,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { SignInApiService } from '../../../services/sign-in/sign-in-api.service';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 import { LoginRequest } from '../../../interfaces/sign-in/login-request';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@core/services/auth.service';
-import { REG_EXP } from '@shared/config/constants';
-import { ROUTES } from '@shared/config/constants';
+import { REG_EXP, ROUTES } from '@shared/config/constants';
+import { Subject, takeUntil } from 'rxjs';
+import { InputComponent } from '@shared/components/inputs/input/input.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -21,24 +23,22 @@ import { ROUTES } from '@shared/config/constants';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatIconModule,
+    TranslateModule,
+    InputComponent,
+    ButtonComponent,
   ],
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.scss'],
 })
 export class SignInFormComponent {
-  // TODO : handle the remmber me (add button - handle logic)
-
   readonly ROUTES = ROUTES;
-
   rememberMe = signal<boolean>(false);
   showPassword = signal<boolean>(false);
-  isLoading = signal<boolean>(false);
-  errorMessage = signal<string>('');
-
-  private authService = inject(AuthService);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
+  isLoading = input<boolean>(false);
+  errorMessage = input<string>('');
+  signInValues = output<LoginRequest>();
 
   loginForm = new FormGroup({
     identifier: new FormControl('', [
@@ -49,42 +49,24 @@ export class SignInFormComponent {
     password: new FormControl('', [Validators.required, Validators.pattern(REG_EXP.PASSWORD)]),
   });
 
+  get identifier() {
+    return this.loginForm.get('identifier');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
   onSubmit() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
-
-    this.isLoading.set(true);
-    this.errorMessage.set('');
-
-    this.authService
-      .login(this.loginForm.value as LoginRequest)
-      .pipe(takeUntilDestroyed())
-      .subscribe({
-        next: (response) => {
-          console.log('Login successful:', response);
-
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-          this.router.navigate([returnUrl]);
-        },
-        error: (error) => {
-          console.error('Login error:', error);
-          this.errorMessage.set(error.message || 'Login failed. Please try again.');
-          this.isLoading.set(false);
-        },
-        complete: () => {
-          this.isLoading.set(false);
-        },
-      });
+    this.signInValues.emit(this.loginForm.value as LoginRequest);
   }
 
   toggleShowPassword() {
     this.showPassword.set(!this.showPassword());
-  }
-
-  clearError() {
-    this.errorMessage.set('');
   }
 
   getFieldError(fieldName: string): string {
