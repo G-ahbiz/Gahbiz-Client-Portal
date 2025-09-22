@@ -8,5 +8,6 @@ export const environment = {
     forgotPassword: '/Account/forgot-password',
     resetPassword: (useOtp: boolean) => `/Account/reset-password/${useOtp}`,
     resendOtp: '/Account/resend-otp',
+    signup: '/Account/register',
   },
 };

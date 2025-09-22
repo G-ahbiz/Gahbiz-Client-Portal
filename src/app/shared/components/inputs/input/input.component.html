@@ -1,0 +1,39 @@
+<div class="flex flex-col w-full relative">
+  <!-- Label -->
+  <label [for]="id" class="block text-sm sm:text-base font-semibold mb-1
+           text-light-text dark:text-dark-text">
+    {{ label }}
+  </label>
+
+  <!-- Input -->
+  <div class="relative">
+    <input [id]="id" [type]="type === 'password' ? (showPassword ? 'text' : 'password') : type"
+      [placeholder]="placeholder" [ngModel]="value" (ngModelChange)="emitChange($event)" (blur)="onTouched()" [ngClass]="{
+        'border-light-error dark:border-dark-error': isInvalid,
+        'border-light-border dark:border-dark-border': !isInvalid
+      }" class="w-full h-11 sm:h-12 px-3 sm:px-4 rounded-lg border
+         bg-light-input dark:bg-dark-bg
+         text-sm sm:text-base
+         text-light-text dark:text-dark-text
+         placeholder-light-subtext dark:placeholder-dark-subtext
+         focus:ring-2 focus:ring-light-primary dark:focus:ring-dark-primary
+         outline-none transition-colors" [attr.minlength]="minlength" [attr.maxlength]="maxlength"
+      [attr.pattern]="pattern" />
+
+    <!-- Eye toggle for password -->
+    @if (type === 'password') {
+    <app-eye-password class="absolute top-1/2 -translate-y-1/2 ltr:right-3 rtl:left-14" [(showPassword)]="showPassword">
+    </app-eye-password>
+    }
+
+  </div>
+
+  <!-- Error Message -->
+  <div class="error-space mt-1">
+    @if (isInvalid) {
+    <div class="text-red-600 dark:text-red-400 text-xs sm:text-sm">
+      {{ errorMessage }}
+    </div>
+    }
+  </div>
+</div>

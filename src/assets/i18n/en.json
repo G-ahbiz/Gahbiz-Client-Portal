@@ -13,7 +13,6 @@
     "LOGIN": "Login",
     "SIGNING_IN": "Signing in...",
     "FORGOT_PASSWORD": "Forgot your password?",
-    "OR": "or",
     "LOGIN_WITH_GOOGLE": "Login with Google",
     "LOGIN_WITH_FACEBOOK": "Login with Facebook",
     "FORGOT_YOUR_PASSWORD": "Forgot your password?",
@@ -49,5 +48,52 @@
     "CONFIRM_PASSWORD_REQUIRED": "Confirm password is required",
     "NEW_PASSWORD_PATTERN": "New password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
     "CONFIRM_PASSWORD_PATTERN": "Confirm password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number"
+  },
+  "COMMON": {
+    "OR": "Or",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+    "SUCCESS": "Success",
+    "ERROR": "Error"
+  },
+  "SIGNUP": {
+    "TITLE": "Get Started Now",
+    "SUBTITLE": "Please enter your information to access your account",
+    "FIELDS": {
+      "FULL_NAME": "Full Name",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "PASSWORD": "Password",
+      "TERMS": "I agree to the",
+      "TERMS_LINK": "Terms of Service",
+      "PRIVACY_LINK": "Privacy Policy"
+    },
+    "PLACEHOLDERS": {
+      "FULL_NAME": "Enter your full name",
+      "EMAIL": "Enter your email",
+      "PHONE": "Enter your phone",
+      "PASSWORD": "Enter your password"
+    },
+    "BUTTONS": {
+      "SUBMIT": "Sign Up",
+      "GOOGLE": "Sign Up with Google",
+      "FACEBOOK": "Sign Up with Facebook"
+    },
+    "MESSAGES": {
+      "SUCCESS": "Account created successfully!",
+      "SUCCESS_DETAIL": "Please check your email ({{email}}) to verify your account.",
+      "FAILURE": "Signup failed!",
+      "FAILURE_EMAIL_EXISTS": "This email is already registered. Try logging in or use another email.",
+      "FAILURE_SERVER": "Server error occurred. Please try again later."
+    },
+    "ERRORS": {
+      "REQUIRED": "This field is required.",
+      "MIN_LENGTH": "Must be at least {{requiredLength}} characters long.",
+      "MAX_LENGTH": "Cannot exceed {{requiredLength}} characters.",
+      "EMAIL": "Please enter a valid email address.",
+      "FULLNAME_PATTERN": "Only letters, spaces, apostrophes, and hyphens are allowed.",
+      "PHONE_PATTERN": "Please enter a valid phone number.",
+      "PASSWORD_PATTERN": "Password must contain uppercase, lowercase, a number, and a special character.",
+      "INVALID": "The entered value is not valid."
+    }
   }
 }

@@ -1,0 +1,29 @@
+.form-scroll {
+  overflow-y: visible;
+  max-height: none;
+
+  /* Scrollbar styles */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-light-divider dark:bg-dark-bg rounded-[10px];
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-light-bg dark:bg-dark-divider rounded-[10px];
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-light-subtext dark:bg-dark-subtext;
+  }
+}
+
+/* Responsive for small screens */
+@media (max-height: 720px) {
+  .form-scroll {
+    max-height: calc(85vh - 160px);
+    overflow-y: auto;
+  }
+}
