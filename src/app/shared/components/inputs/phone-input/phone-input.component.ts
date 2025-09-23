@@ -2,13 +2,12 @@ import { Component, forwardRef, HostListener, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { COUNTRIES } from '../../../config/constants';
 import { CommonModule } from '@angular/common';
-import 'flag-icons/css/flag-icons.min.css';
 
 let uniqueCounter = 0;
 
 @Component({
   selector: 'app-phone-input',
-  standalone: true, 
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './phone-input.component.html',
   styleUrls: ['./phone-input.component.scss'],
@@ -41,7 +40,7 @@ export class PhoneInputComponent implements ControlValueAccessor {
   onChange = (_: any) => {};
   onTouched = () => {};
 
- constructor() {
+  constructor() {
     if (!this.id) {
       uniqueCounter++;
       this.id = `phone-${Date.now()}-${uniqueCounter}`;
@@ -70,8 +69,12 @@ export class PhoneInputComponent implements ControlValueAccessor {
     }
   }
 
-  registerOnChange(fn: any): void { this.onChange = fn; }
-  registerOnTouched(fn: any): void { this.onTouched = fn; }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
