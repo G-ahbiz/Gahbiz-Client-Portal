@@ -4,6 +4,9 @@ export const environment = {
   apiUrl: 'https://serva-best.runasp.net/api',
   // apiUrl: 'https://localhost:7204/api',
 
+  googleClientId: '710517406086-vlr501mfdnbmc5o8p8jv07qaks1jvveg.apps.googleusercontent.com',
+  googleUrl: 'https://accounts.google.com/gsi/client',
+
   account: {
     login: '/Account/login',
     refresh: '/Account/refresh-token',
@@ -14,6 +17,7 @@ export const environment = {
     confirmEmail: '/Account/ConfirmEmail', // link to confirm email
     resendEmailConfirmation: '/Account/resend-email-confirmation',
     verifyOtp: '/Account/verify-otp', // OTP to verify email
+    googleLogin: '/Account/external-login',
   },
 
   confirmTokenTtlMs: 5 * 60 * 1000,
