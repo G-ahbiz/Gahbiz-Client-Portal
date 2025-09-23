@@ -3,18 +3,27 @@ import { NgClass } from '@angular/common';
 import { ThemeToggleDirective } from '../../directives/theme-toggle.directive';
 import { Router, RouterLink } from '@angular/router';
 import { ThemeService } from '../../../core/services/theme.service';
-import { ThemeToggleComponent } from "../theme-toggle/theme-toggle.component";
+import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { ROUTES } from "../../config/constants"
+import { ROUTES } from '../../config/constants';
 
 @Component({
   selector: 'app-header',
-  imports: [ThemeToggleDirective, RouterLink, ThemeToggleComponent, NgClass, LanguageSwitcherComponent, TranslateModule],
+  imports: [
+    ThemeToggleDirective,
+    RouterLink,
+    ThemeToggleComponent,
+    NgClass,
+    LanguageSwitcherComponent,
+    TranslateModule,
+  ],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  // Ziad : TODO : fix header transition
+
   readonly ROUTES = ROUTES;
 
   private themeService = inject(ThemeService);
@@ -22,12 +31,10 @@ export class HeaderComponent {
   isMenuOpen = signal(false);
   isDark = this.themeService.isDark;
 
-  constructor(
-    private router: Router,
-  ) {}
+  constructor(private router: Router) {}
 
   toggleMenu() {
-    this.isMenuOpen.update(open => !open);
+    this.isMenuOpen.update((open) => !open);
   }
 
   closeMenu() {

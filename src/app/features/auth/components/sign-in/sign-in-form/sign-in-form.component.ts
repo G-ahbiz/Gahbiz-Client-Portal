@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, output } from '@angular/core';
+import { Component, inject, input, OnDestroy, output, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,18 +7,19 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginRequest } from '../../../interfaces/sign-in/login-request';
+import { AuthService } from '@core/services/auth.service';
 import { REG_EXP, ROUTES } from '@shared/config/constants';
+import { Subject, takeUntil } from 'rxjs';
 import { InputComponent } from '@shared/components/inputs/input/input.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { FacebookAuthFacade } from '@features/auth/services/sign-in/facebook-auth-facade.service';
 
 @Component({
   selector: 'app-sign-in-form',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     FormsModule,
@@ -33,17 +34,22 @@ import { FacebookAuthFacade } from '@features/auth/services/sign-in/facebook-aut
   styleUrls: ['./sign-in-form.component.scss'],
 })
 export class SignInFormComponent {
+  // Constants
   readonly ROUTES = ROUTES;
+
   private fbFacade = inject(FacebookAuthFacade);
   private router = inject(Router);
 
-  @Input() isLoading: boolean = false;
-  @Input() errorMessage: string | null = null;
-
+  // Inputs
+  isLoading = input<boolean>(false);
   signInValues = output<LoginRequest>();
 
-  rememberMe = false;
-  showPassword = false;
+  // Signals
+  rememberMe = signal<boolean>(false);
+  showPassword = signal<boolean>(false);
+
+  // Services
+  private translate = inject(TranslateService);
 
   loginForm = new FormGroup({
     identifier: new FormControl('', [
@@ -71,25 +77,27 @@ export class SignInFormComponent {
   }
 
   toggleShowPassword() {
-    this.showPassword = !this.showPassword;
+    this.showPassword.set(!this.showPassword());
   }
 
-  getFieldError(fieldName: string): string {
-    const field = this.loginForm.get(fieldName);
-    if (field?.errors && field?.touched) {
-      if (field.errors['required']) {
-        return `${fieldName === 'identifier' ? 'Email' : 'Password'} is required`;
+  getFieldError(controlName: string): string {
+    const control = this.loginForm.get(controlName);
+    if (!control || !control.errors) return '';
+
+    if (control.errors['required']) return this.translate.instant('AUTH.ERRORS.REQUIRED');
+
+    if (control.errors['email']) return this.translate.instant('AUTH.ERRORS.EMAIL');
+
+    if (control.errors['pattern']) {
+      if (controlName === 'identifier') {
+        return this.translate.instant('AUTH.ERRORS.EMAIL');
       }
-      if (field.errors['email'] || field.errors['pattern']) {
-        if (fieldName === 'identifier') {
-          return 'Please enter a valid email address';
-        }
-        if (fieldName === 'password') {
-          return 'Password must be at least 8 characters with uppercase, lowercase, number and special character';
-        }
+      if (controlName === 'password') {
+        return this.translate.instant('AUTH.ERRORS.PASSWORD_PATTERN');
       }
     }
-    return '';
+
+    return this.translate.instant('AUTH.ERRORS.INVALID');
   }
 
   async onFacebookLogin() {

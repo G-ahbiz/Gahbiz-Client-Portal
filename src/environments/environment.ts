@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
-  
+
   apiUrl: 'https://serva-best.runasp.net/api',
-  //apiUrl: 'https://localhost:7204/api',
+  // apiUrl: 'https://localhost:7204/api',
 
   account: {
     login: '/Account/login',

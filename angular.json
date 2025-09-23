@@ -46,10 +46,17 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/favicon.ico",
+              {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
+              },
+              "src/assets",
               {
                 "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets"
+                "input": "node_modules/flag-icons/flags",
+                "output": "/assets/flags"
               }
             ],
             "styles": ["src/styles.scss"]

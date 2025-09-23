@@ -1,4 +1,9 @@
 @use '@angular/material' as mat;
+@use 'flag-icons/sass/variables' as flag with (
+  $flag-icons-path: '/assets/flags'
+);
+@use 'flag-icons/sass/flag-icons';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +15,8 @@
 // custom components at https://material.angular.dev/guide/theming
 
 html {
+  /* Make flag-icons use the copied assets path */
+  --fi-path: '/assets/flags';
   @include mat.theme(
     (
       color: (

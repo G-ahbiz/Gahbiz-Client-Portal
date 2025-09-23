@@ -48,7 +48,17 @@
     "NEW_PASSWORD_REQUIRED": "New password is required",
     "CONFIRM_PASSWORD_REQUIRED": "Confirm password is required",
     "NEW_PASSWORD_PATTERN": "New password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
-    "CONFIRM_PASSWORD_PATTERN": "Confirm password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number"
+    "CONFIRM_PASSWORD_PATTERN": "Confirm password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
+    "ERRORS": {
+      "REQUIRED": "This field is required.",
+      "MIN_LENGTH": "Must be at least {{requiredLength}} characters long.",
+      "MAX_LENGTH": "Cannot exceed {{requiredLength}} characters.",
+      "EMAIL": "Please enter a valid email address.",
+      "FULLNAME_PATTERN": "Only letters, spaces, apostrophes, and hyphens are allowed.",
+      "PHONE_PATTERN": "Please enter a valid phone number.",
+      "PASSWORD_PATTERN": "Password must contain uppercase, lowercase, a number, and a special character.",
+      "INVALID": "The entered value is not valid."
+    }
   },
   "COMMON": {
     "OR": "Or",
@@ -56,6 +66,22 @@
     "ALREADY_HAVE_ACCOUNT": "Already have an account?",
     "SUCCESS": "Success",
     "ERROR": "Error"
+  },
+  "NEW_PASSWORD": {
+    "ERRORS": {
+      "REQUIRED": "This field is required.",
+      "PASSWORD_PATTERN": "Password must contain uppercase, lowercase, a number, and a special character.",
+      "INVALID": "The entered value is not valid.",
+      "OTP_PATTERN": "Code must contain only numbers.",
+      "LENGTH": "Must be exactly {{requiredLength}} characters long."
+    },
+    "MESSAGES": {
+      "SUCCESS": "Password reset successfully!",
+      "INVALID_OTP": "Invalid OTP code",
+      "FAILED_TO_VERIFY_OTP": "Failed to verify OTP",
+      "CODE_RESENT_SUCCESS": "Code resent successfully!",
+      "FAILED_TO_RESEND_CODE": "Failed to resend code"
+    }
   },
   "SIGNUP": {
     "TITLE": "Get Started Now",
