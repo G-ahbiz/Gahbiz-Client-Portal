@@ -1,0 +1,39 @@
+<div
+  class="min-h-screen flex items-center justify-center bg-light-bg dark:bg-dark-bg px-4 py-2 transition-colors duration-300">
+  <div
+    class="w-full max-w-xl bg-light-card dark:bg-dark-card rounded-lg shadow-lg p-6 pb-2 flex flex-col transition-colors duration-300"
+    style="max-height: 95vh;">
+    <!-- Logo -->
+    <div class="flex-shrink-0 flex justify-center mb-4">
+      <img src="assets/images/logo.png" alt="Company Logo"
+        class="h-8 sm:h-10 dark:drop-shadow-[0_0_1px_rgba(255,255,255,1)]" />
+    </div>
+
+    <!-- Header Section -->
+    <header class="text-center mb-4">
+      <h1
+        class="text-xl sm:text-2xl font-semibold text-light-text dark:text-dark-text leading-7 transition-colors duration-300">
+        {{ 'CONFIRM_EMAIL.TITLE' | translate }}
+      </h1>
+      <p class="text-sm sm:text-base text-light-subtext dark:text-dark-subtext mt-1 transition-colors duration-300">
+        {{ 'CONFIRM_EMAIL.SUBTITLE' | translate }}
+      </p>
+    </header>
+
+    <!-- Form Container -->
+    <div class="mt-2 overflow-y-auto form-scroll px-3" style="max-height: calc(85vh - 160px);">
+      <app-confirm-email-form></app-confirm-email-form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center pt-4 pb-2">
+      <p class="text-light-subtext dark:text-dark-subtext text-xs sm:text-sm transition-colors duration-300">
+        {{ 'COMMON.ALREADY_HAVE_ACCOUNT' | translate }}
+        <a [routerLink]="ROUTES.signIn"
+          class="text-light-primary dark:text-dark-primary font-semibold hover:underline transition-colors duration-300">
+          {{ 'SIGN_IN' | translate }}
+        </a>
+      </p>
+    </footer>
+  </div>
+</div>
