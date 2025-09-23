@@ -10,11 +10,12 @@ import {
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '@core/services/auth.service';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { Subject, takeUntil } from 'rxjs';
-import { REG_EXP } from '@shared/config/constants';
+import { OTP_OPERATIONS, REG_EXP } from '@shared/config/constants';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-verify-otp',
@@ -24,6 +25,7 @@ import { REG_EXP } from '@shared/config/constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerifyOtp implements OnDestroy {
+  readonly OTP_OPERATIONS = OTP_OPERATIONS;
   private destroy$ = new Subject<void>();
   // Input from parent component
   userId = input<string>('');
@@ -31,13 +33,13 @@ export class VerifyOtp implements OnDestroy {
   // Output to parent component
   otpVerified = output<string>();
 
+  // Services
+  private toastService = inject(ToastService);
+  private authService = inject(AuthService);
+  private translate = inject(TranslateService);
+
   isLoading = signal<boolean>(false);
 
-  // Ziad : TODO : replace with toastr
-  errorMessage = signal<string>('');
-  successMessage = signal<string>('');
-
-  private authService = inject(AuthService);
   verifyPassForm = new FormGroup({
     code: new FormControl('', [
       Validators.required,
@@ -103,28 +105,20 @@ export class VerifyOtp implements OnDestroy {
 
   resendCode() {
     this.authService
-      .resendCode(this.userId())
+      .resendCode(this.userId(), this.OTP_OPERATIONS.FORGOT_PASSWORD)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
           if (response.succeeded) {
-            this.successMessage.set('Code resent successfully!');
+            this.toastService.success('Code resent successfully!');
           } else {
-            this.errorMessage.set(response.message || 'Failed to resend code');
+            this.toastService.error(response.message || 'Failed to resend code');
           }
         },
         error: (error) => {
-          this.errorMessage.set(error.message || 'Failed to resend code');
+          this.toastService.error(error.message || 'Failed to resend code');
         },
       });
-  }
-
-  clearError() {
-    this.errorMessage.set('');
-  }
-
-  clearSuccess() {
-    this.successMessage.set('');
   }
 
   onSubmit() {
@@ -134,27 +128,9 @@ export class VerifyOtp implements OnDestroy {
     }
 
     this.isLoading.set(true);
-    this.clearError();
-    this.clearSuccess();
 
     const otpCode = this.verifyPassForm.get('code')?.value;
     this.otpVerified.emit(otpCode || '');
-  }
-
-  getFieldError(fieldName: string) {
-    const field = this.verifyPassForm.get(fieldName);
-    if (field?.errors && field?.touched) {
-      if (field.errors['required']) {
-        return `${fieldName} is required`;
-      }
-      if (field.errors['minlength'] || field.errors['maxlength']) {
-        return `${fieldName} must be 6 digits`;
-      }
-      if (field.errors['pattern']) {
-        return `${fieldName} must contain only numbers`;
-      }
-    }
-    return '';
   }
 
   ngOnDestroy() {

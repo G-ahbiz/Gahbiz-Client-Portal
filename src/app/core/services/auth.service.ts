@@ -91,9 +91,12 @@ export class AuthService {
       );
   }
 
-  resendCode(userId: string): Observable<ApiResponse<string>> {
+  resendCode(userId: string, operationType: string): Observable<ApiResponse<string>> {
     return this.http
-      .post<ApiResponse<string>>(`${this.apiUrl}${environment.account.resendOtp}`, { userId })
+      .post<ApiResponse<string>>(`${this.apiUrl}${environment.account.resendOtp}`, {
+        userId,
+        operationType,
+      })
       .pipe(
         map((response) => {
           return response;

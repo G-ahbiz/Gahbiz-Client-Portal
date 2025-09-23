@@ -1,7 +1,7 @@
-import { Component, signal, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy, input, output, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { REG_EXP } from '@shared/config/constants';
@@ -32,6 +32,9 @@ export class NewPassword {
 
   showPassword = signal<boolean>(false);
   showConfirmPassword = signal<boolean>(false);
+
+  //Services
+  private translate = inject(TranslateService);
 
   newPasswordForm = new FormGroup({
     newPassword: new FormControl('', [Validators.required, Validators.pattern(REG_EXP.PASSWORD)]),
@@ -81,16 +84,16 @@ export class NewPassword {
     this.showConfirmPassword.set(!this.showConfirmPassword());
   }
 
-  getFieldError(fieldName: string) {
-    const field = this.newPasswordForm.get(fieldName);
-    if (field?.errors && field?.touched) {
-      if (field.errors['required']) {
-        return `${fieldName} is required`;
-      }
-      if (field.errors['pattern']) {
-        return `${fieldName} must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number`;
-      }
+  getFieldError(fieldName: string): string {
+    const control = this.newPasswordForm.get(fieldName);
+    if (!control || !control.errors) return '';
+
+    if (control.errors['required']) return this.translate.instant('NEW_PASSWORD.ERRORS.REQUIRED');
+
+    if (control.errors['pattern']) {
+      return this.translate.instant('NEW_PASSWORD.ERRORS.PASSWORD_PATTERN');
     }
-    return '';
+
+    return this.translate.instant('NEW_PASSWORD.ERRORS.INVALID');
   }
 }

@@ -7,6 +7,8 @@ import { ResetPasswordRequest } from '@features/auth/interfaces/sign-in/reset-pa
 import { VerifyOtp } from '@features/auth/components/sign-in/verify-otp/verify-otp';
 import { NewPassword } from '@features/auth/components/sign-in/new-password/new-password';
 import { Subject, takeUntil } from 'rxjs';
+import { ROUTES } from '@shared/config/constants';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -17,6 +19,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class ResetPassword implements OnDestroy {
   // Current step in the reset password flow
+  readonly ROUTES = ROUTES;
 
   private destroy$ = new Subject<void>();
   currentStep = signal<'verify-otp' | 'new-password'>('verify-otp');
@@ -29,21 +32,18 @@ export class ResetPassword implements OnDestroy {
 
   // Loading and error states
   isLoading = signal<boolean>(false);
-  errorMessage = signal<string>('');
-  successMessage = signal<string>('');
 
   // Services
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private toastService = inject(ToastService);
 
   ngOnInit() {
     // Get userId from query params
     this.route.queryParams.subscribe((params) => {
       this.userId.set(params['id'] || '');
     });
-
-    console.log(this.userId());
   }
 
   // Called when OTP verification is successful
@@ -59,7 +59,7 @@ export class ResetPassword implements OnDestroy {
 
     // Validate passwords match
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      this.errorMessage.set('Passwords do not match');
+      this.toastService.error('Passwords do not match');
       return;
     }
 
@@ -70,8 +70,6 @@ export class ResetPassword implements OnDestroy {
   // Submit the final reset password request
   private submitResetPasswordRequest() {
     this.isLoading.set(true);
-    this.clearError();
-    this.clearSuccess();
 
     const resetPasswordRequest: ResetPasswordRequest = {
       userId: this.userId(),
@@ -87,16 +85,17 @@ export class ResetPassword implements OnDestroy {
       .subscribe({
         next: (response) => {
           if (response.succeeded) {
-            this.successMessage.set('Password reset successfully!');
+            this.toastService.success('Password reset successfully!');
             setTimeout(() => {
               this.router.navigate(['/auth/sign-in']);
             }, 2000);
           } else {
-            this.errorMessage.set(response.message || 'Failed to reset password');
+            this.toastService.error(response.message || 'Failed to reset password');
           }
         },
         error: (error) => {
-          this.errorMessage.set(error.message || 'An error occurred while resetting password');
+          this.goBackToOtp();
+          this.toastService.error(error.message || 'An error occurred while resetting password');
         },
         complete: () => {
           this.isLoading.set(false);
@@ -107,16 +106,6 @@ export class ResetPassword implements OnDestroy {
   // Go back to OTP verification step
   goBackToOtp() {
     this.currentStep.set('verify-otp');
-    this.clearError();
-    this.clearSuccess();
-  }
-
-  clearError() {
-    this.errorMessage.set('');
-  }
-
-  clearSuccess() {
-    this.successMessage.set('');
   }
 
   ngOnDestroy() {

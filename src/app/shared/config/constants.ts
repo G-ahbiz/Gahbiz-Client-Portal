@@ -37,6 +37,13 @@ export const OTP_CONSTANTS = {
   MAX: 6,
   COOLDOWN: 60,
 };
+
+export const OTP_OPERATIONS = {
+  CONFIRM_EMAIL: 'confirm-email',
+  FORGOT_PASSWORD: 'forgot-password',
+  CHANGE_EMAIL: 'change-email',
+};
+
 export const SIGNUP_STORAGE_KEYS = {
   KEY_USER_ID: 'signup:userId',
   KEY_EMAIL: 'signup:email',
