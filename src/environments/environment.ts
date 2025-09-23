@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
   
-  //apiUrl: 'https://serva-best.runasp.net/api',
-  apiUrl: 'https://localhost:7204/api',
+  apiUrl: 'https://serva-best.runasp.net/api',
+  //apiUrl: 'https://localhost:7204/api',
 
   account: {
     login: '/Account/login',
@@ -13,8 +13,11 @@ export const environment = {
     signup: '/Account/register',
     confirmEmail: '/Account/ConfirmEmail', // link to confirm email
     resendEmailConfirmation: '/Account/resend-email-confirmation',
-    verifyOtp: '/Account/verify-otp'  // OTP to verify email
+    verifyOtp: '/Account/verify-otp',  // OTP to verify email
+    externalLogin: '/Account/external-login',
   },
 
-  confirmTokenTtlMs: 5 * 60 * 1000,
+  facebookAppId: '24635154546118319',
+
+  confirmTokenTtlMs: 5 * 60 * 100,
 };

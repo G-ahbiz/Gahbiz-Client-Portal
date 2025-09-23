@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, OnDestroy, output, signal } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,18 +7,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginRequest } from '../../../interfaces/sign-in/login-request';
-import { AuthService } from '@core/services/auth.service';
 import { REG_EXP, ROUTES } from '@shared/config/constants';
-import { Subject, takeUntil } from 'rxjs';
 import { InputComponent } from '@shared/components/inputs/input/input.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
+import { FacebookAuthFacade } from '@features/auth/services/sign-in/facebook-auth-facade.service';
 
 @Component({
   selector: 'app-sign-in-form',
+  standalone: true,
   imports: [
     ReactiveFormsModule,
     FormsModule,
@@ -34,11 +34,16 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 })
 export class SignInFormComponent {
   readonly ROUTES = ROUTES;
-  rememberMe = signal<boolean>(false);
-  showPassword = signal<boolean>(false);
-  isLoading = input<boolean>(false);
-  errorMessage = input<string>('');
+  private fbFacade = inject(FacebookAuthFacade);
+  private router = inject(Router);
+
+  @Input() isLoading: boolean = false;
+  @Input() errorMessage: string | null = null;
+
   signInValues = output<LoginRequest>();
+
+  rememberMe = false;
+  showPassword = false;
 
   loginForm = new FormGroup({
     identifier: new FormControl('', [
@@ -66,7 +71,7 @@ export class SignInFormComponent {
   }
 
   toggleShowPassword() {
-    this.showPassword.set(!this.showPassword());
+    this.showPassword = !this.showPassword;
   }
 
   getFieldError(fieldName: string): string {
@@ -85,5 +90,15 @@ export class SignInFormComponent {
       }
     }
     return '';
+  }
+
+  async onFacebookLogin() {
+    try {
+      const response = await this.fbFacade.login();
+      console.log('✅ FB login success:', response);
+      this.router.navigate([this.ROUTES.home]);
+    } catch (err: any) {
+      console.error('❌ FB login failed:', err);
+    }
   }
 }
