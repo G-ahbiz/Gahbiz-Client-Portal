@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, output, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -9,6 +9,8 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./social-sign-up.component.scss'],
 })
 export class SocialSignUpComponent implements OnInit {
+  onGoogleRegister = output<void>();
+
   constructor() {}
 
   ngOnInit() {}

@@ -36,6 +36,7 @@
       <app-sign-in-form
         (signInValues)="onSignInValues($event)"
         [isLoading]="isLoading()"
+        (onGoogleLogin)="onGoogleLogin()"
       ></app-sign-in-form>
     </div>
     <!-- Right Side -->
