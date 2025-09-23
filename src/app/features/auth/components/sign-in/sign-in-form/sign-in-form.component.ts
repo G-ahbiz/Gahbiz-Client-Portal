@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginRequest } from '../../../interfaces/sign-in/login-request';
 import { AuthService } from '@core/services/auth.service';
 import { REG_EXP, ROUTES } from '@shared/config/constants';
@@ -33,12 +33,19 @@ import { ButtonComponent } from '@shared/components/button/button.component';
   styleUrls: ['./sign-in-form.component.scss'],
 })
 export class SignInFormComponent {
+  // Constants
   readonly ROUTES = ROUTES;
+
+  // Inputs
+  isLoading = input<boolean>(false);
+  signInValues = output<LoginRequest>();
+
+  // Signals
   rememberMe = signal<boolean>(false);
   showPassword = signal<boolean>(false);
-  isLoading = input<boolean>(false);
-  errorMessage = input<string>('');
-  signInValues = output<LoginRequest>();
+
+  // Services
+  private translate = inject(TranslateService);
 
   loginForm = new FormGroup({
     identifier: new FormControl('', [
@@ -69,21 +76,23 @@ export class SignInFormComponent {
     this.showPassword.set(!this.showPassword());
   }
 
-  getFieldError(fieldName: string): string {
-    const field = this.loginForm.get(fieldName);
-    if (field?.errors && field?.touched) {
-      if (field.errors['required']) {
-        return `${fieldName === 'identifier' ? 'Email' : 'Password'} is required`;
+  getFieldError(controlName: string): string {
+    const control = this.loginForm.get(controlName);
+    if (!control || !control.errors) return '';
+
+    if (control.errors['required']) return this.translate.instant('AUTH.ERRORS.REQUIRED');
+
+    if (control.errors['email']) return this.translate.instant('AUTH.ERRORS.EMAIL');
+
+    if (control.errors['pattern']) {
+      if (controlName === 'identifier') {
+        return this.translate.instant('AUTH.ERRORS.EMAIL');
       }
-      if (field.errors['email'] || field.errors['pattern']) {
-        if (fieldName === 'identifier') {
-          return 'Please enter a valid email address';
-        }
-        if (fieldName === 'password') {
-          return 'Password must be at least 8 characters with uppercase, lowercase, number and special character';
-        }
+      if (controlName === 'password') {
+        return this.translate.instant('AUTH.ERRORS.PASSWORD_PATTERN');
       }
     }
-    return '';
+
+    return this.translate.instant('AUTH.ERRORS.INVALID');
   }
 }

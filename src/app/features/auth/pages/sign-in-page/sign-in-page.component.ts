@@ -7,6 +7,7 @@ import { LoginRequest } from '@features/auth/interfaces/sign-in/login-request';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ROUTES } from '@shared/config/constants';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -17,14 +18,17 @@ import { ROUTES } from '@shared/config/constants';
 export class SignInPageComponent implements OnDestroy {
   readonly ROUTES = ROUTES;
   private destroy$ = new Subject<void>();
+
+  isLoading = signal<boolean>(false);
+
+  // Services
   private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  errorMessage = signal<string>('');
-  isLoading = signal<boolean>(false);
+  private toastService = inject(ToastService);
+
   onSignInValues(values: LoginRequest) {
     this.isLoading.set(true);
-    this.errorMessage.set('');
 
     this.authService
       .login(values)
@@ -38,17 +42,13 @@ export class SignInPageComponent implements OnDestroy {
         },
         error: (error) => {
           console.error('Login error:', error);
-          this.errorMessage.set(error.message || 'Login failed. Please try again.');
+          this.toastService.error(error.message || 'Login failed. Please try again.');
           this.isLoading.set(false);
         },
         complete: () => {
           this.isLoading.set(false);
         },
       });
-  }
-
-  clearError() {
-    this.errorMessage.set('');
   }
 
   ngOnDestroy() {
