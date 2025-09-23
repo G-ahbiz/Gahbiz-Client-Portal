@@ -34,7 +34,7 @@
       type="submit"
       [label]="'AUTH.LOGIN' | translate"
       [disabled]="loginForm.invalid"
-      [loading]="isLoading"
+      [loading]="isLoading()"
       [loadingText]="'AUTH.SIGNING_IN' | translate"
     ></app-button>
 
@@ -61,7 +61,7 @@
       <button
         type="button"
         class="w-full sm:w-[500px] h-14 flex items-center justify-between gap-3 px-[38px] py-[14px] border border-[#D0D0D0] dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors bg-white dark:bg-gray-800"
-        [disabled]="isLoading"
+        [disabled]="isLoading()"
       >
         <img src="/assets/images/google.png" alt="Google" class="w-6 h-6" />
         <span class="text-[16px] font-medium leading-[100%] text-[#3A3A3A] dark:text-white">{{
@@ -74,7 +74,7 @@
         type="button"
         (click)="onFacebookLogin()"
         class="w-full sm:w-[500px] h-14 flex items-center justify-center gap-3 px-7 py-[14px] border border-[#D0D0D0] dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors bg-white dark:bg-gray-800"
-        [disabled]="isLoading"
+        [disabled]="isLoading()"
       >
         <mat-icon class="flex-shrink-0 text-[#1877F2]">facebook</mat-icon>
         <span class="text-[16px] font-medium leading-[100%] text-[#3A3A3A] dark:text-white">{{

@@ -107,6 +107,7 @@ export class SignInFormComponent {
       this.router.navigate([this.ROUTES.home]);
     } catch (err: any) {
       console.error('❌ FB login failed:', err);
+      alert(err.message);
     }
   }
 }

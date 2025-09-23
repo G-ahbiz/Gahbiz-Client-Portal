@@ -17,7 +17,7 @@ export const environment = {
     externalLogin: '/Account/external-login',
   },
 
-  facebookAppId: '24635154546118319',
+  facebookAppId: '2684044075278957',
 
   confirmTokenTtlMs: 5 * 60 * 100,
 };
