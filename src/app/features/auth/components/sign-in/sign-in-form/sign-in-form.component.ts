@@ -16,6 +16,7 @@ import { REG_EXP, ROUTES } from '@shared/config/constants';
 import { Subject, takeUntil } from 'rxjs';
 import { InputComponent } from '@shared/components/inputs/input/input.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
+import { FacebookAuthFacade } from '@features/auth/services/sign-in/facebook-auth-facade.service';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -35,6 +36,9 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 export class SignInFormComponent {
   // Constants
   readonly ROUTES = ROUTES;
+
+  private fbFacade = inject(FacebookAuthFacade);
+  private router = inject(Router);
 
   // Inputs
   isLoading = input<boolean>(false);
@@ -94,5 +98,15 @@ export class SignInFormComponent {
     }
 
     return this.translate.instant('AUTH.ERRORS.INVALID');
+  }
+
+  async onFacebookLogin() {
+    try {
+      const response = await this.fbFacade.login();
+      console.log('✅ FB login success:', response);
+      this.router.navigate([this.ROUTES.home]);
+    } catch (err: any) {
+      console.error('❌ FB login failed:', err);
+    }
   }
 }

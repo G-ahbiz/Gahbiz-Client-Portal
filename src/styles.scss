@@ -1,5 +1,7 @@
 @use '@angular/material' as mat;
-@use 'flag-icons/sass/variables' as *;
+@use 'flag-icons/sass/variables' as flag with (
+  $flag-icons-path: '/assets/flags'
+);
 @use 'flag-icons/sass/flag-icons';
 
 @tailwind base;
