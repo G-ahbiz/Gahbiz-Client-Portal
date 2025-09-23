@@ -16,9 +16,14 @@ export const environment = {
     signup: '/Account/register',
     confirmEmail: '/Account/ConfirmEmail', // link to confirm email
     resendEmailConfirmation: '/Account/resend-email-confirmation',
+    verifyOtp: '/Account/verify-otp',  // OTP to verify email
+    externalLogin: '/Account/external-login',
     verifyOtp: '/Account/verify-otp', // OTP to verify email
     googleLogin: '/Account/external-login',
+    //TODO: MAHMOUD UNIFIY THE ENDPIONT
   },
 
-  confirmTokenTtlMs: 5 * 60 * 1000,
+  facebookAppId: '2684044075278957',
+
+  confirmTokenTtlMs: 5 * 60 * 100,
 };
