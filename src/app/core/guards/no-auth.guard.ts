@@ -14,16 +14,12 @@ export class NoAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.isLoggedIn$.pipe(
-      take(1),
-      map((isLoggedIn) => {
-        if (!isLoggedIn) {
-          return true;
-        }
-
-        this.router.navigate(['/']);
-        return false;
-      })
-    );
+    // Prefer sync check to avoid race conditions on initial load
+    const isAuthenticated = this.authService.isAuthenticated();
+    if (isAuthenticated) {
+      this.router.navigate(['/']);
+      return false;
+    }
+    return true;
   }
 }

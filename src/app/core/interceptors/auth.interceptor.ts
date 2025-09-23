@@ -13,6 +13,7 @@ import { TokenService } from '@core/services/token.service';
 import { environment } from '@env/environment';
 
 @Injectable()
+// Ziad : TODO : Fix the tokens removal after refresh
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject = new BehaviorSubject<string | null>(null);

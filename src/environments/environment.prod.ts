@@ -17,8 +17,10 @@ export const environment = {
     confirmEmail: '/Account/ConfirmEmail', // link to confirm email
     resendEmailConfirmation: '/Account/resend-email-confirmation',
     verifyOtp: '/Account/verify-otp', // OTP to verify email
-    googleLogin: '/Account/external-login',
+    externalLogin: '/Account/external-login',
   },
+
+  facebookAppId: '2684044075278957',
 
   confirmTokenTtlMs: 5 * 60 * 1000,
 };

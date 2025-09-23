@@ -33,14 +33,17 @@ export class AuthService {
 
   private initializeAuthState(): void {
     const user = this.tokenService.getUserData();
-    const tokensValid = this.tokenService.areTokensValid();
+    const hasRefresh = this.tokenService.hasRefreshToken();
+    const refreshValid = hasRefresh && !this.tokenService.isRefreshTokenExpired();
 
-    if (user && tokensValid) {
+    if (user && refreshValid) {
       this.currentUserSubject.next(user);
       this.isLoggedInSubject.next(true);
-    } else {
-      this.clearAuthState();
+      return;
     }
+
+    // If refresh token is missing or expired, consider the session invalid
+    this.clearAuthState();
   }
 
   login(loginData: LoginRequest): Observable<LoginResponse> {
@@ -108,7 +111,7 @@ export class AuthService {
 
   googleLogin(data: GoogleRequest): Observable<ApiResponse<LoginResponse>> {
     return this.http
-      .post<ApiResponse<LoginResponse>>(`${this.apiUrl}${environment.account.googleLogin}`, data)
+      .post<ApiResponse<LoginResponse>>(`${this.apiUrl}${environment.account.externalLogin}`, data)
       .pipe(
         map((response) => {
           if (response.succeeded && response.data) {

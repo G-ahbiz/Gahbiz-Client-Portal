@@ -59,7 +59,6 @@ export class SignInPageComponent implements OnDestroy {
       if (response && response.credential) {
         this.isLoading.set(true);
         const idToken = response.credential;
-        debugger;
         const loginFormData: GoogleRequest = {
           idToken: idToken,
           role: 'Client',

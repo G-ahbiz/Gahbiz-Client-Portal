@@ -29,9 +29,11 @@
       <!-- Resend code link -->
       <p class="text-gray-600 dark:text-gray-300 text-center mb-8 pt-2">
         {{ 'AUTH.DIDNT_RECEIVE_CODE' | translate }}
-        <a (click)="resendCode()" class="text-blue-600 dark:text-blue-400 hover:underline">{{
-          'AUTH.CLICK_TO_RESEND' | translate
-        }}</a>
+        <a
+          (click)="resendCode()"
+          class="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+          >{{ 'AUTH.CLICK_TO_RESEND' | translate }}</a
+        >
       </p>
 
       <!-- Continue button -->
@@ -48,7 +50,7 @@
     <div class="text-center pt-4">
       <a
         [routerLink]="['/auth/sign-in']"
-        class="text-blue-600 dark:text-blue-400 hover:underline"
+        class="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
         >{{ 'AUTH.BACK_TO_LOGIN' | translate }}</a
       >
     </div>
