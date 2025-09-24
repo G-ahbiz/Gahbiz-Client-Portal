@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { TokenData } from '@core/interfaces/token-data';
 import { User } from '@features/auth/interfaces/sign-in/user';
 import { LOCAL_STORAGE_KEYS } from '@shared/config/constants';
@@ -7,38 +8,131 @@ import { LOCAL_STORAGE_KEYS } from '@shared/config/constants';
   providedIn: 'root',
 })
 export class TokenService {
+  private platformId = inject(PLATFORM_ID);
+
+  // Cache tokens in memory for better performance
+  private accessTokenCache: string | null = null;
+  private refreshTokenCache: string | null = null;
+  private userDataCache: User | null = null;
+
+  constructor() {
+    this.initializeFromStorage();
+  }
+
+  private initializeFromStorage(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      try {
+        // Load and cache tokens from localStorage
+        this.accessTokenCache = localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN_KEY);
+        this.refreshTokenCache = localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN_KEY);
+
+        const userDataStr = localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DATA_KEY);
+        if (userDataStr) {
+          this.userDataCache = JSON.parse(userDataStr);
+        }
+      } catch (error) {
+        console.error('Error initializing TokenService from storage:', error);
+        this.clearAllCaches();
+      }
+    }
+  }
+
   setAccessToken(token: string): void {
-    if (token) {
+    if (!token || !isPlatformBrowser(this.platformId)) {
+      console.warn('Cannot set access token - invalid token or not in browser');
+      return;
+    }
+
+    try {
       localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN_KEY, token);
+      this.accessTokenCache = token;
+    } catch (error) {
+      console.error('Error setting access token:', error);
     }
   }
 
   getAccessToken(): string | null {
-    return localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN_KEY);
+    if (!isPlatformBrowser(this.platformId)) return null;
+
+    // Return cached value first, fallback to localStorage
+    if (this.accessTokenCache) {
+      return this.accessTokenCache;
+    }
+
+    const token = localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN_KEY);
+    this.accessTokenCache = token; // Cache it
+    return token;
   }
 
   setRefreshToken(token: string): void {
-    if (token) {
+    if (!token || !isPlatformBrowser(this.platformId)) {
+      console.warn('Cannot set refresh token - invalid token or not in browser');
+      return;
+    }
+
+    try {
       localStorage.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN_KEY, token);
+      this.refreshTokenCache = token;
+    } catch (error) {
+      console.error('Error setting refresh token:', error);
     }
   }
 
   getRefreshToken(): string | null {
-    return localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN_KEY);
+    if (!isPlatformBrowser(this.platformId)) return null;
+
+    if (this.refreshTokenCache) {
+      return this.refreshTokenCache;
+    }
+
+    const token = localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN_KEY);
+    this.refreshTokenCache = token;
+    return token;
   }
 
   setUserData(user: User): void {
-    if (user) {
+    if (!user || !isPlatformBrowser(this.platformId)) {
+      console.warn('Cannot set user data - invalid user or not in browser');
+      return;
+    }
+
+    try {
       localStorage.setItem(LOCAL_STORAGE_KEYS.USER_DATA_KEY, JSON.stringify(user));
+      this.userDataCache = user;
+    } catch (error) {
+      console.error('Error setting user data:', error);
     }
   }
 
   getUserData(): User | null {
-    const userData = localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DATA_KEY);
-    return userData ? JSON.parse(userData) : null;
+    if (!isPlatformBrowser(this.platformId)) return null;
+
+    if (this.userDataCache) {
+      return this.userDataCache;
+    }
+
+    try {
+      const userData = localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DATA_KEY);
+      if (userData) {
+        const parsed = JSON.parse(userData);
+        this.userDataCache = parsed;
+        return parsed;
+      }
+    } catch (error) {
+      console.error('Error parsing user data from localStorage:', error);
+      // Clear corrupted data
+      localStorage.removeItem(LOCAL_STORAGE_KEYS.USER_DATA_KEY);
+    }
+
+    return null;
   }
 
   setTokenData(tokenData: TokenData, userData: User): void {
+    if (!tokenData || !userData || !tokenData.accessToken || !tokenData.refreshToken) {
+      console.warn('Cannot set token data - missing required fields');
+      return;
+    }
+
     this.setAccessToken(tokenData.accessToken);
     this.setRefreshToken(tokenData.refreshToken);
     this.setUserData(userData);
@@ -54,85 +148,23 @@ export class TokenService {
     return token !== null && token.trim() !== '';
   }
 
-  isTokenExpired(token: string): boolean {
-    if (!token) return true;
-
-    try {
-      const payload = this.decodeToken(token);
-      if (!payload.exp) return true;
-
-      const currentTime = Math.floor(Date.now() / 1000);
-      return payload.exp < currentTime;
-    } catch (error) {
-      return true;
-    }
-  }
-
-  isAccessTokenExpired(): boolean {
-    const token = this.getAccessToken();
-    return this.isTokenExpired(token || '');
-  }
-
-  isRefreshTokenExpired(): boolean {
-    const token = this.getRefreshToken();
-    return this.isTokenExpired(token || '');
-  }
-
-  decodeToken(token: string): any {
-    try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split('')
-          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-          .join('')
-      );
-      return JSON.parse(jsonPayload);
-    } catch (error) {
-      throw new Error('Invalid token format');
-    }
-  }
-
-  getTokenInfo(token: string): any {
-    try {
-      return this.decodeToken(token);
-    } catch (error) {
-      return null;
-    }
-  }
-
   clearAllTokens(): void {
-    localStorage.removeItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN_KEY);
-    localStorage.removeItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN_KEY);
-    localStorage.removeItem(LOCAL_STORAGE_KEYS.USER_DATA_KEY);
+    if (isPlatformBrowser(this.platformId)) {
+      try {
+        localStorage.removeItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN_KEY);
+        localStorage.removeItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN_KEY);
+        localStorage.removeItem(LOCAL_STORAGE_KEYS.USER_DATA_KEY);
+      } catch (error) {
+        console.error('Error clearing tokens from localStorage:', error);
+      }
+    }
+    this.clearAllCaches();
   }
 
-  clearAccessToken(): void {
-    localStorage.removeItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN_KEY);
-  }
-
-  areTokensValid(): boolean {
-    const hasAccess = this.hasAccessToken();
-    const hasRefresh = this.hasRefreshToken();
-
-    if (!hasAccess || !hasRefresh) {
-      return false;
-    }
-
-    if (this.isRefreshTokenExpired()) {
-      return false;
-    }
-
-    return true;
-  }
-
-  needsRefresh(): boolean {
-    if (!this.hasAccessToken() || !this.hasRefreshToken()) {
-      return false;
-    }
-
-    return this.isAccessTokenExpired() && !this.isRefreshTokenExpired();
+  private clearAllCaches(): void {
+    this.accessTokenCache = null;
+    this.refreshTokenCache = null;
+    this.userDataCache = null;
   }
 
   getAuthorizationHeader(): string | null {
