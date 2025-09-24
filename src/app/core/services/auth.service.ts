@@ -5,11 +5,12 @@ import { TokenData } from '@core/interfaces/token-data';
 import { environment } from '@env/environment';
 import { LoginRequest } from '@features/auth/interfaces/sign-in/login-request';
 import { User } from '@features/auth/interfaces/sign-in/user';
-import { BehaviorSubject, Observable, map, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, map, catchError, throwError, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { LoginResponse } from '@features/auth/interfaces/sign-in/login-response';
 import { ResetPasswordRequest } from '@features/auth/interfaces/sign-in/reset-password-request';
 import { ResetPasswordResponse } from '@features/auth/interfaces/sign-in/reset-password-response';
+import { GoogleRequest } from '@core/interfaces/google-request';
 
 @Injectable({
   providedIn: 'root',
@@ -32,14 +33,17 @@ export class AuthService {
 
   private initializeAuthState(): void {
     const user = this.tokenService.getUserData();
-    const tokensValid = this.tokenService.areTokensValid();
+    const hasRefresh = this.tokenService.hasRefreshToken();
+    const refreshValid = hasRefresh && !this.tokenService.isRefreshTokenExpired();
 
-    if (user && tokensValid) {
+    if (user && refreshValid) {
       this.currentUserSubject.next(user);
       this.isLoggedInSubject.next(true);
-    } else {
-      this.clearAuthState();
+      return;
     }
+
+    // If refresh token is missing or expired, consider the session invalid
+    this.clearAuthState();
   }
 
   login(loginData: LoginRequest): Observable<LoginResponse> {
@@ -100,6 +104,22 @@ export class AuthService {
       .pipe(
         map((response) => {
           return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  googleLogin(data: GoogleRequest): Observable<ApiResponse<LoginResponse>> {
+    return this.http
+      .post<ApiResponse<LoginResponse>>(`${this.apiUrl}${environment.account.externalLogin}`, data)
+      .pipe(
+        map((response) => {
+          if (response.succeeded && response.data) {
+            this.setAuthData(response.data.token, response.data.user);
+            return response;
+          } else {
+            throw new Error(response.message || 'Google login failed');
+          }
         }),
         catchError(this.handleError)
       );

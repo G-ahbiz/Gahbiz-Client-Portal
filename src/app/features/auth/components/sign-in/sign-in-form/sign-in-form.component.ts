@@ -44,6 +44,9 @@ export class SignInFormComponent {
   isLoading = input<boolean>(false);
   signInValues = output<LoginRequest>();
 
+  // Outputs
+  onGoogleLogin = output<void>();
+
   // Signals
   rememberMe = signal<boolean>(false);
   showPassword = signal<boolean>(false);
@@ -74,6 +77,10 @@ export class SignInFormComponent {
       return;
     }
     this.signInValues.emit(this.loginForm.value as LoginRequest);
+  }
+
+  googleLogin() {
+    this.onGoogleLogin.emit();
   }
 
   toggleShowPassword() {
@@ -107,6 +114,7 @@ export class SignInFormComponent {
       this.router.navigate([this.ROUTES.home]);
     } catch (err: any) {
       console.error('❌ FB login failed:', err);
+      alert(err.message);
     }
   }
 }

@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { FacebookAuthService } from '@core/services/facebook-auth.service';
 import { OAuthLoginRequest } from '@core/interfaces/oauth-login-request';
 import { LoginResponse } from '@features/auth/interfaces/sign-in/login-response';
+import { ApiResponse } from '@core/interfaces/api-response';
 
 @Injectable({ providedIn: 'root' })
 export class FacebookAuthFacade {
@@ -26,13 +27,22 @@ export class FacebookAuthFacade {
       const url = `${environment.apiUrl}${environment.account.externalLogin}`;
 
       // Step 3: Call backend
-      const response = await firstValueFrom(this.http.post<LoginResponse>(url, payload));
+      const response = await firstValueFrom(
+        this.http.post<ApiResponse<LoginResponse>>(url, payload)
+      );
+
+      console.log('🔍 Raw backend response:', response);
+
+      const loginData = response.data;
 
       // Step 4: Store tokens securely
-      localStorage.setItem('accessToken', response.token.accessToken);
-      localStorage.setItem('refreshToken', response.token.refreshToken);
+      localStorage.setItem('accessToken', loginData.token.accessToken);
+      localStorage.setItem('refreshToken', loginData.token.refreshToken);
 
-      return response;
+      // Step 5: Logout from Facebook SDK (session cleanup)
+      await this.fb.logout();
+
+      return loginData;
     } catch (err) {
       console.error('Facebook login error:', err);
       throw err;

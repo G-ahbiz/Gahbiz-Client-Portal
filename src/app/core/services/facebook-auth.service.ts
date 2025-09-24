@@ -60,6 +60,11 @@ export class FacebookAuthService {
     await this.sdkReady; // ensures fbAsyncInit + FB.init are finished
 
     return new Promise((resolve, reject) => {
+      if (!(window as any).FB) {
+        reject(new Error('❌ FB SDK not loaded'));
+        return;
+      }
+
       FB.login(
         (response: fb.StatusResponse) => {
           if (response.status === 'connected' && response.authResponse?.accessToken) {
@@ -70,6 +75,20 @@ export class FacebookAuthService {
         },
         { scope: 'email,public_profile' }
       );
+    });
+  }
+
+  logout(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (!(window as any).FB) {
+        reject(new Error('❌ FB SDK not loaded'));
+        return;
+      }
+
+      FB.logout((response) => {
+        console.log('📤 FB.logout called:', response);
+        resolve();
+      });
     });
   }
 }

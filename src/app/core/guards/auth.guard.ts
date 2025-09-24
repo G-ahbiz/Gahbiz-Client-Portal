@@ -31,19 +31,15 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     return this.canActivate(childRoute, state);
   }
 
-  private checkAuth(url: string): Observable<boolean> {
-    return this.authService.isLoggedIn$.pipe(
-      take(1),
-      map((isLoggedIn) => {
-        if (isLoggedIn) {
-          return true;
-        }
+  private checkAuth(url: string): Observable<boolean> | boolean {
+    // Prefer sync check to avoid race conditions on initial load and refresh
+    if (this.authService.isAuthenticated()) {
+      return true;
+    }
 
-        this.router.navigate(['/auth/sign-in'], {
-          queryParams: { returnUrl: url },
-        });
-        return false;
-      })
-    );
+    this.router.navigate(['/auth/sign-in'], {
+      queryParams: { returnUrl: url },
+    });
+    return false;
   }
 }
