@@ -5,7 +5,7 @@ import { TokenData } from '@core/interfaces/token-data';
 import { environment } from '@env/environment';
 import { LoginRequest } from '@features/auth/interfaces/sign-in/login-request';
 import { User } from '@features/auth/interfaces/sign-in/user';
-import { BehaviorSubject, Observable, map, catchError, throwError, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, catchError, throwError, take, filter } from 'rxjs';
 import { TokenService } from './token.service';
 import { LoginResponse } from '@features/auth/interfaces/sign-in/login-response';
 import { ResetPasswordRequest } from '@features/auth/interfaces/sign-in/reset-password-request';
@@ -20,30 +20,44 @@ export class AuthService {
 
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  private initializationComplete = new BehaviorSubject<boolean>(false);
 
   public currentUser$ = this.currentUserSubject.asObservable();
   public isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  public initialized$ = this.initializationComplete.asObservable();
 
   private http = inject(HttpClient);
   private tokenService = inject(TokenService);
 
   constructor() {
-    this.initializeAuthState();
+    setTimeout(() => this.initializeAuthState(), 0);
   }
 
   private initializeAuthState(): void {
-    const user = this.tokenService.getUserData();
-    const hasRefresh = this.tokenService.hasRefreshToken();
-    const refreshValid = hasRefresh && !this.tokenService.isRefreshTokenExpired();
+    try {
+      const user = this.tokenService.getUserData();
+      const refreshToken = this.tokenService.getRefreshToken();
 
-    if (user && refreshValid) {
-      this.currentUserSubject.next(user);
-      this.isLoggedInSubject.next(true);
-      return;
+      if (user && refreshToken) {
+        this.currentUserSubject.next(user);
+        this.isLoggedInSubject.next(true);
+      } else {
+        this.clearAuthState();
+      }
+
+      this.initializationComplete.next(true);
+    } catch (error) {
+      this.clearAuthState();
+      this.initializationComplete.next(true);
     }
+  }
 
-    // If refresh token is missing or expired, consider the session invalid
-    this.clearAuthState();
+  // Wait for initialization before checking auth status
+  waitForInitialization(): Observable<boolean> {
+    return this.initialized$.pipe(
+      filter((initialized) => initialized),
+      take(1)
+    );
   }
 
   login(loginData: LoginRequest): Observable<LoginResponse> {
@@ -158,17 +172,18 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    const tokensValid = this.tokenService.areTokensValid();
-    const hasUser = this.currentUserSubject.value !== null;
-    return tokensValid && hasUser;
-  }
+    if (!this.initializationComplete.value) {
+      return false;
+    }
 
+    const tokensValid = this.tokenService.hasAccessToken() && this.tokenService.hasRefreshToken();
+    const hasUser = this.currentUserSubject.value !== null;
+    const result = tokensValid && hasUser;
+
+    return result;
+  }
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
-  }
-
-  needsTokenRefresh(): boolean {
-    return this.tokenService.needsRefresh();
   }
 
   getAuthToken(): string | null {
