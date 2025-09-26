@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { PhoneInputComponent } from '../../../../../shared/components/inputs/phone-input/phone-input.component';
-import { InputComponent } from '../../../../../shared/components/inputs/input/input.component';
+import { InputComponent } from '../../../../../shared/components/input/input.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 import { Subscription, finalize } from 'rxjs';
@@ -15,14 +14,7 @@ import { SignUpResponseStorageService } from '@features/auth/services/sign-up/si
 @Component({
   selector: 'app-sign-up-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    PhoneInputComponent,
-    InputComponent,
-    ButtonComponent,
-    TranslateModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, InputComponent, ButtonComponent, TranslateModule],
   templateUrl: './sign-up-form.component.html',
   styleUrls: ['./sign-up-form.component.scss'],
 })

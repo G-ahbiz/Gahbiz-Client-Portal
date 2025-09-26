@@ -42,20 +42,24 @@ export const AUTH_ROUTES: Routes = [
       import('./components/sign-in/forget-password-form/forget-password-form.component').then(
         (m) => m.ForgetPasswordFormComponent
       ),
+    data: { hideHeader: true },
   },
   {
     path: 'reset-password',
     loadComponent: () =>
-      import('./pages/reset-password/reset-password').then((m) => m.ResetPassword),
+      import('./pages/reset-password/reset-password.component').then((m) => m.ResetPassword),
+    data: { hideHeader: true },
   },
   {
     path: 'verify-otp/:id',
     loadComponent: () =>
-      import('./components/sign-in/verify-otp/verify-otp').then((m) => m.VerifyOtp),
+      import('./components/sign-in/verify-otp/verify-otp.component').then((m) => m.VerifyOtp),
+    data: { hideHeader: true },
   },
   {
     path: 'new-password/:id',
     loadComponent: () =>
-      import('./components/sign-in/new-password/new-password').then((m) => m.NewPassword),
+      import('./components/sign-in/new-password/new-password.component').then((m) => m.NewPasswordComponent),
+    data: { hideHeader: true },
   },
 ];

@@ -3,21 +3,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { SocialSignUpComponent } from './social-sign-up.component';
+import { SocialSignComponent } from './social-sign.component';
 
 describe('SocialSignUpComponent', () => {
-  let component: SocialSignUpComponent;
-  let fixture: ComponentFixture<SocialSignUpComponent>;
+  let component: SocialSignComponent;
+  let fixture: ComponentFixture<SocialSignComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SocialSignUpComponent ]
-    })
-    .compileComponents();
+      declarations: [SocialSignComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SocialSignUpComponent);
+    fixture = TestBed.createComponent(SocialSignComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

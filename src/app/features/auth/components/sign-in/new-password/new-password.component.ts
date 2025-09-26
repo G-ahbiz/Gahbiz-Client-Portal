@@ -1,27 +1,28 @@
-import { Component, signal, ChangeDetectionStrategy, input, output, inject } from '@angular/core';
+import {
+  Component,
+  signal,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  inject,
+  computed,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { REG_EXP } from '@shared/config/constants';
-import { InputComponent } from '@shared/components/inputs/input/input.component';
+import { InputComponent } from '@shared/components/input/input.component';
+import { LanguageService } from '@core/services/language.service';
 
 @Component({
   selector: 'app-new-password',
-  imports: [
-    RouterLink,
-    ReactiveFormsModule,
-    ButtonComponent,
-    MatIconModule,
-    TranslateModule,
-    InputComponent,
-  ],
-  templateUrl: './new-password.html',
-  styleUrl: './new-password.scss',
+  imports: [ReactiveFormsModule, ButtonComponent, MatIconModule, TranslateModule, InputComponent],
+  templateUrl: './new-password.component.html',
+  styleUrl: './new-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewPassword {
+export class NewPasswordComponent {
   // Inputs from parent component
   userId = input<string>('');
   otpCode = input<string>('');
@@ -33,8 +34,11 @@ export class NewPassword {
   showPassword = signal<boolean>(false);
   showConfirmPassword = signal<boolean>(false);
 
+  dir = computed(() => (this.languageService.currentLang() === 'ar' ? 'rtl' : 'ltr'));
+
   //Services
   private translate = inject(TranslateService);
+  private languageService = inject(LanguageService);
 
   newPasswordForm = new FormGroup({
     newPassword: new FormControl('', [Validators.required, Validators.pattern(REG_EXP.PASSWORD)]),

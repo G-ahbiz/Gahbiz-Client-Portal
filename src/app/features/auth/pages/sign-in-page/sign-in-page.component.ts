@@ -1,4 +1,4 @@
-import { Component, inject, input, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, computed, OnDestroy, signal } from '@angular/core';
 import { SignInFormComponent } from '../../components/sign-in/sign-in-form/sign-in-form.component';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -10,6 +10,7 @@ import { ROUTES } from '@shared/config/constants';
 import { ToastService } from '@shared/services/toast.service';
 import { GoogleAuthService } from '@core/services/google-auth.service';
 import { GoogleRequest } from '@core/interfaces/google-request';
+import { LanguageService } from '@core/services/language.service';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -23,12 +24,15 @@ export class SignInPageComponent implements OnDestroy {
 
   isLoading = signal<boolean>(false);
 
+  dir = computed(() => (this.languageService.currentLang() === 'ar' ? 'rtl' : 'ltr'));
+
   // Services
   private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private toastService = inject(ToastService);
   private googleAuthService = inject(GoogleAuthService);
+  private languageService = inject(LanguageService);
 
   onSignInValues(values: LoginRequest) {
     this.isLoading.set(true);
