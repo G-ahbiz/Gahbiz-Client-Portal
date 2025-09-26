@@ -16,7 +16,9 @@ import { REG_EXP, ROUTES } from '@shared/config/constants';
 import { Subject, takeUntil } from 'rxjs';
 import { InputComponent } from '@shared/components/inputs/input/input.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { FacebookAuthFacade } from '@features/auth/services/sign-in/facebook-auth-facade.service';
+import { FacebookAuthService } from '@core/services/facebook-auth.service';
+import { ToastService } from '@shared/services/toast.service';
+import { OAuthLoginRequest } from '@core/interfaces/oauth-login-request';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -37,7 +39,9 @@ export class SignInFormComponent {
   // Constants
   readonly ROUTES = ROUTES;
 
-  private fbFacade = inject(FacebookAuthFacade);
+  private facebookAuthService = inject(FacebookAuthService);
+  private authService = inject(AuthService);
+  private toastService = inject(ToastService);
   private router = inject(Router);
 
   // Inputs
@@ -109,12 +113,29 @@ export class SignInFormComponent {
 
   async onFacebookLogin() {
     try {
-      const response = await this.fbFacade.login();
-      console.log('✅ FB login success:', response);
-      this.router.navigate([this.ROUTES.home]);
+      const accessToken = await this.facebookAuthService.login();
+
+      const loginFormData: OAuthLoginRequest = {
+        idToken: accessToken,
+        role: 'Client',
+        provider: 'Facebook',
+      };
+
+      this.authService.externalLogin(loginFormData).subscribe({
+        next: (result) => {
+          if (result.succeeded) {
+            this.router.navigate([this.ROUTES.home]);
+          } else {
+            this.toastService.error(result.message || 'Login failed. Please try again.');
+          }
+        },
+        error: (error) => {
+          this.toastService.error(error.message || 'Login failed. Please try again.');
+        },
+      });
     } catch (err: any) {
       console.error('❌ FB login failed:', err);
-      alert(err.message);
+      this.toastService.error(err.message || 'Facebook login failed. Please try again.');
     }
   }
 }

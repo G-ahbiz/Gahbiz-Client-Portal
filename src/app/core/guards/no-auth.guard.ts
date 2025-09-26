@@ -22,6 +22,17 @@ export class NoAuthGuard implements CanActivateChild {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     // Prefer sync check to avoid race conditions on initial load
+    return this.checkAuth(state.url);
+  }
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    return this.checkAuth(state.url);
+  }
+
+  checkAuth(url: string): Observable<boolean> | boolean {
     const isAuthenticated = this.authService.isAuthenticated();
     if (isAuthenticated) {
       this.router.navigate([ROUTES.home]);

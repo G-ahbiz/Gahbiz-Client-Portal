@@ -61,16 +61,23 @@ export class FacebookAuthService {
 
     return new Promise((resolve, reject) => {
       if (!(window as any).FB) {
-        reject(new Error('❌ FB SDK not loaded'));
+        reject(new Error('Facebook SDK not loaded. Please refresh the page and try again.'));
         return;
       }
 
       FB.login(
         (response: fb.StatusResponse) => {
+          console.log('Facebook login response:', response);
+
           if (response.status === 'connected' && response.authResponse?.accessToken) {
+            console.log('✅ Facebook login successful');
             resolve(response.authResponse.accessToken);
+          } else if (response.status === 'not_authorized') {
+            reject(new Error('Facebook login was not authorized. Please try again.'));
+          } else if (response.status === 'unknown') {
+            reject(new Error('Facebook login failed. Please try again.'));
           } else {
-            reject(new Error('❌ Facebook login failed or cancelled'));
+            reject(new Error('Facebook login was cancelled or failed.'));
           }
         },
         { scope: 'email,public_profile' }
@@ -81,7 +88,8 @@ export class FacebookAuthService {
   logout(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!(window as any).FB) {
-        reject(new Error('❌ FB SDK not loaded'));
+        console.warn('Facebook SDK not loaded for logout');
+        resolve(); // Don't reject, just resolve silently
         return;
       }
 
