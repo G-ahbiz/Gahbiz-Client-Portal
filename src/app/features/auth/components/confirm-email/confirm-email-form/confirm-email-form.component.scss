@@ -1,60 +1,54 @@
-.btn-resend {
-  position: relative;
-  overflow: hidden;
+.otp-input {
+  width: clamp(2.5rem, 12vw, 4rem);
+  height: clamp(2.5rem, 12vw, 4rem);
+  font-size: clamp(1rem, 5vw, 1.5rem);
+  transition: all 0.2s ease-in-out;
 
-  &:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.5);
-    opacity: 0;
-    border-radius: 100%;
-    transform: scale(1, 1) translate(-50%);
-    transform-origin: 50% 50%;
-  }
-
-  &:focus:not(:active)::after {
-    animation: ripple 1s ease-out;
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
   }
 }
 
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.5;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(50, 50);
-    opacity: 0;
+/* Responsive adjustments */
+@media (max-height: 760px) {
+  :host {
+    h1,
+    h2 {
+      font-size: var(--font-xl);
+    }
+
+    form {
+      gap: var(--space-sm);
+    }
+
+    input,
+    button {
+      height: calc(var(--input-height) + 1.4rem);
+      font-size: var(--font-lg);
+    }
+
+    .back-url {
+      font-size: var(--font-xs);
+    }
   }
 }
 
-.cooldown-timer {
-  transition: all 0.3s ease;
+@media (min-height: 1000px) {
+  :host {
+    h1,
+    h2 {
+      font-size: var(--font-lg);
+    }
 
-  &.pulse {
-    animation: pulse 1.5s infinite;
-  }
-}
+    form {
+      gap: var(--space-sm);
+    }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
-  }
-  70% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 6px rgba(59, 130, 246, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    input,
+    button {
+      height: calc(var(--input-height) + 1.4rem);
+      font-size: var(--font-md);
+    }
   }
 }

@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-social-sign-up',
+  selector: 'app-social-sign',
   imports: [CommonModule, TranslateModule],
-  templateUrl: './social-sign-up.component.html',
-  styleUrls: ['./social-sign-up.component.scss'],
+  templateUrl: './social-sign.component.html',
+  styleUrls: ['./social-sign.component.scss'],
 })
-export class SocialSignUpComponent implements OnInit {
+export class SocialSignComponent implements OnInit {
   onGoogleRegister = output<void>();
 
   constructor() {}

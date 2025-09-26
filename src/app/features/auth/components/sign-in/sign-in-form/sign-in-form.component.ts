@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, OnDestroy, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,16 +7,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginRequest } from '../../../interfaces/sign-in/login-request';
-import { AuthService } from '@core/services/auth.service';
 import { REG_EXP, ROUTES } from '@shared/config/constants';
-import { Subject, takeUntil } from 'rxjs';
-import { InputComponent } from '@shared/components/inputs/input/input.component';
+import { InputComponent } from '@shared/components/input/input.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { FacebookAuthFacade } from '@features/auth/services/sign-in/facebook-auth-facade.service';
+import { SocialSignComponent } from '../../social-sign/social-sign.component';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -29,6 +28,7 @@ import { FacebookAuthFacade } from '@features/auth/services/sign-in/facebook-aut
     TranslateModule,
     InputComponent,
     ButtonComponent,
+    SocialSignComponent,
   ],
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.scss'],

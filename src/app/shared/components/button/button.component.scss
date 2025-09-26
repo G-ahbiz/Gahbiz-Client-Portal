@@ -1,0 +1,6 @@
+/* Optional: you can add button-specific overrides here */
+button {
+  line-height: 1; /* keeps vertical alignment neat */
+  padding-inline: var(--space-md);
+  border-radius: 0.5rem; // rounded-lg consistency
+}

@@ -1,0 +1,98 @@
+/* === Form Container === */
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xs);
+  width: 100%;
+  transition: gap 0.3s ease;
+}
+
+/* === Form Group Consistency === */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+/* === Smooth Animations === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* === Responsive Adjustments === */
+@media (max-height: 500px) {
+  form {
+    gap: var(--space-md);
+  }
+
+  .form-group {
+    margin-bottom: var(--space-xs);
+  }
+}
+
+@media (min-height: 1000px) {
+  form {
+    gap: var(--space-xs);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 428px) {
+  form {
+    padding: 0 var(--space-xs);
+  }
+
+  .form-control-wrapper {
+    padding: 0.25rem var(--space-xs); /* smaller padding */
+    gap: 0.25rem;
+  }
+
+  .form-input {
+    font-size: 0.875rem; /* shrink text */
+    min-width: 0; /* allow shrink */
+    padding-right: 1.5rem; /* enough for lock icon/dropdown */
+  }
+
+  /* Phone dropdown wrapper shrinks */
+  .phone-dropdown-wrapper {
+    flex: 0 0 25%; /* shrink proportionally */
+    max-width: 25%;
+    min-width: 20%; /* don't disappear */
+  }
+
+  .phone-dropdown-btn {
+    font-size: 0.75rem;
+    padding: 0 0.25rem;
+  }
+
+  /* Reduce terms toggle & text spacing */
+  .flex.items-start.gap-3 {
+    gap: 0.25rem;
+  }
+
+  .text-xs.sm\:text-sm {
+    font-size: 0.75rem;
+  }
+}

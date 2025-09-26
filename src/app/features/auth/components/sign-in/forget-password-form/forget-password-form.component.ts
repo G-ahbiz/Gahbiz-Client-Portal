@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,9 +7,10 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { REG_EXP, ROUTES } from '@shared/config/constants';
-import { InputComponent } from '@shared/components/inputs/input/input.component';
+import { InputComponent } from '@shared/components/input/input.component';
 import { Subject, takeUntil } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
+import { LanguageService } from '@core/services/language.service';
 
 @Component({
   selector: 'app-forget-password-form',
@@ -31,11 +32,14 @@ export class ForgetPasswordFormComponent implements OnDestroy {
   // Signals
   isLoading = signal<boolean>(false);
 
+  dir = computed(() => (this.languageService.currentLang() === 'ar' ? 'rtl' : 'ltr'));
+
   // Services
   private authService = inject(AuthService);
   private router = inject(Router);
   private toastService = inject(ToastService);
   private translate = inject(TranslateService);
+  private languageService = inject(LanguageService);
 
   // Subject
   private destroy$ = new Subject<void>();
@@ -61,6 +65,8 @@ export class ForgetPasswordFormComponent implements OnDestroy {
 
     this.isLoading.set(true);
 
+    const email = this.forgetPasswordForm.value.email as string;
+
     this.authService
       .forgetPassword(this.forgetPasswordForm.value.email as string)
       .pipe(takeUntil(this.destroy$))
@@ -69,7 +75,7 @@ export class ForgetPasswordFormComponent implements OnDestroy {
           this.isLoading.set(false);
           if (response.succeeded) {
             this.router.navigate([ROUTES.resetPassword], {
-              queryParams: { id: response.data.userId },
+              queryParams: { id: response.data.userId, email },
             });
           } else {
             this.toastService.error(response.message);

@@ -3,21 +3,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { EyePasswordComponent } from './eye-password.component';
+import { LockPasswordComponent } from './lock-password.component';
 
-describe('EyePasswordComponent', () => {
-  let component: EyePasswordComponent;
-  let fixture: ComponentFixture<EyePasswordComponent>;
+describe('LockPasswordComponent', () => {
+  let component: LockPasswordComponent;
+  let fixture: ComponentFixture<LockPasswordComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EyePasswordComponent ]
-    })
-    .compileComponents();
+      declarations: [LockPasswordComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EyePasswordComponent);
+    fixture = TestBed.createComponent(LockPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

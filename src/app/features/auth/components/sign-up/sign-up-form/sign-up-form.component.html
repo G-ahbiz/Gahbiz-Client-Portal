@@ -1,42 +1,33 @@
-<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1">
 
-  <!-- Full Name -->
-  <div class="md:col-span-2">
-    <app-input [label]="'SIGNUP.FIELDS.FULL_NAME' | translate" id="name" type="text"
-      [placeholder]="'SIGNUP.PLACEHOLDERS.FULL_NAME' | translate" formControlName="name"
-      [isInvalid]="!!(name?.invalid && name?.touched)" [errorMessage]="getErrorMessageFor('name')" [minlength]="3"
-      [maxlength]="50"></app-input>
-  </div>
+  <app-input [label]="'SIGNUP.FIELDS.FULL_NAME' | translate" id="name" variant="text"
+    [placeholder]="'SIGNUP.PLACEHOLDERS.FULL_NAME' | translate" formControlName="name"
+    [isInvalid]="!!(name?.invalid && name?.touched)" [errorMessage]="getErrorMessageFor('name')" [minlength]="3"
+    [maxlength]="50">
+  </app-input>
 
-  <!-- Email -->
-  <div>
-    <app-input [label]="'SIGNUP.FIELDS.EMAIL' | translate" id="email" type="email"
-      [placeholder]="'SIGNUP.PLACEHOLDERS.EMAIL' | translate" formControlName="email"
-      [isInvalid]="!!(email?.invalid && email?.touched)" [errorMessage]="getErrorMessageFor('email')"></app-input>
-  </div>
+  <app-input [label]="'SIGNUP.FIELDS.EMAIL' | translate" id="email" type="email"
+    [placeholder]="'SIGNUP.PLACEHOLDERS.EMAIL' | translate" formControlName="email"
+    [isInvalid]="!!(email?.invalid && email?.touched)" [errorMessage]="getErrorMessageFor('email')">
+  </app-input>
 
-  <!-- Phone -->
-  <div>
-    <app-phone-input id="phoneNumber" [label]="'SIGNUP.FIELDS.PHONE' | translate"
-      [placeholder]="'SIGNUP.PLACEHOLDERS.PHONE' | translate" formControlName="phoneNumber"
-      [isInvalid]="!!(phoneNumber?.invalid && phoneNumber?.touched)"
-      [errorMessage]="getErrorMessageFor('phoneNumber')"></app-phone-input>
-  </div>
+  <app-input [label]="'SIGNUP.FIELDS.PHONE' | translate" id="phoneNumber" variant="phone"
+    [placeholder]="'SIGNUP.PLACEHOLDERS.PHONE' | translate" formControlName="phoneNumber"
+    [isInvalid]="!!(phoneNumber?.invalid && phoneNumber?.touched)" [errorMessage]="getErrorMessageFor('phoneNumber')">
+  </app-input>
 
-  <!-- Password -->
-  <div class="md:col-span-2">
-    <app-input [label]="'SIGNUP.FIELDS.PASSWORD' | translate" id="password" type="password"
-      [placeholder]="'SIGNUP.PLACEHOLDERS.PASSWORD' | translate" formControlName="password"
-      [isInvalid]="!!(password?.invalid && password?.touched)" [errorMessage]="getErrorMessageFor('password')"
-      [minlength]="8" [maxlength]="64"></app-input>
-  </div>
+  <app-input [label]="'SIGNUP.FIELDS.PASSWORD' | translate" id="password" variant="password"
+    [placeholder]="'SIGNUP.PLACEHOLDERS.PASSWORD' | translate" formControlName="password"
+    [isInvalid]="!!(password?.invalid && password?.touched)" [errorMessage]="getErrorMessageFor('password')"
+    [minlength]="8" [maxlength]="64">
+  </app-input>
 
   <!-- Terms -->
-  <div class="md:col-span-2 flex flex-col">
-    <div class="flex items-start gap-3 mt-2">
+  <div class="flex flex-col">
+    <div class="flex items-start gap-3 mt-1">
       <!-- Toggle -->
       <div (click)="toggleTerms()" [attr.data-checked]="signUpForm.get('terms')?.value"
-        class="cursor-pointer select-none w-9 h-5 relative" role="button"
+        class="cursor-pointer select-none w-9 h-5 min-w-[2.25rem] flex-shrink-0 relative" role="button"
         [attr.aria-pressed]="signUpForm.get('terms')?.value ? 'true' : 'false'">
         <div class="absolute inset-0 rounded-full transition-colors duration-300" [ngClass]="{
             'bg-gray-300': !signUpForm.get('terms')?.value,
@@ -44,25 +35,25 @@
           }"></div>
         <div class="absolute top-0 left-0 w-5 h-5 rounded-full shadow-md transition-all duration-300" [ngClass]="{
             'bg-gray-400': !signUpForm.get('terms')?.value,
-            'bg-light-primary dark:bg-dark-primary': signUpForm.get('terms')?.value
+            'bg-[rgba(0,93,181,1)] dark:bg-dark-primary': signUpForm.get('terms')?.value
           }" [style.transform]="signUpForm.get('terms')?.value ? 'translateX(100%)' : 'translateX(0)'"></div>
       </div>
 
       <!-- Terms Text -->
-      <div class="text-xs sm:text-sm">
-        <span class="text-light-subtext dark:text-dark-subtext">
+      <div class="text-xs sm:text-sm leading-relaxed">
+        <span class="text-[rgba(136,136,136,1)] dark:text-dark-subtext">
           {{ 'SIGNUP.FIELDS.TERMS' | translate }}
         </span>
         &nbsp;
-        <a href="#" class="text-light-primary dark:text-dark-primary font-medium">
+        <a href="#" class="text-[rgba(0,93,181,1)] dark:text-dark-primary font-medium hover:underline">
           {{ 'SIGNUP.FIELDS.TERMS_LINK' | translate }}
         </a>
         &nbsp;
-        <span class="text-light-subtext dark:text-dark-subtext">
+        <span class="text-[rgba(136,136,136,1)] dark:text-dark-subtext">
           {{ 'COMMON.AND' | translate }}
         </span>
         &nbsp;
-        <a href="#" class="text-light-primary dark:text-dark-primary font-medium">
+        <a href="#" class="text-[rgba(0,93,181,1)] dark:text-dark-primary font-medium hover:underline">
           {{ 'SIGNUP.FIELDS.PRIVACY_LINK' | translate }}
         </a>
       </div>
@@ -71,17 +62,14 @@
     <!-- Terms Error -->
     <div class="error-space mt-1">
       @if (signUpForm.get('terms')?.touched && signUpForm.get('terms')?.invalid) {
-      <div class="error-text text-light-error dark:text-dark-error">
+      <div class="error-text text-light-error dark:text-dark-error text-xs sm:text-sm">
         {{ 'SIGNUP.ERRORS.TERMS_ERROR' | translate }}
       </div>
       }
     </div>
   </div>
 
-  <!-- Submit Button -->
-  <div class="md:col-span-2">
-    <app-button type="submit" [label]="'SIGNUP.BUTTONS.SUBMIT' | translate" [disabled]="signUpForm.invalid"
-      [loading]="isSubmitting" [loadingText]="'SIGNUP.BUTTONS.SUBMITTING' | translate">
-    </app-button>
-  </div>
+  <app-button type="submit" [label]="'SIGNUP.BUTTONS.SUBMIT' | translate" [disabled]="signUpForm.invalid"
+    [loading]="isSubmitting" [loadingText]="'SIGNUP.BUTTONS.SUBMITTING' | translate">
+  </app-button>
 </form>

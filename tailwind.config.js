@@ -9,6 +9,11 @@ module.exports = {
         serif: ['"IBM Plex Serif"', 'ui-serif', 'Georgia'],
       },
       colors: {
+        border: "#B0B0B0",
+        font: "#121212",
+        placeholder: "#888888",
+        primary: "#005DB5",
+
         'light-bg': '#004D97',
         'light-card': '#ffffff',
         'light-text': '#121212',
