@@ -1,13 +1,13 @@
-.forgot-password-page {
+.verify-otp-page {
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-areas: 'forgot-password' 'branding';
+  grid-template-areas: 'verify-otp' 'branding';
   min-height: 100vh;
 
   @media (min-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-areas: 'forgot-password branding';
+    grid-template-areas: 'verify-otp branding';
 
     &::before {
       content: '';
@@ -23,8 +23,8 @@
   }
 }
 
-.forgot-password-container {
-  grid-area: forgot-password;
+.verify-otp-container {
+  grid-area: verify-otp;
   min-height: 100vh;
 
   @media (max-width: 640px) {
@@ -33,26 +33,38 @@
   }
 }
 
-/* Scrollbar (same as sign-in/sign-up) */
-.forgot-password-container::-webkit-scrollbar {
+.otp-input {
+  width: clamp(2.5rem, 12vw, 4rem);
+  height: clamp(2.5rem, 12vw, 4rem);
+  font-size: clamp(1rem, 5vw, 1.5rem);
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+/* Scrollbar (same as forget-password) */
+.verify-otp-container::-webkit-scrollbar {
   width: 6px;
 }
-.forgot-password-container::-webkit-scrollbar-track {
+.verify-otp-container::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.03);
   border-radius: 3px;
 }
-.forgot-password-container::-webkit-scrollbar-thumb {
+.verify-otp-container::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 }
-.forgot-password-container::-webkit-scrollbar-thumb:hover {
+.verify-otp-container::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.25);
 }
 
 /* Responsive adjustments */
 @media (max-height: 760px) {
-  .forgot-password-page {
-    .forgot-password-container {
+  .verify-otp-page {
+    .verify-otp-container {
       padding: var(--space-sm);
 
       h1,
@@ -66,11 +78,11 @@
 
       input,
       button {
-        height: calc(var(--input-height) - 0.5rem);
-        font-size: var(--font-sm);
+        height: calc(var(--input-height) + 1.4rem);
+        font-size: var(--font-lg);
       }
 
-      .back-url{
+      .back-url {
         font-size: var(--font-xs);
       }
     }
@@ -78,8 +90,8 @@
 }
 
 @media (min-height: 1000px) {
-  .forgot-password-page {
-    .forgot-password-container {
+  .verify-otp-page {
+    .verify-otp-container {
       padding: var(--space-lg);
 
       h1,
@@ -93,9 +105,19 @@
 
       input,
       button {
-        height: calc(var(--input-height) + 0.5rem);
+        height: calc(var(--input-height) + 1.4rem);
         font-size: var(--font-md);
       }
     }
+  }
+}
+
+/* OTP input specific styles */
+.verify-otp-container input {
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
   }
 }

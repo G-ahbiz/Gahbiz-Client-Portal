@@ -4,6 +4,9 @@
 );
 @use 'flag-icons/sass/flag-icons';
 
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,6 +16,16 @@
 // components according to the Material 3 design spec.
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
+
+/* apply smooth transition between modes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+:root {
+  --app-font-family: 'IBM Plex Serif', Georgia, serif;
+  --app-font-alt: 'Libre Franklin', sans-serif;
+}
 
 html {
   /* Make flag-icons use the copied assets path */
@@ -29,27 +42,36 @@ html {
   );
 }
 
-/* apply smooth transition between modes */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease;
+.font-libre-franklin {
+  font-family: var(--app-font-alt);
+}
+
+html,
+body {
+  font-family: var(--app-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  @apply font-sans text-[#121212];
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
+  @apply text-[#121212];
   margin: 0;
+}
+
+.mat-typography,
+.mat-button,
+.mat-card,
+.mat-form-field,
+.mat-label,
+.mat-input-element,
+.mat-tab-label,
+.mat-list-item,
+.mat-anchor,
+button,
+input,
+textarea,
+select {
+  font-family: var(--app-font-family) !important;
 }
 
 // Remove the default password reveal button
@@ -116,5 +138,55 @@ input[type='password']::-webkit-outer-spin-button {
   .dark select:-moz-autofill {
     box-shadow: 0 0 0px 1000px theme('colors.dark-bg') inset !important;
     -moz-text-fill-color: theme('colors.dark-text') !important;
+  }
+}
+
+:root {
+  /* === Font Sizes === */
+  --font-xs: clamp(0.7rem, 1vw + 0.5vh, 0.85rem);
+  --font-sm: clamp(0.85rem, 1.3vw + 0.6vh, 1rem);
+  --font-md: clamp(1rem, 1.6vw + 0.8vh, 1.2rem);
+  --font-lg: clamp(1.15rem, 2vw + 1vh, 1.5rem);
+  --font-xl: clamp(1.3rem, 2.4vw + 1.2vh, 1.8rem);
+
+  /* === Heights === */
+  --input-height: clamp(2.25rem, 2.5vh + 1vw, 4rem);
+  --button-height: var(--input-height);
+  --social-height: clamp(2.25rem, 2.5vh + 1vw, 3.5rem);
+
+  /* === Spacing === */
+  --space-xs: clamp(0.25rem, 0.5vh + 0.2vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 0.8vh + 0.4vw, 0.75rem);
+  --space-md: clamp(0.75rem, 1.5vh + 0.5vw, 1.25rem);
+  --space-lg: clamp(1rem, 2.5vh + 1vw, 2rem);
+  --space-xl: clamp(1.5rem, 3.5vh + 1.2vw, 3rem);
+
+  /* === Components === */
+  --border-radius: clamp(0.375rem, 0.5vh + 0.2vw, 0.75rem);
+  --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Height-based Breakpoints === */
+@media (max-width: 640px) {
+  :root {
+    --input-height: 2rem;
+    --font-md: 0.9rem;
+    --space-md: 0.5rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root {
+    --input-height: 2.75rem;
+    --font-md: 1rem;
+    --space-md: 0.75rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  :root {
+    --input-height: 2.6rem;
+    --font-md: 1rem;
+    --space-md: 1.5rem;
   }
 }

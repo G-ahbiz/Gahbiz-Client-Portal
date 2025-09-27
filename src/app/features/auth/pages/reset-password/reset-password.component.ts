@@ -4,17 +4,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '@core/services/auth.service';
 import { ResetPasswordRequest } from '@features/auth/interfaces/sign-in/reset-password-request';
-import { VerifyOtp } from '@features/auth/components/sign-in/verify-otp/verify-otp';
-import { NewPassword } from '@features/auth/components/sign-in/new-password/new-password';
-import { Subject, takeUntil } from 'rxjs';
+import { VerifyOtp } from '@features/auth/components/sign-in/verify-otp/verify-otp.component';
+import { NewPasswordComponent } from '@features/auth/components/sign-in/new-password/new-password.component';
+import { finalize, Subject, takeUntil } from 'rxjs';
 import { ROUTES } from '@shared/config/constants';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-reset-password',
-  imports: [VerifyOtp, NewPassword, MatIconModule, TranslateModule],
-  templateUrl: './reset-password.html',
-  styleUrl: './reset-password.scss',
+  imports: [VerifyOtp, NewPasswordComponent, MatIconModule, TranslateModule],
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPassword implements OnDestroy {
@@ -81,7 +81,10 @@ export class ResetPassword implements OnDestroy {
 
     this.authService
       .resetPassword(true, resetPasswordRequest)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.isLoading.set(false))
+      )
       .subscribe({
         next: (response) => {
           if (response.succeeded) {
@@ -96,9 +99,6 @@ export class ResetPassword implements OnDestroy {
         error: (error) => {
           this.goBackToOtp();
           this.toastService.error(error.message || 'An error occurred while resetting password');
-        },
-        complete: () => {
-          this.isLoading.set(false);
         },
       });
   }

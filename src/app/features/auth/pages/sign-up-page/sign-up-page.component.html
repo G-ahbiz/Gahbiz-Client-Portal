@@ -1,76 +1,90 @@
 <div
-  class="min-h-screen flex items-center justify-center bg-light-bg dark:bg-dark-bg px-4 py-2 transition-colors duration-300"
+  class="sign-up-page h-screen grid grid-cols-1 lg:grid-cols-2 dark:bg-black dark:text-white"
+  [attr.dir]="dir()"
 >
+  <!-- Left: Sign-up form -->
   <div
-    class="w-full max-w-xl bg-light-card dark:bg-dark-card rounded-lg shadow-lg p-6 pb-2 flex flex-col transition-colors duration-300"
-    style="max-height: 95vh"
+    class="signup-container lg:order-1 w-full flex flex-col items-center justify-center p-5 bg-white dark:bg-black overflow-y-auto"
   >
-    <!-- Logo -->
-    <div class="flex-shrink-0 flex justify-center mb-4">
-      <img
-        src="assets/images/logo.png"
-        alt="Company Logo"
-        class="h-8 sm:h-10 dark:drop-shadow-[0_0_1px_rgba(255,255,255,1)]"
-      />
-    </div>
+    <div class="w-full max-w-xl mx-auto space-y-2">
+      <!-- Social Sign Up -->
+      <div class="mb-4">
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <!-- Logo -->
+          <div class="flex justify-center">
+            <img src="assets/images/logo.png" alt="Logo" class="h-16 sm:h-24" />
+          </div>
 
-    <!-- Header Section -->
-    <header class="text-center mb-4">
-      <h1
-        class="text-xl sm:text-2xl font-semibold text-light-text dark:text-dark-text leading-7 transition-colors duration-300"
-      >
-        {{ 'SIGNUP.TITLE' | translate }}
-      </h1>
-      <p
-        class="text-sm sm:text-base text-light-subtext dark:text-dark-subtext mt-1 transition-colors duration-300"
-      >
-        {{ 'SIGNUP.SUBTITLE' | translate }}
-      </p>
-    </header>
+          <!-- Title -->
+          <header class="text-center mb-6">
+            <h1 class="text-neutral-900 dark:text-dark-text text-2xl font-semibold">
+              {{ 'SIGNUP.TITLE' | translate }}
+            </h1>
+          </header>
 
-    <!-- Social Sign Up -->
-    <div class="mb-4">
-      <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
-        <app-social-sign-up
-          (onGoogleRegister)="onGoogleRegister()"
-          (onFacebookRegister)="onFacebookRegister()"
-        ></app-social-sign-up>
+          <!-- Social buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 mb-4">
+            <app-social-sign
+              (onGoogleRegister)="onGoogleRegister()"
+              (onFacebookRegister)="onFacebookRegister()"
+            ></app-social-sign>
+          </div>
+
+          <!-- Divider -->
+          <div class="flex items-center gap-6">
+            <div class="flex-1 h-px bg-light-divider dark:bg-dark-divider"></div>
+            <span class="text-zinc-600 text-base font-normal">
+              {{ 'COMMON.OR' | translate }}
+            </span>
+            <div class="flex-1 h-px bg-light-divider dark:bg-dark-divider"></div>
+          </div>
+
+          <!-- Form -->
+          <div class="mb-4">
+            <app-sign-up-form></app-sign-up-form>
+          </div>
+
+          <!-- Already have account -->
+          <div class="text-center mt-2">
+            <span class="text-[rgba(136,136,136,1)] text-base">
+              {{ 'COMMON.ALREADY_HAVE_ACCOUNT' | translate }}
+            </span>
+            <a [routerLink]="ROUTES.signIn" class="text-[rgba(0,93,181,1)] font-semibold ml-1">
+              {{ 'SIGN_IN' | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Branding image -->
+      <div class="hidden lg:flex lg:order-2 w-full h-screen relative">
+        <div
+          class="fixed top-0 h-full z-20"
+          [class.right-0]="dir() === 'ltr'"
+          [class.left-0]="dir() === 'rtl'"
+          style="width: 50%"
+        >
+          <div
+            class="absolute inset-0 bg-center bg-cover bg-no-repeat"
+            style="background-image: url('/assets/images/sign-up.png')"
+          ></div>
+          <div class="absolute inset-0 bg-[rgba(0,93,181,0.7)]"></div>
+          <div
+            class="absolute inset-0 flex flex-col justify-center px-20 font-libre-franklin"
+            [class.items-start]="dir() === 'ltr'"
+            [class.items-end]="dir() === 'rtl'"
+            [class.text-left]="dir() === 'ltr'"
+            [class.text-right]="dir() === 'rtl'"
+          >
+            <h2 class="text-white text-6xl lg:text-8xl font-semibold leading-tight max-w-lg">
+              Lorem ipsum dolor sit amet.
+            </h2>
+            <p class="text-white/90 mt-6 text-lg max-w-lg">
+              Lorem ipsum dolor sit amet consectetur. Eget commodo imperdiet.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Divider -->
-    <div class="flex items-center gap-2 mb-4">
-      <div
-        class="flex-1 h-px bg-light-divider dark:bg-dark-divider transition-colors duration-300"
-      ></div>
-      <span
-        class="text-light-subtext dark:text-dark-subtext text-xs sm:text-sm transition-colors duration-300"
-      >
-        {{ 'COMMON.OR' | translate }}
-      </span>
-      <div
-        class="flex-1 h-px bg-light-divider dark:bg-dark-divider transition-colors duration-300"
-      ></div>
-    </div>
-
-    <!-- Form Container -->
-    <div class="mt-2 overflow-y-auto form-scroll px-3" style="max-height: calc(85vh - 160px)">
-      <app-sign-up-form></app-sign-up-form>
-    </div>
-
-    <!-- Footer -->
-    <footer class="md:col-span-2 text-center pt-4 pb-2">
-      <p
-        class="text-light-subtext dark:text-dark-subtext text-xs sm:text-sm transition-colors duration-300"
-      >
-        {{ 'COMMON.ALREADY_HAVE_ACCOUNT' | translate }}
-        <a
-          [routerLink]="ROUTES.signIn"
-          class="text-light-primary dark:text-dark-primary font-semibold hover:underline transition-colors duration-300"
-        >
-          {{ 'SIGN_IN' | translate }}
-        </a>
-      </p>
-    </footer>
   </div>
 </div>

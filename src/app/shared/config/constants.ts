@@ -10,8 +10,8 @@ export const ROUTES = {
 };
 
 export const COUNTRIES: CountryCodes[] = [
-  { name: 'Egypt', dialCode: '+20', iso2: 'eg' },
   { name: 'United States', dialCode: '+1', iso2: 'us' },
+  { name: 'Egypt', dialCode: '+20', iso2: 'eg' },
   { name: 'United Kingdom', dialCode: '+44', iso2: 'gb' },
   { name: 'Saudi Arabia', dialCode: '+966', iso2: 'sa' },
   { name: 'UAE', dialCode: '+971', iso2: 'ae' },
