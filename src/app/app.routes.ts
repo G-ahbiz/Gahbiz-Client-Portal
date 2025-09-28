@@ -16,6 +16,13 @@ export const routes: Routes = [
     canActivateChild: [NoAuthGuard],
     loadChildren: () => import('./features/auth/auth.routing').then((m) => m.AUTH_ROUTES),
   },
+  {
+    path: 'not-available',
+    loadComponent: () =>
+      import('./shared/components/not-available/not-available.component').then(
+        (m) => m.NotAvailableComponent
+      ),
+  },
   // Add other routes here
   { path: '**', redirectTo: '' }, // Wildcard route for 404
 ];
