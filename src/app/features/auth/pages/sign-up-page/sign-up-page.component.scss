@@ -1,29 +1,131 @@
-.form-scroll {
-  overflow-y: visible;
-  max-height: none;
+.sign-up-page {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'signup' 'branding';
+  min-height: 100vh;
 
-  /* Scrollbar styles */
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 'signup branding';
 
-  &::-webkit-scrollbar-track {
-    @apply bg-light-divider dark:bg-dark-bg rounded-[10px];
-  }
-
-  &::-webkit-scrollbar-thumb {
-    @apply bg-light-bg dark:bg-dark-divider rounded-[10px];
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    @apply bg-light-subtext dark:bg-dark-subtext;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      bottom: 10%;
+      left: 50%;
+      width: 1px;
+      background-color: theme('colors.white');
+      transform: translateX(-0.5px);
+      z-index: 10;
+    }
   }
 }
 
-/* Responsive for small screens */
-@media (max-height: 720px) {
-  .form-scroll {
-    max-height: calc(85vh - 160px);
-    overflow-y: auto;
+.signup-container {
+  grid-area: signup;
+  min-height: 100vh;
+
+  @media (max-width: 640px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Scrollbar */
+.signup-container::-webkit-scrollbar {
+  width: 6px;
+}
+.signup-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 3px;
+}
+.signup-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+.signup-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* RTL/LTR */
+[dir='rtl'] .signup-container {
+  direction: rtl;
+}
+[dir='ltr'] .signup-container {
+  direction: ltr;
+}
+
+/* Inputs alignment */
+[dir='rtl'] input,
+[dir='rtl'] textarea,
+[dir='rtl'] select {
+  text-align: right;
+  direction: rtl;
+}
+[dir='ltr'] input,
+[dir='ltr'] textarea,
+[dir='ltr'] select {
+  text-align: left;
+  direction: ltr;
+}
+
+/* Mobile-first */
+@media (max-width: 768px) {
+  .sign-up-page {
+    grid-template-rows: auto;
+  }
+  .signup-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Compact layout for short screens */
+@media (max-height: 760px) {
+  .sign-up-page {
+    .signup-container {
+      padding: 1rem;
+
+      h1,
+      h2 {
+        font-size: 1.125rem;
+      }
+
+      form {
+        gap: 0.75rem;
+      }
+
+      input,
+      button {
+        height: calc(2.5rem - 0.5rem);
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+/* Spacious layout for tall screens */
+@media (min-height: 1000px) {
+  .sign-up-page {
+    .signup-container {
+      padding: 2rem;
+
+      h1,
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      form {
+        gap: 1rem;
+      }
+
+      input,
+      button {
+        height: calc(2.5rem + 0.5rem);
+        font-size: 1rem;
+      }
+    }
   }
 }

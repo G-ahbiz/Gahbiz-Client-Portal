@@ -2,12 +2,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-eye-password',
+  selector: 'app-lock-password',
   imports: [CommonModule],
-  templateUrl: './eye-password.component.html',
-  styleUrls: ['./eye-password.component.scss']
+  templateUrl: './lock-password.component.html',
+  styleUrls: ['./lock-password.component.scss']
 })
-export class EyePasswordComponent {
+export class LockPasswordComponent {
   @Input() showPassword = false;
   @Output() showPasswordChange = new EventEmitter<boolean>();
 

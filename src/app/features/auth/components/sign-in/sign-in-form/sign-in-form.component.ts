@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, OnDestroy, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,16 +7,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginRequest } from '../../../interfaces/sign-in/login-request';
-import { AuthService } from '@core/services/auth.service';
 import { REG_EXP, ROUTES } from '@shared/config/constants';
-import { Subject, takeUntil } from 'rxjs';
-import { InputComponent } from '@shared/components/inputs/input/input.component';
+import { InputComponent } from '@shared/components/input/input.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { FacebookAuthFacade } from '@features/auth/services/sign-in/facebook-auth-facade.service';
+import { FacebookAuthService } from '@core/services/facebook-auth.service';
+import { ToastService } from '@shared/services/toast.service';
+import { OAuthLoginRequest } from '@core/interfaces/oauth-login-request';
+import { SocialSignComponent } from '../../social-sign/social-sign.component';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -29,6 +31,7 @@ import { FacebookAuthFacade } from '@features/auth/services/sign-in/facebook-aut
     TranslateModule,
     InputComponent,
     ButtonComponent,
+    SocialSignComponent,
   ],
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.scss'],
@@ -37,7 +40,9 @@ export class SignInFormComponent {
   // Constants
   readonly ROUTES = ROUTES;
 
-  private fbFacade = inject(FacebookAuthFacade);
+  private facebookAuthService = inject(FacebookAuthService);
+  private authService = inject(AuthService);
+  private toastService = inject(ToastService);
   private router = inject(Router);
 
   // Inputs
@@ -109,12 +114,29 @@ export class SignInFormComponent {
 
   async onFacebookLogin() {
     try {
-      const response = await this.fbFacade.login();
-      console.log('✅ FB login success:', response);
-      this.router.navigate([this.ROUTES.home]);
+      const accessToken = await this.facebookAuthService.login();
+
+      const loginFormData: OAuthLoginRequest = {
+        idToken: accessToken,
+        role: 'Client',
+        provider: 'Facebook',
+      };
+
+      this.authService.externalLogin(loginFormData).subscribe({
+        next: (result) => {
+          if (result.succeeded) {
+            this.router.navigate([this.ROUTES.home]);
+          } else {
+            this.toastService.error(result.message || 'Login failed. Please try again.');
+          }
+        },
+        error: (error) => {
+          this.toastService.error(error.message || 'Login failed. Please try again.');
+        },
+      });
     } catch (err: any) {
       console.error('❌ FB login failed:', err);
-      alert(err.message);
+      this.toastService.error(err.message || 'Facebook login failed. Please try again.');
     }
   }
 }

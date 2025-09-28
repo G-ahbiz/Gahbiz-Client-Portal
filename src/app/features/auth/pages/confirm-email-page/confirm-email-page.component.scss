@@ -1,0 +1,67 @@
+.confirm-email-page {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'confirm-email' 'branding';
+  min-height: 100vh;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 'confirm-email branding';
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      bottom: 10%;
+      left: 50%;
+      width: 1px;
+      background-color: theme('colors.white');
+      transform: translateX(-0.5px);
+      z-index: 10;
+    }
+  }
+}
+
+.confirm-email-container {
+  grid-area: confirm-email;
+  min-height: 100vh;
+
+  @media (max-width: 640px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Scrollbar */
+.confirm-email-container::-webkit-scrollbar {
+  width: 6px;
+}
+.confirm-email-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 3px;
+}
+.confirm-email-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+.confirm-email-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-height: 760px) {
+  .confirm-email-page {
+    .confirm-email-container {
+      padding: var(--space-sm);
+    }
+  }
+}
+
+@media (min-height: 1000px) {
+  .confirm-email-page {
+    .confirm-email-container {
+      padding: var(--space-lg);
+    }
+  }
+}

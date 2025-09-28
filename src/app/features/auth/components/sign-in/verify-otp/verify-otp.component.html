@@ -1,0 +1,96 @@
+<div class="verify-otp-page h-screen grid grid-cols-1 lg:grid-cols-2 dark:bg-black dark:text-white" [attr.dir]="dir()">
+
+  <!-- Left: Verify OTP form -->
+  <div
+    class="verify-otp-container lg:order-1 w-full flex flex-col items-center justify-center p-4 bg-white dark:bg-black overflow-y-auto">
+    <div class="w-full max-w-xl mx-auto space-y-4">
+
+      <!-- Logo -->
+      <div class="flex justify-center">
+        <img src="assets/images/logo.png" alt="Logo" class="h-16 sm:h-28" />
+      </div>
+
+      <!-- Title -->
+      <header class="text-center mb-6">
+        <h1 class="text-neutral-900 dark:text-dark-text text-2xl font-semibold">
+          {{ 'AUTH.PASSWORD_RESET' | translate }}
+        </h1>
+        <p class="text-black text-sm tracking-tighter mt-2 text-center font-medium">
+          {{ 'AUTH.WE_SENT_CODE' | translate }}
+          <strong class="text-[rgba(0,93,181,1)]">{{ email() }}</strong>
+        </p>
+      </header>
+
+      <!-- Form -->
+      <div class="mb-4">
+        <form [formGroup]="verifyPassForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1">
+
+          <!-- OTP Input Fields -->
+          <div class="flex justify-center gap-3 mb-6" dir="ltr">
+            @for(i of [0, 1, 2, 3, 4, 5]; track i) {
+            <input type="text" maxlength="1"
+              class="otp-input border-2 border-gray-300 dark:border-gray-600 rounded-lg text-center focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              autofocus (input)="onOtpInput($event, i)" (paste)="onPasteOtp($event)" (keydown)="onOtpKeyDown($event, i)"
+              [value]="verifyPassForm.get('code')?.value?.charAt(i) || ''" />
+            }
+          </div>
+
+          <!-- Resend code link -->
+          <p class="text-gray-600 dark:text-gray-300 text-center mb-4">
+            {{ 'AUTH.DIDNT_RECEIVE_CODE' | translate }}
+            @if (resendCooldown() > 0) {
+            <span class="text-blue-600 dark:text-blue-400">
+              {{ 'CONFIRM_EMAIL.BUTTONS.RESENDING' | translate }} {{ resendCooldown() }}s
+            </span>
+            } @else {
+            <a (click)="resendCode()" class="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
+              {{ 'CONFIRM_EMAIL.BUTTONS.RESEND' | translate }}
+            </a>
+            }
+          </p>
+
+          <!-- Continue button -->
+          <div class="flex items-center justify-center">
+            <app-button type="submit" [label]="'AUTH.CONTINUE' | translate"
+              [disabled]="verifyPassForm.invalid || isLoading()" [loading]="isLoading()"
+              [loadingText]="'AUTH.VERIFYING' | translate" [fullWidth]="false">
+            </app-button>
+          </div>
+
+          <!-- Back to Login Link -->
+          <div class="text-center">
+            <a [routerLink]="ROUTES.signIn"
+              class="back-url inline-flex items-center justify-center text-[rgba(0,93,181,1)] font-medium hover:underline">
+              <svg [class.rotate-180]="dir() === 'rtl'" class="w-4 h-4 mr-1 rtl:ml-1 rtl:mr-0 transition-transform"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                </path>
+              </svg>
+              {{ 'AUTH.BACK_TO_LOGIN' | translate }}
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Branding image (same as forget-password) -->
+  <div class="hidden lg:flex lg:order-2 w-full h-screen relative">
+    <div class="fixed top-0 h-full z-20" [class.right-0]="dir() === 'ltr'" [class.left-0]="dir() === 'rtl'"
+      style="width:50%;">
+      <div class="absolute inset-0 bg-center bg-cover bg-no-repeat"
+        style="background-image: url('/assets/images/verify-otp.png');"></div>
+      <div class="absolute inset-0 bg-[rgba(0,93,181,0.7)]"></div>
+      <div class="absolute inset-0 flex flex-col justify-center px-20 font-libre-franklin"
+        [class.items-start]="dir() === 'ltr'" [class.items-end]="dir() === 'rtl'" [class.text-left]="dir() === 'ltr'"
+        [class.text-right]="dir() === 'rtl'">
+        <h2 class="text-white text-6xl lg:text-8xl font-semibold leading-tight max-w-lg">
+          Lorem ipsum dolor sit amet.
+        </h2>
+        <p class="text-white/90 mt-6 text-lg max-w-lg">
+          Lorem ipsum dolor sit amet consectetur. Eget commodo imperdiet.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
 
-  apiUrl: 'https://serva-best.runasp.net/api',
-  // apiUrl: 'https://localhost:7204/api',
+  //apiUrl: 'https://serva-best.runasp.net/api',
+  apiUrl: 'https://localhost:7204/api',
 
   googleClientId: '710517406086-vlr501mfdnbmc5o8p8jv07qaks1jvveg.apps.googleusercontent.com',
   googleUrl: 'https://accounts.google.com/gsi/client',
@@ -20,7 +20,7 @@ export const environment = {
     externalLogin: '/Account/external-login',
   },
 
-  facebookAppId: '2684044075278957',
+  facebookAppId: '1786936631940004',
 
   confirmTokenTtlMs: 5 * 60 * 100,
 };

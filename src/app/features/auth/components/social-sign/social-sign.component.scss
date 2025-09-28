@@ -1,0 +1,9 @@
+:host {
+  display: contents; // so parent grid handles layout
+}
+
+.social-button {
+  height: var(--social-height);
+  font-size: var(--scale-sm);
+  font-weight: 600;
+}
