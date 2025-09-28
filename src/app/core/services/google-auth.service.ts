@@ -25,6 +25,7 @@ export class GoogleAuthService {
     script.onload = () => {
       (window as any).google.accounts.id.initialize({
         client_id: environment.googleClientId,
+        ux_mode: 'redirect',
         callback: callback,
       });
 

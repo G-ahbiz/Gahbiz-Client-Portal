@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class SocialSignComponent implements OnInit {
   onGoogleRegister = output<void>();
+  onFacebookRegister = output<void>();
 
   constructor() {}
 

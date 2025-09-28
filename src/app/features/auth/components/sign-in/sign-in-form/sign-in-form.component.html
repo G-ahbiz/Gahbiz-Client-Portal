@@ -1,27 +1,45 @@
 <!-- Form -->
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1">
-
   <!-- Email -->
-  <app-input [label]="'AUTH.EMAIL_ADDRESS' | translate" id="identifier" type="email"
-    [placeholder]="'AUTH.ENTER_EMAIL' | translate" formControlName="identifier"
-    [isInvalid]="!!(identifier?.invalid && identifier?.touched)" [errorMessage]="getFieldError('identifier')"
-    class="mb-4">
+  <app-input
+    [label]="'AUTH.EMAIL_ADDRESS' | translate"
+    id="identifier"
+    type="email"
+    [placeholder]="'AUTH.ENTER_EMAIL' | translate"
+    formControlName="identifier"
+    [isInvalid]="!!(identifier?.invalid && identifier?.touched)"
+    [errorMessage]="getFieldError('identifier')"
+    class="mb-4"
+  >
   </app-input>
 
   <!-- Password -->
-  <app-input [label]="'AUTH.PASSWORD' | translate" id="password" variant="password"
-    [placeholder]="'AUTH.ENTER_PASSWORD' | translate" formControlName="password"
-    [isInvalid]="!!(password?.invalid && password?.touched)" [errorMessage]="getFieldError('password')" [minlength]="8"
-    [maxlength]="64" class="mb-4">
+  <app-input
+    [label]="'AUTH.PASSWORD' | translate"
+    id="password"
+    variant="password"
+    [placeholder]="'AUTH.ENTER_PASSWORD' | translate"
+    formControlName="password"
+    [isInvalid]="!!(password?.invalid && password?.touched)"
+    [errorMessage]="getFieldError('password')"
+    [minlength]="8"
+    [maxlength]="64"
+    class="mb-4"
+  >
   </app-input>
 
-  <app-button type="submit" [label]="'AUTH.LOGIN' | translate" [disabled]="loginForm.invalid" [loading]="isLoading()"
-    [loadingText]="'AUTH.SIGNING_IN' | translate">
+  <app-button
+    type="submit"
+    [label]="'AUTH.LOGIN' | translate"
+    [disabled]="loginForm.invalid"
+    [loading]="isLoading()"
+    [loadingText]="'AUTH.SIGNING_IN' | translate"
+  >
   </app-button>
 
   <!-- Forgot Password Link -->
   <div class="text-center m-2">
-    <a [routerLink]="ROUTES.forgotPassword" class="text-[rgba(0,93,181,1)] text-sm hover:underline ">
+    <a [routerLink]="ROUTES.forgotPassword" class="text-[rgba(0,93,181,1)] text-sm hover:underline">
       {{ 'AUTH.FORGOT_PASSWORD' | translate }}
     </a>
   </div>
@@ -38,6 +56,7 @@
   </div>
 
   <div class="flex flex-col sm:flex-row gap-4 w-full">
-    <app-social-sign></app-social-sign>
+    <app-social-sign (onGoogleRegister)="googleLogin()" (onFacebookRegister)="onFacebookLogin()">
+    </app-social-sign>
   </div>
 </div>

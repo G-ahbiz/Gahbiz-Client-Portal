@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ConfirmEmailGuard } from './guards/confirm-email.guard';
+import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
 
 export const AUTH_ROUTES: Routes = [
   {
@@ -15,8 +16,9 @@ export const AUTH_ROUTES: Routes = [
   },
   {
     path: 'sign-up',
-    loadComponent: () =>
-      import('./pages/sign-up-page/sign-up-page.component').then((m) => m.SignUpPageComponent),
+    // loadComponent: () =>
+    //   import('./pages/sign-up-page/sign-up-page.component').then((m) => m.SignUpPageComponent),
+    component: SignUpPageComponent,
     data: { hideHeader: true },
   },
   {

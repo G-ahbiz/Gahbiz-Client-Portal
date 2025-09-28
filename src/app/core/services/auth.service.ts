@@ -11,6 +11,7 @@ import { LoginResponse } from '@features/auth/interfaces/sign-in/login-response'
 import { ResetPasswordRequest } from '@features/auth/interfaces/sign-in/reset-password-request';
 import { ResetPasswordResponse } from '@features/auth/interfaces/sign-in/reset-password-response';
 import { GoogleRequest } from '@core/interfaces/google-request';
+import { OAuthLoginRequest } from '@core/interfaces/oauth-login-request';
 
 @Injectable({
   providedIn: 'root',
@@ -123,7 +124,7 @@ export class AuthService {
       );
   }
 
-  googleLogin(data: GoogleRequest): Observable<ApiResponse<LoginResponse>> {
+  externalLogin(data: OAuthLoginRequest): Observable<ApiResponse<LoginResponse>> {
     return this.http
       .post<ApiResponse<LoginResponse>>(`${this.apiUrl}${environment.account.externalLogin}`, data)
       .pipe(
