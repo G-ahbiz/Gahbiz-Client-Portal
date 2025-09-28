@@ -4,22 +4,13 @@ import { NgClass } from '@angular/common';
 import { ThemeToggleDirective } from '../../directives/theme-toggle.directive';
 import { Router, RouterLink } from '@angular/router';
 import { ThemeService } from '../../../core/services/theme.service';
-import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
-import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ROUTES } from '../../config/constants';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-header',
-  imports: [
-    ThemeToggleDirective,
-    RouterLink,
-    ThemeToggleComponent,
-    NgClass,
-    LanguageSwitcherComponent,
-    TranslateModule,
-  ],
+  imports: [ThemeToggleDirective, RouterLink, NgClass, TranslateModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })

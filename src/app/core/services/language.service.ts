@@ -11,9 +11,7 @@ export class LanguageService {
 
     const saved = localStorage.getItem('lang');
     const browser = this.translate.getBrowserLang();
-    const lang =
-      saved ??
-      (browser && ['en', 'ar'].includes(browser) ? browser : 'en');
+    const lang = saved ?? (browser && ['en', 'ar'].includes(browser) ? browser : 'en');
 
     this.use(lang);
   }
@@ -21,10 +19,10 @@ export class LanguageService {
   use(lang: string) {
     this.activeLang.set(lang);
     this.translate.use(lang);
-    localStorage.setItem('lang', lang);
+    // localStorage.setItem('lang', lang);
 
     document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = 'ltr'; //lang === 'ar' ? 'rtl' : 'ltr';
   }
 
   get currentLang() {
