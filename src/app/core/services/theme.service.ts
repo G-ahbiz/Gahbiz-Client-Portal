@@ -84,16 +84,16 @@ export class ThemeService implements OnDestroy {
 
   private getStoredChoice(): ThemeChoice {
     try {
-      if (typeof localStorage === 'undefined') return 'system';
+      if (typeof localStorage === 'undefined') return 'light'; //'system';
       const stored = localStorage.getItem(this.storageKey);
       if (stored === 'light' || stored === 'dark' || stored === 'system') return stored;
     } catch {}
-    return 'system';
+    return 'light'; //'system';
   }
 
   private persistChoice(choice: ThemeChoice) {
     try {
-      localStorage.setItem(this.storageKey, choice);
+      // localStorage.setItem(this.storageKey, choice);
     } catch {}
   }
 
