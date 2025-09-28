@@ -1,0 +1,17 @@
+<div
+  class="max-w-full flex flex-col justify-start items-center gap-[var(--space-xl)] p-[var(--space-md)] mx-auto">
+
+  <div
+    class="flex items-center justify-center overflow-hidden w-[clamp(4rem,15vw,8rem)] h-[clamp(4rem,15vw,8rem)]">
+    <div [innerHTML]="icon" class="w-full h-full flex items-center justify-center"></div>
+  </div>
+
+  <div class="self-stretch flex flex-col justify-start items-center gap-[var(--space-md)] font-['Libre_Franklin']">
+    <div class="text-center text-black font-normal leading-10 text-[clamp(1.5rem,3vw,2.5rem)]">
+      {{ title }}
+    </div>
+    <div class="text-center text-[#616161] font-normal leading-normal text-[clamp(1rem,2.2vw,1.5rem)]">
+      {{ message }}
+    </div>
+  </div>
+</div>
