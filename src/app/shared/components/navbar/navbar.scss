@@ -1,0 +1,48 @@
+.dropdown-login,
+.services-dropdown,
+.language-dropdown {
+  /* display: block; */
+  right: 0;
+  animation: dropDown 0.3s ease-in-out alternate;
+}
+
+.search-form {
+  box-shadow: 0 0 10px 0 #0000001a;
+  transition: all 0.5s ease-in-out;
+}
+
+.scale-down {
+  transform: scale(0.8);
+  transition: all 0.5s ease-in-out;
+}
+
+.language-dropdown {
+  width: 12rem;
+}
+
+.flag-icon {
+  width: 2rem !important;
+}
+
+@keyframes dropDown {
+  from {
+    transform: translateY(20%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.navbar-toggler:active,
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+@media screen and (min-width: 992px) {
+  .main-logo {
+    width: 45% !important;
+  }
+}

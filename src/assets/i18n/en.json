@@ -161,5 +161,55 @@
   },
   "HEADER": {
     "LOG_OUT": "Log Out"
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "faq": "FAQ",
+    "services": "Services",
+    "contact": "Contact",
+    "login": "Login",
+    "createaccount": "Create Account",
+    "taxservices": "Tax Services",
+    "itinandein": "ITIN & EIN",
+    "translationandnotarypublic": "Translation & Notary Public",
+    "businesslicense": "Business License",
+    "publicservcies": "Public Servcies",
+    "dmv": "DMV",
+    "foodvendorservices": "Food Vendor Services",
+    "immigration": "IMMIGRATION",
+    "english": "English",
+    "arabic": "Arabic",
+    "spanish": "Spanish",
+    "bookaservice": "Book a Service"
+  },
+  "footer": {
+    "businessnetwork": "Business Network",
+    "toestablish": "to establish your online presence",
+    "achieveyourbusiness": "and achieve your business goals with confidence",
+    "usefullinks": "Useful Links",
+    "home": "Home",
+    "ourteam": "Our Team",
+    "contactus": "Contact Us",
+    "policiesandterms": "Policies and Terms",
+    "smstermsandconditions": "SMS Terms & Conditions",
+    "privacypolicy": "Privacy Policy",
+    "refundpolicy": "Refund Policy",
+    "choiceoptinoptout": "Choice/Opt-In/Opt-Out",
+    "policymodifications": "Policy Modifications",
+    "earnmoneywithus": "Earn Money with Us",
+    "sellproductsongahbiz": "Sell products on Gahbiz",
+    "advertiseyourservices": "Advertise Your Services",
+    "selfpublishwithus": "Self-Publish with Us",
+    "becomeserviceagent": "Become an Service Agent",
+    "allrightsreserved": "All rights reserved."
+  },
+  "hero": {
+    "title1": "Find",
+    "title2": "Trusted",
+    "title3": "Professionals for Any Service – From Taxes to Home Needs",
+    "description": "Fast, secure, and reliable bookings for individuals and businesses.",
+    "booknow": "Book Now",
+    "exploreservices": "Explore Services"
   }
 }

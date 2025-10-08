@@ -1,0 +1,52 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "faq": "Preguntas frecuentes",
+    "services": "Servicios",
+    "contact": "Contacto",
+    "login": "Iniciar sesión",
+    "createaccount": "Crear cuenta",
+    "taxservices": "Servicios de impuestos",
+    "itinandein": "ITIN y EIN",
+    "translationandnotarypublic": "Traducción y notario público",
+    "businesslicense": "Licencia comercial",
+    "publicservcies": "Servicios públicos",
+    "dmv": "DMV",
+    "foodvendorservices": "Servicios de vendedores de alimentos",
+    "immigration": "Inmigración",
+    "english": "Inglés",
+    "arabic": "Árabe",
+    "spanish": "Español",
+    "bookaservice": "Reservar un servicio"
+  },
+  "footer": {
+    "businessnetwork": "Red comercial",
+    "toestablish": "para establecer tu presencia en línea",
+    "achieveyourbusiness": "y lograr tus objetivos de negocio con confianza",
+    "usefullinks": "Enlaces útiles",
+    "home": "Inicio",
+    "ourteam": "Nuestro equipo",
+    "contactus": "Contacto",
+    "policiesandterms": "Políticas y términos",
+    "smstermsandconditions": "Términos y condiciones de SMS",
+    "privacypolicy": "Política de privacidad",
+    "refundpolicy": "Política de reembolso",
+    "choiceoptinoptout": "Opción/Opt-In/Opt-Out",
+    "policymodifications": "Modificaciones de política",
+    "earnmoneywithus": "Ganar dinero con nosotros",
+    "sellproductsongahbiz": "Vender productos en Gahbiz",
+    "advertiseyourservices": "Publicitar tus servicios",
+    "selfpublishwithus": "Publicar con nosotros",
+    "becomeserviceagent": "Convertirse en agente de servicio",
+    "allrightsreserved": "Todos los derechos reservados."
+  },
+  "hero": {
+    "title1": "Encuentre",
+    "title2": "Profesionales Confiables",
+    "title3": "Para Cualquier Servicio – Desde Impuestos hasta Necesidades de Hogar",
+    "description": "Reservas rápidas, seguras y confiables para individuos y negocios.",
+    "booknow": "Reservar Ahora",
+    "exploreservices": "Explorar Servicios"
+  }
+}

@@ -1,0 +1,90 @@
+.hero {
+  padding: 3rem 6.25rem;
+  /* height: 59.5rem !important; */
+}
+
+.hero-description {
+  line-height: 140% !important;
+}
+
+.back1, .back2, .back3, .back4, .pattern1, .pattern2 {
+  flex-shrink: 0;
+  border-radius: 12.5rem;
+  background: var(--accent-clr);
+}
+
+.back1, .back3, .pattern1, .pattern2 {
+  width: 22.125rem;
+  height: 11.875rem;
+}
+
+.back2, .back4 {
+  height: 15.375rem;
+  width: 8rem;
+  overflow-x: clip !important;
+  overflow-y: hidden !important;
+}
+
+.back3, .back4 {
+  background: var(--primary-clr);
+}
+
+.girl, .boy {
+  width: 9rem;
+}
+
+.explore-services-btn:hover {
+  background-color: var(--primary-clr) !important;
+}
+
+.pattern1 {
+  background-color: #FFCA191A;
+  margin-block-start: 12.06rem;
+}
+
+.pattern2 {
+  background-color: #005DB51A;
+  margin-block-end: 13.19rem;
+  margin-inline-start: -10.19rem;
+}
+
+
+@media screen and (min-width: 768px) {
+  .back2, .back4 {
+    height: 22.375rem;
+    width: 10rem;
+  }
+
+  .girl, .boy {
+    width: 13rem;
+  }
+
+}
+
+@media screen and (min-width: 1200px) {
+  .hero-content {
+    width: 45% !important;
+  }
+
+  .hero-title {
+    width: 145% !important;
+    line-height: 129% !important;
+  }
+
+  .hero-back {
+    width: 55% !important;
+  }
+
+  .back2, .back4 {
+    height: 34.375rem !important;
+    width: 15rem !important;
+  }
+
+  .hero-description {
+    width: 75% !important;
+  }
+
+  .girl, .boy {
+    width: 20rem;
+  }
+}

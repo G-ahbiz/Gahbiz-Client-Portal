@@ -167,5 +167,55 @@
   },
   "HEADER": {
     "LOG_OUT": "تسجيل الخروج"
+  },
+  "navbar": {
+    "home": "الرئيسية",
+    "about": "عن الشركة",
+    "services": "الخدمات",
+    "faq": "الأسئلة الشائعة",
+    "contact": "اتصل بنا",
+    "login": "تسجيل الدخول",
+    "createaccount": "إنشاء حساب",
+    "taxservices": "خدمات الضرائب",
+    "itinandein": "ITIN & EIN",
+    "translationandnotarypublic": "ترجمة وعهد عام",
+    "businesslicense": "رخصة الأعمال",
+    "publicservcies": "الخدمات العامة",
+    "dmv": "DMV",
+    "foodvendorservices": "خدمات المطاعم",
+    "immigration": "الهجرة",
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "spanish": "الأسبانية",
+    "bookaservice": "احجز خدمة"
+  },
+  "footer": {
+    "businessnetwork": "الشبكة التجارية",
+    "toestablish": "لتأسيس حضورك على الإنترنت",
+    "achieveyourbusiness": "وتحقيق أهداف عملك بالثقة",
+    "usefullinks": "الروابط المفيدة",
+    "home": "الرئيسية",
+    "ourteam": "فريقنا",
+    "contactus": "اتصل بنا",
+    "policiesandterms": "السياسات والشروط",
+    "smstermsandconditions": "الشروط والأحكام المرسلة عبر الإنترنت",
+    "privacypolicy": "سياسة الخصوصية",
+    "refundpolicy": "سياسة الإسترجاع",
+    "choiceoptinoptout": "اختيار/إنضمام/إخراج",
+    "policymodifications": "تعديلات السياسة",
+    "earnmoneywithus": "كسب المال معنا",
+    "sellproductsongahbiz": "بيع المنتجات في غابيز",
+    "advertiseyourservices": "إعلان خدماتك",
+    "selfpublishwithus": "نشر بنفسك معنا",
+    "becomeserviceagent": "أصبح عامل خدمة",
+    "allrightsreserved": "جميع الحقوق محفوظة."
+  },
+  "hero": {
+    "title1": "لدينا",
+    "title2": "خدمات موثوقة",
+    "title3": "لأي خدمة – من الضرائب إلى الاحتياجات المنزلية",
+    "description": "حجز سريع وآمن وموثوق للأفراد والشركات.",
+    "booknow": "حجز الآن",
+    "exploreservices": "استكشف الخدمات"
   }
 }
