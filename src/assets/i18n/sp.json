@@ -75,5 +75,17 @@
       "title": "Revisión y Completado",
       "description": "Revisa tu trabajo completado y archivo o lanza tu negocio"
     }
+  },
+  "best-offers": {
+    "title1": "Mejores ",
+    "title2": "Ofertas",
+    "view-all": "Ver Todas Las Ofertas"
+  },
+  "testimonials": {
+    "title1": "Vea por qué millones ",
+    "title2": "confían en nosotros ",
+    "title3": "con sus ",
+    "title4": "impuestos",
+    "description": "No solo tomemos nuestra palabra - escucha a clientes satisfechos que confían en nosotros con sus necesidades financieras"
   }
 }

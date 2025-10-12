@@ -51,6 +51,22 @@
   font-size: 0.875rem !important;
 }
 
+.bounce:hover i {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 @media screen and (min-width: 768px) {
   .explore-button {
     padding: 1rem 2.875rem !important;

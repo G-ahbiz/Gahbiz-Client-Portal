@@ -51,6 +51,7 @@
   --primary-clr: #005db5;
   --accent-clr: #ffca19;
   --bg-clr: #fafafa;
+  --bg-dark-clr: #121212;
   --text-clr: #121212;
   --text-mute-clr: #616161;
   --text-light-clr: #f1f1f1;
@@ -175,12 +176,56 @@ input[type='password']::-webkit-outer-spin-button {
   background-color: var(--accent-clr) !important;
 }
 
+.orange-text-clr {
+  color: var(--accent-clr) !important;
+}
+
 .white-bg-clr {
   background-color: var(--text-light-clr) !important;
 }
 
+.white-text-clr {
+  color: var(--text-light-clr) !important;
+}
+
 .primary-bg-clr {
   background-color: var(--primary-clr) !important;
+}
+
+.primary-text-clr {
+  color: var(--primary-clr) !important;
+}
+
+.dark-bg-clr {
+  background-color: var(--bg-dark-clr) !important;
+}
+
+.dark-text-clr {
+  color: var(--bg-dark-clr) !important;
+}
+
+.ltr {
+  direction: ltr !important;
+}
+.rtl {
+  direction: rtl !important;
+}
+
+.fs-875 {
+  font-size: 0.875rem !important;
+}
+
+.fs-75 {
+  font-size: 0.75rem !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.scale-down:active {
+  scale: 0.98;
+  transition: all 0.2s ease;
 }
 
 /* === Height-based Breakpoints === */

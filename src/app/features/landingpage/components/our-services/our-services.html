@@ -18,7 +18,7 @@
   <div class="our-services-carousel mt-4 w-100">
     <!-- <app-service-carousel [slides]="services"></app-service-carousel> -->
 
-    <div class="card bg-transparent border-0">
+    <div class="card bg-transparent border-0" [classList]="isArabic ? 'ltr' : 'ltr'">
       <p-carousel #carousel [value]="services" [numVisible]="3" [numScroll]="1" [circular]="true"
         [responsiveOptions]="responsiveOptions" [showIndicators]="false" [showNavigators]="false">
         <ng-template let-service #item>
@@ -37,7 +37,8 @@
               <div class="content">
                 <span class="service-title-details d-flex justify-content-start align-items-center gap-2">
                   <span class="service-title fs-6 fw-normal text-nowrap">{{ service.title }}</span>
-                  <span class="service-count fs-875 fw-light text-nowrap">( has {{ service.serviceCount }} Services )</span>
+                  <span class="service-count fs-875 fw-light text-nowrap">( has {{ service.serviceCount }} Services
+                    )</span>
                 </span>
                 <span class="service-caption fs-875 fw-light">{{ service.caption }}</span>
               </div>
@@ -51,12 +52,14 @@
       </p-carousel>
 
       <!-- Custom Controls -->
-      <div class="controls d-flex justify-content-between align-items-center w-50 align-self-center mt-1">
-        <div class="prev-button d-flex justify-content-center align-items-center p-3" (click)="navigatePrev()">
-          <i class="pi pi-chevron-left text-white"></i>
-        </div>
-        <div class="next-button d-flex justify-content-center align-items-center p-3" (click)="navigateNext()">
-          <i class="pi pi-chevron-right text-white"></i>
+      <div class="controls d-flex justify-content-center align-items-center w-100 align-self-center mt-1 ">
+        <div class=" d-flex justify-content-between align-items-center w-50">
+          <div class="prev-button d-flex justify-content-center align-items-center p-3" (click)="navigatePrev()">
+            <i class="pi pi-chevron-left text-white"></i>
+          </div>
+          <div class="next-button d-flex justify-content-center align-items-center p-3" (click)="navigateNext()">
+            <i class="pi pi-chevron-right text-white"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -65,11 +68,11 @@
 
   <!-- Explore Button -->
   <div class="explore-button-container w-100 d-flex justify-content-center align-items-center mt-4">
-    <button class="btn explore-button orange-bg-clr d-flex justify-content-center align-items-center gap-4 px-3 py-2">
+    <button class="btn explore-button orange-bg-clr d-flex justify-content-center align-items-center gap-4 px-3 py-2 bounce">
       <span class="fw-medium fs-6 text-nowrap">
         {{'our-services.explore'| translate}}
       </span>
-      <i class="pi pi-arrow-right fw-medium"></i>
+      <i class="pi pi-arrow-{{isArabic ? 'left' : 'right'}} fw-medium"></i>
     </button>
   </div>
 </div>

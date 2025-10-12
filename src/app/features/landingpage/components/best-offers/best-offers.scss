@@ -1,0 +1,46 @@
+.txt-clr {
+  color: var(--text-clr);
+}
+
+.text-highlight {
+  color: var(--primary-clr);
+}
+
+.decoration-underline {
+  height: 0.1875rem !important;
+  width: 10% !important;
+}
+
+// Card Styles
+.card-header {
+  height: 15rem;
+}
+
+.card-discount {
+  color: #D0D0D0;
+}
+
+.card-icons {
+  top: 1.25rem;
+  right: 1.25rem;
+}
+
+.red-heart {
+  color: #F20000;
+}
+
+.bounce:hover i {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

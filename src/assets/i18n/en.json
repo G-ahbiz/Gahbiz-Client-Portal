@@ -238,5 +238,17 @@
       "title": "Review & Complete",
       "description": "Review your completed work and file or launch your business"
     }
+  },
+  "best-offers": {
+    "title1": "Best ",
+    "title2": "Offers",
+    "view-all": "View All Offers"
+  },
+  "testimonials": {
+    "title1": "See why millions ",
+    "title2": "trust us ",
+    "title3": "with Their ",
+    "title4": "Taxes",
+    "description": "Don't just take our word for it - hear from satisfied clients who trust us with their financial needs"
   }
 }

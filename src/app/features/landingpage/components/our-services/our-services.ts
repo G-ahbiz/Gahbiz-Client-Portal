@@ -1,6 +1,6 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
@@ -13,7 +13,12 @@ import { Carousel } from 'primeng/carousel';
   templateUrl: './our-services.html',
   styleUrl: './our-services.scss'
 })
-export class OurServices {
+export class OurServices implements OnInit {
+  constructor(private translateService: TranslateService) { }
+  // Language
+  isArabic: boolean = false;
+  isEnglish: boolean = false;
+  isSpanish: boolean = false;
 
   @ViewChild('carousel') carousel!: Carousel;
   services: any[] = [];
@@ -21,7 +26,7 @@ export class OurServices {
   scale: number = 0.5;
 
   ngOnInit() {
-
+    this.initializeTranslation();
     this.services = [
       {
         title: 'DMV',
@@ -99,6 +104,35 @@ export class OurServices {
         numScroll: 1
       }
     ]
+  }
+
+  // Initialize translation
+  private initializeTranslation() {
+    // Set default language if not already set
+    if (!localStorage.getItem('servabest-language')) {
+      localStorage.setItem('servabest-language', 'en');
+    }
+
+    // Get saved language and set it
+    const savedLang = localStorage.getItem('servabest-language') || 'en';
+    this.translateService.setDefaultLang('en');
+    this.translateService.use(savedLang);
+    if (savedLang === 'en' || savedLang === 'sp') {
+      document.documentElement.style.direction = 'ltr';
+    } else if (savedLang === 'ar') {
+      document.documentElement.style.direction = 'rtl';
+    }
+
+    // Set initial language state
+    this.isArabic = savedLang === 'ar';
+    this.isEnglish = savedLang === 'en';
+    this.isSpanish = savedLang === 'sp';
+    // Subscribe to language changes
+    this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.isArabic = event.lang === 'ar';
+      this.isEnglish = event.lang === 'en';
+      this.isSpanish = event.lang === 'sp';
+    });
   }
 
   // scale slide if slide in the middle of the screen
