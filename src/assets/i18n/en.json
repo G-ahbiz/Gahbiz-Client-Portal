@@ -211,5 +211,32 @@
     "description": "Fast, secure, and reliable bookings for individuals and businesses.",
     "booknow": "Book Now",
     "exploreservices": "Explore Services"
+  },
+  "our-services": {
+    "subtitle": "What we offer?",
+    "title1": "Our ",
+    "title2": "Services",
+    "explore": "Explore More Services"
+  },
+  "how-it-works": {
+    "title1": "How It",
+    "title2": " Works",
+    "description": "Our streamlined process makes getting professional tax and business services simple and stress-free",
+    "step1": {
+      "title": "Select Your Service",
+      "description": "Choose from our comprehensive range of tax and business services"
+    },
+    "step2": {
+      "title": "Provide Documents/Info",
+      "description": "Securely upload your documents or provide necessary information"
+    },
+    "step3": {
+      "title": "Expert Processing",
+      "description": "Our licensed professionals handle your tax or business work"
+    },
+    "step4": {
+      "title": "Review & Complete",
+      "description": "Review your completed work and file or launch your business"
+    }
   }
 }

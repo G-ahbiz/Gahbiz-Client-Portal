@@ -1,3 +1,75 @@
-<div class="container-fluid p-5 border">
-  <h1>Our Services</h1>
+<div class="container-fluid px-1 py-4 p-lg-5 our-services">
+  <!-- Our Services Header -->
+  <div class="our-services-header w-100 d-flex flex-column justify-content-center align-items-center">
+    <p class="our-services-subtitle txt-clr">
+      {{'our-services.subtitle'| translate}}
+    </p>
+    <h1 class="our-services-title fw-medium ">
+      <span class="txt-clr">{{'our-services.title1'| translate}} </span>
+      <span class="text-highlight">{{'our-services.title2'| translate}}</span>
+    </h1>
+    <div class="decoration-underline d-flex justify-content-between align-content-center w-25">
+      <div class="h-100 orange-bg-clr w-50"></div>
+      <div class="h-100 white-bg-clr w-50"></div>
+    </div>
+  </div>
+
+  <!-- Carousel -->
+  <div class="our-services-carousel mt-4 w-100">
+    <!-- <app-service-carousel [slides]="services"></app-service-carousel> -->
+
+    <div class="card bg-transparent border-0">
+      <p-carousel #carousel [value]="services" [numVisible]="3" [numScroll]="1" [circular]="true"
+        [responsiveOptions]="responsiveOptions" [showIndicators]="false" [showNavigators]="false">
+        <ng-template let-service #item>
+
+          <div class="d-flex flex-column justify-content-center align-items-center m-2" (scroll)="onResize($event)">
+            <!-- Service Image -->
+            <div class="position-relative mx-auto">
+              <img src="assets/images/landingpage/our-services/{{ service.image }}" [alt]="service.name"
+                class="w-100 slider-image" />
+            </div>
+
+            <!-- Service Details -->
+            <div
+              class="service-details text-black bg-white py-2 px-4  d-flex justify-content-between align-items-center"
+              (click)="onServiceClick(service.title)">
+              <div class="content">
+                <span class="service-title-details d-flex justify-content-start align-items-center gap-2">
+                  <span class="service-title fs-6 fw-normal text-nowrap">{{ service.title }}</span>
+                  <span class="service-count fs-875 fw-light text-nowrap">( has {{ service.serviceCount }} Services )</span>
+                </span>
+                <span class="service-caption fs-875 fw-light">{{ service.caption }}</span>
+              </div>
+              <div
+                class="arrow-container rounded-circle border border-primary p-2 d-flex justify-content-center align-items-center">
+                <i class="pi pi-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+
+      <!-- Custom Controls -->
+      <div class="controls d-flex justify-content-between align-items-center w-50 align-self-center mt-1">
+        <div class="prev-button d-flex justify-content-center align-items-center p-3" (click)="navigatePrev()">
+          <i class="pi pi-chevron-left text-white"></i>
+        </div>
+        <div class="next-button d-flex justify-content-center align-items-center p-3" (click)="navigateNext()">
+          <i class="pi pi-chevron-right text-white"></i>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Explore Button -->
+  <div class="explore-button-container w-100 d-flex justify-content-center align-items-center mt-4">
+    <button class="btn explore-button orange-bg-clr d-flex justify-content-center align-items-center gap-4 px-3 py-2">
+      <span class="fw-medium fs-6 text-nowrap">
+        {{'our-services.explore'| translate}}
+      </span>
+      <i class="pi pi-arrow-right fw-medium"></i>
+    </button>
+  </div>
 </div>

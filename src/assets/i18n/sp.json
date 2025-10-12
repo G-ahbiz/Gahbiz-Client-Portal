@@ -48,5 +48,32 @@
     "description": "Reservas rápidas, seguras y confiables para individuos y negocios.",
     "booknow": "Reservar Ahora",
     "exploreservices": "Explorar Servicios"
+  },
+  "our-services": {
+    "subtitle": "Qué ofrecemos?",
+    "title1": "Nuestros ",
+    "title2": "Servicios",
+    "explore": "Explorar Más Servicios"
+  },
+  "how-it-works": {
+    "title1": "Cómo Funciona",
+    "title2": "Nuestros Servicios",
+    "description": "Nuestro proceso simplificado hace que obtener servicios profesionales de impuestos y negocios sea simple y sin estrés",
+    "step1": {
+      "title": "Selecciona Tu Servicio",
+      "description": "Elige entre nuestra amplia gama de servicios de impuestos y negocios"
+    },
+    "step2": {
+      "title": "Proporciona Documentos/Información",
+      "description": "Carga tus documentos o proporciona la información necesaria de forma segura"
+    },
+    "step3": {
+      "title": "Procesamiento Experto",
+      "description": "Nuestros profesionales licenciados manejan tu trabajo de impuestos o negocios"
+    },
+    "step4": {
+      "title": "Revisión y Completado",
+      "description": "Revisa tu trabajo completado y archivo o lanza tu negocio"
+    }
   }
 }
