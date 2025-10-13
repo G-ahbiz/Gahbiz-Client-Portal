@@ -193,7 +193,7 @@
     "businessnetwork": "الشبكة التجارية",
     "toestablish": "لتأسيس حضورك على الإنترنت",
     "achieveyourbusiness": "وتحقيق أهداف عملك بالثقة",
-    "usefullinks": "الروابط المفيدة",
+    "quicklinks": "الروابط السريعة",
     "home": "الرئيسية",
     "ourteam": "فريقنا",
     "contactus": "اتصل بنا",
@@ -208,7 +208,12 @@
     "advertiseyourservices": "إعلان خدماتك",
     "selfpublishwithus": "نشر بنفسك معنا",
     "becomeserviceagent": "أصبح عامل خدمة",
-    "allrightsreserved": "جميع الحقوق محفوظة."
+    "allrightsreserved": "جميع الحقوق محفوظة.",
+    "needhelp": "تحتاج للمساعدة؟",
+    "your-account": "حسابك",
+    "your-orders": "طلباتك",
+    "account-settings": "إعدادات الحساب",
+    "payments": "الدفعات"
   },
   "hero": {
     "title1": "لدينا",

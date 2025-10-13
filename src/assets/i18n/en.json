@@ -187,7 +187,7 @@
     "businessnetwork": "Business Network",
     "toestablish": "to establish your online presence",
     "achieveyourbusiness": "and achieve your business goals with confidence",
-    "usefullinks": "Useful Links",
+    "quicklinks": "Quick Links",
     "home": "Home",
     "ourteam": "Our Team",
     "contactus": "Contact Us",
@@ -198,11 +198,16 @@
     "choiceoptinoptout": "Choice/Opt-In/Opt-Out",
     "policymodifications": "Policy Modifications",
     "earnmoneywithus": "Earn Money with Us",
-    "sellproductsongahbiz": "Sell products on Gahbiz",
+    "sellproductsongahbiz": "Sell products on Servabest",
     "advertiseyourservices": "Advertise Your Services",
     "selfpublishwithus": "Self-Publish with Us",
     "becomeserviceagent": "Become an Service Agent",
-    "allrightsreserved": "All rights reserved."
+    "allrightsreserved": "All rights reserved.",
+    "needhelp": "Need Help?",
+    "your-account": "Your Account",
+    "your-orders": "Your Orders",
+    "account-settings": "Account Settings",
+    "payments": "Payments"
   },
   "hero": {
     "title1": "Find",

@@ -24,7 +24,7 @@
     "businessnetwork": "Red comercial",
     "toestablish": "para establecer tu presencia en línea",
     "achieveyourbusiness": "y lograr tus objetivos de negocio con confianza",
-    "usefullinks": "Enlaces útiles",
+    "quicklinks": "Enlaces rápidos",
     "home": "Inicio",
     "ourteam": "Nuestro equipo",
     "contactus": "Contacto",
@@ -39,7 +39,12 @@
     "advertiseyourservices": "Publicitar tus servicios",
     "selfpublishwithus": "Publicar con nosotros",
     "becomeserviceagent": "Convertirse en agente de servicio",
-    "allrightsreserved": "Todos los derechos reservados."
+    "allrightsreserved": "Todos los derechos reservados.",
+    "needhelp": "¿Necesitas ayuda?",
+    "your-account": "Tu cuenta",
+    "your-orders": "Tus pedidos",
+    "account-settings": "Configuración de la cuenta",
+    "payments": "Pagos"
   },
   "hero": {
     "title1": "Encuentre",
