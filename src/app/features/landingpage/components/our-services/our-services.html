@@ -68,7 +68,9 @@
 
   <!-- Explore Button -->
   <div class="explore-button-container w-100 d-flex justify-content-center align-items-center mt-4">
-    <button class="btn explore-button orange-bg-clr d-flex justify-content-center align-items-center gap-4 px-3 py-2 bounce">
+    <button
+      class="btn explore-button orange-bg-clr d-flex justify-content-center align-items-center gap-4 px-3 py-2 bounce"
+      (click)="navigateToAllServices()">
       <span class="fw-medium fs-6 text-nowrap">
         {{'our-services.explore'| translate}}
       </span>

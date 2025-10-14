@@ -68,4 +68,14 @@ export class Navbar {
     }
     this.initializeTranslation();
   }
+
+  // set active service
+  setActiveServiceList(serviceId: number) {
+    let activeService = localStorage.getItem('activeService');
+    if (activeService) {
+      localStorage.setItem('activeService', serviceId.toString());
+    } else {
+      localStorage.setItem('activeService', serviceId.toString());
+    }
+  }
 }

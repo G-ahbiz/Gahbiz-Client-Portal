@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+<div class="container-fluid p-5 m-0 all-services-container">
+  <!-- Title & Subtitle -->
+  <div class="all-services-header w-100 d-flex flex-column justify-content-center align-items-center py-5">
+    <!-- Title -->
+    <div class="all-services-title">
+      <h1 class="text-center fw-bolder ">
+        <span class="txt-clr">
+          {{'all-services.title1'| translate}}
+        </span>
+        <span class="primary-text-clr">
+          {{'all-services.title2'| translate}}
+        </span>
+      </h1>
+    </div>
+
+    <!-- Subtitle -->
+    <div class="all-services-subtitle">
+      <p class="text-center fs-3">
+        {{'all-services.subtitle'| translate}}
+      </p>
+    </div>
+  </div>
+
+  <div class="breadcump">
+    <div class="card flex justify-center border-0 bg-transparent">
+      <p-breadcrumb [model]="items" [home]="home" styleClass="border-0 bg-transparent" />
+    </div>
+  </div>
+
+  <div class="services-list d-flex flex-wrap justify-content-center align-items-center gap-4 mt-5">
+    @for (service of services; track service.id) {
+    <button type="button" class="btn btn-outline-primary service-item" [class]="service.active ? 'active-service' : ''"
+      (click)="setActiveServiceList(service.id)">
+      <span class="service-item-title">
+        {{ isArabic ? service.serviceAr : isEnglish ? service.serviceEn : service.serviceSp }}
+      </span>
+    </button>
+    }
+  </div>
+
+  <div class="all-services-list mt-5 d-flex flex-wrap justify-content-center align-items-center gap-4">
+    @for (service of allServices; track service.id) {
+    <div class="card">
+      <div class="card-body">
+        <h3 class="fs-5 fw-medium">{{service.title}}</h3>
+        <p class="fs-6 fw-normal">{{service.subTitle}}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-start align-items-center gap-2">
+            <span class="price-offer fw-medium">{{service.priceOffer}}</span>
+            <span class="orignal-price text-muted"><del>{{service.orignalPrice}}</del></span>
+          </div>
+          <app-rating [rating]="service.rating"></app-rating>
+        </div>
+        <div class="image">
+          <img src="assets/images/all-services/{{service.image}}" [alt]="service.title" />
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+</div>
+<app-footer></app-footer>

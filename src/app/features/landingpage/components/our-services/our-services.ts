@@ -5,6 +5,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { Carousel } from 'primeng/carousel';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { Carousel } from 'primeng/carousel';
   styleUrl: './our-services.scss'
 })
 export class OurServices implements OnInit {
-  constructor(private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService, private router: Router) { }
   // Language
   isArabic: boolean = false;
   isEnglish: boolean = false;
@@ -155,5 +156,9 @@ export class OurServices implements OnInit {
 
   navigatePrev() {
     this.carousel.navBackward(new MouseEvent('click'));
+  }
+
+  navigateToAllServices() {
+    this.router.navigate(['/all-services']);
   }
 }

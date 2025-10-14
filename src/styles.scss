@@ -49,6 +49,7 @@
   --app-font-family: 'Libre Franklin', sans-serif;
   --app-font-alt: 'Libre Franklin', sans-serif;
   --primary-clr: #005db5;
+  --primary-clr-hover: #006edb;
   --accent-clr: #ffca19;
   --bg-clr: #fafafa;
   --bg-dark-clr: #121212;
@@ -87,22 +88,6 @@ body {
   @apply text-[#121212];
   margin: 0;
 }
-
-// .mat-typography,
-// .mat-button,
-// .mat-card,
-// .mat-form-field,
-// .mat-label,
-// .mat-input-element,
-// .mat-tab-label,
-// .mat-list-item,
-// .mat-anchor,
-// button,
-// input,
-// textarea,
-// select {
-//   font-family: var(--app-font-family) !important;
-// }
 
 // Remove the default password reveal button
 /* Hide in Edge / IE */

@@ -33,7 +33,7 @@
             [class]="isSpanish ? 'gap-2 text-nowrap' : ''">
             <!-- Home -->
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#">{{'navbar.home' | translate}}</a>
+              <a class="nav-link fw-medium orange-hover fs-6" routerLink="/home">{{'navbar.home' | translate}}</a>
             </li>
             <!-- Services Dropdown -->
             <li class="nav-item dropdown">
@@ -42,35 +42,50 @@
                 {{'navbar.services' | translate}}
               </a>
               <ul class="dropdown-menu dropdown-menu-end services-dropdown" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.taxservices' | translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.itinandein' | translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.translationandnotarypublic' |
+                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
+                    (click)="setActiveServiceList(1)">{{'navbar.taxservices' |
                     translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.businesslicense' | translate}}</a>
+                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
+                    (click)="setActiveServiceList(2)">{{'navbar.itinandein' |
+                    translate}}</a></li>
+                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
+                    (click)="setActiveServiceList(3)">{{'navbar.translationandnotarypublic' |
+                    translate}}</a></li>
+                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
+                    (click)="setActiveServiceList(4)">{{'navbar.businesslicense' |
+                    translate}}</a>
                 </li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.publicservcies' | translate}}</a>
+                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
+                    (click)="setActiveServiceList(5)">{{'navbar.publicservcies' |
+                    translate}}</a>
                 </li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.dmv' | translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.foodvendorservices' | translate}}</a>
+                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
+                    (click)="setActiveServiceList(6)">{{'navbar.dmv' |
+                    translate}}</a></li>
+                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
+                    (click)="setActiveServiceList(7)">{{'navbar.foodvendorservices'
+                    | translate}}</a>
                 </li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.immigration' | translate}}</a></li>
+                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
+                    (click)="setActiveServiceList(8)">{{'navbar.immigration' |
+                    translate}}</a></li>
               </ul>
             </li>
             <!-- About -->
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#">{{'navbar.about' | translate}}</a>
+              <a class="nav-link fw-medium orange-hover fs-6" routerLink="/about">{{'navbar.about' | translate}}</a>
             </li>
             <!-- FAQ -->
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#">{{'navbar.faq' | translate}}</a>
+              <a class="nav-link fw-medium orange-hover fs-6" routerLink="/faq">{{'navbar.faq' | translate}}</a>
             </li>
             <!-- Contact -->
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#">{{'navbar.contact' | translate}}</a>
+              <a class="nav-link fw-medium orange-hover fs-6" routerLink="/contact">{{'navbar.contact' | translate}}</a>
             </li>
             <!-- Search -->
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#"><i class="pi pi-search fs-6"></i></a>
+              <a class="nav-link fw-medium orange-hover fs-6" routerLink="/search"><i class="pi pi-search fs-6"></i></a>
             </li>
           </ul>
 

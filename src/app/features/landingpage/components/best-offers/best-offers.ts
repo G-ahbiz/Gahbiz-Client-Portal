@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Rating } from '@shared/components/rating/rating';
 
 export interface Offer {
   id: number;
@@ -13,7 +14,7 @@ export interface Offer {
 
 @Component({
   selector: 'app-best-offers',
-  imports: [TranslateModule, CommonModule],
+  imports: [TranslateModule, CommonModule, Rating],
   templateUrl: './best-offers.html',
   styleUrl: './best-offers.scss'
 })

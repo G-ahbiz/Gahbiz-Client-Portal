@@ -6,6 +6,7 @@ import { Layout } from '@features/layout/layout';
 import { NotFound } from '@shared/components/not-found/not-found';
 import { Terms } from '@shared/components/terms/terms';
 import { Privacy } from '@shared/components/privacy/privacy';
+import { AllServices } from './features/all-services/all-services';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,8 @@ export const routes: Routes = [
     ]
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  // { path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices) },
+  { path: 'all-services', component: AllServices },
   { path: 'Error404', component: NotFound },
   { path: '**', redirectTo: 'Error404', pathMatch: 'full' },
 

@@ -45,42 +45,7 @@
             </span>
           </div>
           <!-- Card Rate -->
-          <div class="card-rate d-flex justify-content-start align-items-center gap-1">
-            @if (offer.stars == 1) {
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star text-warning"></i>
-            <i class="pi pi-star text-warning"></i>
-            <i class="pi pi-star text-warning"></i>
-            <i class="pi pi-star text-warning"></i>
-            }
-            @if (offer.stars == 2) {
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star text-warning"></i>
-            <i class="pi pi-star text-warning"></i>
-            <i class="pi pi-star text-warning"></i>
-            }
-            @if (offer.stars == 3) {
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star text-warning"></i>
-            }
-            @if (offer.stars == 4) {
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star text-warning"></i>
-            }
-            @if (offer.stars == 5) {
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            <i class="pi pi-star-fill text-warning"></i>
-            }
-          </div>
+          <app-rating [rating]="offer.stars"></app-rating>
         </div>
 
         <!-- Card Button -->
