@@ -5,7 +5,9 @@ import { Footer } from "@shared/components/footer/footer";
 import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { RatingModule } from 'primeng/rating';
-import { Rating } from "@shared/components/rating/rating";
+import { ServicesComponent } from "./services-component/services-component";
+import { AllServicesLists } from "./all-services-lists/all-services-lists";
+
 
 export interface Service {
   id: number;
@@ -17,7 +19,7 @@ export interface Service {
 
 @Component({
   selector: 'app-all-services',
-  imports: [TranslateModule, Navbar, Footer, Breadcrumb, RatingModule, Rating],
+  imports: [TranslateModule, Navbar, Footer, Breadcrumb, RatingModule, ServicesComponent, AllServicesLists],
   templateUrl: './all-services.html',
   styleUrl: './all-services.scss'
 })
@@ -131,7 +133,8 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 3,
-        image: 'img.png'
+        image: 'service.jpg',
+        type: 'basic'
       },
       {
         id: 2,
@@ -140,7 +143,8 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 2,
-        image: 'img.png'
+        image: 'service.jpg',
+        type: 'standard'
       },
       {
         id: 3,
@@ -149,7 +153,8 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 5,
-        image: 'img.png'
+        image: 'service.jpg',
+        type: 'gold'
       },
       {
         id: 4,
@@ -158,7 +163,8 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 4,
-        image: 'img.png'
+        image: 'service.jpg',
+        type: 'silver'
       },
     ]
   }

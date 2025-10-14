@@ -2,30 +2,6 @@
   background-color: var(--bg-clr);
 }
 
-.service-item {
-  padding: 0.88rem 2.12rem;
-}
-
-.btn-outline-primary {
-  border: 1px solid var(--primary-clr);
-  color: var(--primary-clr);
-
-  &:hover {
-    background-color: var(--primary-clr);
-    color: var(--text-light-clr);
-  }
-}
-
-.active-service {
-  background-color: var(--primary-clr);
-  color: var(--text-light-clr);
-
-  &:hover {
-    background-color: var(--primary-clr-hover);
-    color: var(--text-light-clr);
-  }
-}
-
 @media screen and (min-width: 768px) {
   .all-services-subtitle {
     width: 45% !important;

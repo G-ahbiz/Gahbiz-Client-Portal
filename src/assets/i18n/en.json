@@ -260,5 +260,20 @@
     "title1": "Our ",
     "title2": "Services",
     "subtitle": "Explore our tax and business solutions designed to make things easier for you."
+  },
+  "services-list": {
+    "tax-services": "Tax Services",
+    "public-services": "Public Services",
+    "immigration-services": "Immigration Services",
+    "food-vendor-services": "Food Vendor Services",
+    "business-license-services": "Business License Services",
+    "itin-ein-services": "ITIN & EIN Services",
+    "dmv-services": "DMV Services",
+    "translation-notary-public-services": "Translation & Notary Public Services",
+    "appointment-service": "Appointment Service",
+    "basic": "Basic",
+    "standard": "Standard",
+    "gold": "Gold",
+    "silver": "Silver"
   }
 }

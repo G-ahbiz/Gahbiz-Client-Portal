@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <div class="services-list d-flex flex-wrap justify-content-center align-items-center gap-4 mt-5">
+  <div class="services-tabs d-flex flex-wrap justify-content-center align-items-center gap-4 mt-5">
     @for (service of services; track service.id) {
     <button type="button" class="btn btn-outline-primary service-item" [class]="service.active ? 'active-service' : ''"
       (click)="setActiveServiceList(service.id)">
@@ -38,25 +38,28 @@
     </button>
     }
   </div>
-
-  <div class="all-services-list mt-5 d-flex flex-wrap justify-content-center align-items-center gap-4">
-    @for (service of allServices; track service.id) {
-    <div class="card">
-      <div class="card-body">
-        <h3 class="fs-5 fw-medium">{{service.title}}</h3>
-        <p class="fs-6 fw-normal">{{service.subTitle}}</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="d-flex justify-content-start align-items-center gap-2">
-            <span class="price-offer fw-medium">{{service.priceOffer}}</span>
-            <span class="orignal-price text-muted"><del>{{service.orignalPrice}}</del></span>
-          </div>
-          <app-rating [rating]="service.rating"></app-rating>
-        </div>
-        <div class="image">
-          <img src="assets/images/all-services/{{service.image}}" [alt]="service.title" />
-        </div>
-      </div>
-    </div>
+  <div class="d-flex flex-column justify-content-center align-items-center gap-5">
+    @if (activeService === 1) {
+    <app-all-services-lists></app-all-services-lists>
+    } @else if (activeService === 2) {
+    <app-services-component [serviceList]="allServices" [title]="'tax-services'"></app-services-component>
+    } @else if (activeService === 3) {
+    <app-services-component [serviceList]="allServices" [title]="'public-services'"></app-services-component>
+    } @else if (activeService === 4) {
+    <app-services-component [serviceList]="allServices" [title]="'immigration-services'"></app-services-component>
+    } @else if (activeService === 5) {
+    <app-services-component [serviceList]="allServices" [title]="'food-vendor-services'"></app-services-component>
+    } @else if (activeService === 6) {
+    <app-services-component [serviceList]="allServices" [title]="'business-license-services'"></app-services-component>
+    } @else if (activeService === 7) {
+    <app-services-component [serviceList]="allServices" [title]="'itin-ein-services'"></app-services-component>
+    } @else if (activeService === 8) {
+    <app-services-component [serviceList]="allServices" [title]="'dmv-services'"></app-services-component>
+    } @else if (activeService === 9) {
+    <app-services-component [serviceList]="allServices"
+      [title]="'translation-notary-public-services'"></app-services-component>
+    } @else if (activeService === 10) {
+    <app-services-component [serviceList]="allServices" [title]="'appointment-service'"></app-services-component>
     }
   </div>
 

@@ -92,5 +92,20 @@
     "title3": "con sus ",
     "title4": "impuestos",
     "description": "No solo tomemos nuestra palabra - escucha a clientes satisfechos que confían en nosotros con sus necesidades financieras"
+  },
+  "services-list": {
+    "tax-services": "Servicios de impuestos",
+    "public-services": "Servicios públicos",
+    "immigration-services": "Servicios de inmigración",
+    "food-vendor-services": "Servicios de vendedores de alimentos",
+    "business-license-services": "Servicios de licencia comercial",
+    "itin-ein-services": "Servicios ITIN y EIN",
+    "dmv-services": "Servicios DMV",
+    "translation-notary-public-services": "Servicios de traducción y notario público",
+    "appointment-service": "Servicios de reservación",
+    "basic": "Básico",
+    "standard": "Estándar",
+    "gold": "Oro",
+    "silver": "Plata"
   }
 }

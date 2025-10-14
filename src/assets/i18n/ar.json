@@ -261,5 +261,20 @@
     "title3": "مع خدماتهم ",
     "title4": "الضرائب",
     "description": "لا تأخذ كلمتنا للكلمة - اسمع من العملاء الراضين الذين يثقون بنا باحتياجاتهم المالية"
+  },
+  "services-list": {
+    "tax-services": "خدمات الضرائب",
+    "public-services": "الخدمات العامة",
+    "immigration-services": "خدمات الهجرة",
+    "food-vendor-services": "خدمات المطاعم",
+    "business-license-services": "خدمات رخصة الأعمال",
+    "itin-ein-services": "خدمات ITIN & EIN",
+    "dmv-services": "خدمات DMV",
+    "translation-notary-public-services": "خدمات الترجمة والعهد العام",
+    "appointment-service": "خدمات المواعيد",
+    "basic": "Basic",
+    "standard": "Standard",
+    "gold": "Gold",
+    "silver": "Silver"
   }
 }
