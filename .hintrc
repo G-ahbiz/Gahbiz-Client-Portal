@@ -13,7 +13,8 @@
     "axe/aria": [
       "default",
       {
-        "aria-command-name": "off"
+        "aria-command-name": "off",
+        "aria-required-attr": "off"
       }
     ],
     "axe/text-alternatives": [

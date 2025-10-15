@@ -275,5 +275,9 @@
     "standard": "Standard",
     "gold": "Gold",
     "silver": "Silver"
+  },
+  "complete-profile": {
+    "title": "Complete Your Profile",
+    "description": "Please provide your information to help us serve you better. All data is encrypted and secure."
   }
 }

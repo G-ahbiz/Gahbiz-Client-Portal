@@ -276,5 +276,9 @@
     "standard": "Standard",
     "gold": "Gold",
     "silver": "Silver"
+  },
+  "complete-profile": {
+    "title": "إكمال الحساب",
+    "description": "يرجى تقديم بياناتك لمساعدتنا في خدمتك بشكل أفضل. كل البيانات مشفرة وآمنة."
   }
 }

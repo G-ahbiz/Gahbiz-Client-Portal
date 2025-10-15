@@ -12,8 +12,25 @@
   }
 }
 
+.all-services-header {
+  background: url('/assets/images/all-services/all-service-bg.png') no-repeat center center;
+  background-size: contain;
+}
+
 @media screen and (min-width: 768px) {
   .all-services-subtitle {
-    width: 45% !important;
+    width: 75% !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .all-services-subtitle {
+    width: 70% !important;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .all-services-subtitle {
+    width: 50% !important;
   }
 }

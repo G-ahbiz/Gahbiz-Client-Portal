@@ -33,7 +33,7 @@ export class AllServices implements OnInit, OnDestroy {
   isSpanish: boolean = false;
 
   // breadcrumb
-  items: MenuItem[] | undefined;
+  items: MenuItem[] = [{ label: 'Our Services', routerLink: '/all-services' }];
   home: MenuItem | undefined;
 
   // services list
@@ -48,10 +48,6 @@ export class AllServices implements OnInit, OnDestroy {
   ngOnInit() {
     // initialize translation
     this.initializeTranslation();
-    // breadcrumb
-    this.items = [
-      { label: 'Our Services', routerLink: '/all-services' }
-    ];
     this.home = { icon: 'pi pi-home', routerLink: '/home' };
 
     // services list
@@ -121,6 +117,17 @@ export class AllServices implements OnInit, OnDestroy {
   setActiveServiceList(serviceId: number) {
     this.activeService = serviceId;
     localStorage.setItem('activeService', serviceId.toString());
+    this.updateBreadcrumb();
+  }
+
+  // update breadcrumb
+  updateBreadcrumb() {
+    this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
+    let activeService = parseInt(localStorage.getItem('activeService') || '1');
+    if (activeService != 1) {
+      let activeServiceTitle = this.isArabic ? this.services?.find(service => service.id === activeService)?.serviceAr : this.isEnglish ? this.services?.find(service => service.id === activeService)?.serviceEn : this.services?.find(service => service.id === activeService)?.serviceSp;
+      this.items?.push({ label: activeServiceTitle, routerLink: '' });
+    }
   }
 
   // get all services list

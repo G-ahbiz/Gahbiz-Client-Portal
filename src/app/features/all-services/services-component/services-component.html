@@ -25,18 +25,21 @@
             </ul>
           </li>
           <!-- Previous Page -->
-          <li class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center"
+          <li
+            class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
             [class.disabled]="currentPage === 1" (click)="onPreviousPage()">
             <i class="pi pi-chevron-left fs-875 orange-text-clr"></i>
           </li>
           <!-- Page Numbers -->
           @for (i of totalPages; track i ) {
-          <li class="page-item py-1 px-2" [class.active]="currentPage === i" [class.disabled]="currentPage != i">
+          <li class="page-item py-1 px-2 cursor-pointer" [class.active]="currentPage === i"
+            [class.disabled]="currentPage != i">
             <a class="page-link" href="javascript:void(0)" (click)="onPageChange(i)">{{i}}</a>
           </li>
           }
           <!-- Next Page -->
-          <li class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center"
+          <li
+            class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
             [class.disabled]="currentPage === totalPages.length" (click)="onNextPage()">
             <i class="pi pi-chevron-right fs-875 orange-text-clr"></i>
           </li>

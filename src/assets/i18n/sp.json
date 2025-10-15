@@ -107,5 +107,9 @@
     "standard": "Estándar",
     "gold": "Oro",
     "silver": "Plata"
+  },
+  "complete-profile": {
+    "title": "Completar su perfil",
+    "description": "Por favor, proporcione su información para ayudarnos a servirle mejor. Todos los datos están encriptados y seguros."
   }
 }

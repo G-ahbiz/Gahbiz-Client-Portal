@@ -3,10 +3,8 @@ import { AuthGuard } from '@core/guards/auth.guard';
 import { NoAuthGuard } from '@core/guards/no-auth.guard';
 import { Landingpage } from '@features/landingpage/landingpage';
 import { Layout } from '@features/layout/layout';
-import { NotFound } from '@shared/components/not-found/not-found';
 import { Terms } from '@shared/components/terms/terms';
 import { Privacy } from '@shared/components/privacy/privacy';
-import { AllServices } from './features/all-services/all-services';
 
 export const routes: Routes = [
   {
@@ -18,11 +16,9 @@ export const routes: Routes = [
     ]
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  // { path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices) },
-  { path: 'all-services', component: AllServices },
-  { path: 'Error404', component: NotFound },
-  { path: '**', redirectTo: 'Error404', pathMatch: 'full' },
-
+  { path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices) },
+  { path: 'complete-profile', canActivate: [NoAuthGuard], loadComponent: () => import('./features/complete-profile/complete-profile').then(m => m.CompleteProfile) },
+  { path: 'Error404', canActivate: [NoAuthGuard], loadComponent: () => import('./shared/components/not-found/not-found').then(m => m.NotFound) },
   // {
   //   path: '',
   //   canActivate: [AuthGuard],
@@ -36,4 +32,5 @@ export const routes: Routes = [
     canActivateChild: [NoAuthGuard],
     loadChildren: () => import('./features/auth/auth.routing').then((m) => m.AUTH_ROUTES),
   },
+  { path: '**', redirectTo: 'Error404', pathMatch: 'full' },
 ];
