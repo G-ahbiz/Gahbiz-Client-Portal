@@ -49,18 +49,32 @@
   }
 }
 
-.active-service {
-  background-color: var(--primary-clr);
-  color: var(--text-light-clr);
+// Pagination styling
+.page-link {
+  color: var(--primary-clr);
+  border-bottom: 2px solid var(--primary-clr);
+}
 
-  &:hover {
-    background-color: var(--primary-clr-hover);
-    color: var(--text-light-clr);
+.arrow-item {
+  border: 1px solid var(--accent-clr);
+}
+
+.arrow-item.disabled {
+  border: 1px solid #ffca1980;
+  color: #ffca1980 !important;
+
+  > i {
+    color: #ffca1980 !important;
   }
+}
+
+.page-item.disabled > .page-link {
+  color: #b8b8b8;
+  border-bottom: none;
 }
 
 @media screen and (min-width: 768px) {
   .card {
-    width: 45% !important;
+    width: 48% !important;
   }
 }

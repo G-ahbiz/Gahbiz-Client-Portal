@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="container-fluid p-5 m-0 all-services-container">
+<div class="container-fluid p-2 px-lg-4 py-lg-5 m-0 all-services-container">
   <!-- Title & Subtitle -->
   <div class="all-services-header w-100 d-flex flex-column justify-content-center align-items-center py-5">
     <!-- Title -->
@@ -30,14 +30,16 @@
 
   <div class="services-tabs d-flex flex-wrap justify-content-center align-items-center gap-4 mt-5">
     @for (service of services; track service.id) {
-    <button type="button" class="btn btn-outline-primary service-item" [class]="service.active ? 'active-service' : ''"
-      (click)="setActiveServiceList(service.id)">
+    <button type="button" class="btn btn-outline-primary service-item"
+      [class]="service.id === activeService ? 'active-service' : ''" (click)="setActiveServiceList(service.id)">
       <span class="service-item-title">
         {{ isArabic ? service.serviceAr : isEnglish ? service.serviceEn : service.serviceSp }}
       </span>
     </button>
     }
   </div>
+
+  <!-- Active Service List -->
   <div class="d-flex flex-column justify-content-center align-items-center gap-5">
     @if (activeService === 1) {
     <app-all-services-lists></app-all-services-lists>

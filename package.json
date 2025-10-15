@@ -31,6 +31,7 @@
     "@angular/material": "^20.2.4",
     "@angular/platform-browser": "^20.2.0",
     "@angular/router": "^20.2.0",
+    "@ng-bootstrap/ng-bootstrap": "^19.0.1",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "@primeng/themes": "^20.2.0",
