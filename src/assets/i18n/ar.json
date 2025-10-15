@@ -279,6 +279,19 @@
   },
   "complete-profile": {
     "title": "إكمال الحساب",
-    "description": "يرجى تقديم بياناتك لمساعدتنا في خدمتك بشكل أفضل. كل البيانات مشفرة وآمنة."
+    "description": "يرجى تقديم بياناتك لمساعدتنا في خدمتك بشكل أفضل. كل البيانات مشفرة وآمنة.",
+    "personal-details": "التفاصيل الشخصية",
+    "form": {
+      "full-legal-name": "الاسم القانوني الكامل",
+      "full-legal-name-placeholder": "أدخل اسمك",
+      "email": "البريد الإلكتروني",
+      "email-placeholder": "أدخل بريدك الإلكتروني",
+      "gender": "الجنس",
+      "gender-male": "ذكر",
+      "gender-female": "أنثى",
+      "phone": "رقم الهاتف",
+      "national-id": "الرقم القومي",
+      "national-id-placeholder": "أدخل رقمك القومي"
+    }
   }
 }

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateModule, LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Navbar } from "@shared/components/navbar/navbar";
 import { Footer } from "@shared/components/footer/footer";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-complete-profile',
-  imports: [TranslateModule, Navbar, Footer],
+  imports: [TranslateModule, Navbar, Footer, CommonModule],
   templateUrl: './complete-profile.html',
   styleUrl: './complete-profile.scss'
 })
@@ -50,4 +51,5 @@ export class CompleteProfile implements OnInit {
       this.isSpanish = event.lang === 'sp';
     });
   }
+
 }

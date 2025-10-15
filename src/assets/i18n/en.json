@@ -278,6 +278,19 @@
   },
   "complete-profile": {
     "title": "Complete Your Profile",
-    "description": "Please provide your information to help us serve you better. All data is encrypted and secure."
+    "description": "Please provide your information to help us serve you better. All data is encrypted and secure.",
+    "personal-details": "Personal Details",
+    "form": {
+      "full-legal-name": "Full Legal Name",
+      "full-legal-name-placeholder": "Enter your name",
+      "email": "Email",
+      "email-placeholder": "Enter your email",
+      "gender": "Gender",
+      "gender-male": "Male",
+      "gender-female": "Female",
+      "phone": "Phone",
+      "national-id": "National ID",
+      "national-id-placeholder": "Enter your national id"
+    }
   }
 }

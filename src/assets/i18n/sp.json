@@ -110,6 +110,19 @@
   },
   "complete-profile": {
     "title": "Completar su perfil",
-    "description": "Por favor, proporcione su información para ayudarnos a servirle mejor. Todos los datos están encriptados y seguros."
+    "description": "Por favor, proporcione su información para ayudarnos a servirle mejor. Todos los datos están encriptados y seguros.",
+    "personal-details": "Detalles personales",
+    "form": {
+      "full-legal-name": "Nombre legal completo",
+      "full-legal-name-placeholder": "Ingrese su nombre",
+      "email": "Correo electrónico",
+      "email-placeholder": "Ingrese su correo electrónico",
+      "gender": "Género",
+      "gender-male": "Masculino",
+      "gender-female": "Femenino",
+      "phone": "Teléfono",
+      "national-id": "ID nacional",
+      "national-id-placeholder": "Ingrese su ID nacional"
+    }
   }
 }

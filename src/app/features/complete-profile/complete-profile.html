@@ -4,7 +4,7 @@
 
   <div class="container-fluid p-2 p-lg-5 m-0 d-flex flex-column gap-3">
     <!-- Title & Subtitle -->
-    <div class="title-subtitle">
+    <div class="title-subtitle py-5">
       <!-- Title -->
       <div class="title d-flex justify-content-center align-items-center gap-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
@@ -61,35 +61,89 @@
 
       <hr class="my-5">
 
-      <form action="" class="form-container">
-        <div class="form-title">
-          <h2>Personal Details</h2>
+      <form action="" class="form-container d-flex flex-column gap-5" formGroup="completeProfileForm">
+        <!-- Personal Details -->
+        <div class="form-title py-3">
+          <h2 class="fs-2 fw-medium" [class.ar-font-family]="isArabic">
+            {{'complete-profile.personal-details' | translate}}
+          </h2>
         </div>
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Enter your name">
+
+        <!-- Full Legal Name -->
+        <div class="form-group full-name-group">
+          <label class="fs-5 fw-medium" for="fullLegalName">{{'complete-profile.form.full-legal-name' | translate}}
+            <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="fullLegalName"
+            placeholder="{{'complete-profile.form.full-legal-name-placeholder' | translate}}"
+            formControlName="fullLegalName">
         </div>
+
+        <!-- Email & Gender -->
+        <div class="email-age-group d-flex justify-content-center align-items-center gap-3">
+          <!-- Email -->
+          <div class="form-group flex-1">
+            <label class="fs-5 fw-medium" for="email">{{'complete-profile.form.email' | translate}} <span
+                class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="email"
+              placeholder="{{'complete-profile.form.email-placeholder' | translate}}" formControlName="email">
+          </div>
+          <!-- Gender -->
+          <div class="form-group flex-1">
+            <label class="fs-5 fw-medium" for="gender">{{'complete-profile.form.gender' | translate}} <span
+                class="text-danger">*</span></label>
+            <select class="form-select" id="gender" formControlName="gender" [class.ar-font-family]="isArabic">
+              <option disabled selected></option>
+              <option value="male">{{'complete-profile.form.gender-male' | translate}}</option>
+              <option value="female">{{'complete-profile.form.gender-female' | translate}}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Phone & National ID -->
+        <div class="email-age-group d-flex justify-content-center align-items-center gap-3">
+
+          <!-- Phone -->
+          <div class="form-group flex-1">
+            <label class="fs-5 fw-medium" for="phoneNumber">{{'complete-profile.form.phone' | translate}} <span
+                class="text-danger">*</span></label>
+            <div class="phone-dropdown-wrapper d-flex align-items-center align-items-center">
+              <div class="input-group-text">
+                <select class="form-select" id="phoneNumber" formControlName="phoneNumber"
+                  [class.ar-font-family]="isArabic">
+                  <option disabled selected></option>
+                  <!-- America phone code -->
+                  <option value="+1">
+                    <img src="assets/images/navbar/language-icons/america.svg" alt="" class="w-25">
+                    <span class="">+1</span>
+                  </option>
+                  <!-- Egypt phone code -->
+                  <option value="+20">
+                    <img src="assets/images/navbar/language-icons/egypt.svg" alt="" class="w-25">
+                    +20
+                  </option>
+                  <!-- Saudi Arabia phone code -->
+                  <option value="+966">
+                    <img src="assets/images/navbar/language-icons/saudi-arabia.svg" alt="" class="w-25">
+                    +966
+                  </option>
+                </select>
+              </div>
+              <input type="text" class="form-control" id="phoneNumber"
+                placeholder="{{'complete-profile.form.phone-placeholder' | translate}}" formControlName="phoneNumber">
+            </div>
+          </div>
+
+          <!-- National ID -->
+          <div class="form-group flex-1">
+            <label class="fs-5 fw-medium" for="nationalId">{{'complete-profile.form.national-id' | translate}} <span
+                class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="nationalId"
+              placeholder="{{'complete-profile.form.national-id-placeholder' | translate}}"
+              formControlName="nationalId">
+          </div>
+        </div>
+
       </form>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your name">
-      </div>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your name">
-      </div>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your name">
-      </div>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your name">
-      </div>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your name">
-      </div>
 
     </div>
 
