@@ -281,6 +281,7 @@
     "title": "إكمال الحساب",
     "description": "يرجى تقديم بياناتك لمساعدتنا في خدمتك بشكل أفضل. كل البيانات مشفرة وآمنة.",
     "personal-details": "التفاصيل الشخصية",
+    "address": "العنوان",
     "form": {
       "full-legal-name": "الاسم القانوني الكامل",
       "full-legal-name-placeholder": "أدخل اسمك",
@@ -290,8 +291,26 @@
       "gender-male": "ذكر",
       "gender-female": "أنثى",
       "phone": "رقم الهاتف",
+      "phone-placeholder": "أدخل رقم هاتفك",
       "national-id": "الرقم القومي",
-      "national-id-placeholder": "أدخل رقمك القومي"
+      "national-id-placeholder": "أدخل رقمك القومي",
+      "country": "الدولة",
+      "country-placeholder": "اختر الدولة",
+      "state": "الولاية",
+      "state-placeholder": "اختر الولاية",
+      "postal-code": "الرمز البريدي",
+      "postal-code-placeholder": "أدخل الرمز البريدي",
+      "submit": "إرسال"
+    },
+    "states": {
+      "ny": "نيويورك",
+      "ca": "كاليفورنيا",
+      "tx": "تكساس",
+      "fl": "فلوريدا",
+      "il": "إلينوي",
+      "oh": "أوهايو",
+      "mi": "ميشيغان",
+      "pa": "بنسيلفانيا"
     }
   }
 }

@@ -280,6 +280,7 @@
     "title": "Complete Your Profile",
     "description": "Please provide your information to help us serve you better. All data is encrypted and secure.",
     "personal-details": "Personal Details",
+    "address": "Address",
     "form": {
       "full-legal-name": "Full Legal Name",
       "full-legal-name-placeholder": "Enter your name",
@@ -289,8 +290,30 @@
       "gender-male": "Male",
       "gender-female": "Female",
       "phone": "Phone",
+      "phone-placeholder": "Enter your phone",
       "national-id": "National ID",
-      "national-id-placeholder": "Enter your national id"
+      "national-id-placeholder": "Enter your national id",
+      "country": "Country",
+      "country-placeholder": "Select your country",
+      "state": "State",
+      "state-placeholder": "Select your state",
+      "postal-code": "Postal Code",
+      "postal-code-placeholder": "Enter postal code",
+      "submit": "Submit",
+      "birth-date": "Date of Birth",
+      "birth-month-placeholder": "MM",
+      "birth-day-placeholder": "DD",
+      "birth-year-placeholder": "YYYY"
+    },
+    "states": {
+      "ny": "New York",
+      "ca": "California",
+      "tx": "Texas",
+      "fl": "Florida",
+      "il": "Illinois",
+      "oh": "Ohio",
+      "mi": "Michigan",
+      "pa": "Pennsylvania"
     }
   }
 }

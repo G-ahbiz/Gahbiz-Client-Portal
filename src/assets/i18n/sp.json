@@ -112,6 +112,7 @@
     "title": "Completar su perfil",
     "description": "Por favor, proporcione su información para ayudarnos a servirle mejor. Todos los datos están encriptados y seguros.",
     "personal-details": "Detalles personales",
+    "address": "Dirección",
     "form": {
       "full-legal-name": "Nombre legal completo",
       "full-legal-name-placeholder": "Ingrese su nombre",
@@ -121,8 +122,26 @@
       "gender-male": "Masculino",
       "gender-female": "Femenino",
       "phone": "Teléfono",
+      "phone-placeholder": "Ingrese su teléfono",
       "national-id": "ID nacional",
-      "national-id-placeholder": "Ingrese su ID nacional"
+      "national-id-placeholder": "Ingrese su ID nacional",
+      "country": "País",
+      "country-placeholder": "Seleccione su país",
+      "state": "Estado",
+      "state-placeholder": "Seleccione su estado",
+      "postal-code": "Código postal",
+      "postal-code-placeholder": "Ingrese código postal",
+      "submit": "Enviar"
+    },
+    "states": {
+      "ny": "Nueva York",
+      "ca": "California",
+      "tx": "Texas",
+      "fl": "Florida",
+      "il": "Illinois",
+      "oh": "Ohio",
+      "mi": "Michigan",
+      "pa": "Pennsylvania"
     }
   }
 }

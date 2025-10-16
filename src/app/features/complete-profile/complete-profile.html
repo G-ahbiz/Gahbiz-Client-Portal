@@ -73,7 +73,7 @@
         <div class="form-group full-name-group">
           <label class="fs-5 fw-medium" for="fullLegalName">{{'complete-profile.form.full-legal-name' | translate}}
             <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" id="fullLegalName"
+          <input type="text" class="form-control" id="fullLegalName" name="fullLegalName"
             placeholder="{{'complete-profile.form.full-legal-name-placeholder' | translate}}"
             formControlName="fullLegalName">
         </div>
@@ -104,30 +104,34 @@
 
           <!-- Phone -->
           <div class="form-group flex-1">
-            <label class="fs-5 fw-medium" for="phoneNumber">{{'complete-profile.form.phone' | translate}} <span
-                class="text-danger">*</span></label>
+            <label class="fs-5 fw-medium" for="phoneNumber">
+              <span class="">{{'complete-profile.form.phone' | translate}} </span>
+              <span class="text-danger">*</span>
+            </label>
+
+            <!-- Phone Dropdown -->
             <div class="phone-dropdown-wrapper d-flex align-items-center align-items-center">
-              <div class="input-group-text">
-                <select class="form-select" id="phoneNumber" formControlName="phoneNumber"
-                  [class.ar-font-family]="isArabic">
-                  <option disabled selected></option>
-                  <!-- America phone code -->
-                  <option value="+1">
-                    <img src="assets/images/navbar/language-icons/america.svg" alt="" class="w-25">
-                    <span class="">+1</span>
-                  </option>
-                  <!-- Egypt phone code -->
-                  <option value="+20">
-                    <img src="assets/images/navbar/language-icons/egypt.svg" alt="" class="w-25">
-                    +20
-                  </option>
-                  <!-- Saudi Arabia phone code -->
-                  <option value="+966">
-                    <img src="assets/images/navbar/language-icons/saudi-arabia.svg" alt="" class="w-25">
-                    +966
-                  </option>
-                </select>
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary bg-transparent dropdown-toggle d-flex align-items-center gap-2 text-black"
+                  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="">{{currentPhoneCode}}</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <!-- Phone Codes -->
+                  @for (phoneCode of phoneCodes; track phoneCode.code) {
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center gap-2" href="javascript:(void 0)"
+                      (click)="setCurrentPhoneCode(phoneCode.flag)">
+                      <img [src]="phoneCode.image" alt="" class="flag-icon">
+                      <span class="">{{phoneCode.code}}</span>
+                    </a>
+                  </li>
+                  }
+
+                </ul>
               </div>
+              <!-- Phone Input -->
               <input type="text" class="form-control" id="phoneNumber"
                 placeholder="{{'complete-profile.form.phone-placeholder' | translate}}" formControlName="phoneNumber">
             </div>
@@ -143,12 +147,85 @@
           </div>
         </div>
 
+
+        <!-- Birth Date -->
+        <div class="form-group">
+          <!-- Birth Date Label -->
+          <label class="fs-5 fw-medium" for="birthDate">
+            <span class="">{{'complete-profile.form.birth-date' | translate}} </span>
+            <span class="text-danger">*</span>
+          </label>
+
+          <!-- Birth Date Inputs -->
+          <div class="d-flex justify-content-center align-items-center gap-3 w-25">
+            <!-- Birth Month -->
+            <input type="text" class="form-control" id="birthMonth"
+              placeholder="{{'complete-profile.form.birth-month-placeholder' | translate}}"
+              formControlName="birthMonth">
+            <span class="fs-4">/</span>
+            <!-- Birth Day -->
+            <input type="text" class="form-control" id="birthDay"
+              placeholder="{{'complete-profile.form.birth-day-placeholder' | translate}}" formControlName="birthDay">
+            <span class="fs-4">/</span>
+            <!-- Birth Year -->
+            <input type="text" class="form-control" id="birthYear"
+              placeholder="{{'complete-profile.form.birth-year-placeholder' | translate}}" formControlName="birthYear">
+          </div>
+        </div>
+
+        <hr class="my-5">
+
+        <!-- Address -->
+        <div class="form-title py-3">
+          <h2 class="fs-2 fw-medium" [class.ar-font-family]="isArabic">
+            {{'complete-profile.address' | translate}}
+          </h2>
+        </div>
+
+
+        <!-- Country & State -->
+        <div class="email-age-group d-flex justify-content-center align-items-center gap-3">
+          <!-- country -->
+          <div class="form-group flex-1">
+            <label class="fs-5 fw-medium" for="country">{{'complete-profile.form.country' | translate}} <span
+                class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="country"
+              placeholder="{{'complete-profile.form.country-placeholder' | translate}}" formControlName="country">
+          </div>
+          <!-- state -->
+          <div class="form-group flex-1">
+            <label class="fs-5 fw-medium" for="state">{{'complete-profile.form.state' | translate}} <span
+                class="text-danger">*</span></label>
+            <select class="form-select" id="state" formControlName="state" [class.ar-font-family]="isArabic">
+              <option disabled selected></option>
+              <option value="ny">{{'complete-profile.states.ny' | translate}}</option>
+              <option value="ca">{{'complete-profile.states.ca' | translate}}</option>
+              <option value="tx">{{'complete-profile.states.tx' | translate}}</option>
+              <option value="fl">{{'complete-profile.states.fl' | translate}}</option>
+              <option value="il">{{'complete-profile.states.il' | translate}}</option>
+              <option value="oh">{{'complete-profile.states.oh' | translate}}</option>
+              <option value="mi">{{'complete-profile.states.mi' | translate}}</option>
+              <option value="pa">{{'complete-profile.states.pa' | translate}}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Postal Code -->
+        <div class="form-group">
+          <label class="fs-5 fw-medium" for="postalCode">{{'complete-profile.form.postal-code' | translate}} <span
+              class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="postalCode"
+            placeholder="{{'complete-profile.form.postal-code-placeholder' | translate}}" formControlName="postalCode">
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group mt-4">
+          <button type="submit" class="btn btn-primary primary-bg-clr w-100 py-2 fw-semibold fs-5">
+            {{'complete-profile.form.submit' | translate}}
+          </button>
+        </div>
+
       </form>
-
     </div>
-
   </div>
-
-</div>
-
-<app-footer></app-footer>
+  <app-footer></app-footer>
