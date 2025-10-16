@@ -61,7 +61,7 @@
 
       <hr class="my-5">
 
-      <form action="" class="form-container d-flex flex-column gap-5" formGroup="completeProfileForm">
+      <form class="form-container d-flex flex-column gap-5" formGroup="completeProfileForm">
         <!-- Personal Details -->
         <div class="form-title py-3">
           <h2 class="fs-2 fw-medium" [class.ar-font-family]="isArabic">
@@ -75,7 +75,8 @@
             <span class="text-danger">*</span></label>
           <input type="text" class="form-control" id="fullLegalName" name="fullLegalName"
             placeholder="{{'complete-profile.form.full-legal-name-placeholder' | translate}}"
-            formControlName="fullLegalName">
+            formControlName="fullLegalName"
+            [class.is-invalid]="completeProfileForm.get('fullLegalName')?.invalid && completeProfileForm.get('fullLegalName')?.touched">
         </div>
 
         <!-- Email & Gender -->
