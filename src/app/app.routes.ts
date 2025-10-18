@@ -3,21 +3,20 @@ import { AuthGuard } from '@core/guards/auth.guard';
 import { NoAuthGuard } from '@core/guards/no-auth.guard';
 import { Landingpage } from '@features/landingpage/landingpage';
 import { Layout } from '@features/layout/layout';
-import { Terms } from '@shared/components/terms/terms';
-import { Privacy } from '@shared/components/privacy/privacy';
+
 
 export const routes: Routes = [
   {
     path: 'home', component: Layout, children: [
       { path: '', component: Landingpage },
-      { path: 'terms-and-conditions', component: Terms },
-      { path: 'privacy-policy', component: Privacy },
       { path: '**', redirectTo: 'Error404', pathMatch: 'full' },
     ]
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices) },
   { path: 'complete-profile', canActivate: [NoAuthGuard], loadComponent: () => import('./features/complete-profile/complete-profile').then(m => m.CompleteProfile) },
+  { path: 'privacy-policy', canActivate: [NoAuthGuard], loadComponent: () => import('./shared/components/privacy/privacy').then(m => m.Privacy) },
+  { path: 'terms-and-conditions', canActivate: [NoAuthGuard], loadComponent: () => import('./shared/components/terms/terms').then(m => m.Terms) },
   { path: 'Error404', canActivate: [NoAuthGuard], loadComponent: () => import('./shared/components/not-found/not-found').then(m => m.NotFound) },
   // {
   //   path: '',

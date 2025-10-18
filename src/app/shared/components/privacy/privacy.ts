@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Navbar } from "../navbar/navbar";
+import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-privacy',
-  imports: [],
+  imports: [Navbar, Footer],
   templateUrl: './privacy.html',
   styleUrl: './privacy.scss'
 })

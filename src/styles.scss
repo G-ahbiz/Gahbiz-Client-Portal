@@ -59,6 +59,15 @@
   --text-light-clr: #f1f1f1;
 }
 
+[data-bs-theme="dark"] {
+  --primary-clr: #005db5;
+  --primary-clr-hover: #006edb;
+  --accent-clr: #ffca19;
+  --bg-clr: #121212;
+  --bg-dark-clr: #121212;
+  --text-clr: #121212;
+}
+
 html {
   /* Make flag-icons use the copied assets path */
   --fi-path: '/assets/flags';

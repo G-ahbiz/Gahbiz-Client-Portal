@@ -131,7 +131,11 @@
       "state-placeholder": "Seleccione su estado",
       "postal-code": "Código postal",
       "postal-code-placeholder": "Ingrese código postal",
-      "submit": "Enviar"
+      "submit": "Guardar",
+      "birth-date": "Fecha de nacimiento",
+      "birth-month-placeholder": "MM",
+      "birth-day-placeholder": "DD",
+      "birth-year-placeholder": "YYYY"
     },
     "states": {
       "ny": "Nueva York",

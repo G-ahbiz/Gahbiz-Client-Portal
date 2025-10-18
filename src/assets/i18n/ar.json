@@ -300,7 +300,11 @@
       "state-placeholder": "اختر الولاية",
       "postal-code": "الرمز البريدي",
       "postal-code-placeholder": "أدخل الرمز البريدي",
-      "submit": "إرسال"
+      "submit": "حفظ",
+      "birth-date": "تاريخ الميلاد",
+      "birth-month-placeholder": "شهر",
+      "birth-day-placeholder": "يوم",
+      "birth-year-placeholder": "سنة"
     },
     "states": {
       "ny": "نيويورك",
