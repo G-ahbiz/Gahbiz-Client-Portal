@@ -140,6 +140,7 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 3,
+        ratingsCount: 36,
         image: 'service.jpg',
         type: 'basic'
       },
@@ -150,6 +151,7 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 2,
+        ratingsCount: 36,
         image: 'service.jpg',
         type: 'standard'
       },
@@ -160,6 +162,7 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 5,
+        ratingsCount: 36,
         image: 'service.jpg',
         type: 'gold'
       },
@@ -170,6 +173,7 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 4,
+        ratingsCount: 36,
         image: 'service.jpg',
         type: 'silver'
       },

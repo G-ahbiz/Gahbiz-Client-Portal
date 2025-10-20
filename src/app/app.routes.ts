@@ -13,7 +13,11 @@ export const routes: Routes = [
     ]
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices) },
+  {
+    path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices), children: [
+      { path: ':id', loadComponent: () => import('./features/all-services/service-details/service-details').then(m => m.ServiceDetails) },
+    ]
+  },
   { path: 'complete-profile', canActivate: [NoAuthGuard], loadComponent: () => import('./features/complete-profile/complete-profile').then(m => m.CompleteProfile) },
   { path: 'privacy-policy', canActivate: [NoAuthGuard], loadComponent: () => import('./shared/components/privacy/privacy').then(m => m.Privacy) },
   { path: 'terms-and-conditions', canActivate: [NoAuthGuard], loadComponent: () => import('./shared/components/terms/terms').then(m => m.Terms) },

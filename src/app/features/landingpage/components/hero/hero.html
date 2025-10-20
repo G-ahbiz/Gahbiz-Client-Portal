@@ -2,6 +2,7 @@
 
   <!-- hero content -->
   <div class="hero-content p-0 m-0 overflow-x-visible position-relative order-1 order-lg-0">
+    <!-- Hero Title -->
     <h1 class="ab-text-start display-3 fw-semibold hero-title z-2 position-relative text-center text-lg-start">
       {{'hero.title1'| translate}}
       <span class="primary-clr"> {{'hero.title2'| translate}}
@@ -9,15 +10,19 @@
       {{'hero.title3'| translate}}
     </h1>
 
+    <!-- Hero Description -->
     <p class="ab-text-start hero-description fs-4  mt-3 mb-4 text-center text-lg-start">
       {{'hero.description'| translate}}
     </p>
 
+    <!-- Hero Buttons -->
     <div class="buttons d-flex flex-row gap-3 mt-5 justify-content-center justify-content-lg-start">
+      <!-- Book Now Button -->
       <button class="btn btn-primary primary-bg px-lg-5 py-2 book-now-btn text-nowrap z-1">
         {{'hero.booknow'| translate}}
       </button>
-      <button class="btn btn-outline-primary px-lg-5 py-2 explore-services-btn text-nowrap z-1">
+      <!-- Explore Services Button -->
+      <button class="btn btn-outline-primary px-lg-5 py-2 explore-services-btn text-nowrap z-1" (click)="navigateToAllServices()">
         {{'hero.exploreservices'| translate}}
       </button>
     </div>

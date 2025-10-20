@@ -29,6 +29,7 @@ export class AllServicesLists implements OnInit {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 3,
+        ratingsCount: 36,
         image: 'service.jpg',
         type: 'basic'
       },
@@ -40,7 +41,8 @@ export class AllServicesLists implements OnInit {
         orignalPrice: '102',
         rating: 2,
         image: 'service.jpg',
-        type: 'standard'
+        type: 'standard',
+        ratingsCount: 36,
       },
       {
         id: 3,
@@ -50,7 +52,8 @@ export class AllServicesLists implements OnInit {
         orignalPrice: '102',
         rating: 5,
         image: 'service.jpg',
-        type: 'gold'
+        type: 'gold',
+        ratingsCount: 36,
       },
       {
         id: 4,
@@ -60,7 +63,8 @@ export class AllServicesLists implements OnInit {
         orignalPrice: '102',
         rating: 4,
         image: 'service.jpg',
-        type: 'silver'
+        type: 'silver',
+        ratingsCount: 36,
       },
       {
         id: 5,
@@ -70,7 +74,8 @@ export class AllServicesLists implements OnInit {
         orignalPrice: '52',
         rating: 3,
         image: 'service.jpg',
-        type: 'basic'
+        type: 'basic',
+        ratingsCount: 36,
       },
       {
         id: 6,
@@ -80,7 +85,8 @@ export class AllServicesLists implements OnInit {
         orignalPrice: '110',
         rating: 2,
         image: 'service.jpg',
-        type: 'standard'
+        type: 'standard',
+        ratingsCount: 36,
       },
       {
         id: 7,
@@ -90,7 +96,8 @@ export class AllServicesLists implements OnInit {
         orignalPrice: '102',
         rating: 5,
         image: 'service.jpg',
-        type: 'gold'
+        type: 'gold',
+        ratingsCount: 36,
       },
       {
         id: 8,
@@ -100,7 +107,8 @@ export class AllServicesLists implements OnInit {
         orignalPrice: '102',
         rating: 4,
         image: 'service.jpg',
-        type: 'silver'
+        type: 'silver',
+        ratingsCount: 36,
       },
     ]
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { AllServices, Service } from '@features/all-services/all-services';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
@@ -13,10 +14,26 @@ export class Navbar {
   isArabic: boolean = false;
   isEnglish: boolean = false;
   isSpanish: boolean = false;
-  constructor(private translateService: TranslateService, private router: Router) { }
+
+  // services list
+  services: Service[] | undefined;
+  constructor(private translateService: TranslateService, private router: Router, private allServicesComponent: AllServices) { }
 
   ngOnInit() {
     this.initializeTranslation();
+    // services list
+    this.services = [
+      { id: 1, serviceEn: 'All Services', serviceAr: 'كل الخدمات', serviceSp: 'Todos los Servicios', active: true },
+      { id: 2, serviceEn: 'Tax Services', serviceAr: 'خدمات الضرائب', serviceSp: 'Servicios de Impuestos', active: true },
+      { id: 3, serviceEn: 'Public Services', serviceAr: 'خدمات العامة', serviceSp: 'Servicios Públicos', active: true },
+      { id: 4, serviceEn: 'Immigration Services', serviceAr: 'خدمات الهجرة', serviceSp: 'Servicios de Inmigración', active: true },
+      { id: 5, serviceEn: 'Food Vendor Services', serviceAr: 'خدمات المطاعم', serviceSp: 'Servicios de Vendedores de Alimentos', active: true },
+      { id: 6, serviceEn: 'Business License Services', serviceAr: 'خدمات رخصة الأعمال', serviceSp: 'Servicios de Licencia Comercial', active: true },
+      { id: 7, serviceEn: 'ITIN & EIN Services', serviceAr: 'خدمات ITIN & EIN', serviceSp: 'Servicios de ITIN & EIN', active: true },
+      { id: 8, serviceEn: 'DMV Services', serviceAr: 'خدمات DMV', serviceSp: 'Servicios de DMV', active: true },
+      { id: 9, serviceEn: 'Translation & Notary Public Services', serviceAr: 'خدمات الترجمة والعهد العام', serviceSp: 'Servicios de Traducción y Notario Público', active: true },
+      { id: 10, serviceEn: 'Appointment Service', serviceAr: 'خدمات المواعيد', serviceSp: 'Servicios de Reservación', active: true },
+    ];
   }
 
   // Initialize translation
@@ -74,8 +91,13 @@ export class Navbar {
     let activeService = localStorage.getItem('activeService');
     if (activeService) {
       localStorage.setItem('activeService', serviceId.toString());
+      // active service in all-services component
+      this.allServicesComponent.setActiveServiceList(serviceId);
     } else {
       localStorage.setItem('activeService', serviceId.toString());
+      this.allServicesComponent.setActiveServiceList(serviceId);
     }
+    this.router.navigate(['/all-services']);
+
   }
 }
