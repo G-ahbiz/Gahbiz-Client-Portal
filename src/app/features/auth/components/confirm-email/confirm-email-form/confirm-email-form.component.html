@@ -6,7 +6,7 @@
 
   <!-- Title -->
   <header class="text-center mb-6">
-    <h1 class="text-neutral-900 dark:text-dark-text text-2xl font-semibold">
+    <h1 class="text-neutral-900 text-2xl font-semibold">
       {{ 'CONFIRM_EMAIL.TITLE' | translate }}
     </h1>
     <p class="text-black text-sm tracking-tighter mt-2 text-center font-medium">
@@ -23,28 +23,28 @@
       <div class="flex justify-center gap-3 mb-6" dir="ltr">
         @for(i of [0, 1, 2, 3, 4, 5]; track i) {
         <input type="text" maxlength="1"
-          class="otp-input border-2 border-gray-300 dark:border-gray-600 rounded-lg text-center focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          class="otp-input border-2 border-gray-300 rounded-lg text-center focus:border-blue-500 focus:outline-none bg-white text-gray-900"
           autofocus (input)="onOtpInput($event, i)" (paste)="onPasteOtp($event)" (keydown)="onOtpKeyDown($event, i)"
           [value]="confirmEmailForm.get('otp')?.value?.charAt(i) || ''" />
         }
       </div>
 
       <!-- Resend code link -->
-      <p class="text-gray-600 dark:text-gray-300 text-center mb-4">
+      <p class="text-gray-600 text-center mb-4">
         {{ 'AUTH.DIDNT_RECEIVE_CODE' | translate }}
         @if (resendCooldown > 0) {
-        <span class="text-blue-600 dark:text-blue-400">
+        <span class="text-blue-600">
           {{ 'CONFIRM_EMAIL.BUTTONS.RESENDING' | translate }} {{ resendCooldown }}s
         </span>
         } @else {
-        <a (click)="resendEmail()" class="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
+        <a (click)="resendEmail()" class="text-blue-600 hover:underline cursor-pointer">
           {{ 'CONFIRM_EMAIL.BUTTONS.RESEND' | translate }}
         </a>
         }
       </p>
 
       <!-- Alternative: Resend via link -->
-      <a (click)="resendEmailLink()" class="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer text-center">
+      <a (click)="resendEmailLink()" class="text-blue-600 hover:underline cursor-pointer text-center">
         {{ 'CONFIRM_EMAIL.BUTTONS.CONFIRM_WITH_EMAIL' | translate }}
       </a>
 
