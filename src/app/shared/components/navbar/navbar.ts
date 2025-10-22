@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AllServices, Service } from '@features/all-services/all-services';
+import { Service } from '@features/all-services/all-services';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
@@ -17,7 +17,7 @@ export class Navbar {
 
   // services list
   services: Service[] | undefined;
-  constructor(private translateService: TranslateService, private router: Router, private allServicesComponent: AllServices) { }
+  constructor(private translateService: TranslateService, private router: Router) { }
 
   ngOnInit() {
     this.initializeTranslation();
@@ -92,10 +92,10 @@ export class Navbar {
     if (activeService) {
       localStorage.setItem('activeService', serviceId.toString());
       // active service in all-services component
-      this.allServicesComponent.setActiveServiceList(serviceId);
+      // this.allServicesComponent.setActiveServiceList(serviceId);
     } else {
       localStorage.setItem('activeService', serviceId.toString());
-      this.allServicesComponent.setActiveServiceList(serviceId);
+      // this.allServicesComponent.setActiveServiceList(serviceId);
     }
     this.router.navigate(['/all-services']);
 
