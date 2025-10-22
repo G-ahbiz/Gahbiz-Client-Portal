@@ -1,0 +1,32 @@
+.txt-clr {
+  color: var(--text-clr);
+}
+
+.text-highlight {
+  color: var(--primary-clr);
+}
+
+.description {
+  line-height: 154% !important;
+  color: #616161;
+}
+
+.card-image-container {
+  width: 4.375rem;
+  height: 4.375rem;
+  background: lightgray 50%;
+}
+
+.card-image {
+  object-fit: fill;
+}
+
+@media screen and (min-width: 768px) {
+  .description {
+    width: 50% !important;
+  }
+
+  .testimonial-card {
+    width: 25% !important;
+  }
+}

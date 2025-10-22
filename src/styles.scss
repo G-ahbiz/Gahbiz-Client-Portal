@@ -21,10 +21,51 @@
 * {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 :root {
-  --app-font-family: 'IBM Plex Serif', Georgia, serif;
+  /* === Font Sizes === */
+  --font-xs: clamp(0.7rem, 1vw + 0.5vh, 0.85rem);
+  --font-sm: clamp(0.85rem, 1.3vw + 0.6vh, 1rem);
+  --font-md: clamp(1rem, 1.6vw + 0.8vh, 1.2rem);
+  --font-lg: clamp(1.15rem, 2vw + 1vh, 1.5rem);
+  --font-xl: clamp(1.3rem, 2.4vw + 1.2vh, 1.8rem);
+
+  /* === Heights === */
+  --input-height: clamp(2.25rem, 2.5vh + 1vw, 4rem);
+  --button-height: var(--input-height);
+  --social-height: clamp(2.25rem, 2.5vh + 1vw, 3.5rem);
+
+  /* === Spacing === */
+  --space-xs: clamp(0.25rem, 0.5vh + 0.2vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 0.8vh + 0.4vw, 0.75rem);
+  --space-md: clamp(0.75rem, 1.5vh + 0.5vw, 1.25rem);
+  --space-lg: clamp(1rem, 2.5vh + 1vw, 2rem);
+  --space-xl: clamp(1.5rem, 3.5vh + 1.2vw, 3rem);
+
+  /* === Components === */
+  --border-radius: clamp(0.375rem, 0.5vh + 0.2vw, 0.75rem);
+  --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // General Styles
+  --app-font-family: 'Libre Franklin', sans-serif;
+  --app-font-family-ar: 'cairo', sans-serif;
   --app-font-alt: 'Libre Franklin', sans-serif;
+  --primary-clr: #005db5;
+  --primary-clr-hover: #006edb;
+  --accent-clr: #ffca19;
+  --bg-clr: #fafafa;
+  --bg-dark-clr: #121212;
+  --text-clr: #121212;
+  --text-mute-clr: #616161;
+  --text-light-clr: #f1f1f1;
+}
+
+[data-bs-theme='dark'] {
+  --primary-clr: #005db5;
+  --primary-clr-hover: #006edb;
+  --accent-clr: #ffca19;
+  --bg-clr: #121212;
+  --bg-dark-clr: #121212;
+  --text-clr: #121212;
 }
 
 html {
@@ -46,9 +87,13 @@ html {
   font-family: var(--app-font-alt);
 }
 
+.font-IBM-Plex-Serif {
+  font-family: 'IBM Plex Serif', serif !important;
+}
+
 html,
 body {
-  font-family: var(--app-font-family);
+  font-family: var(--app-font-family) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -56,22 +101,6 @@ body {
 body {
   @apply text-[#121212];
   margin: 0;
-}
-
-.mat-typography,
-.mat-button,
-.mat-card,
-.mat-form-field,
-.mat-label,
-.mat-input-element,
-.mat-tab-label,
-.mat-list-item,
-.mat-anchor,
-button,
-input,
-textarea,
-select {
-  font-family: var(--app-font-family) !important;
 }
 
 // Remove the default password reveal button
@@ -110,60 +139,70 @@ input[type='password']::-webkit-outer-spin-button {
     -webkit-text-fill-color: theme('colors.light-text') !important;
     transition: background-color 9999s ease-in-out 0s !important;
   }
-
-  /* Dark mode override */
-  .dark input:-webkit-autofill,
-  .dark input:-webkit-autofill:hover,
-  .dark input:-webkit-autofill:focus,
-  .dark textarea:-webkit-autofill,
-  .dark textarea:-webkit-autofill:hover,
-  .dark textarea:-webkit-autofill:focus,
-  .dark select:-webkit-autofill,
-  .dark select:-webkit-autofill:hover,
-  .dark select:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0px 1000px theme('colors.dark-bg') inset !important;
-    -webkit-text-fill-color: theme('colors.dark-text') !important;
-  }
-
-  /* Firefox (uses its own rules for autofill, here we just enforce colors) */
-  input:-moz-autofill,
-  textarea:-moz-autofill,
-  select:-moz-autofill {
-    box-shadow: 0 0 0px 1000px theme('colors.light-input') inset !important;
-    -moz-text-fill-color: theme('colors.light-text') !important;
-  }
-
-  .dark input:-moz-autofill,
-  .dark textarea:-moz-autofill,
-  .dark select:-moz-autofill {
-    box-shadow: 0 0 0px 1000px theme('colors.dark-bg') inset !important;
-    -moz-text-fill-color: theme('colors.dark-text') !important;
-  }
 }
 
-:root {
-  /* === Font Sizes === */
-  --font-xs: clamp(0.7rem, 1vw + 0.5vh, 0.85rem);
-  --font-sm: clamp(0.85rem, 1.3vw + 0.6vh, 1rem);
-  --font-md: clamp(1rem, 1.6vw + 0.8vh, 1.2rem);
-  --font-lg: clamp(1.15rem, 2vw + 1vh, 1.5rem);
-  --font-xl: clamp(1.3rem, 2.4vw + 1.2vh, 1.8rem);
+// General Styles Abdelawal
+.ar-font-family {
+  font-family: var(--app-font-family-ar) !important;
+}
+.main-bg-clr {
+  background-color: var(--bg-clr) !important;
+}
 
-  /* === Heights === */
-  --input-height: clamp(2.25rem, 2.5vh + 1vw, 4rem);
-  --button-height: var(--input-height);
-  --social-height: clamp(2.25rem, 2.5vh + 1vw, 3.5rem);
+.orange-bg-clr {
+  background-color: var(--accent-clr) !important;
+}
 
-  /* === Spacing === */
-  --space-xs: clamp(0.25rem, 0.5vh + 0.2vw, 0.5rem);
-  --space-sm: clamp(0.5rem, 0.8vh + 0.4vw, 0.75rem);
-  --space-md: clamp(0.75rem, 1.5vh + 0.5vw, 1.25rem);
-  --space-lg: clamp(1rem, 2.5vh + 1vw, 2rem);
-  --space-xl: clamp(1.5rem, 3.5vh + 1.2vw, 3rem);
+.orange-text-clr {
+  color: var(--accent-clr) !important;
+}
 
-  /* === Components === */
-  --border-radius: clamp(0.375rem, 0.5vh + 0.2vw, 0.75rem);
-  --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+.white-bg-clr {
+  background-color: var(--text-light-clr) !important;
+}
+
+.white-text-clr {
+  color: var(--text-light-clr) !important;
+}
+
+.primary-bg-clr {
+  background-color: var(--primary-clr) !important;
+}
+
+.primary-text-clr {
+  color: var(--primary-clr) !important;
+}
+
+.dark-bg-clr {
+  background-color: var(--bg-dark-clr) !important;
+}
+
+.dark-text-clr {
+  color: var(--bg-dark-clr) !important;
+}
+
+.ltr {
+  direction: ltr !important;
+}
+.rtl {
+  direction: rtl !important;
+}
+
+.fs-875 {
+  font-size: 0.875rem !important;
+}
+
+.fs-75 {
+  font-size: 0.75rem !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.scale-down:active {
+  scale: 0.98;
+  transition: all 0.2s ease;
 }
 
 /* === Height-based Breakpoints === */

@@ -1,0 +1,80 @@
+.image-container {
+  height: 13.4375rem !important;
+  flex-shrink: 0;
+  width: 30% !important;
+
+  > img {
+    object-fit: fill !important;
+  }
+}
+.image-overlay {
+  padding: 0.5rem 1rem;
+  width: 90% !important;
+  border-radius: 3.125rem;
+  bottom: 0.5rem;
+  left: 5%;
+}
+
+.basic-card {
+  background: #121212e6;
+}
+
+.standard-card {
+  background: #c50000e6;
+}
+
+.gold-card {
+  background: #c7b400;
+}
+
+.silver-card {
+  background: #727272e6;
+}
+
+.card-body {
+  width: 70% !important;
+}
+
+.service-item {
+  padding: 0.88rem 2.12rem;
+}
+
+.btn-outline-primary {
+  border: 1px solid var(--primary-clr);
+  color: var(--primary-clr);
+
+  &:hover {
+    background-color: var(--primary-clr);
+    color: var(--text-light-clr);
+  }
+}
+
+// Pagination styling
+.page-link {
+  color: var(--primary-clr);
+  border-bottom: 2px solid var(--primary-clr);
+}
+
+.arrow-item {
+  border: 1px solid var(--accent-clr);
+}
+
+.arrow-item.disabled {
+  border: 1px solid #ffca1980;
+  color: #ffca1980 !important;
+
+  > i {
+    color: #ffca1980 !important;
+  }
+}
+
+.page-item.disabled > .page-link {
+  color: #b8b8b8;
+  border-bottom: none;
+}
+
+@media screen and (min-width: 990px) {
+  .card {
+    width: 48% !important;
+  }
+}

@@ -1,0 +1,66 @@
+.image-container {
+  height: 13.4375rem !important;
+  flex-shrink: 0;
+  width: 30% !important;
+
+  > img {
+    object-fit: fill !important;
+  }
+}
+.image-overlay {
+  padding: 0.5rem 1rem;
+  width: 90% !important;
+  border-radius: 3.125rem;
+  bottom: 0.5rem;
+  left: 5%;
+}
+
+.basic-card {
+  background: #121212e6;
+}
+
+.standard-card {
+  background: #c50000e6;
+}
+
+.gold-card {
+  background: #c7b400;
+}
+
+.silver-card {
+  background: #727272e6;
+}
+
+.card-body {
+  width: 70% !important;
+}
+
+.service-item {
+  padding: 0.88rem 2.12rem;
+}
+
+.btn-outline-primary {
+  border: 1px solid var(--primary-clr);
+  color: var(--primary-clr);
+
+  &:hover {
+    background-color: var(--primary-clr);
+    color: var(--text-light-clr);
+  }
+}
+
+.active-service {
+  background-color: var(--primary-clr);
+  color: var(--text-light-clr);
+
+  &:hover {
+    background-color: var(--primary-clr-hover);
+    color: var(--text-light-clr);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    width: 45% !important;
+  }
+}

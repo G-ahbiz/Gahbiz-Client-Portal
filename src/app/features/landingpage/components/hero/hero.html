@@ -1,0 +1,49 @@
+<div class="container-fluid p-5 m-0 hero d-flex flex-column h-auto flex-lg-row">
+
+  <!-- hero content -->
+  <div class="hero-content p-0 m-0 overflow-x-visible position-relative order-1 order-lg-0">
+    <h1 class="ab-text-start display-3 fw-semibold hero-title z-2 position-relative text-center text-lg-start">
+      {{'hero.title1'| translate}}
+      <span class="primary-clr"> {{'hero.title2'| translate}}
+      </span>
+      {{'hero.title3'| translate}}
+    </h1>
+
+    <p class="ab-text-start hero-description fs-4  mt-3 mb-4 text-center text-lg-start">
+      {{'hero.description'| translate}}
+    </p>
+
+    <div class="buttons d-flex flex-row gap-3 mt-5 justify-content-center justify-content-lg-start">
+      <button class="btn btn-primary primary-bg px-lg-5 py-2 book-now-btn text-nowrap z-1">
+        {{'hero.booknow'| translate}}
+      </button>
+      <button class="btn btn-outline-primary px-lg-5 py-2 explore-services-btn text-nowrap z-1">
+        {{'hero.exploreservices'| translate}}
+      </button>
+    </div>
+
+    <div class="pattern position-absolute w-100 h-100 top-0 left-0 d-flex flex-row gap-3 d-none d-xl-flex">
+      <div class="pattern1 align-self-start"></div>
+      <div class="pattern2 align-self-end"></div>
+    </div>
+  </div>
+
+  <!-- hero back -->
+  <div class="hero-back z-0 d-flex flex-row gap-3 order-0 order-lg-1 mb-5 mb-lg-0">
+    <!-- start -->
+    <div class="start d-flex flex-column w-50 gap-2">
+      <!-- Empty Div -->
+      <div class="back1 d-none d-xl-block"></div>
+      <img src="assets/images/landingpage/Hero/{{isArabic ? 'Shape 1':'Shape 2'}}.png" alt="{{isArabic ? 'Girl':'Boy'}}"
+        class="">
+    </div>
+
+    <!-- end -->
+    <div class="end d-flex flex-column w-50 gap-2">
+      <img src="assets/images/landingpage/Hero/{{isArabic ? 'Shape 2':'Shape 1'}}.png" alt="{{isArabic ? 'Boy':'Girl'}}"
+        class="">
+      <!-- Empty Div -->
+      <div class="back3 d-none d-xl-block"></div>
+    </div>
+  </div>
+</div>

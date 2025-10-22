@@ -1,0 +1,151 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "faq": "Preguntas frecuentes",
+    "services": "Servicios",
+    "contact": "Contacto",
+    "login": "Iniciar sesión",
+    "createaccount": "Crear cuenta",
+    "taxservices": "Servicios de impuestos",
+    "itinandein": "ITIN y EIN",
+    "translationandnotarypublic": "Traducción y notario público",
+    "businesslicense": "Licencia comercial",
+    "publicservcies": "Servicios públicos",
+    "dmv": "DMV",
+    "foodvendorservices": "Servicios de vendedores de alimentos",
+    "immigration": "Inmigración",
+    "english": "Inglés",
+    "arabic": "Árabe",
+    "spanish": "Español",
+    "bookaservice": "Reservar un servicio"
+  },
+  "footer": {
+    "businessnetwork": "Red comercial",
+    "toestablish": "para establecer tu presencia en línea",
+    "achieveyourbusiness": "y lograr tus objetivos de negocio con confianza",
+    "quicklinks": "Enlaces rápidos",
+    "home": "Inicio",
+    "ourteam": "Nuestro equipo",
+    "contactus": "Contacto",
+    "policiesandterms": "Políticas y términos",
+    "termsandconditions": "Términos y condiciones",
+    "privacypolicy": "Política de privacidad",
+    "refundpolicy": "Política de reembolso",
+    "choiceoptinoptout": "Opción/Opt-In/Opt-Out",
+    "policymodifications": "Modificaciones de política",
+    "earnmoneywithus": "Ganar dinero con nosotros",
+    "sellproductsongahbiz": "Vender productos en Gahbiz",
+    "advertiseyourservices": "Publicitar tus servicios",
+    "selfpublishwithus": "Publicar con nosotros",
+    "becomeserviceagent": "Convertirse en agente de servicio",
+    "allrightsreserved": "Todos los derechos reservados.",
+    "needhelp": "¿Necesitas ayuda?",
+    "your-account": "Tu cuenta",
+    "your-orders": "Tus pedidos",
+    "account-settings": "Configuración de la cuenta",
+    "payments": "Pagos"
+  },
+  "hero": {
+    "title1": "Encuentre",
+    "title2": "Profesionales Confiables",
+    "title3": "Para Cualquier Servicio – Desde Impuestos hasta Necesidades de Hogar",
+    "description": "Reservas rápidas, seguras y confiables para individuos y negocios.",
+    "booknow": "Reservar Ahora",
+    "exploreservices": "Explorar Servicios"
+  },
+  "our-services": {
+    "subtitle": "Qué ofrecemos?",
+    "title1": "Nuestros ",
+    "title2": "Servicios",
+    "explore": "Explorar Más Servicios"
+  },
+  "how-it-works": {
+    "title1": "Cómo Funciona",
+    "title2": "Nuestros Servicios",
+    "description": "Nuestro proceso simplificado hace que obtener servicios profesionales de impuestos y negocios sea simple y sin estrés",
+    "step1": {
+      "title": "Selecciona Tu Servicio",
+      "description": "Elige entre nuestra amplia gama de servicios de impuestos y negocios"
+    },
+    "step2": {
+      "title": "Proporciona Documentos/Información",
+      "description": "Carga tus documentos o proporciona la información necesaria de forma segura"
+    },
+    "step3": {
+      "title": "Procesamiento Experto",
+      "description": "Nuestros profesionales licenciados manejan tu trabajo de impuestos o negocios"
+    },
+    "step4": {
+      "title": "Revisión y Completado",
+      "description": "Revisa tu trabajo completado y archivo o lanza tu negocio"
+    }
+  },
+  "best-offers": {
+    "title1": "Mejores ",
+    "title2": "Ofertas",
+    "view-all": "Ver Todas Las Ofertas"
+  },
+  "testimonials": {
+    "title1": "Vea por qué millones ",
+    "title2": "confían en nosotros ",
+    "title3": "con sus ",
+    "title4": "impuestos",
+    "description": "No solo tomemos nuestra palabra - escucha a clientes satisfechos que confían en nosotros con sus necesidades financieras"
+  },
+  "services-list": {
+    "tax-services": "Servicios de impuestos",
+    "public-services": "Servicios públicos",
+    "immigration-services": "Servicios de inmigración",
+    "food-vendor-services": "Servicios de vendedores de alimentos",
+    "business-license-services": "Servicios de licencia comercial",
+    "itin-ein-services": "Servicios ITIN y EIN",
+    "dmv-services": "Servicios DMV",
+    "translation-notary-public-services": "Servicios de traducción y notario público",
+    "appointment-service": "Servicios de reservación",
+    "basic": "Básico",
+    "standard": "Estándar",
+    "gold": "Oro",
+    "silver": "Plata"
+  },
+  "complete-profile": {
+    "title": "Completar su perfil",
+    "description": "Por favor, proporcione su información para ayudarnos a servirle mejor. Todos los datos están encriptados y seguros.",
+    "personal-details": "Detalles personales",
+    "address": "Dirección",
+    "form": {
+      "full-legal-name": "Nombre legal completo",
+      "full-legal-name-placeholder": "Ingrese su nombre",
+      "email": "Correo electrónico",
+      "email-placeholder": "Ingrese su correo electrónico",
+      "gender": "Género",
+      "gender-male": "Masculino",
+      "gender-female": "Femenino",
+      "phone": "Teléfono",
+      "phone-placeholder": "Ingrese su teléfono",
+      "national-id": "ID nacional",
+      "national-id-placeholder": "Ingrese su ID nacional",
+      "country": "País",
+      "country-placeholder": "Seleccione su país",
+      "state": "Estado",
+      "state-placeholder": "Seleccione su estado",
+      "postal-code": "Código postal",
+      "postal-code-placeholder": "Ingrese código postal",
+      "submit": "Guardar",
+      "birth-date": "Fecha de nacimiento",
+      "birth-month-placeholder": "MM",
+      "birth-day-placeholder": "DD",
+      "birth-year-placeholder": "YYYY"
+    },
+    "states": {
+      "ny": "Nueva York",
+      "ca": "California",
+      "tx": "Texas",
+      "fl": "Florida",
+      "il": "Illinois",
+      "oh": "Ohio",
+      "mi": "Michigan",
+      "pa": "Pennsylvania"
+    }
+  }
+}

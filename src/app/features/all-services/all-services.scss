@@ -1,0 +1,36 @@
+.all-services-container {
+  background-color: var(--bg-clr);
+}
+
+.active-service {
+  background-color: var(--primary-clr);
+  color: var(--text-light-clr);
+
+  &:hover {
+    background-color: var(--primary-clr-hover);
+    color: var(--text-light-clr);
+  }
+}
+
+.all-services-header {
+  background: url('/assets/images/all-services/all-service-bg.png') no-repeat center center;
+  background-size: contain;
+}
+
+@media screen and (min-width: 768px) {
+  .all-services-subtitle {
+    width: 75% !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .all-services-subtitle {
+    width: 70% !important;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .all-services-subtitle {
+    width: 50% !important;
+  }
+}

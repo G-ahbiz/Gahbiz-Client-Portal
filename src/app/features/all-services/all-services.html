@@ -1,0 +1,69 @@
+<app-navbar></app-navbar>
+<div class="container-fluid p-2 px-md-4 py-md-5 m-0 all-services-container">
+  <!-- Title & Subtitle -->
+  <div class="all-services-header w-100 d-flex flex-column justify-content-center align-items-center py-5">
+    <!-- Title -->
+    <div class="all-services-title">
+      <h1 class="text-center fw-bolder ">
+        <span class="txt-clr">
+          {{'all-services.title1'| translate}}
+        </span>
+        <span class="primary-text-clr">
+          {{'all-services.title2'| translate}}
+        </span>
+      </h1>
+    </div>
+
+    <!-- Subtitle -->
+    <div class="all-services-subtitle">
+      <p class="text-center fs-3">
+        {{'all-services.subtitle'| translate}}
+      </p>
+    </div>
+  </div>
+
+  <div class="breadcump">
+    <div class="card flex justify-center border-0 bg-transparent">
+      <p-breadcrumb [model]="items" [home]="home" styleClass="border-0 bg-transparent" />
+    </div>
+  </div>
+
+  <div class="services-tabs d-flex flex-wrap justify-content-center align-items-center gap-4 mt-5">
+    @for (service of services; track service.id) {
+    <button type="button" class="btn btn-outline-primary service-item"
+      [class]="service.id === activeService ? 'active-service' : ''" (click)="setActiveServiceList(service.id)">
+      <span class="service-item-title">
+        {{ isArabic ? service.serviceAr : isEnglish ? service.serviceEn : service.serviceSp }}
+      </span>
+    </button>
+    }
+  </div>
+
+  <!-- Active Service List -->
+  <div class="d-flex flex-column justify-content-center align-items-center gap-5">
+    @if (activeService === 1) {
+    <app-all-services-lists></app-all-services-lists>
+    } @else if (activeService === 2) {
+    <app-services-component [serviceList]="allServices" [title]="'tax-services'"></app-services-component>
+    } @else if (activeService === 3) {
+    <app-services-component [serviceList]="allServices" [title]="'public-services'"></app-services-component>
+    } @else if (activeService === 4) {
+    <app-services-component [serviceList]="allServices" [title]="'immigration-services'"></app-services-component>
+    } @else if (activeService === 5) {
+    <app-services-component [serviceList]="allServices" [title]="'food-vendor-services'"></app-services-component>
+    } @else if (activeService === 6) {
+    <app-services-component [serviceList]="allServices" [title]="'business-license-services'"></app-services-component>
+    } @else if (activeService === 7) {
+    <app-services-component [serviceList]="allServices" [title]="'itin-ein-services'"></app-services-component>
+    } @else if (activeService === 8) {
+    <app-services-component [serviceList]="allServices" [title]="'dmv-services'"></app-services-component>
+    } @else if (activeService === 9) {
+    <app-services-component [serviceList]="allServices"
+      [title]="'translation-notary-public-services'"></app-services-component>
+    } @else if (activeService === 10) {
+    <app-services-component [serviceList]="allServices" [title]="'appointment-service'"></app-services-component>
+    }
+  </div>
+
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,69 @@
+<div class="container-fluid mt-5 p-2 p-md-5 my-5">
+  <div class="title-container d-flex flex-column justify-content-center align-items-center gap-3 mb-5">
+    <h1 class="title fw-medium">
+      <span class="txt-clr">{{'best-offers.title1'| translate}}</span>
+      <span class="text-highlight">{{'best-offers.title2'| translate}}</span>
+    </h1>
+    <div class="decoration-underline d-flex justify-content-between align-content-center w-25">
+      <div class="h-100 primary-bg-clr w-50"></div>
+      <div class="h-100 dark-bg-clr w-50"></div>
+    </div>
+  </div>
+
+  <div class="offers-container d-flex flex-row flex-wrap gap-3 justify-content-center align-items-center my-5">
+
+    @for (offer of offers; track offer.id) {
+    <div class="offer-card card mb-2">
+      <!-- Card Header -->
+      <div class="card-header overflow-hidden position-relative p-0">
+        <img src="assets/images/landingpage/best-offers/{{ offer.image }}" [alt]="offer.description" />
+        <div class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3">
+          <div
+            class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
+            (click)="putInFavorites(offer.id)">
+            <i class="pi pi-heart fs-4 red-heart"></i>
+          </div>
+          <div
+            class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
+            (click)="share(offer.id)">
+            <i class="pi pi-share-alt fs-4"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body px-3">
+        <!-- Card Description -->
+        <p class="card-description ">{{ offer.description }}</p>
+
+        <!-- Card Details -->
+        <div class="card-details d-flex justify-content-between align-items-center">
+          <!-- Card Price and Discount -->
+          <div class="card-price-discount d-flex justify-content-start align-items-center gap-2">
+            <span class="card-price fw-bold">${{ offer.price }}</span>
+            <span class="card-discount">
+              <del>${{ offer.discount }}</del>
+            </span>
+          </div>
+          <!-- Card Rate -->
+          <app-rating [rating]="offer.stars"></app-rating>
+        </div>
+
+        <!-- Card Button -->
+        <div class="card-button d-flex justify-content-start align-items-center gap-2 w-100 mt-3">
+          <button class="btn primary-bg-clr w-100 white-text-clr">Buy Now</button>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="explore-button-container w-100 d-flex justify-content-center align-items-center mt-5">
+    <button
+      class="btn explore-button scale-down primary-bg-clr white-text-clr d-flex justify-content-center align-items-center gap-4 px-5 py-3 bounce">
+      <span class="fw-medium fs-5 text-nowrap">
+        {{'best-offers.view-all'| translate}}
+      </span>
+      <i class="pi pi-arrow-{{isArabic ? 'left' : 'right'}} fw-medium"></i>
+    </button>
+  </div>
+</div>

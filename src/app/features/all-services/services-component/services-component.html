@@ -1,0 +1,90 @@
+<div class="d-flex flex-column justify-content-center align-items-center gap-4 mt-5">
+
+  <div class="services-list d-flex flex-column justify-content-center align-items-start gap-4 w-100">
+    <div class="service-title d-flex justify-content-between align-items-center w-100">
+      <h1 class="fs-3 fw-semibold">
+        {{'services-list.' + title| translate}}
+      </h1>
+
+
+      <!-- Pagination Controls -->
+      <nav aria-label="Services pagination" class="mt-4 align-self-end">
+        <ul class="d-flex justify-content-center align-items-center gap-4">
+          <!-- dropdown for page size -->
+          <li class="btn-group">
+            <button type="button" class="btn btn-primary primary-bg-clr dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              {{pageSize}}
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(2)">2</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(4)">4</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(6)">6</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(8)">8</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(10)">10</a></li>
+            </ul>
+          </li>
+          <!-- Previous Page -->
+          <li
+            class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
+            [class.disabled]="currentPage === 1" (click)="onPreviousPage()">
+            <i class="pi pi-chevron-left fs-875 orange-text-clr"></i>
+          </li>
+          <!-- Page Numbers -->
+          @for (i of totalPages; track i ) {
+          <li class="page-item py-1 px-2 cursor-pointer" [class.active]="currentPage === i"
+            [class.disabled]="currentPage != i">
+            <a class="page-link" href="javascript:void(0)" (click)="onPageChange(i)">{{i}}</a>
+          </li>
+          }
+          <!-- Next Page -->
+          <li
+            class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
+            [class.disabled]="currentPage === totalPages.length" (click)="onNextPage()">
+            <i class="pi pi-chevron-right fs-875 orange-text-clr"></i>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="service-list d-flex flex-wrap justify-content-between align-items-start gap-4 mt-3 w-100">
+      @for (service of getPaginatedServices(); track service.id) {
+
+      <!-- Service Card -->
+      <div class="card flex-row p-3 rounded-4 w-100">
+        <div class="image-container rounded-3 overflow-hidden position-relative">
+          <img src="assets/images/all-services/{{service.image}}" [alt]="service.title" class="w-100 h-100" />
+          <div class="image-overlay position-absolute d-flex justify-content-center align-items-center"
+            [class]="service.type + '-card'">
+            <span class="text-white fs-875 fw-medium text-center text-nowrap w-100 h-100">
+              {{'services-list.'+ service.type | translate}}
+            </span>
+          </div>
+        </div>
+
+        <!-- Service Card Body -->
+        <div class="card-body d-flex flex-column justify-content-between align-items-start gap-1">
+          <h3 class="fs-5 fw-medium">{{service.title}}</h3>
+          <p class="fs-6 fw-normal overflow-hidden text-ellipsis">{{service.subTitle}}</p>
+
+          <!-- Service Card Price & Rating -->
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <div class="d-flex justify-content-start align-items-center gap-2">
+              <span class="price-offer fw-medium">{{service.priceOffer}}</span>
+              <span class="orignal-price text-muted"><del>{{service.orignalPrice}}</del></span>
+            </div>
+            <app-rating [rating]="service.rating"></app-rating>
+          </div>
+
+          <!-- Service Card Button -->
+          <div class="button-container d-flex justify-content-start align-items-center gap-2 w-100 mt-2">
+            <button class="btn btn-primary card-btn text-nowrap py-2 px-4">Buy Now</button>
+            <button class="btn btn-outline-primary card-btn text-nowrap py-2 px-4">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+
+</div>

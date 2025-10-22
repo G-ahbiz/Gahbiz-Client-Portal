@@ -1,7 +1,8 @@
-<div class="sign-in-page h-screen grid grid-cols-1 lg:grid-cols-2 dark:bg-black dark:text-white" [attr.dir]="dir()">
+<div class="sign-in-page h-screen grid grid-cols-1 lg:grid-cols-2  " [attr.dir]="dir()">
 
   <!-- Left: Sign-in form -->
-  <div class="signin-container lg:order-1 w-full flex flex-col items-center justify-center p-4 bg-white dark:bg-black overflow-y-auto">
+  <div
+    class="signin-container lg:order-1 w-full flex flex-col items-center justify-center p-4 bg-white  overflow-y-auto">
     <div class="w-full max-w-xl mx-auto space-y-2">
 
       <!-- Logo -->
@@ -11,7 +12,7 @@
 
       <!-- Title -->
       <header class="text-center mb-6">
-        <h1 class="text-neutral-900 dark:text-dark-text text-2xl font-semibold">
+        <h1 class="text-neutral-900 text-2xl font-semibold">
           {{ 'AUTH.WELCOME_BACK' | translate }}
         </h1>
       </header>

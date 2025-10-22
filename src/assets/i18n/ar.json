@@ -167,5 +167,154 @@
   },
   "HEADER": {
     "LOG_OUT": "تسجيل الخروج"
+  },
+  "navbar": {
+    "home": "الرئيسية",
+    "about": "عن الشركة",
+    "services": "الخدمات",
+    "faq": "الأسئلة الشائعة",
+    "contact": "اتصل بنا",
+    "login": "تسجيل الدخول",
+    "createaccount": "إنشاء حساب",
+    "taxservices": "خدمات الضرائب",
+    "itinandein": "ITIN & EIN",
+    "translationandnotarypublic": "ترجمة وعهد عام",
+    "businesslicense": "رخصة الأعمال",
+    "publicservcies": "الخدمات العامة",
+    "dmv": "DMV",
+    "foodvendorservices": "خدمات المطاعم",
+    "immigration": "الهجرة",
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "spanish": "الأسبانية",
+    "bookaservice": "احجز خدمة"
+  },
+  "footer": {
+    "businessnetwork": "الشبكة التجارية",
+    "toestablish": "لتأسيس حضورك على الإنترنت",
+    "achieveyourbusiness": "وتحقيق أهداف عملك بالثقة",
+    "quicklinks": "الروابط السريعة",
+    "home": "الرئيسية",
+    "ourteam": "فريقنا",
+    "contactus": "اتصل بنا",
+    "policiesandterms": "السياسات والشروط",
+    "termsandconditions": "الشروط والأحكام",
+    "privacypolicy": "سياسة الخصوصية",
+    "refundpolicy": "سياسة الإسترجاع",
+    "choiceoptinoptout": "اختيار/إنضمام/إخراج",
+    "policymodifications": "تعديلات السياسة",
+    "earnmoneywithus": "كسب المال معنا",
+    "sellproductsongahbiz": "بيع المنتجات في غابيز",
+    "advertiseyourservices": "إعلان خدماتك",
+    "selfpublishwithus": "نشر بنفسك معنا",
+    "becomeserviceagent": "أصبح عامل خدمة",
+    "allrightsreserved": "جميع الحقوق محفوظة.",
+    "needhelp": "تحتاج للمساعدة؟",
+    "your-account": "حسابك",
+    "your-orders": "طلباتك",
+    "account-settings": "إعدادات الحساب",
+    "payments": "الدفعات"
+  },
+  "hero": {
+    "title1": "لدينا",
+    "title2": "خدمات موثوقة",
+    "title3": "لأي خدمة – من الضرائب إلى الاحتياجات المنزلية",
+    "description": "حجز سريع وآمن وموثوق للأفراد والشركات.",
+    "booknow": "حجز الآن",
+    "exploreservices": "استكشف الخدمات"
+  },
+  "our-services": {
+    "subtitle": "ماذا نقدم؟",
+    "title1": "خدماتنا",
+    "title2": "الخدمات",
+    "explore": "اكتشف المزيد من الخدمات"
+  },
+  "how-it-works": {
+    "title1": "كيف تعمل ",
+    "title2": "خدماتنا",
+    "description": "عمليتنا المبسطة تجعل الحصول على خدمات مهنية من الضرائب والأعمال بسهولة وبدون إجهاد",
+    "step1": {
+      "title": "اختر خدمتك",
+      "description": "اختر من مجموعتنا الشاملة من خدمات الضرائب والأعمال"
+    },
+    "step2": {
+      "title": "تقديم المستندات/المعلومات",
+      "description": "رفع مستنداتك بأمان أو تقديم المعلومات اللازمة"
+    },
+    "step3": {
+      "title": "معالجة خبيرة",
+      "description": "يتم معالجة عملك من قبل مهنيين محترفين"
+    },
+    "step4": {
+      "title": "مراجعة وإكمال",
+      "description": "مراجعة عملك المكتمل وتسجيله أو إطلاق الأعمال"
+    }
+  },
+  "best-offers": {
+    "title1": "أفضل ",
+    "title2": "العروض",
+    "view-all": "عرض جميع العروض"
+  },
+  "testimonials": {
+    "title1": "شاهد لماذا ملايين ",
+    "title2": "يثقون بنا ",
+    "title3": "مع خدماتهم ",
+    "title4": "الضرائب",
+    "description": "لا تأخذ كلمتنا للكلمة - اسمع من العملاء الراضين الذين يثقون بنا باحتياجاتهم المالية"
+  },
+  "services-list": {
+    "tax-services": "خدمات الضرائب",
+    "public-services": "الخدمات العامة",
+    "immigration-services": "خدمات الهجرة",
+    "food-vendor-services": "خدمات المطاعم",
+    "business-license-services": "خدمات رخصة الأعمال",
+    "itin-ein-services": "خدمات ITIN & EIN",
+    "dmv-services": "خدمات DMV",
+    "translation-notary-public-services": "خدمات الترجمة والعهد العام",
+    "appointment-service": "خدمات المواعيد",
+    "basic": "Basic",
+    "standard": "Standard",
+    "gold": "Gold",
+    "silver": "Silver"
+  },
+  "complete-profile": {
+    "title": "إكمال الحساب",
+    "description": "يرجى تقديم بياناتك لمساعدتنا في خدمتك بشكل أفضل. كل البيانات مشفرة وآمنة.",
+    "personal-details": "التفاصيل الشخصية",
+    "address": "العنوان",
+    "form": {
+      "full-legal-name": "الاسم القانوني الكامل",
+      "full-legal-name-placeholder": "أدخل اسمك",
+      "email": "البريد الإلكتروني",
+      "email-placeholder": "أدخل بريدك الإلكتروني",
+      "gender": "الجنس",
+      "gender-male": "ذكر",
+      "gender-female": "أنثى",
+      "phone": "رقم الهاتف",
+      "phone-placeholder": "أدخل رقم هاتفك",
+      "national-id": "الرقم القومي",
+      "national-id-placeholder": "أدخل رقمك القومي",
+      "country": "الدولة",
+      "country-placeholder": "اختر الدولة",
+      "state": "الولاية",
+      "state-placeholder": "اختر الولاية",
+      "postal-code": "الرمز البريدي",
+      "postal-code-placeholder": "أدخل الرمز البريدي",
+      "submit": "حفظ",
+      "birth-date": "تاريخ الميلاد",
+      "birth-month-placeholder": "شهر",
+      "birth-day-placeholder": "يوم",
+      "birth-year-placeholder": "سنة"
+    },
+    "states": {
+      "ny": "نيويورك",
+      "ca": "كاليفورنيا",
+      "tx": "تكساس",
+      "fl": "فلوريدا",
+      "il": "إلينوي",
+      "oh": "أوهايو",
+      "mi": "ميشيغان",
+      "pa": "بنسيلفانيا"
+    }
   }
 }

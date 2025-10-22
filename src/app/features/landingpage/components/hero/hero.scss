@@ -1,0 +1,85 @@
+.hero {
+  padding: 3rem 6.25rem;
+  /* height: 59.5rem !important; */
+}
+
+.hero-description {
+  line-height: 140% !important;
+}
+
+.back1,
+.back3,
+.pattern1,
+.pattern2 {
+  flex-shrink: 0;
+  border-radius: 12.5rem;
+  background: var(--accent-clr);
+}
+
+.back1,
+.back3,
+.pattern1,
+.pattern2 {
+  width: 22.125rem;
+  height: 11.875rem;
+}
+
+.back3 {
+  background: var(--primary-clr);
+}
+
+.girl,
+.boy {
+  width: 9rem;
+}
+
+.explore-services-btn:hover {
+  background-color: var(--primary-clr) !important;
+}
+
+.pattern1 {
+  background-color: #ffca191a;
+  margin-block-start: 10.06rem;
+}
+
+.pattern2 {
+  background-color: #005db51a;
+  margin-block-end: 10.19rem;
+  margin-inline-start: -5.19rem;
+}
+
+@media screen and (min-width: 768px) {
+  .back2 {
+    height: 22.375rem;
+    width: 10rem;
+  }
+
+  .girl,
+  .boy {
+    width: 13rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .hero-content {
+    width: 45% !important;
+  }
+
+  .hero-title {
+    width: 145% !important;
+    line-height: 129% !important;
+  }
+
+  .hero-back {
+    width: 55% !important;
+  }
+
+  .hero-description {
+    width: 75% !important;
+  }
+
+  .girl,
+  .boy {
+    width: 20rem;
+  }
+}

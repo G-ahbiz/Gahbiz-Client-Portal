@@ -161,5 +161,159 @@
   },
   "HEADER": {
     "LOG_OUT": "Log Out"
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "faq": "FAQ",
+    "services": "Services",
+    "contact": "Contact",
+    "login": "Login",
+    "createaccount": "Create Account",
+    "taxservices": "Tax Services",
+    "itinandein": "ITIN & EIN",
+    "translationandnotarypublic": "Translation & Notary Public",
+    "businesslicense": "Business License",
+    "publicservcies": "Public Servcies",
+    "dmv": "DMV",
+    "foodvendorservices": "Food Vendor Services",
+    "immigration": "IMMIGRATION",
+    "english": "English",
+    "arabic": "Arabic",
+    "spanish": "Spanish",
+    "bookaservice": "Book a Service"
+  },
+  "footer": {
+    "businessnetwork": "Business Network",
+    "toestablish": "to establish your online presence",
+    "achieveyourbusiness": "and achieve your business goals with confidence",
+    "quicklinks": "Quick Links",
+    "home": "Home",
+    "ourteam": "Our Team",
+    "contactus": "Contact Us",
+    "policiesandterms": "Policies and Terms",
+    "termsandconditions": "Terms & Conditions",
+    "privacypolicy": "Privacy Policy",
+    "refundpolicy": "Refund Policy",
+    "choiceoptinoptout": "Choice/Opt-In/Opt-Out",
+    "policymodifications": "Policy Modifications",
+    "earnmoneywithus": "Earn Money with Us",
+    "sellproductsongahbiz": "Sell products on Servabest",
+    "advertiseyourservices": "Advertise Your Services",
+    "selfpublishwithus": "Self-Publish with Us",
+    "becomeserviceagent": "Become an Service Agent",
+    "allrightsreserved": "All rights reserved.",
+    "needhelp": "Need Help?",
+    "your-account": "Your Account",
+    "your-orders": "Your Orders",
+    "account-settings": "Account Settings",
+    "payments": "Payments"
+  },
+  "hero": {
+    "title1": "Find",
+    "title2": "Trusted",
+    "title3": "Professionals for Any Service – From Taxes to Home Needs",
+    "description": "Fast, secure, and reliable bookings for individuals and businesses.",
+    "booknow": "Book Now",
+    "exploreservices": "Explore Services"
+  },
+  "our-services": {
+    "subtitle": "What we offer?",
+    "title1": "Our ",
+    "title2": "Services",
+    "explore": "Explore More Services"
+  },
+  "how-it-works": {
+    "title1": "How It",
+    "title2": " Works",
+    "description": "Our streamlined process makes getting professional tax and business services simple and stress-free",
+    "step1": {
+      "title": "Select Your Service",
+      "description": "Choose from our comprehensive range of tax and business services"
+    },
+    "step2": {
+      "title": "Provide Documents/Info",
+      "description": "Securely upload your documents or provide necessary information"
+    },
+    "step3": {
+      "title": "Expert Processing",
+      "description": "Our licensed professionals handle your tax or business work"
+    },
+    "step4": {
+      "title": "Review & Complete",
+      "description": "Review your completed work and file or launch your business"
+    }
+  },
+  "best-offers": {
+    "title1": "Best ",
+    "title2": "Offers",
+    "view-all": "View All Offers"
+  },
+  "testimonials": {
+    "title1": "See why millions ",
+    "title2": "trust us ",
+    "title3": "with Their ",
+    "title4": "Taxes",
+    "description": "Don't just take our word for it - hear from satisfied clients who trust us with their financial needs"
+  },
+  "all-services": {
+    "title1": "Our ",
+    "title2": "Services",
+    "subtitle": "Explore our tax and business solutions designed to make things easier for you."
+  },
+  "services-list": {
+    "tax-services": "Tax Services",
+    "public-services": "Public Services",
+    "immigration-services": "Immigration Services",
+    "food-vendor-services": "Food Vendor Services",
+    "business-license-services": "Business License Services",
+    "itin-ein-services": "ITIN & EIN Services",
+    "dmv-services": "DMV Services",
+    "translation-notary-public-services": "Translation & Notary Public Services",
+    "appointment-service": "Appointment Service",
+    "basic": "Basic",
+    "standard": "Standard",
+    "gold": "Gold",
+    "silver": "Silver"
+  },
+  "complete-profile": {
+    "title": "Complete Your Profile",
+    "description": "Please provide your information to help us serve you better. All data is encrypted and secure.",
+    "personal-details": "Personal Details",
+    "address": "Address",
+    "form": {
+      "full-legal-name": "Full Legal Name",
+      "full-legal-name-placeholder": "Enter your name",
+      "email": "Email",
+      "email-placeholder": "Enter your email",
+      "gender": "Gender",
+      "gender-male": "Male",
+      "gender-female": "Female",
+      "phone": "Phone",
+      "phone-placeholder": "Enter your phone",
+      "national-id": "National ID",
+      "national-id-placeholder": "Enter your national id",
+      "country": "Country",
+      "country-placeholder": "Select your country",
+      "state": "State",
+      "state-placeholder": "Select your state",
+      "postal-code": "Postal Code",
+      "postal-code-placeholder": "Enter postal code",
+      "submit": "Save",
+      "birth-date": "Date of Birth",
+      "birth-month-placeholder": "MM",
+      "birth-day-placeholder": "DD",
+      "birth-year-placeholder": "YYYY"
+    },
+    "states": {
+      "ny": "New York",
+      "ca": "California",
+      "tx": "Texas",
+      "fl": "Florida",
+      "il": "Illinois",
+      "oh": "Ohio",
+      "mi": "Michigan",
+      "pa": "Pennsylvania"
+    }
   }
 }
