@@ -1,22 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Offer } from '@features/landingpage/interfaces/offer';
+import { LandingApiService } from '@features/landingpage/services/landing-api.service';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Rating } from '@shared/components/rating/rating';
-
-export interface Offer {
-  id: number;
-  image: string;
-  description: string;
-  price: number;
-  discount: number;
-  stars: number;
-}
 
 @Component({
   selector: 'app-best-offers',
   imports: [TranslateModule, CommonModule, Rating],
   templateUrl: './best-offers.html',
-  styleUrl: './best-offers.scss'
+  styleUrl: './best-offers.scss',
 })
 export class BestOffers implements OnInit {
   isArabic: boolean = false;
@@ -24,8 +17,13 @@ export class BestOffers implements OnInit {
   isSpanish: boolean = false;
 
   offers: Offer[] = [];
+  isLoading: boolean = false;
+  error: string = '';
 
-  constructor(private translateService: TranslateService) { }
+  constructor(
+    private translateService: TranslateService,
+    private landingApiService: LandingApiService
+  ) {}
 
   ngOnInit() {
     this.initializeTranslation();
@@ -62,59 +60,29 @@ export class BestOffers implements OnInit {
   }
 
   getOffers() {
-    this.offers = [
-      {
-        id: 1,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 4,
+    this.isLoading = true;
+    this.error = '';
+
+    this.landingApiService.getBestOffers().subscribe({
+      next: (offers) => {
+        this.offers = offers;
+        this.isLoading = false;
       },
-      {
-        id: 2,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 1,
+      error: (error) => {
+        console.error('Error fetching best offers:', error);
+        this.error = 'Failed to load best offers';
+        this.isLoading = false;
       },
-      {
-        id: 3,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 2,
-      },
-      {
-        id: 4,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 3,
-      },
-      {
-        id: 5,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 4,
-      },
-      {
-        id: 6,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 5,
-      }
-    ];
+    });
   }
 
-  putInFavorites(id: number) { }
-  share(id: number) { }
+  putInFavorites(id: string) {
+    // Implement favorite functionality
+    console.log('Add to favorites:', id);
+  }
 
+  share(id: string) {
+    // Implement share functionality
+    console.log('Share offer:', id);
+  }
 }

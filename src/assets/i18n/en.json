@@ -221,7 +221,9 @@
     "subtitle": "What we offer?",
     "title1": "Our ",
     "title2": "Services",
-    "explore": "Explore More Services"
+    "explore": "Explore More Services",
+    "noServices": "No services available at the moment. Please check back later.",
+    "tryAgain": "Try Again"
   },
   "how-it-works": {
     "title1": "How It",
