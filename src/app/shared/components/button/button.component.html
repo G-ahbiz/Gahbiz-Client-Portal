@@ -1,10 +1,10 @@
-<button [attr.type]="type()" [disabled]="disabled() || loading()" class="relative bg-[rgba(0,93,181,1)] dark:bg-dark-primary
-         disabled:bg-light-disabled dark:disabled:bg-dark-disabled
+<button [attr.type]="type()" [disabled]="disabled() || loading()" class="relative bg-[rgba(0,93,181,1)]
+         disabled:bg-light-disabled
          text-white font-semibold rounded-[var(--border-radius)]
-         hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover
+         hover:bg-light-primary-hover
          transition-colors flex items-center justify-center gap-1
-         min-h-[var(--button-height)] px-3 text-[var(--font-md)]" [class.w-auto]="!fullWidth()"
-  [class.w-full]="fullWidth()">
+         min-h-[var(--button-height)] px-3 text-[var(--font-md)]" [class.w-full]="fullWidth()"
+  [class.w-auto]="!fullWidth()">
 
   @if (loading()) {
   <mat-icon class="animate-spin h-4 w-4 text-white">refresh</mat-icon>

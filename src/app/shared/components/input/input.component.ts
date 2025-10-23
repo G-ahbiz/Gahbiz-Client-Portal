@@ -60,9 +60,13 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   // Close dropdown when clicking outside
-  @HostListener('document:click')
-  closeDropdown() {
-    this.isOpen = false;
+  @HostListener('document:click', ['$event'])
+  handleOutsideClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const clickedInside = target.closest('.phone-dropdown-wrapper');
+    if (!clickedInside) {
+      this.isOpen = false;
+    }
   }
 
   // --- CVA glue ---
@@ -105,7 +109,8 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   // --- Phone logic ---
-  toggleDropdown() {
+  toggleDropdown(event?: MouseEvent) {
+    event?.stopPropagation();
     if (!this.disabled) this.isOpen = !this.isOpen;
   }
 
