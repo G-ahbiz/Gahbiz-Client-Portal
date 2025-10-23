@@ -7,6 +7,8 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 import { RatingModule } from 'primeng/rating';
 import { ServicesComponent } from "./services-component/services-component";
 import { AllServicesLists } from "./all-services-lists/all-services-lists";
+import { AllServicesComponentService } from '@shared/services/all-services-component';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 
@@ -25,8 +27,12 @@ export interface Service {
   styleUrl: './all-services.scss'
 })
 export class AllServices implements OnInit, OnDestroy {
+  private activeServiceSubscription?: Subscription;
 
-  constructor(private translateService: TranslateService) { }
+  constructor(
+    private translateService: TranslateService,
+    private allServicesService: AllServicesComponentService
+  ) { }
 
   // Language
   isArabic: boolean = false;
@@ -38,7 +44,7 @@ export class AllServices implements OnInit, OnDestroy {
   home: MenuItem | undefined;
 
   // services list
-  services: Service[] | undefined;
+  servicesTitles: Service[] | undefined;
 
   // active service
   activeService: number = 1;
@@ -51,27 +57,26 @@ export class AllServices implements OnInit, OnDestroy {
     this.initializeTranslation();
     this.home = { icon: 'pi pi-home', routerLink: '/home' };
 
-    // services list
-    this.services = [
-      { id: 1, serviceEn: 'All Services', serviceAr: 'كل الخدمات', serviceSp: 'Todos los Servicios', active: true },
-      { id: 2, serviceEn: 'Tax Services', serviceAr: 'خدمات الضرائب', serviceSp: 'Servicios de Impuestos', active: true },
-      { id: 3, serviceEn: 'Public Services', serviceAr: 'خدمات العامة', serviceSp: 'Servicios Públicos', active: true },
-      { id: 4, serviceEn: 'Immigration Services', serviceAr: 'خدمات الهجرة', serviceSp: 'Servicios de Inmigración', active: true },
-      { id: 5, serviceEn: 'Food Vendor Services', serviceAr: 'خدمات المطاعم', serviceSp: 'Servicios de Vendedores de Alimentos', active: true },
-      { id: 6, serviceEn: 'Business License Services', serviceAr: 'خدمات رخصة الأعمال', serviceSp: 'Servicios de Licencia Comercial', active: true },
-      { id: 7, serviceEn: 'ITIN & EIN Services', serviceAr: 'خدمات ITIN & EIN', serviceSp: 'Servicios de ITIN & EIN', active: true },
-      { id: 8, serviceEn: 'DMV Services', serviceAr: 'خدمات DMV', serviceSp: 'Servicios de DMV', active: true },
-      { id: 9, serviceEn: 'Translation & Notary Public Services', serviceAr: 'خدمات الترجمة والعهد العام', serviceSp: 'Servicios de Traducción y Notario Público', active: true },
-      { id: 10, serviceEn: 'Appointment Service', serviceAr: 'خدمات المواعيد', serviceSp: 'Servicios de Reservación', active: true },
-    ];
-    // set active service
-    this.checkActiveService();
+    // services titles list
+    this.getServicesTitlesList();
+
+    // Subscribe to active service changes from the shared service
+    this.activeServiceSubscription = this.allServicesService.activeService$.subscribe(serviceId => {
+      this.activeService = serviceId;
+      this.updateBreadcrumb();
+    });
+
     // get all services list
     this.getAllServicesList();
   }
 
   ngOnDestroy() {
-    localStorage.removeItem('activeService');
+    // Unsubscribe to prevent memory leaks
+    if (this.activeServiceSubscription) {
+      this.activeServiceSubscription.unsubscribe();
+    }
+    // Clear active service using the service
+    this.allServicesService.clearActiveService();
   }
 
   // Initialize translation
@@ -103,30 +108,18 @@ export class AllServices implements OnInit, OnDestroy {
     });
   }
 
-  //  Check active service
-  checkActiveService() {
-    // let activeService = localStorage.getItem('activeService');
-    let activeService = parseInt(localStorage.getItem('activeService') || '1');
-    if (!activeService) {
-      this.activeService = 1;
-    } else {
-      this.activeService = activeService;
-    }
-  }
-
   // set active service
   setActiveServiceList(serviceId: number) {
-    this.activeService = serviceId;
-    localStorage.setItem('activeService', serviceId.toString());
-    this.updateBreadcrumb();
+    // Use the shared service to set active service
+    this.allServicesService.setActiveService(serviceId);
   }
 
   // update breadcrumb
   updateBreadcrumb() {
     this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
-    let activeService = parseInt(localStorage.getItem('activeService') || '1');
+    const activeService = this.allServicesService.getActiveService();
     if (activeService != 1) {
-      let activeServiceTitle = this.isArabic ? this.services?.find(service => service.id === activeService)?.serviceAr : this.isEnglish ? this.services?.find(service => service.id === activeService)?.serviceEn : this.services?.find(service => service.id === activeService)?.serviceSp;
+      let activeServiceTitle = this.isArabic ? this.servicesTitles?.find(service => service.id === activeService)?.serviceAr : this.isEnglish ? this.servicesTitles?.find(service => service.id === activeService)?.serviceEn : this.servicesTitles?.find(service => service.id === activeService)?.serviceSp;
       this.items?.push({ label: activeServiceTitle, routerLink: '' });
     }
   }
@@ -179,5 +172,20 @@ export class AllServices implements OnInit, OnDestroy {
         type: 'silver'
       },
     ]
+  }
+
+  getServicesTitlesList() {
+    this.servicesTitles = [
+      { id: 1, serviceEn: 'All Services', serviceAr: 'كل الخدمات', serviceSp: 'Todos los Servicios', active: true },
+      { id: 2, serviceEn: 'Tax Services', serviceAr: 'خدمات الضرائب', serviceSp: 'Servicios de Impuestos', active: true },
+      { id: 3, serviceEn: 'Public Services', serviceAr: 'خدمات العامة', serviceSp: 'Servicios Públicos', active: true },
+      { id: 4, serviceEn: 'Immigration Services', serviceAr: 'خدمات الهجرة', serviceSp: 'Servicios de Inmigración', active: true },
+      { id: 5, serviceEn: 'Food Vendor Services', serviceAr: 'خدمات المطاعم', serviceSp: 'Servicios de Vendedores de Alimentos', active: true },
+      { id: 6, serviceEn: 'Business License Services', serviceAr: 'خدمات رخصة الأعمال', serviceSp: 'Servicios de Licencia Comercial', active: true },
+      { id: 7, serviceEn: 'ITIN & EIN Services', serviceAr: 'خدمات ITIN & EIN', serviceSp: 'Servicios de ITIN & EIN', active: true },
+      { id: 8, serviceEn: 'DMV Services', serviceAr: 'خدمات DMV', serviceSp: 'Servicios de DMV', active: true },
+      { id: 9, serviceEn: 'Translation & Notary Public Services', serviceAr: 'خدمات الترجمة والعهد العام', serviceSp: 'Servicios de Traducción y Notario Público', active: true },
+      { id: 10, serviceEn: 'Appointment Service', serviceAr: 'خدمات المواعيد', serviceSp: 'Servicios de Reservación', active: true },
+    ];
   }
 }
