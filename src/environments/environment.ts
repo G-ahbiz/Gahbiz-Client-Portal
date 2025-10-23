@@ -19,6 +19,12 @@ export const environment = {
     verifyOtp: '/Account/verify-otp', // OTP to verify email
     externalLogin: '/Account/external-login',
   },
+  serviceCategories: {
+    getAllServiceCategories: '/ServiceCategories',
+  },
+  services: {
+    bestOffers: '/Services/best-offers',
+  },
 
   facebookAppId: '1786936631940004',
 

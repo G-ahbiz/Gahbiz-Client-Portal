@@ -1,37 +1,9 @@
 <div class="rating d-flex justify-content-start align-items-center gap-1">
-  @if (rating == 1) {
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  }
-  @if (rating == 2) {
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  }
-  @if (rating == 3) {
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  }
-  @if (rating == 4) {
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star text-warning"></i>
-  }
-  @if (rating == 5) {
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
-  <i class="pi pi-star-fill text-warning"></i>
+
+  @for (star of [1, 2, 3, 4, 5]; track star) {
+
+  <i class="pi text-warning" [class.pi-star-fill]="rating >= star"
+    [class.pi-star-half-fill]="rating < star && rating >= (star - 0.5)" [class.pi-star]="rating < (star - 0.5)"></i>
+
   }
 </div>
