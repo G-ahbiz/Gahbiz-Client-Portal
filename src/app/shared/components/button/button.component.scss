@@ -4,3 +4,7 @@ button {
   padding-inline: var(--space-md);
   border-radius: 0.5rem; // rounded-lg consistency
 }
+
+:host {
+  display: block;
+}
