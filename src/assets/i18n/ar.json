@@ -284,6 +284,8 @@
     "description": "يرجى تقديم بياناتك لمساعدتنا في خدمتك بشكل أفضل. كل البيانات مشفرة وآمنة.",
     "personal-details": "التفاصيل الشخصية",
     "address": "العنوان",
+    "completed": "مكتمل",
+    "not-completed": "غير مكتمل",
     "form": {
       "full-legal-name": "الاسم القانوني الكامل",
       "full-legal-name-placeholder": "أدخل اسمك",
@@ -306,7 +308,23 @@
       "birth-date": "تاريخ الميلاد",
       "birth-month-placeholder": "شهر",
       "birth-day-placeholder": "يوم",
-      "birth-year-placeholder": "سنة"
+      "birth-year-placeholder": "سنة",
+      "error": {
+        "required": "هذا الحقل مطلوب.",
+        "minlength": "يجب أن يكون طول النص على الأقل {{requiredLength}} حرفًا.",
+        "maxlength": "لا يمكن أن يتجاوز طول النص {{requiredLength}} حرفًا.",
+        "email": "يرجى إدخال عنوان بريد إلكتروني صحيح.",
+        "fullname_pattern": "يسمح فقط بالأحرف والمسافات والشرطات والفواصل.",
+        "phone_pattern": "يرجى إدخال رقم هاتف صحيح.",
+        "invalid": "القيمة المدخلة غير صالحة.",
+        "national_id": "يرجى إدخال رقم قومي صحيح.",
+        "birth_month": "يرجى إدخال شهر ميلاد صحيح.",
+        "birth_day": "يرجى إدخال يوم ميلاد صحيح.",
+        "birth_year": "يرجى إدخال سنة ميلاد صحيحة.",
+        "country": "يرجى إدخال دولة صحيحة.",
+        "state": "يرجى إدخال ولاية صحيحة.",
+        "postal_code": "يرجى إدخال رمز بريدي صحيح."
+      }
     },
     "states": {
       "ny": "نيويورك",

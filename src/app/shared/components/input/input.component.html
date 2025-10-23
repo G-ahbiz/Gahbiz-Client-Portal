@@ -2,7 +2,7 @@
   <!-- Label -->
   <label [for]="id" class="form-label block font-semibold text-[var(--font-sm)] 
                 text-light-text transition-all duration-200">
-    {{ label }}
+    {{ label }} <span class="{{asteriskColorDanger}}">{{ asterisk }}</span>
   </label>
 
   <!-- Input Wrapper -->
@@ -32,6 +32,13 @@
       </button>
 
       @if (isOpen) {
+      <ul class="dropdown-menu absolute z-20 w-48 left-0 mt-[var(--space-xs)]
+                 bg-light-input dark:bg-dark-bg border border-light-border dark:border-dark-border
+                 rounded-[var(--border-radius)] shadow-lg max-h-60 overflow-y-auto
+                 text-[var(--font-sm)] transition-all duration-200">
+        @for (c of countries; track c.iso2) {
+        <li (click)="selectCountry(c); $event.stopPropagation()" class="dropdown-item flex items-center gap-2 px-[var(--space-md)]
+                   py-[var(--space-sm)] hover:bg-light-hover dark:hover:bg-dark-hover
       <ul class="dropdown-menu absolute z-20 w-48 left-0 mt-[var(--space-xs)] 
                  bg-light-input  border border-light-border 
                  rounded-[var(--border-radius)] shadow-lg max-h-60 overflow-y-auto 
@@ -59,7 +66,7 @@
 
     <!-- Password Toggle -->
     @if (variant === 'password') {
-    <app-lock-password class="password-toggle absolute top-1/2 -translate-y-1/2 
+    <app-lock-password class="password-toggle absolute top-1/2 -translate-y-1/2
                               ltr:right-3 rtl:left-14 transition-[var(--transition-base)]"
       [(showPassword)]="showPassword">
     </app-lock-password>

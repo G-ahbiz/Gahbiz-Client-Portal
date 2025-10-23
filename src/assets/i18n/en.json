@@ -283,6 +283,8 @@
     "description": "Please provide your information to help us serve you better. All data is encrypted and secure.",
     "personal-details": "Personal Details",
     "address": "Address",
+    "completed": "Completed",
+    "not-completed": "Not Completed",
     "form": {
       "full-legal-name": "Full Legal Name",
       "full-legal-name-placeholder": "Enter your name",
@@ -305,7 +307,23 @@
       "birth-date": "Date of Birth",
       "birth-month-placeholder": "MM",
       "birth-day-placeholder": "DD",
-      "birth-year-placeholder": "YYYY"
+      "birth-year-placeholder": "YYYY",
+      "error": {
+        "required": "This field is required.",
+        "minlength": "Must be at least {{requiredLength}} characters long.",
+        "maxlength": "Cannot exceed {{requiredLength}} characters.",
+        "email": "Please enter a valid email address.",
+        "fullname_pattern": "Only letters, spaces, apostrophes, and hyphens are allowed.",
+        "phone_pattern": "Please enter a valid phone number.",
+        "invalid": "The entered value is not valid.",
+        "national_id": "Please enter a valid national id.",
+        "birth_month": "Please enter a valid birth month.",
+        "birth_day": "Please enter a valid birth day.",
+        "birth_year": "Please enter a valid birth year.",
+        "country": "Please enter a valid country.",
+        "state": "Please enter a valid state.",
+        "postal_code": "Please enter a valid postal code."
+      }
     },
     "states": {
       "ny": "New York",

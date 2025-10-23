@@ -7,15 +7,8 @@
     <div class="title-subtitle py-5">
       <!-- Title -->
       <div class="title d-flex justify-content-center align-items-center gap-3">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 50 50" fill="none">
-          <path
-            d="M38.9771 7.28133C35.0354 5.32091 30.2083 4.16675 25 4.16675C19.7917 4.16675 14.9667 5.32091 11.0229 7.28133C9.08958 8.24383 8.12292 8.72508 7.1875 10.2376C6.25208 11.7501 6.25 13.2126 6.25 16.1417V23.4126C6.25 35.2522 15.7125 41.8334 21.1938 44.6542C22.7229 45.4397 23.4854 45.8334 25 45.8334C26.5146 45.8334 27.2771 45.4397 28.8062 44.6542C34.2854 41.8334 43.75 35.2501 43.75 23.4105V16.1417C43.75 13.2126 43.75 11.7501 42.8125 10.2376C41.875 8.72508 40.9104 8.24383 38.9771 7.28133Z"
-            stroke="#FFCA19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          <path
-            d="M20.8335 20.8334V17.7084C20.8335 16.6033 21.2725 15.5435 22.0539 14.7621C22.8353 13.9807 23.8951 13.5417 25.0002 13.5417C26.1052 13.5417 27.165 13.9807 27.9464 14.7621C28.7278 15.5435 29.1668 16.6033 29.1668 17.7084V20.8334M20.8335 20.8334H29.1668M20.8335 20.8334C20.0047 20.8334 19.2098 21.1627 18.6238 21.7487C18.0377 22.3348 17.7085 23.1296 17.7085 23.9584V27.0834C17.7085 27.9122 18.0377 28.7071 18.6238 29.2931C19.2098 29.8792 20.0047 30.2084 20.8335 30.2084H29.1668C29.9956 30.2084 30.7905 29.8792 31.3765 29.2931C31.9626 28.7071 32.2918 27.9122 32.2918 27.0834V23.9584C32.2918 23.1296 31.9626 22.3348 31.3765 21.7487C30.7905 21.1627 29.9956 20.8334 29.1668 20.8334"
-            stroke="#FFCA19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <h1 class="complete-profile-title text-center fw-medium fs-3 fs-1" [class.ar-font-family]="isArabic">
+        <img src="assets/images/complete-profile/lock.svg" alt="lock" class="lock-icon">
+        <h1 class="complete-profile-title text-center fw-medium fs-3 fs-1">
           {{'complete-profile.title' | translate}}
         </h1>
       </div>
@@ -26,27 +19,30 @@
       </p>
     </div>
 
-    <div class="form-container bg-white p-5">
+    <div class="form-container bg-white p-3 p-md-5">
       <!-- Pic & Status -->
-      <div class="pic-statues-container d-flex justify-content-between align-items-center">
+      <div class="pic-statues-container d-flex justify-content-center justify-content-md-between align-items-center">
         <!-- Pic -->
         <div class="pic-name d-flex justify-content-center align-items-center gap-3">
           <div
-            class="pic-item rounded-circle bg-transparent border d-flex justify-content-center align-items-center position-relative overflow-hidden">
+            class="pic-item rounded-circle bg-transparent border d-flex justify-content-center align-items-center position-relative overflow-hidden cursor-pointer"
+            (click)="onUploadProfilePic()">
+            @if (profilePic) {
+            <img [src]="profilePic" alt="profile-pic" class="profile-pic w-100 h-100 object-fit-cover rounded-circle">
+            }
+            @else {
             <i class="pi pi-user grey-clr fs-1"></i>
+            }
+
+            <!-- Camera Icon Container -->
             <div
-              class="camera-container position-absolute bottom-0 end-0 d-flex justify-content-center align-items-center grey-bg-clr w-100 h-25">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 9C11.0054 9 10.0516 9.39509 9.34835 10.0983C8.64509 10.8016 8.25 11.7554 8.25 12.75C8.25 13.7446 8.64509 14.6984 9.34835 15.4017C10.0516 16.1049 11.0054 16.5 12 16.5C12.9946 16.5 13.9484 16.1049 14.6517 15.4017C15.3549 14.6984 15.75 13.7446 15.75 12.75C15.75 11.7554 15.3549 10.8016 14.6517 10.0983C13.9484 9.39509 12.9946 9 12 9Z"
-                  fill="white" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M9.344 3.07108C11.1134 2.97696 12.8866 2.97696 14.656 3.07108C15.623 3.12308 16.486 3.65608 16.988 4.46108L17.809 5.77808C18.049 6.16108 18.454 6.42108 18.919 6.48808C19.305 6.54208 19.689 6.60108 20.071 6.66508C21.503 6.90408 22.5 8.15808 22.5 9.57408V18.0001C22.5 18.7957 22.1839 19.5588 21.6213 20.1214C21.0587 20.684 20.2956 21.0001 19.5 21.0001H4.5C3.70435 21.0001 2.94129 20.684 2.37868 20.1214C1.81607 19.5588 1.5 18.7957 1.5 18.0001V9.57408C1.5 8.15808 2.497 6.90408 3.929 6.66508C4.311 6.60108 4.69467 6.54175 5.08 6.48708C5.30561 6.45688 5.52189 6.37768 5.71364 6.25503C5.9054 6.13237 6.06799 5.96924 6.19 5.77708L7.012 4.46208C7.26037 4.06002 7.602 3.72376 8.00795 3.48179C8.4139 3.23983 8.87219 3.09829 9.344 3.07108ZM6.75 12.7501C6.75 11.3577 7.30312 10.0223 8.28769 9.03777C9.27225 8.0532 10.6076 7.50008 12 7.50008C13.3924 7.50008 14.7277 8.0532 15.7123 9.03777C16.6969 10.0223 17.25 11.3577 17.25 12.7501C17.25 14.1425 16.6969 15.4778 15.7123 16.4624C14.7277 17.447 13.3924 18.0001 12 18.0001C10.6076 18.0001 9.27225 17.447 8.28769 16.4624C7.30312 15.4778 6.75 14.1425 6.75 12.7501ZM18.75 11.2501C18.9489 11.2501 19.1397 11.1711 19.2803 11.0304C19.421 10.8898 19.5 10.699 19.5 10.5001C19.5 10.3012 19.421 10.1104 19.2803 9.96975C19.1397 9.8291 18.9489 9.75008 18.75 9.75008C18.5511 9.75008 18.3603 9.8291 18.2197 9.96975C18.079 10.1104 18 10.3012 18 10.5001C18 10.699 18.079 10.8898 18.2197 11.0304C18.3603 11.1711 18.5511 11.2501 18.75 11.2501Z"
-                  fill="white" />
-              </svg>
+              class="camera-container position-absolute bottom-0 end-0 d-flex justify-content-center align-items-center grey-bg-clr w-100 h-25"
+              (click)="onUploadProfilePic()">
+              <img src="assets/images/complete-profile/camera.svg" alt="camera" class="camera-icon w-75 h-75">
             </div>
           </div>
 
+          <!-- Name & Location -->
           <div class="name-container d-flex flex-column justify-content-center align-items-center gap-2">
             <h3 class="name-text fs-875 fw-medium">John Doe</h3>
             <p class="location-text fs-875 fw-medium primary-text-clr">New York</p>
@@ -56,54 +52,85 @@
         <!-- Status -->
         <div class="status-item d-none d-md-flex flex-column justify-content-center align-items-center gap-2">
           <div
-            class="chek-container p-2 rounded-circle border border-3 border-danger d-flex justify-content-center align-items-center">
+            class="chek-container p-2 rounded-circle border border-3 {{ isDataCompleted ? 'border-success' : 'border-danger' }} d-flex justify-content-center align-items-center">
             <!-- <i class="pi pi-check"></i> -->
-            <i class="pi pi-times text-danger fw-bold"></i>
+            <i
+              class="pi pi-{{ isDataCompleted ? 'check' : 'times' }} text-{{ isDataCompleted ? 'success' : 'danger' }} fw-bold"></i>
           </div>
-          <p class="status-text text-danger fw-bold">
-            Not Completed
+          <p class="status-text text-{{ isDataCompleted ? 'success' : 'danger' }} fw-bold">
+            {{ isDataCompleted ? ('complete-profile.completed' | translate) : ('complete-profile.not-completed' |
+            translate) }}
           </p>
         </div>
       </div>
 
       <hr class="my-5">
 
-      <form class="form-container d-flex flex-column gap-5" formGroup="completeProfileForm">
+      <form class="form-container d-flex flex-column gap-4" [formGroup]="completeProfileForm">
         <!-- Personal Details -->
         <div class="form-title py-3">
-          <h2 class="form-title-text fs-4 fw-medium" [class.ar-font-family]="isArabic">
+          <h2 class="form-title-text fs-4 fw-medium">
             {{'complete-profile.personal-details' | translate}}
           </h2>
         </div>
 
         <!-- Full Legal Name -->
         <div class="form-group full-name-group">
+          <!-- Full Legal Name Label -->
           <label class="fs-5 fw-medium" for="fullLegalName">{{'complete-profile.form.full-legal-name' | translate}}
-            <span class="text-danger">*</span></label>
+            <span [class]="!checkTouched('fullLegalName')?'text-success':'text-danger'">*</span>
+          </label>
+
+          <!-- Full Legal Name Input -->
           <input type="text" class="form-control" id="fullLegalName" name="fullLegalName"
             placeholder="{{'complete-profile.form.full-legal-name-placeholder' | translate}}"
-            formControlName="fullLegalName"
-            [class.is-invalid]="completeProfileForm.get('fullLegalName')?.invalid && completeProfileForm.get('fullLegalName')?.touched">
+            formControlName="fullLegalName" #fullLegalNameInput>
+
+          <!-- Error Message -->
+          <div class="error-message" [class.d-block]="checkInvalid('fullLegalName')"
+            [class.text-danger]="checkInvalid('fullLegalName')">
+            {{checkInvalid('fullLegalName') ? getErrorMessageFor('fullLegalName') : ' '}}
+          </div>
         </div>
 
         <!-- Email & Gender -->
         <div class="email-age-group d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
           <!-- Email -->
-          <div class="form-group flex-1">
+          <div class="form-group email-group w-100">
+            <!-- Email Label -->
             <label class="fs-5 fw-medium" for="email">{{'complete-profile.form.email' | translate}} <span
-                class="text-danger">*</span></label>
+                [class]="!checkTouched('email')?'text-success':'text-danger'">*</span>
+            </label>
+
+            <!-- Email Input -->
             <input type="text" class="form-control" id="email"
-              placeholder="{{'complete-profile.form.email-placeholder' | translate}}" formControlName="email">
+              placeholder="{{'complete-profile.form.email-placeholder' | translate}}" formControlName="email"
+              #emailInput>
+
+            <!-- Error Message -->
+            <div class="error-message" [class.d-block]="checkInvalid('email')"
+              [class.text-danger]="checkInvalid('email')">
+              {{checkInvalid('email') ? getErrorMessageFor('email') : ' '}}
+            </div>
           </div>
+
           <!-- Gender -->
-          <div class="form-group flex-1 w-100">
+          <div class="form-group gender-group w-100">
+            <!-- Gender Label -->
             <label class="fs-5 fw-medium" for="gender">{{'complete-profile.form.gender' | translate}} <span
-                class="text-danger">*</span></label>
-            <select class="form-select" id="gender" formControlName="gender" [class.ar-font-family]="isArabic">
+                [class]="!checkTouched('gender')?'text-success':'text-danger'">*</span></label>
+            <!-- Gender Select -->
+            <select class="form-select" id="gender" formControlName="gender" #genderInput>
               <option disabled selected></option>
               <option value="male">{{'complete-profile.form.gender-male' | translate}}</option>
               <option value="female">{{'complete-profile.form.gender-female' | translate}}</option>
             </select>
+
+            <!-- Error Message -->
+            <div class="error-message" [class.d-block]="checkInvalid('gender')"
+              [class.text-danger]="checkInvalid('gender')">
+              {{checkInvalid('gender') ? getErrorMessageFor('gender') : ' '}}
+            </div>
           </div>
         </div>
 
@@ -111,10 +138,11 @@
         <div class="email-age-group d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
 
           <!-- Phone -->
-          <div class="form-group flex-1">
+          <div class="form-group phone-group w-100">
+            <!-- Phone Label -->
             <label class="fs-5 fw-medium" for="phoneNumber">
               <span class="">{{'complete-profile.form.phone' | translate}} </span>
-              <span class="text-danger">*</span>
+              <span [class]="!checkTouched('phoneNumber')?'text-success':'text-danger'">*</span>
             </label>
 
             <!-- Phone Dropdown -->
@@ -126,58 +154,78 @@
                   <span class="">{{currentPhoneCode}}</span>
                 </button>
                 <ul class="dropdown-menu">
+
                   <!-- Phone Codes -->
-                  @for (phoneCode of phoneCodes; track phoneCode.code) {
-                  <li>
+                  @for (phoneCode of phoneCodes; track phoneCode.dialCode) {
+                  <li class="dropdown-item d-flex align-items-center gap-2">
                     <a class="dropdown-item d-flex align-items-center gap-2" href="javascript:(void 0)"
-                      (click)="setCurrentPhoneCode(phoneCode.flag)">
+                      (click)="setCurrentPhoneCode(phoneCode.dialCode)">
                       <img [src]="phoneCode.image" alt="" class="flag-icon">
-                      <span class="">{{phoneCode.code}}</span>
+                      <span class="">{{phoneCode.name}} ({{phoneCode.dialCode}})</span>
                     </a>
                   </li>
                   }
-
                 </ul>
               </div>
+
               <!-- Phone Input -->
               <input type="text" class="form-control" id="phoneNumber"
-                placeholder="{{'complete-profile.form.phone-placeholder' | translate}}" formControlName="phoneNumber">
+                placeholder="{{'complete-profile.form.phone-placeholder' | translate}}" formControlName="phoneNumber"
+                #phoneNumberInput>
+            </div>
+
+            <!-- Phone Number Error Message -->
+            <div class="error-message" [class.d-block]="checkInvalid('phoneNumber')"
+              [class.text-danger]="checkInvalid('phoneNumber')">
+              {{checkInvalid('phoneNumber') ? getErrorMessageFor('phoneNumber') : ' '}}
             </div>
           </div>
 
           <!-- National ID -->
-          <div class="form-group flex-1">
+          <div class="form-group national-id-group w-100">
+            <!-- National ID Label -->
             <label class="fs-5 fw-medium" for="nationalId">{{'complete-profile.form.national-id' | translate}} <span
-                class="text-danger">*</span></label>
+                [class]="!checkTouched('nationalId')?'text-success':'text-danger'">*</span>
+            </label>
+
+            <!-- National ID Input -->
             <input type="text" class="form-control" id="nationalId"
-              placeholder="{{'complete-profile.form.national-id-placeholder' | translate}}"
-              formControlName="nationalId">
+              placeholder="{{'complete-profile.form.national-id-placeholder' | translate}}" formControlName="nationalId"
+              #nationalIdInput>
+
+            <!-- National ID Error Message -->
+            <div class="error-message" [class.d-block]="checkInvalid('nationalId')"
+              [class.text-danger]="checkInvalid('nationalId')">
+              {{checkInvalid('nationalId') ? getErrorMessageFor('nationalId') : ' '}}
+            </div>
           </div>
         </div>
 
 
         <!-- Birth Date -->
-        <div class="form-group">
+        <div class="form-group birth-date-group">
           <!-- Birth Date Label -->
           <label class="fs-5 fw-medium" for="birthDate">
             <span class="">{{'complete-profile.form.birth-date' | translate}} </span>
-            <span class="text-danger">*</span>
+            <span [class]="!checkTouched('birthDate')?'text-success':'text-danger'">*</span>
           </label>
 
           <!-- Birth Date Inputs -->
-          <div class="d-flex justify-content-center align-items-center gap-3 w-25">
+          <div class="birth-date-inputs d-flex justify-content-center align-items-center gap-3 w-100">
             <!-- Birth Month -->
             <input type="text" class="form-control" id="birthMonth"
-              placeholder="{{'complete-profile.form.birth-month-placeholder' | translate}}"
-              formControlName="birthMonth">
+              placeholder="{{'complete-profile.form.birth-month-placeholder' | translate}}" formControlName="birthMonth"
+              #birthMonthInput>
             <span class="fs-4">/</span>
             <!-- Birth Day -->
             <input type="text" class="form-control" id="birthDay"
-              placeholder="{{'complete-profile.form.birth-day-placeholder' | translate}}" formControlName="birthDay">
+              placeholder="{{'complete-profile.form.birth-day-placeholder' | translate}}" formControlName="birthDay"
+              #birthDayInput>
             <span class="fs-4">/</span>
             <!-- Birth Year -->
             <input type="text" class="form-control" id="birthYear"
-              placeholder="{{'complete-profile.form.birth-year-placeholder' | translate}}" formControlName="birthYear">
+              placeholder="{{'complete-profile.form.birth-year-placeholder' | translate}}" formControlName="birthYear"
+              #birthYearInput>
           </div>
         </div>
 
@@ -185,26 +233,44 @@
 
         <!-- Address -->
         <div class="form-title py-3">
-          <h2 class="fs-2 fw-medium" [class.ar-font-family]="isArabic">
+          <h2 class="fs-2 fw-medium">
             {{'complete-profile.address' | translate}}
           </h2>
         </div>
 
 
         <!-- Country & State -->
-        <div class="email-age-group d-flex justify-content-center align-items-center gap-3">
+        <div class="country-state-group d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+
           <!-- country -->
-          <div class="form-group flex-1">
+          <div class="form-group country-group w-100">
+
+            <!-- country label -->
             <label class="fs-5 fw-medium" for="country">{{'complete-profile.form.country' | translate}} <span
-                class="text-danger">*</span></label>
+                [class]="!checkTouched('country')?'text-success':'text-danger'">*</span>
+            </label>
+
+            <!-- country input -->
             <input type="text" class="form-control" id="country"
-              placeholder="{{'complete-profile.form.country-placeholder' | translate}}" formControlName="country">
+              placeholder="{{'complete-profile.form.country-placeholder' | translate}}" formControlName="country"
+              #countryInput>
+
+            <!-- error message -->
+            <div class="error-message" [class.d-block]="checkInvalid('country')"
+              [class.text-danger]="checkInvalid('country')">
+              {{checkInvalid('country') ? getErrorMessageFor('country') : ' '}}
+            </div>
           </div>
+
           <!-- state -->
-          <div class="form-group flex-1">
+          <div class="form-group state-group w-100">
+            <!-- state label -->
             <label class="fs-5 fw-medium" for="state">{{'complete-profile.form.state' | translate}} <span
-                class="text-danger">*</span></label>
-            <select class="form-select" id="state" formControlName="state" [class.ar-font-family]="isArabic">
+                [class]="!checkTouched('state')?'text-success':'text-danger'">*</span>
+            </label>
+
+            <!-- state select -->
+            <select class="form-select" id="state" formControlName="state" #stateInput>
               <option disabled selected></option>
               <option value="ny">{{'complete-profile.states.ny' | translate}}</option>
               <option value="ca">{{'complete-profile.states.ca' | translate}}</option>
@@ -215,20 +281,37 @@
               <option value="mi">{{'complete-profile.states.mi' | translate}}</option>
               <option value="pa">{{'complete-profile.states.pa' | translate}}</option>
             </select>
+
+            <!-- error message -->
+            <div class="error-message" [class.d-block]="checkInvalid('state')"
+              [class.text-danger]="checkInvalid('state')">
+              {{checkInvalid('state') ? getErrorMessageFor('state') : ' '}}
+            </div>
           </div>
         </div>
 
         <!-- Postal Code -->
-        <div class="form-group">
+        <div class="form-group postal-code-group">
+          <!-- postal code label -->
           <label class="fs-5 fw-medium" for="postalCode">{{'complete-profile.form.postal-code' | translate}} <span
-              class="text-danger">*</span></label>
+              [class]="!checkTouched('postalCode')?'text-success':'text-danger'">*</span>
+          </label>
+
+          <!-- postal code input -->
           <input type="text" class="form-control" id="postalCode"
-            placeholder="{{'complete-profile.form.postal-code-placeholder' | translate}}" formControlName="postalCode">
+            placeholder="{{'complete-profile.form.postal-code-placeholder' | translate}}" formControlName="postalCode"
+            #postalCodeInput>
+
+          <!-- error message -->
+          <div class="error-message" [class.d-block]="checkInvalid('postalCode')"
+            [class.text-danger]="checkInvalid('postalCode')">
+            {{checkInvalid('postalCode') ? getErrorMessageFor('postalCode') : ' '}}
+          </div>
         </div>
 
         <!-- Submit Button -->
         <div class="form-group mt-4">
-          <button type="submit" class="btn btn-primary primary-bg-clr w-100 py-2 fw-semibold fs-5">
+          <button type="submit" class="btn btn-primary primary-bg-clr w-100 py-2 fw-semibold fs-5" (click)="onSubmit()">
             {{'complete-profile.form.submit' | translate}}
           </button>
         </div>

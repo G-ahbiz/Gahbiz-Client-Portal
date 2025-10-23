@@ -12,6 +12,6 @@ export class NotFound {
   constructor(private router: Router) { }
 
   goBack() {
-    window.history.back();
+    this.router.navigate(['/home']);
   }
 }

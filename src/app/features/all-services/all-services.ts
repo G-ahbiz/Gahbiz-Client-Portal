@@ -7,6 +7,7 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 import { RatingModule } from 'primeng/rating';
 import { ServicesComponent } from "./services-component/services-component";
 import { AllServicesLists } from "./all-services-lists/all-services-lists";
+import { CommonModule } from '@angular/common';
 
 
 export interface Service {
@@ -19,7 +20,7 @@ export interface Service {
 
 @Component({
   selector: 'app-all-services',
-  imports: [TranslateModule, Navbar, Footer, Breadcrumb, RatingModule, ServicesComponent, AllServicesLists],
+  imports: [TranslateModule, Navbar, Footer, Breadcrumb, RatingModule, ServicesComponent, AllServicesLists, CommonModule],
   templateUrl: './all-services.html',
   styleUrl: './all-services.scss'
 })
@@ -140,6 +141,7 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 3,
+        ratingsCount: 36,
         image: 'service.jpg',
         type: 'basic'
       },
@@ -150,6 +152,7 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 2,
+        ratingsCount: 36,
         image: 'service.jpg',
         type: 'standard'
       },
@@ -160,6 +163,7 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 5,
+        ratingsCount: 36,
         image: 'service.jpg',
         type: 'gold'
       },
@@ -170,6 +174,7 @@ export class AllServices implements OnInit, OnDestroy {
         priceOffer: '85',
         orignalPrice: '102',
         rating: 4,
+        ratingsCount: 36,
         image: 'service.jpg',
         type: 'silver'
       },
