@@ -113,6 +113,8 @@
     "description": "Por favor, proporcione su información para ayudarnos a servirle mejor. Todos los datos están encriptados y seguros.",
     "personal-details": "Detalles personales",
     "address": "Dirección",
+    "completed": "Completado",
+    "not-completed": "No Completado",
     "form": {
       "full-legal-name": "Nombre legal completo",
       "full-legal-name-placeholder": "Ingrese su nombre",
@@ -135,7 +137,23 @@
       "birth-date": "Fecha de nacimiento",
       "birth-month-placeholder": "MM",
       "birth-day-placeholder": "DD",
-      "birth-year-placeholder": "YYYY"
+      "birth-year-placeholder": "YYYY",
+      "error": {
+        "required": "Este campo es requerido.",
+        "minlength": "Debe tener al menos {{requiredLength}} caracteres.",
+        "maxlength": "No puede exceder {{requiredLength}} caracteres.",
+        "email": "Por favor, ingrese un correo electrónico válido.",
+        "fullname_pattern": "Solo se permiten letras, espacios, apóstrofes y guiones.",
+        "phone_pattern": "Por favor, ingrese un número de teléfono válido.",
+        "invalid": "El valor ingresado no es válido.",
+        "national_id": "Por favor, ingrese un ID nacional válido.",
+        "birth_month": "Por favor, ingrese un mes de nacimiento válido.",
+        "birth_day": "Por favor, ingrese un día de nacimiento válido.",
+        "birth_year": "Por favor, ingrese un año de nacimiento válido.",
+        "country": "Por favor, ingrese un país válido.",
+        "state": "Por favor, ingrese un estado válido.",
+        "postal_code": "Por favor, ingrese un código postal válido."
+      }
     },
     "states": {
       "ny": "Nueva York",

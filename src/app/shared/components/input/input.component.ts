@@ -25,6 +25,9 @@ export class InputComponent implements ControlValueAccessor {
   @Input() label = '';
   @Input() placeholder = '';
   @Input() id = '';
+  @Input() asterisk = '';
+  @Input() asteriskColorDanger = 'text-danger';
+  @Input() asteriskColorSuccess = 'text-success';
   @Input() isInvalid = false;
   @Input() errorMessage = '';
   @Input() minlength?: number;
@@ -67,8 +70,8 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   // --- CVA glue ---
-  onChange = (_: any) => {};
-  onTouched = () => {};
+  onChange = (_: any) => { };
+  onTouched = () => { };
 
   writeValue(value: any): void {
     this.value = value ?? '';

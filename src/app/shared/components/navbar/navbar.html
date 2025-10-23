@@ -42,33 +42,13 @@
                 {{'navbar.services' | translate}}
               </a>
               <ul class="dropdown-menu dropdown-menu-end services-dropdown" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
-                    (click)="setActiveServiceList(1)">{{'navbar.taxservices' |
-                    translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
-                    (click)="setActiveServiceList(2)">{{'navbar.itinandein' |
-                    translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
-                    (click)="setActiveServiceList(3)">{{'navbar.translationandnotarypublic' |
-                    translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
-                    (click)="setActiveServiceList(4)">{{'navbar.businesslicense' |
-                    translate}}</a>
+                @for (service of services; track service.id) {
+                <li>
+                  <a class="dropdown-item" href="javascript:void(0)" (click)="setActiveServiceList(service.id)">{{
+                    isArabic ? service.serviceAr : isEnglish ? service.serviceEn :
+                    service.serviceSp }}</a>
                 </li>
-                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
-                    (click)="setActiveServiceList(5)">{{'navbar.publicservcies' |
-                    translate}}</a>
-                </li>
-                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
-                    (click)="setActiveServiceList(6)">{{'navbar.dmv' |
-                    translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
-                    (click)="setActiveServiceList(7)">{{'navbar.foodvendorservices'
-                    | translate}}</a>
-                </li>
-                <li><a class="dropdown-item orange fw-semibold" routerLink="/all-services"
-                    (click)="setActiveServiceList(8)">{{'navbar.immigration' |
-                    translate}}</a></li>
+                }
               </ul>
             </li>
             <!-- About -->
@@ -99,16 +79,7 @@
                 aria-expanded="false" [title]="isEnglish ? 'English' : isArabic ? 'عربي' : isSpanish ? 'Español' : ''">
                 <i class="pi pi-globe fs-6"></i>
               </button>
-              <!-- <button type="button" class="btn dropdown-toggle gap-2 d-flex align-items-center" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                @if (isEnglish) {
-                <span class="">{{'navbar.english' | translate}}</span>
-                } @else if (isArabic) {
-                <span class="">{{'navbar.arabic' | translate}}</span>
-                } @else if (isSpanish) {
-                <span class="">{{'navbar.spanish' | translate}}</span>
-                }
-              </button> -->
+
               <ul class="dropdown-menu language-dropdown">
                 <li>
                   <a class="dropdown-item d-flex align-items-center gap-2" href="#" (click)="changeLanguage('en')">
