@@ -1,9 +1,54 @@
 <app-navbar></app-navbar>
 <div class="container-fluid p-0 m-0">
   <div class="service-details-container p-2 p-md-5">
-    <h1 class="title">
-      Service Details
-    </h1>
-  </div>
-</div>
-<app-footer></app-footer>
+
+    <!-- Service Details Top -->
+    <div class="service-details-top">
+
+      <!-- Breadcrumb -->
+      <div class="breadcump">
+        <div class="card flex justify-center border-0 bg-transparent">
+          <p-breadcrumb [model]="items" [home]="home" styleClass="border-0 bg-transparent" />
+        </div>
+      </div>
+
+      <div class="service-details-content d-flex justify-content-center align-items-center gap-4">
+        <!-- Service Details Images -->
+        <div class="card border-0">
+
+          <p-galleria [value]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions"
+            [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+              <div class="grid gap-4 justify-center">
+                <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
+              </div>
+            </ng-template>
+          </p-galleria>
+        </div>
+
+        <!-- Service Details Info -->
+        <div class="service-details-info">
+          <h1 class="title">
+            File Your Tax 1040 Single or MJS - Stander
+          </h1>
+          <p class="subtitle">
+            Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Service Details Body -->
+    <div class="service-details-body">
+
+    </div>
+
+    <!-- Service Details Footer -->
+    <div class="service-details-footer">
+
+    </div>
+    <app-footer></app-footer>

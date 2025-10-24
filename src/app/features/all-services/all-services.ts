@@ -7,19 +7,13 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 import { RatingModule } from 'primeng/rating';
 import { ServicesComponent } from "./services-component/services-component";
 import { AllServicesLists } from "./all-services-lists/all-services-lists";
-import { AllServicesComponentService } from '@shared/services/all-services-component';
+import { AllServicesComponentService, AllServicesDetails, ServicesTitles } from '@shared/services/all-services-component';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AllServicesTabs } from "./all-services-tabs/all-services-tabs";
 
 
-export interface Service {
-  id: number;
-  serviceEn: string;
-  serviceAr: string;
-  serviceSp: string;
-  active: boolean;
-}
+
 
 @Component({
   selector: 'app-all-services',
@@ -41,17 +35,17 @@ export class AllServices implements OnInit, OnDestroy {
   isSpanish: boolean = false;
 
   // breadcrumb
-  items: MenuItem[] = [{ label: 'Our Services', routerLink: '/all-services' }];
+  items: MenuItem[] = [{ label: 'Home', routerLink: '/all-services' }];
   home: MenuItem | undefined;
 
   // services list
-  servicesTitles: Service[] | undefined;
+  servicesTitles: ServicesTitles[] = [];
 
   // active service
   activeService: number = 1;
 
   // all services list
-  allServices: any[] | undefined;
+  allServices: AllServicesDetails[] = [];
 
   ngOnInit() {
     // initialize translation
@@ -73,11 +67,11 @@ export class AllServices implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // Unsubscribe to prevent memory leaks
-    if (this.activeServiceSubscription) {
-      this.activeServiceSubscription.unsubscribe();
-    }
+    // if (this.activeServiceSubscription) {
+    //   this.activeServiceSubscription.unsubscribe();
+    // }
     // Clear active service using the service
-    this.allServicesService.clearActiveServiceList();
+    // this.allServicesService.clearActiveServiceList();
   }
 
   // Initialize translation
@@ -127,66 +121,11 @@ export class AllServices implements OnInit, OnDestroy {
 
   // get all services list
   getAllServicesList() {
-    this.allServices = [
-      {
-        id: 1,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle: 'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 3,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'basic'
-      },
-      {
-        id: 2,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle: 'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 2,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'standard'
-      },
-      {
-        id: 3,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle: 'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 5,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'gold'
-      },
-      {
-        id: 4,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle: 'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 4,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'silver'
-      },
-    ]
+    this.allServices = this.allServicesService.allServices;
   }
 
+  // get services titles list
   getServicesTitlesList() {
-    this.servicesTitles = [
-      { id: 1, serviceEn: 'All Services', serviceAr: 'كل الخدمات', serviceSp: 'Todos los Servicios', active: true },
-      { id: 2, serviceEn: 'Tax Services', serviceAr: 'خدمات الضرائب', serviceSp: 'Servicios de Impuestos', active: true },
-      { id: 3, serviceEn: 'Public Services', serviceAr: 'خدمات العامة', serviceSp: 'Servicios Públicos', active: true },
-      { id: 4, serviceEn: 'Immigration Services', serviceAr: 'خدمات الهجرة', serviceSp: 'Servicios de Inmigración', active: true },
-      { id: 5, serviceEn: 'Food Vendor Services', serviceAr: 'خدمات المطاعم', serviceSp: 'Servicios de Vendedores de Alimentos', active: true },
-      { id: 6, serviceEn: 'Business License Services', serviceAr: 'خدمات رخصة الأعمال', serviceSp: 'Servicios de Licencia Comercial', active: true },
-      { id: 7, serviceEn: 'ITIN & EIN Services', serviceAr: 'خدمات ITIN & EIN', serviceSp: 'Servicios de ITIN & EIN', active: true },
-      { id: 8, serviceEn: 'DMV Services', serviceAr: 'خدمات DMV', serviceSp: 'Servicios de DMV', active: true },
-      { id: 9, serviceEn: 'Translation & Notary Public Services', serviceAr: 'خدمات الترجمة والعهد العام', serviceSp: 'Servicios de Traducción y Notario Público', active: true },
-      { id: 10, serviceEn: 'Appointment Service', serviceAr: 'خدمات المواعيد', serviceSp: 'Servicios de Reservación', active: true },
-    ];
+    this.servicesTitles = this.allServicesService.servicesTitles;
   }
 }

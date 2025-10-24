@@ -2,10 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Navbar } from "@shared/components/navbar/navbar";
 import { Footer } from "@shared/components/footer/footer";
 import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-translate/core';
+import { MenuItem } from 'primeng/api';
+import { Breadcrumb } from 'primeng/breadcrumb';
+import { AllServicesComponentService } from '@shared/services/all-services-component';
+import { GalleriaModule } from 'primeng/galleria';
+import { RadioButton } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-service-datails',
-  imports: [Navbar, Footer, TranslateModule],
+  imports: [Navbar, Footer, TranslateModule, Breadcrumb, GalleriaModule, RadioButton, FormsModule],
   templateUrl: './service-datails.html',
   styleUrl: './service-datails.scss'
 })
@@ -16,10 +22,71 @@ export class ServiceDatails implements OnInit {
   isEnglish: boolean = false;
   isSpanish: boolean = false;
 
-  constructor(private translateService: TranslateService) { }
+  // breadcrumb
+  items: MenuItem[] = [{ label: 'Home', routerLink: '/home' }];
+  home: MenuItem | undefined;
+
+  // service details images
+  images: any[] = [
+    {
+      itemImageSrc: 'assets/images/all-services/service.jpg',
+      thumbnailImageSrc: 'assets/images/all-services/service.jpg',
+    },
+    {
+      itemImageSrc: 'assets/images/all-services/service.jpg',
+      thumbnailImageSrc: 'assets/images/all-services/service.jpg',
+    },
+    {
+      itemImageSrc: 'assets/images/all-services/service.jpg',
+      thumbnailImageSrc: 'assets/images/all-services/service.jpg',
+    },
+    {
+      itemImageSrc: 'assets/images/all-services/service.jpg',
+      thumbnailImageSrc: 'assets/images/all-services/service.jpg',
+    }
+  ];
+  carouselPostition: any = 'bottom';
+
+  position: 'left' | 'right' | 'top' | 'bottom' = this.carouselPostition = 'bottom';
+
+  positionOptions = [
+    {
+      label: 'Bottom',
+      value: 'bottom'
+    },
+    {
+      label: 'Top',
+      value: 'top'
+    },
+    {
+      label: 'Left',
+      value: 'left'
+    },
+    {
+      label: 'Right',
+      value: 'right'
+    }
+  ];
+
+  responsiveOptions: any[] = [
+    {
+      breakpoint: '1300px',
+      numVisible: 4,
+    },
+    {
+      breakpoint: '575px',
+      numVisible: 1,
+    },
+  ];
+
+  constructor(private translateService: TranslateService, private allServicesService: AllServicesComponentService) { }
 
   ngOnInit() {
     this.initializeTranslation();
+
+    // breadcrumb Home Icon
+    this.home = { icon: 'pi pi-home', routerLink: '/home' };
+    this.updateBreadcrumb();
   }
 
   // Initialize translation
@@ -49,5 +116,16 @@ export class ServiceDatails implements OnInit {
       this.isEnglish = event.lang === 'en';
       this.isSpanish = event.lang === 'sp';
     });
+  }
+
+  // update breadcrumb
+  updateBreadcrumb() {
+    this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
+    const activeServiceList = this.allServicesService.getActiveServiceList();
+    if (activeServiceList != 1) {
+      let activeServiceTitle = this.isArabic ? this.allServicesService.servicesTitles?.find(service => service.id === activeServiceList)?.serviceAr : this.isEnglish ? this.allServicesService.servicesTitles?.find(service => service.id === activeServiceList)?.serviceEn : this.allServicesService.servicesTitles?.find(service => service.id === activeServiceList)?.serviceSp;
+      this.items?.push({ label: activeServiceTitle, routerLink: '' });
+
+    }
   }
 }
