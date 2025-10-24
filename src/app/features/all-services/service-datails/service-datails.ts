@@ -30,6 +30,9 @@ export class ServiceDatails implements OnInit {
   // service details
   serviceDetails: serviceDatailsInfo[] = [];
 
+  // service counter
+  serviceCounter: number = 1;
+
   // service details images
   images: any[] = [
     {
@@ -146,5 +149,21 @@ export class ServiceDatails implements OnInit {
   // get service details
   getServiceDetails() {
     this.serviceDetails = this.allServicesService.seviceDetails;
+  }
+
+  // increment service counter
+  incrementServiceCounter() {
+    if (this.serviceCounter >= 1) {
+      this.serviceCounter++;
+    }
+  }
+
+  // decrement service counter
+  decrementServiceCounter() {
+    if (this.serviceCounter > 1) {
+      this.serviceCounter--;
+    } else if (this.serviceCounter === 0) {
+      this.serviceCounter = 1;
+    }
   }
 }

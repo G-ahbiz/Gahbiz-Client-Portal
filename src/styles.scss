@@ -167,6 +167,9 @@ input[type='password']::-webkit-outer-spin-button {
 
 .primary-bg-clr {
   background-color: var(--primary-clr) !important;
+  &:hover {
+    background-color: var(--primary-clr-hover) !important;
+  }
 }
 
 .primary-text-clr {

@@ -117,7 +117,7 @@ export class AllServicesComponentService {
       subTitleSp: 'Comenzando en 2024, muchas empresas deben presentar un informe de información de propiedad beneficiaria (BOI) con la Red de Ejecución de Crímenes Financieros (FinCEN) como parte de la Ley de Transparencia Corporativa.',
       priceOffer: '85',
       orignalPrice: '102',
-      rating: 3,
+      rating: 4,
       ratingsCount: 36,
       images: [
         'assets/images/all-services/ServiceDetails/1.jpg',
