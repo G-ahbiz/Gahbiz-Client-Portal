@@ -6,10 +6,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AllServicesComponentService {
   // BehaviorSubject to hold the active service state
-  private activeServiceSubject = new BehaviorSubject<number>(this.getInitialActiveService());
+  private activeServiceSubject = new BehaviorSubject<number>(this.getInitialActiveServiceList());
 
   // Observable that components can subscribe to
-  public activeService$: Observable<number> = this.activeServiceSubject.asObservable();
+  public activeServiceList$: Observable<number> = this.activeServiceSubject.asObservable();
+  // public activeService$: Observable<number> = this.activeServiceSubject.asObservable();
 
   constructor() {
     // Initialize active service from localStorage if available
@@ -20,24 +21,24 @@ export class AllServicesComponentService {
   }
 
   // Get the initial active service from localStorage or default to 1
-  private getInitialActiveService(): number {
+  private getInitialActiveServiceList(): number {
     const stored = localStorage.getItem('activeServiceList');
     return stored ? parseInt(stored) : 1;
   }
 
   // Get the current active service value synchronously
-  getActiveService(): number {
+  getActiveServiceList(): number {
     return this.activeServiceSubject.value;
   }
 
   // Set the active service and persist to localStorage
-  setActiveService(serviceId: number): void {
+  setActiveServiceList(serviceId: number): void {
     this.activeServiceSubject.next(serviceId);
     localStorage.setItem('activeServiceList', serviceId.toString());
   }
 
   // Clear active service (useful for cleanup)
-  clearActiveService(): void {
+  clearActiveServiceList(): void {
     localStorage.removeItem('activeServiceList');
     this.activeServiceSubject.next(1);
   }

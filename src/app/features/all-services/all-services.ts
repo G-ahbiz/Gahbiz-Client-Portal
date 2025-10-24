@@ -62,7 +62,7 @@ export class AllServices implements OnInit, OnDestroy {
     this.getServicesTitlesList();
 
     // Subscribe to active service changes from the shared service
-    this.activeServiceSubscription = this.allServicesService.activeService$.subscribe(serviceId => {
+    this.activeServiceSubscription = this.allServicesService.activeServiceList$.subscribe((serviceId: number) => {
       this.activeService = serviceId;
       this.updateBreadcrumb();
     });
@@ -77,7 +77,7 @@ export class AllServices implements OnInit, OnDestroy {
       this.activeServiceSubscription.unsubscribe();
     }
     // Clear active service using the service
-    this.allServicesService.clearActiveService();
+    this.allServicesService.clearActiveServiceList();
   }
 
   // Initialize translation
@@ -112,15 +112,15 @@ export class AllServices implements OnInit, OnDestroy {
   // set active service
   setActiveServiceList(serviceId: number) {
     // Use the shared service to set active service
-    this.allServicesService.setActiveService(serviceId);
+    this.allServicesService.setActiveServiceList(serviceId);
   }
 
   // update breadcrumb
   updateBreadcrumb() {
     this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
-    const activeService = this.allServicesService.getActiveService();
-    if (activeService != 1) {
-      let activeServiceTitle = this.isArabic ? this.servicesTitles?.find(service => service.id === activeService)?.serviceAr : this.isEnglish ? this.servicesTitles?.find(service => service.id === activeService)?.serviceEn : this.servicesTitles?.find(service => service.id === activeService)?.serviceSp;
+    const activeServiceList = this.allServicesService.getActiveServiceList();
+    if (activeServiceList != 1) {
+      let activeServiceTitle = this.isArabic ? this.servicesTitles?.find(service => service.id === activeServiceList)?.serviceAr : this.isEnglish ? this.servicesTitles?.find(service => service.id === activeServiceList)?.serviceEn : this.servicesTitles?.find(service => service.id === activeServiceList)?.serviceSp;
       this.items?.push({ label: activeServiceTitle, routerLink: '' });
     }
   }
