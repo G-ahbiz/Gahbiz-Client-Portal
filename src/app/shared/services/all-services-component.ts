@@ -13,7 +13,7 @@ export class AllServicesComponentService {
 
   constructor() {
     // Initialize active service from localStorage if available
-    const storedService = localStorage.getItem('activeService');
+    const storedService = localStorage.getItem('activeServiceList');
     if (storedService) {
       this.activeServiceSubject.next(parseInt(storedService));
     }
@@ -21,7 +21,7 @@ export class AllServicesComponentService {
 
   // Get the initial active service from localStorage or default to 1
   private getInitialActiveService(): number {
-    const stored = localStorage.getItem('activeService');
+    const stored = localStorage.getItem('activeServiceList');
     return stored ? parseInt(stored) : 1;
   }
 
@@ -33,12 +33,12 @@ export class AllServicesComponentService {
   // Set the active service and persist to localStorage
   setActiveService(serviceId: number): void {
     this.activeServiceSubject.next(serviceId);
-    localStorage.setItem('activeService', serviceId.toString());
+    localStorage.setItem('activeServiceList', serviceId.toString());
   }
 
   // Clear active service (useful for cleanup)
   clearActiveService(): void {
-    localStorage.removeItem('activeService');
+    localStorage.removeItem('activeServiceList');
     this.activeServiceSubject.next(1);
   }
 }
