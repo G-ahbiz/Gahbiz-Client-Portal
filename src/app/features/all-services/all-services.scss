@@ -2,15 +2,7 @@
   background-color: var(--bg-clr);
 }
 
-.active-service {
-  background-color: var(--primary-clr);
-  color: var(--text-light-clr);
 
-  &:hover {
-    background-color: var(--primary-clr-hover);
-    color: var(--text-light-clr);
-  }
-}
 
 .all-services-header {
   background: url('/assets/images/all-services/all-service-bg.png') no-repeat center center;

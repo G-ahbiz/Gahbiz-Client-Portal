@@ -10,6 +10,7 @@ import { AllServicesLists } from "./all-services-lists/all-services-lists";
 import { AllServicesComponentService } from '@shared/services/all-services-component';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { AllServicesTabs } from "./all-services-tabs/all-services-tabs";
 
 
 export interface Service {
@@ -22,7 +23,7 @@ export interface Service {
 
 @Component({
   selector: 'app-all-services',
-  imports: [TranslateModule, Navbar, Footer, Breadcrumb, RatingModule, ServicesComponent, AllServicesLists, CommonModule],
+  imports: [TranslateModule, Navbar, Footer, Breadcrumb, RatingModule, ServicesComponent, AllServicesLists, CommonModule, AllServicesTabs],
   templateUrl: './all-services.html',
   styleUrl: './all-services.scss'
 })
