@@ -14,13 +14,16 @@
 
       <div class="service-details-content d-flex justify-content-center align-items-center gap-4">
         <!-- Service Details Images -->
-        <div class="card border-0">
+        <div class="card border-0 service-details-images">
 
           <p-galleria [value]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions"
-            [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [showItemNavigators]="true" [showThumbnailNavigators]="true">
+            [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [showItemNavigators]="true"
+            [showThumbnailNavigators]="true" [showItemNavigatorsOnHover]="true">
+            <!-- main image -->
             <ng-template pTemplate="item" let-item>
               <img [src]="item.itemImageSrc" class="w-100 d-block" />
             </ng-template>
+            <!-- thumbnail image -->
             <ng-template pTemplate="thumbnail" let-item>
               <div class="grid gap-4 justify-center">
                 <img [src]="item.thumbnailImageSrc" class="w-100 d-block" />
@@ -31,7 +34,7 @@
 
         <!-- Service Details Info -->
         <div class="service-details-info">
-          <h1 class="title">
+          <h1 class="title fw-bold fs-2">
             File Your Tax 1040 Single or MJS - Stander
           </h1>
           <p class="subtitle">
