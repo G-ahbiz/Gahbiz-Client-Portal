@@ -17,13 +17,13 @@
         <div class="card border-0">
 
           <p-galleria [value]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions"
-            [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [showItemNavigators]="true" [showThumbnailNavigators]="true">
             <ng-template pTemplate="item" let-item>
-              <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+              <img [src]="item.itemImageSrc" class="w-100 d-block" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
               <div class="grid gap-4 justify-center">
-                <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
+                <img [src]="item.thumbnailImageSrc" class="w-100 d-block" />
               </div>
             </ng-template>
           </p-galleria>

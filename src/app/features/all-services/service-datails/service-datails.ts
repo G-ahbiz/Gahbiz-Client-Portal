@@ -29,20 +29,24 @@ export class ServiceDatails implements OnInit {
   // service details images
   images: any[] = [
     {
-      itemImageSrc: 'assets/images/all-services/service.jpg',
-      thumbnailImageSrc: 'assets/images/all-services/service.jpg',
+      itemImageSrc: 'assets/images/all-services/ServiceDetails/1.jpg',
+      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/1.jpg',
     },
     {
-      itemImageSrc: 'assets/images/all-services/service.jpg',
-      thumbnailImageSrc: 'assets/images/all-services/service.jpg',
+      itemImageSrc: 'assets/images/all-services/ServiceDetails/2.jpg',
+      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/2.jpg',
     },
     {
-      itemImageSrc: 'assets/images/all-services/service.jpg',
-      thumbnailImageSrc: 'assets/images/all-services/service.jpg',
+      itemImageSrc: 'assets/images/all-services/ServiceDetails/3.jpg',
+      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/3.jpg',
     },
     {
-      itemImageSrc: 'assets/images/all-services/service.jpg',
-      thumbnailImageSrc: 'assets/images/all-services/service.jpg',
+      itemImageSrc: 'assets/images/all-services/ServiceDetails/4.jpg',
+      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/4.jpg',
+    },
+    {
+      itemImageSrc: 'assets/images/all-services/ServiceDetails/5.jpg',
+      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/5.jpg',
     }
   ];
   carouselPostition: any = 'bottom';
