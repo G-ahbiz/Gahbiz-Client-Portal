@@ -19,6 +19,24 @@ export interface AllServicesDetails {
   image: string[];
   type: string;
 }
+
+export interface serviceDatailsInfo {
+  id: number;
+  nameEn: string;
+  nameAr: string;
+  nameSp: string;
+  titleEn: string;
+  titleAr: string;
+  titleSp: string;
+  subTitleEn: string;
+  subTitleAr: string;
+  subTitleSp: string;
+  priceOffer: string;
+  orignalPrice: string;
+  rating: number;
+  ratingsCount: number;
+  images: string[];
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -84,16 +102,30 @@ export class AllServicesComponentService {
     },
   ]
 
-  seviceDetails: any[] = [
+  // Shared Service Details For All Services (Example)
+  seviceDetails: serviceDatailsInfo[] = [
     {
       id: 1,
-      title: 'File Your Tax 1040 Single or MJS - Stander',
-      subTitle: 'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
+      nameEn: 'Tax 1040',
+      nameAr: 'ضريبة 1040',
+      nameSp: 'Impuesto 1040',
+      titleEn: 'File Your Tax 1040 Single or MJS - Stander',
+      titleAr: 'تقديم ضريبة 1040 الفردية أو MJS - معيار',
+      titleSp: 'Presentación de la declaración de impuestos 1040 individual o MJS - Estándar',
+      subTitleEn: 'Starting in 2024, many businesses are required to file a Beneficial Ownership Information (BOI) Report with the Financial Crimes Enforcement Network (FinCEN) as part of the Corporate Transparency Act.',
+      subTitleAr: 'بدءًا من عام 2024 ، يتعين على العديد من الشركات تقديم تقرير معلومات الملكية المفيدة (BOI) مع شبكة التنفيذ الجنائي للجرائم المالية (FinCEN) كجزء من قانون الشفافية الشركية.',
+      subTitleSp: 'Comenzando en 2024, muchas empresas deben presentar un informe de información de propiedad beneficiaria (BOI) con la Red de Ejecución de Crímenes Financieros (FinCEN) como parte de la Ley de Transparencia Corporativa.',
       priceOffer: '85',
       orignalPrice: '102',
       rating: 3,
       ratingsCount: 36,
-      image: { image1: 'service.jpg', image2: 'service.jpg', image3: 'service.jpg', image4: 'service.jpg', image5: 'service.jpg', image6: 'service.jpg' },
+      images: [
+        'assets/images/all-services/ServiceDetails/1.jpg',
+        'assets/images/all-services/ServiceDetails/2.jpg',
+        'assets/images/all-services/ServiceDetails/3.jpg',
+        'assets/images/all-services/ServiceDetails/4.jpg',
+        'assets/images/all-services/ServiceDetails/5.jpg',
+      ],
     },
   ]
 
@@ -108,10 +140,15 @@ export class AllServicesComponentService {
   public cart$: Observable<number[]> = this.cartSubject.asObservable();
 
   constructor() {
+    // Initialize active serviceList from localStorage if available
+    const storedServiceList = localStorage.getItem('activeServiceList');
+    if (storedServiceList) {
+      this.activeServiceListSubject.next(parseInt(storedServiceList));
+    }
     // Initialize active service from localStorage if available
-    const storedService = localStorage.getItem('activeServiceList');
+    const storedService = localStorage.getItem('activeService');
     if (storedService) {
-      this.activeServiceListSubject.next(parseInt(storedService));
+      this.activeServiceSubject.next(parseInt(storedService));
     }
   }
 

@@ -4,14 +4,15 @@ import { Footer } from "@shared/components/footer/footer";
 import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
-import { AllServicesComponentService } from '@shared/services/all-services-component';
+import { AllServicesComponentService, serviceDatailsInfo } from '@shared/services/all-services-component';
 import { GalleriaModule } from 'primeng/galleria';
-import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
+import { Rating } from '@shared/components/rating/rating';
+
 
 @Component({
   selector: 'app-service-datails',
-  imports: [Navbar, Footer, TranslateModule, Breadcrumb, GalleriaModule, RadioButton, FormsModule],
+  imports: [Navbar, Footer, TranslateModule, Breadcrumb, GalleriaModule, FormsModule, Rating],
   templateUrl: './service-datails.html',
   styleUrl: './service-datails.scss'
 })
@@ -25,6 +26,9 @@ export class ServiceDatails implements OnInit {
   // breadcrumb
   items: MenuItem[] = [{ label: 'Home', routerLink: '/home' }];
   home: MenuItem | undefined;
+
+  // service details
+  serviceDetails: serviceDatailsInfo[] = [];
 
   // service details images
   images: any[] = [
@@ -88,8 +92,13 @@ export class ServiceDatails implements OnInit {
   ngOnInit() {
     this.initializeTranslation();
 
+    // service details
+    this.getServiceDetails();
+
     // breadcrumb Home Icon
     this.home = { icon: 'pi pi-home', routerLink: '/home' };
+
+    // update breadcrumb
     this.updateBreadcrumb();
   }
 
@@ -126,10 +135,16 @@ export class ServiceDatails implements OnInit {
   updateBreadcrumb() {
     this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
     const activeServiceList = this.allServicesService.getActiveServiceList();
+    const activeService = this.allServicesService.getActiveService();
     if (activeServiceList != 1) {
       let activeServiceTitle = this.isArabic ? this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceAr : this.isEnglish ? this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceEn : this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceSp;
       this.items?.push({ label: activeServiceTitle, routerLink: '' });
-
+      this.items?.push({ label: this.isArabic ? this.serviceDetails[0].nameAr : this.isEnglish ? this.serviceDetails[0].nameEn : this.serviceDetails[0].nameSp, routerLink: '' });
     }
+  }
+
+  // get service details
+  getServiceDetails() {
+    this.serviceDetails = this.allServicesService.seviceDetails;
   }
 }

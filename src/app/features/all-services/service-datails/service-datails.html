@@ -12,9 +12,10 @@
         </div>
       </div>
 
-      <div class="service-details-content d-flex justify-content-center align-items-center gap-4">
+      <!-- Service Details Content -->
+      <div class="service-details-content d-flex justify-content-center align-items-start gap-4">
         <!-- Service Details Images -->
-        <div class="card border-0 service-details-images">
+        <div class="card border-0 service-details-images w-50">
 
           <p-galleria [value]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions"
             [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [showItemNavigators]="true"
@@ -33,14 +34,39 @@
         </div>
 
         <!-- Service Details Info -->
-        <div class="service-details-info">
-          <h1 class="title fw-bold fs-2">
-            File Your Tax 1040 Single or MJS - Stander
-          </h1>
-          <p class="subtitle">
-            Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....
-          </p>
+        <div class="service-details-info d-flex flex-column justify-content-between align-items-start gap-4 w-50">
+          <!-- Service Details Title -->
+          <div class="title-container">
+            <h1 class="title fw-bold fs-2">
+              {{ isArabic ? serviceDetails[0].titleAr : isEnglish ? serviceDetails[0].titleEn :
+              serviceDetails[0].titleSp
+              }}
+            </h1>
+          </div>
+
+          <!-- Rating & Ratings Count -->
+          <div class="rating-ratings-count-container d-flex justify-content-start align-items-center gap-2">
+            <app-rating [rating]="serviceDetails[0].rating"></app-rating>
+            <span class="ratings-count fs-75">({{serviceDetails[0].ratingsCount}} Reviews)</span>
+          </div>
+
+          <!-- Price & Original Price -->
+          <div class="price-original-price-container d-flex justify-content-start align-items-center gap-2">
+            <span class="orignal-price text-muted fs-875"><del
+                class="text-muted">${{serviceDetails[0].orignalPrice}}</del></span>
+            <span class="price-offer fw-bolder">${{serviceDetails[0].priceOffer}}</span>
+          </div>
+
+          <!-- Service Details Subtitle -->
+          <div class="subtitle-container">
+            <p class="subtitle">
+              {{ isArabic ? serviceDetails[0].subTitleAr : isEnglish ? serviceDetails[0].subTitleEn :
+              serviceDetails[0].subTitleSp }}
+            </p>
+          </div>
+
         </div>
+
       </div>
 
     </div>
