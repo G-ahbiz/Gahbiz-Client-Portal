@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-export interface ServicesTitles {
+export interface ServicesListTitles {
   id: number;
   serviceEn: string;
   serviceAr: string;
@@ -16,7 +16,7 @@ export interface AllServicesDetails {
   orignalPrice: string;
   rating: number;
   ratingsCount: number;
-  image: string;
+  image: string[];
   type: string;
 }
 @Injectable({
@@ -24,7 +24,7 @@ export interface AllServicesDetails {
 })
 export class AllServicesComponentService {
 
-  servicesTitles: ServicesTitles[] = [
+  servicesListTitles: ServicesListTitles[] = [
     { id: 1, serviceEn: 'All Services', serviceAr: 'كل الخدمات', serviceSp: 'Todos los Servicios', active: true },
     { id: 2, serviceEn: 'Tax Services', serviceAr: 'خدمات الضرائب', serviceSp: 'Servicios de Impuestos', active: true },
     { id: 3, serviceEn: 'Public Services', serviceAr: 'خدمات العامة', serviceSp: 'Servicios Públicos', active: true },
@@ -46,7 +46,7 @@ export class AllServicesComponentService {
       orignalPrice: '102',
       rating: 3,
       ratingsCount: 36,
-      image: 'service.jpg',
+      image: ['service.jpg'],
       type: 'basic'
     },
     {
@@ -57,7 +57,7 @@ export class AllServicesComponentService {
       orignalPrice: '102',
       rating: 2,
       ratingsCount: 36,
-      image: 'service.jpg',
+      image: ['service.jpg'],
       type: 'standard'
     },
     {
@@ -68,7 +68,7 @@ export class AllServicesComponentService {
       orignalPrice: '102',
       rating: 5,
       ratingsCount: 36,
-      image: 'service.jpg',
+      image: ['service.jpg'],
       type: 'gold'
     },
     {
@@ -79,7 +79,7 @@ export class AllServicesComponentService {
       orignalPrice: '102',
       rating: 4,
       ratingsCount: 36,
-      image: 'service.jpg',
+      image: ['service.jpg'],
       type: 'silver'
     },
   ]

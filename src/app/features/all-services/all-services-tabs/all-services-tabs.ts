@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ServicesTitles, AllServicesComponentService } from '@shared/services/all-services-component';
+import { ServicesListTitles, AllServicesComponentService } from '@shared/services/all-services-component';
 import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-transla
   styleUrl: './all-services-tabs.scss'
 })
 export class AllServicesTabs implements OnInit {
-  @Input() servicesTitles: ServicesTitles[] = [];
+  @Input() servicesListTitles: ServicesListTitles[] = [];
   // active service
   @Input() activeService: number = 1;
 

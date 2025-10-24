@@ -7,7 +7,7 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 import { RatingModule } from 'primeng/rating';
 import { ServicesComponent } from "./services-component/services-component";
 import { AllServicesLists } from "./all-services-lists/all-services-lists";
-import { AllServicesComponentService, AllServicesDetails, ServicesTitles } from '@shared/services/all-services-component';
+import { AllServicesComponentService, AllServicesDetails, ServicesListTitles } from '@shared/services/all-services-component';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AllServicesTabs } from "./all-services-tabs/all-services-tabs";
@@ -39,7 +39,7 @@ export class AllServices implements OnInit, OnDestroy {
   home: MenuItem | undefined;
 
   // services list
-  servicesTitles: ServicesTitles[] = [];
+  servicesListTitles: ServicesListTitles[] = [];
 
   // active service
   activeService: number = 1;
@@ -114,7 +114,7 @@ export class AllServices implements OnInit, OnDestroy {
     this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
     const activeServiceList = this.allServicesService.getActiveServiceList();
     if (activeServiceList != 1) {
-      let activeServiceTitle = this.isArabic ? this.servicesTitles?.find(service => service.id === activeServiceList)?.serviceAr : this.isEnglish ? this.servicesTitles?.find(service => service.id === activeServiceList)?.serviceEn : this.servicesTitles?.find(service => service.id === activeServiceList)?.serviceSp;
+      let activeServiceTitle = this.isArabic ? this.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceAr : this.isEnglish ? this.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceEn : this.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceSp;
       this.items?.push({ label: activeServiceTitle, routerLink: '' });
     }
   }
@@ -126,6 +126,6 @@ export class AllServices implements OnInit, OnDestroy {
 
   // get services titles list
   getServicesTitlesList() {
-    this.servicesTitles = this.allServicesService.servicesTitles;
+    this.servicesListTitles = this.allServicesService.servicesListTitles;
   }
 }

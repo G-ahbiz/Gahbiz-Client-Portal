@@ -127,7 +127,7 @@ export class ServiceDatails implements OnInit {
     this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
     const activeServiceList = this.allServicesService.getActiveServiceList();
     if (activeServiceList != 1) {
-      let activeServiceTitle = this.isArabic ? this.allServicesService.servicesTitles?.find(service => service.id === activeServiceList)?.serviceAr : this.isEnglish ? this.allServicesService.servicesTitles?.find(service => service.id === activeServiceList)?.serviceEn : this.allServicesService.servicesTitles?.find(service => service.id === activeServiceList)?.serviceSp;
+      let activeServiceTitle = this.isArabic ? this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceAr : this.isEnglish ? this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceEn : this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceSp;
       this.items?.push({ label: activeServiceTitle, routerLink: '' });
 
     }
