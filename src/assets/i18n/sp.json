@@ -119,11 +119,17 @@
     "completed": "Completado",
     "not-completed": "No Completado",
     "form": {
+      "loading": "Cargando...",
+      "loading-countries": "Cargando países...",
+      "loading-states": "Cargando estados...",
+      "select-country-first": "Seleccione un país primero",
+      "no-states-available": "No hay estados disponibles para este país",
       "full-legal-name": "Nombre legal completo",
       "full-legal-name-placeholder": "Ingrese su nombre",
       "email": "Correo electrónico",
       "email-placeholder": "Ingrese su correo electrónico",
       "gender": "Género",
+      "gender-placeholder": "Seleccione su género",
       "gender-male": "Masculino",
       "gender-female": "Femenino",
       "phone": "Teléfono",
@@ -157,6 +163,15 @@
         "state": "Por favor, ingrese un estado válido.",
         "postal_code": "Por favor, ingrese un código postal válido."
       }
+    },
+    "messages": {
+      "update_success": "¡Perfil actualizado con éxito!",
+      "update_error": "Ocurrió un error al actualizar su perfil. Por favor, inténtelo de nuevo.",
+      "form_invalid": "Por favor, corrija los errores en el formulario antes de enviarlo.",
+      "birthdate_invalid": "La fecha de nacimiento proporcionada no es válida.",
+      "load_countries_error": "No se pudieron cargar los países. Por favor, actualice.",
+      "load_states_error": "No se pudieron cargar los estados para el país seleccionado.",
+      "load_profile_error": "No se pudieron cargar los datos del perfil. Por favor, inténtelo de nuevo."
     },
     "states": {
       "ny": "Nueva York",
