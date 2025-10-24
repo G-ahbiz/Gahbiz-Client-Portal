@@ -4,7 +4,8 @@ import { Rating } from '@shared/components/rating/rating';
 import { PaginatorModule } from 'primeng/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-
+import { Router } from '@angular/router';
+import { AllServicesComponentService } from '@shared/services/all-services-component';
 @Component({
   selector: 'app-services-component',
   imports: [TranslateModule, Rating, PaginatorModule, MatIconModule, CommonModule],
@@ -27,11 +28,23 @@ export class ServicesComponent implements OnInit {
   @Input() title: string = '';
 
 
-  constructor(private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService, private router: Router, private allServicesService: AllServicesComponentService) { }
 
   ngOnInit() {
     this.initializeTranslation();
     this.updateTotalPages();
+  }
+
+  // navigate to service details
+  navigateToServiceDetails(serviceId: number) {
+    this.allServicesService.setActiveService(serviceId);
+    this.router.navigate(['/service-details']);
+  }
+
+  // add to cart
+  addToCart(serviceId: number) {
+    this.allServicesService.setActiveService(serviceId);
+    this.allServicesService.addToCart(serviceId);
   }
 
   // Initialize translation
