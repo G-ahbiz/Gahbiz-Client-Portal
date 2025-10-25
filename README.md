@@ -16,20 +16,17 @@ src/
 │   ├── core/               // Singleton services, interceptors, guards, app-level utilities
 │   │   ├── services/       // Global services
 │   │   ├── interceptors/   // HTTP interceptors
-│   │   ├── guards/         // Route guards
-│   │   └── core.module.ts  // Core module definition
+│   │   └── guards/         // Route guards
 │   │
 │   ├── shared/             // Reusable components, directives, and pipes
 │   │   ├── components/     // Shared UI components
 │   │   ├── directives/     // Reusable directives
-│   │   ├── pipes/          // Reusable pipes
-│   │   └── shared.module.ts
+│   │   └── pipes/          // Reusable pipes
 │   │
 │   ├── features/           // Feature modules (see structure below)
 │   │
 │   ├── assets/             // Static assets like images, fonts, etc.
-│   ├── environments/       // Environment-specific configurations
-│   └── app.module.ts       // Root module
+│   └── environments/       // Environment-specific configurations
 |
 ├── styles/                 // Global SCSS or CSS styles
 ├── index.html              // Entry point for the app
@@ -69,10 +66,9 @@ features/feature-name
   │           ├── specific-component-two.component.ts
   │           ├── specific-component-two.component.html
   │           └── specific-component-two.component.scss
-  ├── services
-  │   ├── feature-name-api.service.ts
-  │   └── feature-name-facade.service.ts
-  └── feature-name.module.ts
+  └── services
+      ├── feature-name-api.service.ts
+      └── feature-name-facade.service.ts
 ```
 
 ---
@@ -119,7 +115,6 @@ export class FeatureApiService {
 Examples:
 ```plaintext
 user-profile.component.ts
-user-profile.module.ts
 user-api.service.ts
 ```
 
