@@ -37,15 +37,15 @@
             <!-- Camera Icon Container -->
             <div
               class="camera-container position-absolute bottom-0 end-0 d-flex justify-content-center align-items-center grey-bg-clr w-100 h-25"
-              (click)="onUploadProfilePic()">
+              (click)="onUploadProfilePic(); $event.stopPropagation()">
               <img src="assets/images/complete-profile/camera.svg" alt="camera" class="camera-icon w-75 h-75">
             </div>
           </div>
 
           <!-- Name & Location -->
-          <div class="name-container d-flex flex-column justify-content-center align-items-center gap-2">
-            <h3 class="name-text fs-875 fw-medium">John Doe</h3>
-            <p class="location-text fs-875 fw-medium primary-text-clr">New York</p>
+          <div class="name-container d-flex flex-column gap-2">
+            <h3 class="name-text fs-875 fw-medium">{{ user?.fullName }}</h3>
+            <p class="location-text fs-875 fw-medium primary-text-clr">{{ user?.state }}</p>
           </div>
         </div>
 
@@ -98,8 +98,8 @@
           <!-- Email -->
           <div class="form-group email-group w-100">
             <!-- Email Label -->
-            <label class="fs-5 fw-medium" for="email">{{'complete-profile.form.email' | translate}} <span
-                [class]="!checkTouched('email')?'text-success':'text-danger'">*</span>
+            <label class="fs-5 fw-medium" for="email">{{'complete-profile.form.email' | translate}}
+              <span [class]="!checkTouched('email')?'text-success':'text-danger'">*</span>
             </label>
 
             <!-- Email Input -->
@@ -121,9 +121,11 @@
                 [class]="!checkTouched('gender')?'text-success':'text-danger'">*</span></label>
             <!-- Gender Select -->
             <select class="form-select" id="gender" formControlName="gender" #genderInput>
-              <option disabled selected></option>
-              <option value="male">{{'complete-profile.form.gender-male' | translate}}</option>
-              <option value="female">{{'complete-profile.form.gender-female' | translate}}</option>
+              <option [ngValue]="null" disabled selected>{{'complete-profile.form.gender-placeholder' | translate}}
+              </option>
+              @for (gender of genders; track gender.value) {
+              <option [value]="gender.value">{{ gender.labelKey | translate }}</option>
+              }
             </select>
 
             <!-- Error Message -->
@@ -140,41 +142,39 @@
           <!-- Phone -->
           <div class="form-group phone-group w-100">
             <!-- Phone Label -->
-            <label class="fs-5 fw-medium" for="phoneNumber">
-              <span class="">{{'complete-profile.form.phone' | translate}} </span>
+            <label class="fs-5 fw-medium" for="phoneNumber">{{'complete-profile.form.phone' | translate}}
               <span [class]="!checkTouched('phoneNumber')?'text-success':'text-danger'">*</span>
             </label>
 
-            <!-- Phone Dropdown -->
-            <div class="phone-dropdown-wrapper d-flex align-items-center align-items-center">
-              <div class="dropdown">
-                <button
-                  class="btn btn-secondary bg-transparent dropdown-toggle d-flex align-items-center gap-2 text-black"
-                  type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <span class="">{{currentPhoneCode}}</span>
-                </button>
-                <ul class="dropdown-menu">
+            <!-- Phone Input with Country Code -->
+            <div class="input-group phone-dropdown-wrapper" [class.ng-invalid]="checkInvalid('phoneNumber')"
+              [class.ng-touched]="!!completeProfileForm.get('phoneNumber')?.touched">
 
-                  <!-- Phone Codes -->
-                  @for (phoneCode of phoneCodes; track phoneCode.dialCode) {
-                  <li class="dropdown-item d-flex align-items-center gap-2">
-                    <a class="dropdown-item d-flex align-items-center gap-2" href="javascript:(void 0)"
-                      (click)="setCurrentPhoneCode(phoneCode.dialCode)">
-                      <img [src]="phoneCode.image" alt="" class="flag-icon">
-                      <span class="">{{phoneCode.name}} ({{phoneCode.dialCode}})</span>
-                    </a>
-                  </li>
-                  }
-                </ul>
-              </div>
+              <button type="button" class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1"
+                (click)="toggleDropdown($event)" [attr.aria-expanded]="isOpen">
+                <span class="fi fi-{{ selectedCountry.iso2 }}"></span>
+                <span class="ml-1">{{ selectedCountry.dialCode }}</span>
+              </button>
 
-              <!-- Phone Input -->
+              <ul class="dropdown-menu" [class.show]="isOpen">
+                @for (c of countries; track c.iso2) {
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="#"
+                    (click)="selectCountry(c); $event.preventDefault()">
+                    <span class="fi fi-{{ c.iso2 }}"></span>
+                    <span class="ml-2">{{ c.dialCode }}</span>
+                  </a>
+                </li>
+                }
+              </ul>
+
               <input type="text" class="form-control" id="phoneNumber"
-                placeholder="{{'complete-profile.form.phone-placeholder' | translate}}" formControlName="phoneNumber"
-                #phoneNumberInput>
+                placeholder="{{'complete-profile.form.phone-placeholder' | translate}}" [ngModel]="phoneInputNumber"
+                [ngModelOptions]="{standalone: true}" (ngModelChange)="onNumberChange($event)"
+                (blur)="completeProfileForm.get('phoneNumber')?.markAsTouched()" #phoneNumberInput>
             </div>
 
-            <!-- Phone Number Error Message -->
+            <!-- Error Message -->
             <div class="error-message" [class.d-block]="checkInvalid('phoneNumber')"
               [class.text-danger]="checkInvalid('phoneNumber')">
               {{checkInvalid('phoneNumber') ? getErrorMessageFor('phoneNumber') : ' '}}
@@ -201,31 +201,52 @@
           </div>
         </div>
 
-
         <!-- Birth Date -->
         <div class="form-group birth-date-group">
           <!-- Birth Date Label -->
           <label class="fs-5 fw-medium" for="birthDate">
             <span class="">{{'complete-profile.form.birth-date' | translate}} </span>
-            <span [class]="!checkTouched('birthDate')?'text-success':'text-danger'">*</span>
+            <span [class]="!isBirthDateInvalid() ? 'text-success' : 'text-danger'">*</span>
           </label>
 
           <!-- Birth Date Inputs -->
-          <div class="birth-date-inputs d-flex justify-content-center align-items-center gap-3 w-100">
+          <div
+            class="birth-date-inputs d-flex justify-content-between align-items-center gap-2 w-100 position-relative">
             <!-- Birth Month -->
-            <input type="text" class="form-control" id="birthMonth"
-              placeholder="{{'complete-profile.form.birth-month-placeholder' | translate}}" formControlName="birthMonth"
-              #birthMonthInput>
-            <span class="fs-4">/</span>
+            <div class="flex-fill position-relative">
+              <input type="text" class="form-control text-center" id="birthMonth" maxlength="2"
+                placeholder="{{'complete-profile.form.birth-month-placeholder' | translate}}"
+                formControlName="birthMonth" (input)="onBirthDateInput('month', $event)"
+                (keydown)="onBirthDateKeydown('month', $event)" (focus)="onBirthDateFocus('month')"
+                (blur)="onBirthDateBlur('month')" [class.is-invalid]="checkInvalid('birthMonth')" #birthMonthInput>
+            </div>
+
+            <span class="fs-4 text-muted flex-shrink-0">/</span>
+
             <!-- Birth Day -->
-            <input type="text" class="form-control" id="birthDay"
-              placeholder="{{'complete-profile.form.birth-day-placeholder' | translate}}" formControlName="birthDay"
-              #birthDayInput>
-            <span class="fs-4">/</span>
+            <div class="flex-fill position-relative">
+              <input type="text" class="form-control text-center" id="birthDay" maxlength="2"
+                placeholder="{{'complete-profile.form.birth-day-placeholder' | translate}}" formControlName="birthDay"
+                (input)="onBirthDateInput('day', $event)" (keydown)="onBirthDateKeydown('day', $event)"
+                (focus)="onBirthDateFocus('day')" (blur)="onBirthDateBlur('day')"
+                [class.is-invalid]="checkInvalid('birthDay')" #birthDayInput>
+            </div>
+
+            <span class="fs-4 text-muted flex-shrink-0">/</span>
+
             <!-- Birth Year -->
-            <input type="text" class="form-control" id="birthYear"
-              placeholder="{{'complete-profile.form.birth-year-placeholder' | translate}}" formControlName="birthYear"
-              #birthYearInput>
+            <div class="flex-fill position-relative">
+              <input type="text" class="form-control text-center" id="birthYear" maxlength="4"
+                placeholder="{{'complete-profile.form.birth-year-placeholder' | translate}}" formControlName="birthYear"
+                (input)="onBirthDateInput('year', $event)" (keydown)="onBirthDateKeydown('year', $event)"
+                (focus)="onBirthDateFocus('year')" (blur)="onBirthDateBlur('year')"
+                [class.is-invalid]="checkInvalid('birthYear')" #birthYearInput>
+            </div>
+          </div>
+
+          <!-- Combined Error Message -->
+          <div class="error-message" [class.d-block]="isBirthDateInvalid()" [class.text-danger]="isBirthDateInvalid()">
+            {{getBirthDateErrorMessage()}}
           </div>
         </div>
 
@@ -238,51 +259,76 @@
           </h2>
         </div>
 
-
         <!-- Country & State -->
         <div class="country-state-group d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
 
-          <!-- country -->
           <div class="form-group country-group w-100">
-
-            <!-- country label -->
             <label class="fs-5 fw-medium" for="country">{{'complete-profile.form.country' | translate}} <span
                 [class]="!checkTouched('country')?'text-success':'text-danger'">*</span>
             </label>
 
-            <!-- country input -->
-            <input type="text" class="form-control" id="country"
-              placeholder="{{'complete-profile.form.country-placeholder' | translate}}" formControlName="country"
-              #countryInput>
+            <select class="form-select" id="country" formControlName="country" #countryInput
+              [class.is-loading]="countriesLoading">
+              <option [ngValue]="null" disabled selected>
+                @if (countriesLoading) {
+                {{'complete-profile.form.loading' | translate}}
+                } @else {
+                {{'complete-profile.form.country-placeholder' | translate}}
+                }
+              </option>
+              @for (country of (addressCountries$ | async); track country.id) {
+              <option [value]="country.id">{{ country.name }}</option>
+              }
+            </select>
 
-            <!-- error message -->
+            @if (countriesLoading) {
+            <div class="form-text">
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              {{'complete-profile.form.loading-countries' | translate}}
+            </div>
+            }
+
             <div class="error-message" [class.d-block]="checkInvalid('country')"
               [class.text-danger]="checkInvalid('country')">
               {{checkInvalid('country') ? getErrorMessageFor('country') : ' '}}
             </div>
           </div>
 
-          <!-- state -->
           <div class="form-group state-group w-100">
-            <!-- state label -->
-            <label class="fs-5 fw-medium" for="state">{{'complete-profile.form.state' | translate}} <span
-                [class]="!checkTouched('state')?'text-success':'text-danger'">*</span>
+            <label class="fs-5 fw-medium" for="state">{{'complete-profile.form.state' | translate}} <span  
+                [class]="state?.valid && state?.enabled ? 'text-success' : 'text-danger'">*</span>
             </label>
 
-            <!-- state select -->
-            <select class="form-select" id="state" formControlName="state" #stateInput>
-              <option disabled selected></option>
-              <option value="ny">{{'complete-profile.states.ny' | translate}}</option>
-              <option value="ca">{{'complete-profile.states.ca' | translate}}</option>
-              <option value="tx">{{'complete-profile.states.tx' | translate}}</option>
-              <option value="fl">{{'complete-profile.states.fl' | translate}}</option>
-              <option value="il">{{'complete-profile.states.il' | translate}}</option>
-              <option value="oh">{{'complete-profile.states.oh' | translate}}</option>
-              <option value="mi">{{'complete-profile.states.mi' | translate}}</option>
-              <option value="pa">{{'complete-profile.states.pa' | translate}}</option>
+            <select class="form-select" id="state" formControlName="state" #stateInput
+              [class.is-loading]="statesLoading"
+              [attr.disabled]="statesLoading || availableStates.length === 0 ? true : null">
+              <option [ngValue]="null" disabled selected>
+                @if (statesLoading) {
+                {{'complete-profile.form.loading' | translate}}
+                } @else if (availableStates.length === 0) {
+                {{'complete-profile.form.select-country-first' | translate}}
+                } @else {
+                {{'complete-profile.form.state-placeholder' | translate}}
+                }
+              </option>
+              @for (state of availableStates; track state.id) {
+              <option [value]="state.id">{{ state.name }}</option>
+              }
             </select>
 
-            <!-- error message -->
+            @if (statesLoading) {
+            <div class="form-text">
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              {{'complete-profile.form.loading-states' | translate}}
+            </div>
+            }
+
+            @if (availableStates.length === 0 && country?.value && !statesLoading) {
+            <div class="form-text text-warning">
+              {{'complete-profile.form.no-states-available' | translate}}
+            </div>
+            }
+
             <div class="error-message" [class.d-block]="checkInvalid('state')"
               [class.text-danger]="checkInvalid('state')">
               {{checkInvalid('state') ? getErrorMessageFor('state') : ' '}}
@@ -309,14 +355,20 @@
           </div>
         </div>
 
-        <!-- Submit Button -->
         <div class="form-group mt-4">
-          <button type="submit" class="btn btn-primary primary-bg-clr w-100 py-2 fw-semibold fs-5" (click)="onSubmit()">
+          <button type="submit" class="btn btn-primary primary-bg-clr w-100 py-2 fw-semibold fs-5"
+            [disabled]="isLoading" (click)="onSubmit()">
+            @if (isLoading) {
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status"> {{'complete-profile.form.submitting' | translate}}</span>
+            } @else {
             {{'complete-profile.form.submit' | translate}}
+            }
           </button>
         </div>
-
       </form>
     </div>
   </div>
-  <app-footer></app-footer>
+</div>
+
+<app-footer></app-footer>

@@ -175,6 +175,8 @@
     "faq": "الأسئلة الشائعة",
     "contact": "اتصل بنا",
     "login": "تسجيل الدخول",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج",
     "createaccount": "إنشاء حساب",
     "taxservices": "خدمات الضرائب",
     "itinandein": "ITIN & EIN",
@@ -184,6 +186,7 @@
     "dmv": "DMV",
     "foodvendorservices": "خدمات المطاعم",
     "immigration": "الهجرة",
+    "search": "بحث",
     "english": "الإنجليزية",
     "arabic": "العربية",
     "spanish": "الأسبانية",
@@ -288,11 +291,17 @@
     "completed": "مكتمل",
     "not-completed": "غير مكتمل",
     "form": {
+      "loading": "جاري التحميل...",
+      "loading-countries": "جاري تحميل الدول...",
+      "loading-states": "جاري تحميل الولايات...",
+      "select-country-first": "اختر دولة أولاً",
+      "no-states-available": "لا توجد ولايات متاحة لهذه الدولة",
       "full-legal-name": "الاسم القانوني الكامل",
       "full-legal-name-placeholder": "أدخل اسمك",
       "email": "البريد الإلكتروني",
       "email-placeholder": "أدخل بريدك الإلكتروني",
       "gender": "الجنس",
+      "gender-placeholder": "اختر جنسك",
       "gender-male": "ذكر",
       "gender-female": "أنثى",
       "phone": "رقم الهاتف",
@@ -326,6 +335,15 @@
         "state": "يرجى إدخال ولاية صحيحة.",
         "postal_code": "يرجى إدخال رمز بريدي صحيح."
       }
+    },
+    "messages": {
+      "update_success": "تم تحديث الملف الشخصي بنجاح!",
+      "update_error": "حدث خطأ أثناء تحديث ملفك الشخصي. يرجى المحاولة مرة أخرى.",
+      "form_invalid": "يرجى تصحيح الأخطاء في النموذج قبل الإرسال.",
+      "birthdate_invalid": "تاريخ الميلاد المدخل غير صالح.",
+      "load_countries_error": "تعذر علينا تحميل الدول. يرجى التحديث.",
+      "load_states_error": "تعذر علينا تحميل الولايات للدولة المحددة.",
+      "load_profile_error": "تعذر علينا تحميل بيانات الملف الشخصي. يرجى المحاولة مرة أخرى."
     },
     "states": {
       "ny": "نيويورك",
