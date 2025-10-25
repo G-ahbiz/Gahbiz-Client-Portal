@@ -1,41 +1,32 @@
-<!-- Main Nav -->
 <nav class="navbar navbar-expand-xl px-3 p-lg-5">
   <div class="container-fluid d-flex justify-content-between align-items-center">
 
-    <!-- Logo -->
     <a class="navbar-brand w-25" href="#">
       <img src="assets/images/logo/logo.png" alt="" class="w-100 main-logo">
     </a>
 
-    <!-- Offcanvas Toggle Button -->
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
       aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Offcanvas Content -->
     <div class="offcanvas" [class]="isArabic ? 'offcanvas-end' : 'offcanvas-start'" tabindex="-1" id="offcanvasNavbar"
       aria-labelledby="offcanvasNavbarLabel">
 
-      <!-- Offcanvas Header -->
       <div class="offcanvas-header">
         <img src="assets/images/gahbiz-logo.png" alt="" class="w-25">
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
 
-      <!-- Offcanvas Body -->
       <div class="offcanvas-body">
         <div
           class="container-fluid p-0 m-0 d-flex flex-column flex-xl-row justify-content-xl-between align-items-xl-center">
 
-          <!-- Left Side Nav Links -->
           <ul class="navbar-nav mb-2 mb-lg-0 gap-4" [class]="isArabic ? 'ms-auto cairo' : 'me-auto'"
             [class]="isSpanish ? 'gap-2 text-nowrap' : ''">
-            <!-- Home -->
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6" routerLink="/home">{{'navbar.home' | translate}}</a>
             </li>
-            <!-- Services Dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle fw-medium orange-hover services-dropdown-toggle fs-6" href="#"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,29 +42,23 @@
                 }
               </ul>
             </li>
-            <!-- About -->
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6" routerLink="/about">{{'navbar.about' | translate}}</a>
             </li>
-            <!-- FAQ -->
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6" routerLink="/faq">{{'navbar.faq' | translate}}</a>
             </li>
-            <!-- Contact -->
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6" routerLink="/contact">{{'navbar.contact' | translate}}</a>
             </li>
-            <!-- Search -->
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6" routerLink="/search"><i class="pi pi-search fs-6"></i></a>
             </li>
           </ul>
 
-          <!-- Language & Login & Book A Service Button -->
-          <div class="d-flex justify-content-start align-items-center gap-4"
+          <div class="d-flex justify-content-start align-items-center gap-4 navbar-actions"
             [class]="isArabic ? ' ms-auto cairo' : 'me-auto'" [class]="isSpanish ? 'gap-2 text-nowrap' : ''">
 
-            <!-- Language Button -->
             <div class="btn-group language-btn-group">
               <button type="button" class="btn gap-2 d-flex align-items-center outline-0" data-bs-toggle="dropdown"
                 aria-expanded="false" [title]="isEnglish ? 'English' : isArabic ? 'عربي' : isSpanish ? 'Español' : ''">
@@ -102,12 +87,54 @@
               </ul>
             </div>
 
-            <!-- Login -->
-            <a class="nav-link fw-normal primary-clr fs-6" routerLink="/auth/sign-in">{{'navbar.login' | translate}}</a>
+            @if (isLoggedIn$ | async) {
+            <div class="d-flex align-items-center gap-3">
+              <a routerLink="/cart" class="nav-link cart-icon-container">
+                <i class="pi pi-shopping-bag icons"></i>
+                @if (cartItemCount > 0) {
+                <span class="cart-badge">{{ cartItemCount }}</span>
+                }
+              </a>
 
-            <!-- Book A Service Button -->
-            <button type="button" class="btn btn-primary primary-bg fw-normal fs-6 ">{{'navbar.bookaservice' |
-              translate}}</button>
+              <div class="dropdown">
+                <a class="nav-link profile-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false" id="profileDropdown">
+                  @if ((currentUser$ | async); as user) {
+                  @if (user.profileImageUrl) {
+                  <img [src]="user.profileImageUrl" alt="Profile" class="profile-pic-circle">
+                  } @else {
+                  <i class="pi pi-user icons"></i>
+                  }
+                  }
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" routerLink="/complete-profile">
+                      <i class="pi pi-user-edit me-2"></i>
+                      {{'navbar.profile' | translate}}
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center text-danger" (click)="logout()">
+                      <i class="pi pi-sign-out me-2"></i>
+                      {{'navbar.logout' | translate}}
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            } @else {
+            <a class="nav-link fw-normal primary-clr fs-6" routerLink="/auth/sign-in">
+              {{'navbar.login' | translate}}
+            </a>
+            }
+
+            <button type="button" class="btn btn-primary primary-bg fw-normal fs-6" routerLink="/">
+              {{'navbar.bookaservice' | translate}}</button>
           </div>
         </div>
 
