@@ -1,0 +1,33 @@
+.requirements-tab-container {
+  border-radius: 1rem;
+  border: 1px solid #aac9e6;
+  background: rgba(170, 201, 230, 0.1);
+}
+
+.file-icon-container {
+  display: flex;
+  width: 4.6875rem;
+  height: 4.6875rem;
+  padding: 1.25rem 1.48438rem 1.25rem 1.5625rem;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1/1;
+  border-radius: 12.5rem;
+}
+
+.card {
+  width: 37.8125rem;
+  padding: 1.5rem 2.875rem;
+  gap: 0.625rem;
+  border-radius: 1rem;
+  width: 48% !important;
+}
+
+.card-icon-container {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.625rem;
+  aspect-ratio: 1/1;
+  border-radius: 12.5rem;
+  border: 1px solid #ffca19;
+}

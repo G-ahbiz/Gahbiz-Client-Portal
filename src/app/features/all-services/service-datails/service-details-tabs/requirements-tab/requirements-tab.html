@@ -1,0 +1,37 @@
+<div class="container-fluid p-0 m-0 my-5">
+  <div class="requirements-tab-container my-5 p-5">
+    <!-- Requirements Tab Header -->
+    <div class="requirements-tab-header d-flex justify-content-center align-items-center gap-3">
+      <div class="file-icon-container primary-bg-clr"><img
+          src="assets/images/all-services/ServiceDetails/servicesTabs/file.svg" alt="file" class="file-icon">
+      </div>
+      <div class="d-flex flex-column">
+        <h2 class="fs-5 fw-bold mb-0">Documents You’ll Need</h2>
+        <p class="fs-6 fw-medium mb-0 mute-text-clr">4 required documents for this service</p>
+      </div>
+    </div>
+
+    <!-- Requirements Tab Content -->
+    <div class="requirements-tab-content my-5 d-flex flex-wrap justify-content-between align-items-center gap-4">
+      @for (requirement of requirments; track requirement.id) {
+      <div class="card py-4 px-5 border-0 d-flex flex-column justify-content-start ">
+        <!-- Card Title -->
+        <div class="card-title d-flex align-items-center gap-3 ">
+          <div class="card-icon-container d-flex justify-content-center align-items-center">
+            <img src="assets/images/all-services/ServiceDetails/servicesTabs/requirmentsTab/{{requirement.icon}}"
+              alt="bank" class="bank-icon">
+          </div>
+          <h3 class="fs-5 fw-bold mb-0">{{requirement.name}}</h3>
+        </div>
+        <!-- Card Body -->
+        <div class="card-content">
+          <p class="">
+            {{requirement.description}}
+          </p>
+        </div>
+      </div>
+      }
+    </div>
+
+  </div>
+</div>

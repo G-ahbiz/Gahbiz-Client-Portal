@@ -3,11 +3,12 @@ import { Navbar } from "@shared/components/navbar/navbar";
 import { Footer } from "@shared/components/footer/footer";
 import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-translate/core';
 import { ServiceDetailsContent } from "./service-details-content/service-details-content";
+import { ServiceDetailsTabs } from "./service-details-tabs/service-details-tabs";
 
 
 @Component({
   selector: 'app-service-datails',
-  imports: [Navbar, Footer, TranslateModule, ServiceDetailsContent],
+  imports: [Navbar, Footer, TranslateModule, ServiceDetailsContent, ServiceDetailsTabs],
   templateUrl: './service-datails.html',
   styleUrl: './service-datails.scss'
 })

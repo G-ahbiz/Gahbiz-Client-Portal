@@ -184,6 +184,10 @@ input[type='password']::-webkit-outer-spin-button {
   color: var(--bg-dark-clr) !important;
 }
 
+.mute-text-clr {
+  color: var(--text-mute-clr) !important;
+}
+
 .ltr {
   direction: ltr !important;
 }
