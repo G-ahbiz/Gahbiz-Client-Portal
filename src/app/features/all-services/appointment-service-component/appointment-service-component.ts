@@ -4,12 +4,11 @@ import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-transla
 import { AllServicesComponentService, serviceDatailsInfo } from '@shared/services/all-services-component';
 import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
-import { DatePicker, DatePickerModule } from 'primeng/datepicker';
-import { FloatLabelModule, FloatLabel } from 'primeng/floatlabel';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-appointment-service-component',
-  imports: [TranslateModule, Breadcrumb, DatePicker, FormsModule, DatePickerModule, FloatLabelModule, FloatLabel],
+  imports: [TranslateModule, Breadcrumb, DatePicker, FormsModule],
   templateUrl: './appointment-service-component.html',
   styleUrl: './appointment-service-component.scss'
 })
