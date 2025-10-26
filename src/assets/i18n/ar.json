@@ -339,6 +339,22 @@
     "title": "الخدمات المتعلقة"
   },
   "appointment-service": {
-    "title": "خدمة المواعيد"
+    "title": "المواعيد",
+    "form": {
+      "first-name": "الاسم الأول",
+      "last-name": "الاسم الأخير",
+      "email-address": "البريد الإلكتروني",
+      "phone-number": "رقم الهاتف",
+      "location": "الموقع",
+      "available-time": "الوقت المتاح",
+      "duration-fees": "المدة والرسوم",
+      "duration-fees-value": "المدة والرسوم",
+      "location-1": "الموقع 1",
+      "location-2": "الموقع 2",
+      "location-3": "الموقع 3",
+      "available-time-1": "الوقت المتاح 1",
+      "duration-fees-1": "المدة والرسوم 1",
+      "book-now-btn": "احجز الآن"
+    }
   }
 }

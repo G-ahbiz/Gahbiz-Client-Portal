@@ -170,6 +170,22 @@
     "title": "Servicios relacionados"
   },
   "appointment-service": {
-    "title": "Servicios de agendamiento"
+    "title": "Reservación",
+    "form": {
+      "first-name": "Nombre",
+      "last-name": "Apellido",
+      "email-address": "Correo electrónico",
+      "phone-number": "Teléfono",
+      "location": "Ubicación",
+      "available-time": "Hora disponible",
+      "duration-fees": "Duración y tarifas",
+      "duration-fees-value": "Valor de la duración y tarifas",
+      "location-1": "Ubicación 1",
+      "location-2": "Ubicación 2",
+      "location-3": "Ubicación 3",
+      "available-time-1": "Hora disponible 1",
+      "duration-fees-1": "Duración y tarifas 1",
+      "book-now-btn": "Reservar ahora"
+    }
   }
 }

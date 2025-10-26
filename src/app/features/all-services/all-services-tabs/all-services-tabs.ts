@@ -63,9 +63,8 @@ export class AllServicesTabs implements OnInit {
   setActiveServiceList(serviceId: number) {
     // Use the shared service to set active service
     if (serviceId === 10) {
-      this.router.navigate(['/appointment-service']);
-    } else {
       this.allServicesService.setActiveServiceList(serviceId);
+      this.router.navigate(['/appointment-service']);
     }
   }
 }

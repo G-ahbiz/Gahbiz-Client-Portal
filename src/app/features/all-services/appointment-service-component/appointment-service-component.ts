@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, model, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AllServicesComponentService, serviceDatailsInfo } from '@shared/services/all-services-component';
@@ -19,7 +19,7 @@ import { Footer } from "@shared/components/footer/footer";
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideNativeDateAdapter()]
 })
-export class AppointmentServiceComponent implements OnInit {
+export class AppointmentServiceComponent implements OnInit, OnDestroy {
 
   // Language
   isArabic: boolean = false;
@@ -58,6 +58,11 @@ export class AppointmentServiceComponent implements OnInit {
 
     // update breadcrumb
     this.updateBreadcrumb();
+  }
+
+  ngOnDestroy() {
+    // Clear active service using the service
+    this.allServicesService.clearActiveServiceList();
   }
 
   // Initialize translation

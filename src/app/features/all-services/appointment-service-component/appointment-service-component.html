@@ -5,29 +5,29 @@
 <div class="container-fluid p-0 m-0 animate-slideIn">
 
   <!-- Appointment Service Container -->
-  <div class="appointment-service-container p-5">
+  <div class="appointment-service-container p-2 p-md-5 p-lg-4">
 
     <!-- Breadcrumb -->
-    <div class="breadcump">
+    <div class="breadcump d-none d-lg-block">
       <div class="card flex justify-center border-0 bg-transparent">
         <p-breadcrumb [model]="items" [home]="home" styleClass="border-0 bg-transparent" />
       </div>
     </div>
 
     <!-- Title -->
-    <div class="title-container w-100 d-flex justify-content-start align-items-center">
-      <h1 class="title fw-bold">
+    <div class="title-container w-100 d-flex justify-content-start align-items-center my-5">
+      <h1 class="title fw-bold fs-3">
         {{'appointment-service.title'| translate}}
       </h1>
     </div>
 
     <!-- Appointment Service content -->
     <div
-      class="appointment-service-content d-flex flex-column flex-lg-row justify-content-between align-items-center p-5 border rounded-3 w-100 mt-5">
+      class="appointment-service-content d-flex flex-column flex-lg-row justify-content-between align-items-center p-2 p-xl-5 border rounded-3 w-100 mt-5">
 
       <!-- Appointment Service Form -->
       <form formGroup="appointmentServiceForm"
-        class="appointment-service-form d-flex flex-column justify-content-between align-items-start gap-4 p-5">
+        class="appointment-service-form d-flex flex-column justify-content-between align-items-start gap-4 p-0 p-lg-5 w-100">
         <!-- First Name and Last Name -->
         <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center gap-4 w-100">
           <!-- First Name -->
@@ -36,7 +36,7 @@
               {{'appointment-service.form.first-name'| translate}}
             </label>
             <input type="text" class="form-control" id="first-name"
-              placeholder="{{'appointment-service.form.first-name'| translate}}">
+              placeholder="{{'appointment-service.form.first-name-placeholder'| translate}}">
           </div>
           <!-- Last Name -->
           <div class="form-group w-100">
@@ -44,7 +44,7 @@
               {{'appointment-service.form.last-name'| translate}}
             </label>
             <input type="text" class="form-control" id="last-name"
-              placeholder="{{'appointment-service.form.last-name'| translate}}">
+              placeholder="{{'appointment-service.form.last-name-placeholder'| translate}}">
           </div>
         </div>
 
@@ -54,7 +54,7 @@
             {{'appointment-service.form.email-address'| translate}}
           </label>
           <input type="email" class="form-control" id="email-address"
-            placeholder="{{'appointment-service.form.email-address'| translate}}">
+            placeholder="{{'appointment-service.form.email-address-placeholder'| translate}}">
         </div>
 
         <!-- Phone Number -->
@@ -63,7 +63,7 @@
             {{'appointment-service.form.phone-number'| translate}}
           </label>
           <input type="tel" class="form-control" id="phone-number"
-            placeholder="{{'appointment-service.form.phone-number'| translate}}">
+            placeholder="{{'appointment-service.form.phone-number-placeholder'| translate}}">
         </div>
 
         <!-- Location -->
@@ -72,10 +72,21 @@
             {{'appointment-service.form.location'| translate}}
           </label>
           <select class="form-control" id="location">
+            <option value="0" class="mute-text-clr" selected disabled>{{'appointment-service.form.location-placeholder'|
+              translate}}</option>
             <option value="1">{{'appointment-service.form.location-1'| translate}}</option>
             <option value="2">{{'appointment-service.form.location-2'| translate}}</option>
             <option value="3">{{'appointment-service.form.location-3'| translate}}</option>
           </select>
+        </div>
+
+        <!-- Date Selection -->
+        <div class="form-group w-100">
+          <label for="date-selection">
+            {{'appointment-service.form.date-selection'| translate}}
+          </label>
+          <input type="date" class="form-control" id="date-selection"
+            placeholder="{{'appointment-service.form.date-selection-placeholder'| translate}}">
         </div>
 
         <!-- Available Time -->
@@ -89,25 +100,29 @@
         </div>
 
         <!-- Duration & Fees -->
-        <div class="d-flex justify-content-start align-items-center gap-4 w-50">
+        <div class="d-flex flex-column flex-lg-row justify-content-start align-items-center gap-4 w-100">
           <div class="form-group w-100">
-            <label for="duration-fees">
-              {{'appointment-service.form.duration-fees'| translate}}
+            <label for="duration">
+              {{'appointment-service.form.duration'| translate}}
             </label>
-            <select class="form-control" id="duration-fees">
-              <option value="1">{{'appointment-service.form.duration-fees-1'| translate}}</option>
+            <select class="form-control" id="duration">
+              <option value="0" class="mute-text-clr" selected disabled>{{'appointment-service.form.duration-1'|
+                translate}}</option>
+              <option value="1">{{'appointment-service.form.duration-2'| translate}}</option>
+              <option value="2">{{'appointment-service.form.duration-3'| translate}}</option>
             </select>
           </div>
 
           <div class="fw-bold d-flex flex-column justify-content-center align-items-center">
-            <span class="fs-75">Fees</span>
+            <span class="fs-75">{{'appointment-service.form.fees'| translate}}</span>
             <span class="fs-5">10$</span>
           </div>
         </div>
 
+
         <!-- Book Now Button -->
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary primary-bg-clr w-100 px-4 py-2">
+        <div class="form-group border w-100">
+          <button type="submit" class="btn book-appointment-btn btn-primary primary-bg-clr w-100 px-lg-4 py-lg-2">
             {{'appointment-service.form.book-now-btn'| translate}}
           </button>
         </div>
@@ -115,8 +130,9 @@
 
 
       <!-- Appointment Service Calendar -->
-      <div class="appointment-service-calendar d-flex justify-content-center align-items-start align-self-start">
-        <mat-card class="demo-inline-calendar-card border-0">
+      <div
+        class="appointment-service-calendar d-none d-lg-flex justify-content-center align-items-start align-self-lg-start w-100 my-lg-0 my-5">
+        <mat-card class="calendar-card border-0">
           <mat-calendar [(selected)]="selected"></mat-calendar>
         </mat-card>
         <!-- <p>Selected date: {{selected()}}</p> -->

@@ -172,7 +172,7 @@ export class AllServicesComponentService {
 
   // Clear active service list (useful for cleanup)
   clearActiveServiceList(): void {
-    localStorage.removeItem('activeServiceList');
+    localStorage.setItem('activeServiceList', '1');
     this.activeServiceListSubject.next(1);
   }
 

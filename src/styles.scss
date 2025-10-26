@@ -45,6 +45,15 @@
   --border-radius: clamp(0.375rem, 0.5vh + 0.2vw, 0.75rem);
   --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
+  @include mat.datepicker-overrides(
+    (
+      calendar-body-label-text-color: orange,
+      calendar-date-selected-state-background-color: red,
+      calendar-date-text-color: grey,
+      calendar-date-today-outline-color: red,
+    )
+  );
+
   // General Styles
   --app-font-family: 'Libre Franklin', sans-serif;
   --app-font-family-ar: 'cairo', sans-serif;

@@ -104,8 +104,8 @@ export class Navbar {
     // Use the shared service to set active service
     if (serviceId === 10) {
       this.router.navigate(['/appointment-service']);
-    } else {
       this.allServicesService.setActiveServiceList(serviceId);
+    } else {
       this.router.navigate(['/all-services']);
     }
   }
