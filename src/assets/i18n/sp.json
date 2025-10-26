@@ -165,5 +165,11 @@
       "mi": "Michigan",
       "pa": "Pennsylvania"
     }
+  },
+  "related-services": {
+    "title": "Servicios relacionados"
+  },
+  "appointment-service": {
+    "title": "Servicios de agendamiento"
   }
 }

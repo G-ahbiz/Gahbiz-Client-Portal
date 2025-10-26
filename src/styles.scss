@@ -56,6 +56,7 @@
   --bg-dark-clr: #121212;
   --text-clr: #121212;
   --text-mute-clr: #616161;
+  --text-mute-clr2: #d0d0d0;
   --text-light-clr: #f1f1f1;
 }
 
@@ -210,6 +211,10 @@ input[type='password']::-webkit-outer-spin-button {
 .scale-down:active {
   scale: 0.98;
   transition: all 0.2s ease;
+}
+
+.card-discount {
+  color: var(--text-mute-clr2) !important;
 }
 
 /* === Height-based Breakpoints === */

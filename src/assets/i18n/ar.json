@@ -334,5 +334,11 @@
       "mi": "ميشيغان",
       "pa": "بنسيلفانيا"
     }
+  },
+  "related-services": {
+    "title": "الخدمات المتعلقة"
+  },
+  "appointment-service": {
+    "title": "خدمة المواعيد"
   }
 }

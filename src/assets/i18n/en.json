@@ -333,5 +333,11 @@
       "mi": "Michigan",
       "pa": "Pennsylvania"
     }
+  },
+  "related-services": {
+    "title": "Related Services"
+  },
+  "appointment-service": {
+    "title": "Appointment Service"
   }
 }

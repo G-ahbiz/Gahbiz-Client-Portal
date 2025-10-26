@@ -1,0 +1,38 @@
+<div class="container-fluid p-0 m-0">
+  <div class="appointment-service-container p-5">
+
+    <!-- Breadcrumb -->
+    <div class="breadcump">
+      <div class="card flex justify-center border-0 bg-transparent">
+        <p-breadcrumb [model]="items" [home]="home" styleClass="border-0 bg-transparent" />
+      </div>
+    </div>
+
+    <!-- Title -->
+    <div class="title-container w-100 d-flex justify-content-start align-items-center">
+      <h1 class="title fw-bold">
+        {{'appointment-service.title'| translate}}
+      </h1>
+    </div>
+
+    <!-- Appointment Service content -->
+    <div
+      class="appointment-service-content d-flex flex-column flex-lg-row justify-content-center align-items-center p-5 border rounded-3">
+      <!-- Appointment Service Form -->
+      <div class="appointment-service-form flex-grow-1">
+        <form>
+          <div class="form-group">
+            <label for="name">{{'appointment-service.form.name'| translate}}</label>
+          </div>
+        </form>
+      </div>
+      <!-- Appointment Service Calendar -->
+      <div class="appointment-service-calendar flex-grow-1">
+        <div class="card flex justify-center h-100">
+          <p-datepicker class="w-100" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

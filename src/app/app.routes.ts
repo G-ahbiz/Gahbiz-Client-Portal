@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { NoAuthGuard } from '@core/guards/no-auth.guard';
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices) },
   { path: 'service-details', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/service-datails/service-datails').then(m => m.ServiceDatails) },
+  { path: 'appointment-service', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/appointment-service-component/appointment-service-component').then(m => m.AppointmentServiceComponent) },
   { path: 'complete-profile', canActivate: [NoAuthGuard], loadComponent: () => import('./features/complete-profile/complete-profile').then(m => m.CompleteProfile) },
   { path: 'privacy-policy', canActivate: [NoAuthGuard], loadComponent: () => import('./shared/components/privacy/privacy').then(m => m.Privacy) },
   { path: 'terms-and-conditions', canActivate: [NoAuthGuard], loadComponent: () => import('./shared/components/terms/terms').then(m => m.Terms) },
