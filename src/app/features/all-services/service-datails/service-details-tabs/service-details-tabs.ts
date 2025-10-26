@@ -5,10 +5,11 @@ import { HowItWorks } from "@features/landingpage/components/how-it-works/how-it
 import { MatTabsModule } from '@angular/material/tabs';
 import { DescriptionTab } from "./description-tab/description-tab";
 import { RequirementsTab } from "./requirements-tab/requirements-tab";
+import { ReviewsTab } from "./reviews-tab/reviews-tab";
 
 @Component({
   selector: 'app-service-details-tabs',
-  imports: [TabsModule, CommonModule, HowItWorks, MatTabsModule, DescriptionTab, RequirementsTab],
+  imports: [TabsModule, CommonModule, HowItWorks, MatTabsModule, DescriptionTab, RequirementsTab, ReviewsTab],
   templateUrl: './service-details-tabs.html',
   styleUrl: './service-details-tabs.scss'
 })

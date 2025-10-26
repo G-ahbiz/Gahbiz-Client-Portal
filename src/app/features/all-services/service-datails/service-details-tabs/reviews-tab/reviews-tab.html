@@ -1,0 +1,111 @@
+<div class="container-fluid p-0 m-0 my-5">
+  <div
+    class="reviews-tab-container my-5 p-5 d-flex flex-column flex-md-row justify-content-start align-items-start gap-4">
+
+    <!-- Rating Container -->
+    <div class="rating-container d-flex flex-column justify-content-start align-items-start gap-2">
+      <!-- Rating Header -->
+      <div class="rating-header d-flex flex-column justify-content-center align-items-center gap-2 w-100">
+        <!-- Rating Number -->
+        <p class="fs-1 fw-bold mb-0">{{rating}}</p>
+        <!-- Rating Stars -->
+        <app-rating [rating]="rating"></app-rating>
+        <!-- Rating Reviews -->
+        <p class="fs-6 fw-medium mb-0 mute-text-clr">{{sumOfReviews}} Reviews</p>
+      </div>
+
+      <!-- Rating Content -->
+      <div class="rating-content d-flex flex-column justify-content-start align-items-start gap-3 w-100">
+        <!-- 5 Stars Rating -->
+        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
+          <app-rating [rating]="5"></app-rating>
+          <div class="range" [class.primary-bg-clr]="numberOfReviews[0] > 0"></div>
+          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[0]}}</p>
+        </div>
+
+        <!-- 4 Stars Rating -->
+        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
+          <app-rating [rating]="4"></app-rating>
+          <div class="range" [class.primary-bg-clr]="numberOfReviews[1] > 0"></div>
+          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[1]}}</p>
+        </div>
+
+        <!-- 3 Stars Rating -->
+        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
+          <app-rating [rating]="3"></app-rating>
+          <div class="range" [class.primary-bg-clr]="numberOfReviews[2] > 0"></div>
+          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[2]}}</p>
+        </div>
+
+        <!-- 2 Stars Rating -->
+        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
+          <app-rating [rating]="2"></app-rating>
+          <div class="range" [class.primary-bg-clr]="numberOfReviews[3] > 0"></div>
+          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[3]}}</p>
+        </div>
+
+        <!-- 1 Star Rating -->
+        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
+          <app-rating [rating]="1"></app-rating>
+          <div class="range" [class.primary-bg-clr]="numberOfReviews[4] > 0"></div>
+          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[4]}}</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Reviews Container -->
+    <div class="reviews-container">
+      <!-- Reviews Header -->
+      <div class="reviews-header d-flex flex-column justify-content-center align-items-start gap-2 w-100 mb-4">
+        <h2 class="fs-5 fw-bold mb-0">Add your review</h2>
+        <p class="fs-6 fw-medium mb-0 mute-text-clr">Your email address will not be published. Required fields are
+          marked *</p>
+      </div>
+
+      <!-- Reviews Form -->
+      <div class="reviews-form d-flex flex-column justify-content-start align-items-start gap-3 w-100 mt-2">
+        <form [formGroup]="reviewsForm" class="w-100 d-flex flex-column justify-content-start align-items-start gap-3">
+          <!-- Rating Input -->
+          <div class="form-group w-100 flex-row justify-content-start align-items-center gap-5">
+            <label class="fs-6 fw-semibold mb-2 d-flex justify-content-start align-items-start gap-2" for="rating">
+              <span class="">Your Rating</span>
+              <span class="required-asterisk text-danger">*</span>
+              <p-rating [ngModel]="userRating" [readonly]="false" [stars]="5" [iconOnStyle]="{'color':'#ffca19'}"
+                [iconOffStyle]="{'color':'#ffca19'}"></p-rating>
+            </label>
+          </div>
+          <!-- Name Input -->
+          <div class="form-group w-100">
+            <label class="fs-6 fw-semibold mb-2" for="name">
+              <span class="">Name</span>
+              <span class="required-asterisk text-danger">*</span>
+            </label>
+            <input class="form-control" type="text" id="name" formControlName="name" />
+          </div>
+          <!-- Email Input -->
+          <div class="form-group w-100">
+            <label class="fs-6 fw-semibold mb-2" for="email">
+              <span class="">Email</span>
+              <span class="required-asterisk text-danger">*</span>
+            </label>
+            <input class="form-control" type="email" id="email" formControlName="email" />
+          </div>
+          <!-- Review Input -->
+          <div class="form-group w-100">
+            <label class="fs-6 fw-semibold mb-2" for="review">
+              <span class="">Review</span>
+              <span class="required-asterisk text-danger">*</span>
+            </label>
+            <textarea class="form-control" id="review" formControlName="review" rows="5"></textarea>
+          </div>
+          <!-- Submit Button -->
+          <div class="form-group w-100">
+            <button class="btn btn-primary primary-bg-clr white-text-clr px-5 py-2" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
