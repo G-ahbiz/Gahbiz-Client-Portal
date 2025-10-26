@@ -40,7 +40,8 @@ label {
     width: 50%;
   }
 
-  .book-appointment-btn {
+  .book-appointment-btn,
+  .duration-select-group {
     width: auto !important;
   }
   :host ::ng-deep .mat-calendar {
