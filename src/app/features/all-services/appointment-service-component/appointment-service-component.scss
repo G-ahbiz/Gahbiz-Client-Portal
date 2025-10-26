@@ -1,3 +1,25 @@
-.appointment-service-calendar {
-  height: 50vh;
+.appointment-service-calendar,
+.appointment-service-form {
+  width: 50%;
+}
+
+.demo-inline-calendar-card {
+  width: 80%;
+  background-color: #fff;
+  box-shadow: none;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

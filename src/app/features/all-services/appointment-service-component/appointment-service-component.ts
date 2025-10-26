@@ -1,18 +1,25 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, model, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AllServicesComponentService, serviceDatailsInfo } from '@shared/services/all-services-component';
 import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
-import { DatePicker } from 'primeng/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { RelatedServices } from "../service-datails/related-services/related-services";
+import { Navbar } from "@shared/components/navbar/navbar";
+import { Footer } from "@shared/components/footer/footer";
 
 @Component({
   selector: 'app-appointment-service-component',
-  imports: [TranslateModule, Breadcrumb, DatePicker, FormsModule],
+  imports: [TranslateModule, Breadcrumb, FormsModule, MatCardModule, MatDatepickerModule, RelatedServices, Navbar, Footer],
   templateUrl: './appointment-service-component.html',
-  styleUrl: './appointment-service-component.scss'
+  styleUrl: './appointment-service-component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [provideNativeDateAdapter()]
 })
-export class AppointmentServiceComponent {
+export class AppointmentServiceComponent implements OnInit {
 
   // Language
   isArabic: boolean = false;
@@ -28,10 +35,17 @@ export class AppointmentServiceComponent {
   serviceDetails: serviceDatailsInfo[] = [];
 
   // appointment service date
-  date: Date[] | undefined;
+  selected = model<Date | null>(null);
 
+  // appointment service form
+  appointmentServiceForm: FormGroup;
 
-  constructor(private translateService: TranslateService, private allServicesService: AllServicesComponentService) { }
+  constructor(private translateService: TranslateService, private allServicesService: AllServicesComponentService, private formBuilder: FormBuilder) {
+    this.appointmentServiceForm = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+    });
+  }
 
   ngOnInit() {
     this.initializeTranslation();
@@ -79,11 +93,9 @@ export class AppointmentServiceComponent {
   updateBreadcrumb() {
     this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
     const activeServiceList = this.allServicesService.getActiveServiceList();
-    const activeService = this.allServicesService.getActiveService();
     if (activeServiceList != 1) {
       let activeServiceTitle = this.isArabic ? this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceAr : this.isEnglish ? this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceEn : this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceSp;
       this.items?.push({ label: activeServiceTitle, routerLink: '' });
-      this.items?.push({ label: this.isArabic ? this.serviceDetails[0].nameAr : this.isEnglish ? this.serviceDetails[0].nameEn : this.serviceDetails[0].nameSp, routerLink: '' });
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ServicesListTitles, AllServicesComponentService } from '@shared/services/all-services-component';
 import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-services-tabs',
@@ -19,6 +20,7 @@ export class AllServicesTabs implements OnInit {
   isSpanish: boolean = false;
 
   constructor(
+    private router: Router,
     private translateService: TranslateService,
     private allServicesService: AllServicesComponentService
   ) { }
@@ -60,6 +62,10 @@ export class AllServicesTabs implements OnInit {
   // set active service
   setActiveServiceList(serviceId: number) {
     // Use the shared service to set active service
-    this.allServicesService.setActiveServiceList(serviceId);
+    if (serviceId === 10) {
+      this.router.navigate(['/appointment-service']);
+    } else {
+      this.allServicesService.setActiveServiceList(serviceId);
+    }
   }
 }

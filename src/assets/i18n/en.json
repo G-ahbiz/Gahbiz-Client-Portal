@@ -338,6 +338,22 @@
     "title": "Related Services"
   },
   "appointment-service": {
-    "title": "Appointment Service"
+    "title": "Appointment Service",
+    "form": {
+      "first-name": "First Name",
+      "last-name": "Last Name",
+      "email-address": "Email Address",
+      "phone-number": "Phone Number",
+      "location": "Location",
+      "available-time": "Available Time",
+      "duration-fees": "Duration & Fees",
+      "duration-fees-value": "Duration & Fees Value",
+      "location-1": "Location 1",
+      "location-2": "Location 2",
+      "location-3": "Location 3",
+      "available-time-1": "Available Time 1",
+      "duration-fees-1": "Duration & Fees 1",
+      "book-now-btn": "Book Appointment"
+    }
   }
 }
