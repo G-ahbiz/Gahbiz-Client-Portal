@@ -65,6 +65,8 @@ export class AllServicesTabs implements OnInit {
     if (serviceId === 10) {
       this.allServicesService.setActiveServiceList(serviceId);
       this.router.navigate(['/appointment-service']);
+    } else {
+      this.allServicesService.setActiveServiceList(serviceId);
     }
   }
 }
