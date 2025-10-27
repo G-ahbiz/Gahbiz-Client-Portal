@@ -1,0 +1,26 @@
+<div class="container-fluid p-0 m-0 my-5 py-5">
+
+  <!-- Empty Cart Container -->
+  <div class="empty-cart-container d-flex flex-column justify-content-center align-items-center gap-2">
+
+    <!-- Empty Cart Title -->
+    <h1 class="empty-cart-title fs-3 fw-bold">
+      {{'cart.empty.title' | translate}}
+    </h1>
+
+    <!-- Empty Cart Image -->
+    <img src="assets/images/cart/empty-cart.svg" alt="" class="empty-cart-image">
+
+    <!-- Empty Cart Description -->
+    <p class="empty-cart-description fw-semibold fs-4 text-center w-50">
+      {{'cart.empty.description' | translate}}
+    </p>
+
+    <!-- Empty Cart Button -->
+    <button class="btn btn-primary empty-cart-button primary-bg-clr px-5 py-2 fs-5 fw-bold" routerLink="/all-services">
+      {{'cart.empty.explore-services-btn' | translate}}
+    </button>
+
+  </div>
+
+</div>

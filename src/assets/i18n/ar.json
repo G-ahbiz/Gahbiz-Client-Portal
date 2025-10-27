@@ -342,19 +342,37 @@
     "title": "المواعيد",
     "form": {
       "first-name": "الاسم الأول",
+      "first-name-placeholder": "أدخل اسمك الأول",
       "last-name": "الاسم الأخير",
+      "last-name-placeholder": "أدخل اسمك الأخير",
       "email-address": "البريد الإلكتروني",
+      "email-address-placeholder": "أدخل بريدك الإلكتروني",
       "phone-number": "رقم الهاتف",
+      "phone-number-placeholder": "أدخل رقم هاتفك",
       "location": "الموقع",
-      "available-time": "الوقت المتاح",
-      "duration-fees": "المدة والرسوم",
-      "duration-fees-value": "المدة والرسوم",
+      "location-placeholder": "اختر الولاية",
       "location-1": "الموقع 1",
       "location-2": "الموقع 2",
       "location-3": "الموقع 3",
+      "date-selection": "تاريخ المواعيد",
+      "date-selection-placeholder": "اختر تاريخ المواعيد",
+      "available-time": "الوقت المتاح",
+      "duration": "المدة",
+      "duration-1": "اختر مدة المواعيد",
+      "duration-2": "مدة 2",
+      "duration-3": "مدة 3",
+      "fees": "الرسوم",
       "available-time-1": "الوقت المتاح 1",
-      "duration-fees-1": "المدة والرسوم 1",
-      "book-now-btn": "احجز الآن"
+      "duration-fees-1": "مدة والرسوم 1",
+      "book-now-btn": "حجز الآن"
     }
+  },
+  "cart": {
+    "empty": {
+      "title": "سلة التسوق فارغة",
+      "description": "لم تضف أي شيء إلى سلة التسوق بعد!",
+      "explore-services-btn": "استكشف الخدمات"
+    },
+    "title": "سلة التسوق"
   }
 }

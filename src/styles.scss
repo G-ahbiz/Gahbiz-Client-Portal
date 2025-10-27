@@ -62,6 +62,7 @@
   --primary-clr-hover: #006edb;
   --accent-clr: #ffca19;
   --bg-clr: #fafafa;
+  --bg-clr2: #f8f9fa;
   --bg-dark-clr: #121212;
   --text-clr: #121212;
   --text-mute-clr: #616161;
@@ -194,6 +195,9 @@ input[type='password']::-webkit-outer-spin-button {
   color: var(--bg-dark-clr) !important;
 }
 
+.bg-clr2 {
+  background-color: var(--bg-clr2) !important;
+}
 .mute-text-clr {
   color: var(--text-mute-clr) !important;
 }
