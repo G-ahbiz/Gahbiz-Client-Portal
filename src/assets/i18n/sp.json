@@ -206,7 +206,17 @@
     },
     "title": "Tu carrito",
     "summary": {
-      "title": "Resumen de la orden"
+      "title": "Resumen de la orden",
+      "total": "Total",
+      "checkout-btn": "Continuar al pago"
+    },
+    "cards": {
+      "remove-btn": "Eliminar",
+      "save-for-later-btn": "Guardar para más tarde"
+    },
+    "complete-profile-modal": {
+      "title": "Completar su perfil",
+      "subtitle": "Por favor, complete su perfil para continuar con su compra."
     }
   }
 }

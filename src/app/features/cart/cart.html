@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="container-fluid p-0 m-0">
+<div class="container-fluid p-0 m-0 bg-clr2 p-5">
 
   <!-- Cart Container -->
   <div class="cart-container d-flex flex-column justify-content-center align-items-center gap-4 w-100">
@@ -20,7 +20,7 @@
       </div>
 
       <!-- Cart Content Body -->
-      <div class="cart-content-body d-flex justify-content-between align-items-start gap-2 my-5">
+      <div class="cart-content-body d-flex justify-content-between align-items-start gap-4 my-5 px-4">
 
         <!-- Cart Cards Container -->
         <div class="cart-cards-container w-100">
@@ -29,8 +29,9 @@
 
         <!-- Cart Summary Container -->
         <div class="cart-summary-container w-100">
-          <app-cart-summary></app-cart-summary>
+          <app-cart-summary [cartItems]="cartItems"></app-cart-summary>
         </div>
+
       </div>
     </div>
 

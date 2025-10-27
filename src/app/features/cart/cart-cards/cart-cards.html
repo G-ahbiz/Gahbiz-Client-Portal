@@ -48,12 +48,15 @@
           <div class="button-container d-flex justify-content-start align-items-center gap-2 w-100 mt-2">
 
             <!-- Cart Item Buy Now Button -->
-            <button class="btn btn-primary card-btn text-nowrap py-2 px-4 w-50"
-              (click)="removeFromCart(cartItem.id)">Remove</button>
+            <button class="btn btn-primary card-btn text-nowrap py-2 px-4 w-50" (click)="removeFromCart(cartItem.id)">
+              {{'cart.cards.remove-btn' | translate}}
+            </button>
 
             <!-- Cart Item Add to Cart Button -->
             <button class="btn btn-outline-primary card-btn text-nowrap py-2 px-4 w-50"
-              (click)="saveForLater(cartItem.id)">Save for later</button>
+              (click)="saveForLater(cartItem.id)">
+              {{'cart.cards.save-for-later-btn' | translate}}
+            </button>
           </div>
         </div>
       </div>

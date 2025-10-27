@@ -16,11 +16,13 @@ export class CartSummary implements OnInit {
   isSpanish: boolean = false;
 
   @Input() cartItems: any[] | undefined;
+  totalPrice: number = 0;
 
   constructor(private translateService: TranslateService) { }
 
   ngOnInit() {
     this.initializeTranslation();
+    this.calculateTotalPrice();
   }
 
   // Initialize translation
@@ -50,6 +52,11 @@ export class CartSummary implements OnInit {
       this.isEnglish = event.lang === 'en';
       this.isSpanish = event.lang === 'sp';
     });
+  }
+
+  // Calculate total price
+  private calculateTotalPrice() {
+    this.totalPrice = this.cartItems?.reduce((total, cartItem) => total + parseFloat(cartItem.priceOffer), 0) || 0;
   }
 
 }

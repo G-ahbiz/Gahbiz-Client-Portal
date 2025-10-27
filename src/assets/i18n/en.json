@@ -374,7 +374,19 @@
     },
     "title": "Your Cart",
     "summary": {
-      "title": "Order Summary"
+      "title": "Order Summary",
+      "total": "Total",
+      "checkout-btn": "Proceed to Checkout",
+      "complete-profile-modal": {
+        "title": "Complete Your Profile",
+        "subtitle": "Please complete your profile to continue with your purchase.",
+        "close-btn": "Close",
+        "complete-profile-btn": "Complete Profile"
+      }
+    },
+    "cards": {
+      "remove-btn": "Remove",
+      "save-for-later-btn": "Save for later"
     }
   }
 }
