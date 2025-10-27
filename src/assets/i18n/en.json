@@ -372,6 +372,9 @@
       "description": "You haven't added anything to your cart yet!",
       "explore-services-btn": "Explore Services"
     },
-    "title": "Your Cart"
+    "title": "Your Cart",
+    "summary": {
+      "title": "Order Summary"
+    }
   }
 }

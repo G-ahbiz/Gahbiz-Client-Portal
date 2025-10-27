@@ -204,6 +204,9 @@
       "description": "No has agregado nada a tu carrito todavía!",
       "explore-services-btn": "Explorar servicios"
     },
-    "title": "Tu carrito"
+    "title": "Tu carrito",
+    "summary": {
+      "title": "Resumen de la orden"
+    }
   }
 }
