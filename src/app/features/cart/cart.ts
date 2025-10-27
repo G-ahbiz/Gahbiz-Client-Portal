@@ -7,14 +7,12 @@ import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-transla
 import { Router } from '@angular/router';
 import { } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { Rating } from '@shared/components/rating/rating';
-import { ServicesComponent } from "@features/all-services/services-component/services-component";
 import { CartCards } from "./cart-cards/cart-cards";
 import { CartSummary } from "./cart-summary/cart-summary";
 
 @Component({
   selector: 'app-cart',
-  imports: [Navbar, Footer, EmptyCart, TranslateModule, CommonModule, Rating, ServicesComponent, CartCards, CartSummary],
+  imports: [Navbar, Footer, EmptyCart, TranslateModule, CommonModule, CartCards, CartSummary],
   templateUrl: './cart.html',
   styleUrl: './cart.scss'
 })
