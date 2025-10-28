@@ -1,1 +1,16 @@
-<p>step1-checkout works!</p>
+<div
+  class="checkout-container-body d-flex flex-column flex-lg-row justify-content-center align-items-center gap-4 w-100">
+
+  <!-- Payment Method -->
+  <div class="payment-method-container w-100 bg-white p-2 p-lg-5">
+    <h2 class="fs-6 fw-bold ab-text-start">
+      {{'checkout.payment-method' | translate}}
+    </h2>
+  </div>
+
+  <!-- Payment Summary -->
+  <div class="payment-summary-container w-100 bg-white">
+    <app-cart-summary [cartItems]="cartItems" [isButtonDisabled]="true"></app-cart-summary>
+  </div>
+
+</div>
