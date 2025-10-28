@@ -67,4 +67,8 @@ export class CartSummary implements OnInit {
     window.location.href = '/complete-profile';
   }
 
+  // Proceed to checkout
+  proceedToCheckout() {
+    this.router.navigate(['/checkout']);
+  }
 }
