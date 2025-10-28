@@ -19,7 +19,7 @@ export class CartSummary implements OnInit {
   @Input() cartItems: any[] | undefined;
   totalPrice: number = 0;
 
-  isProfileComplete: boolean = false;
+  isProfileComplete: boolean = true;
 
   constructor(private translateService: TranslateService, private router: Router) { }
 
