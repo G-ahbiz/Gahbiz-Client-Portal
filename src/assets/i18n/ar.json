@@ -377,15 +377,24 @@
     "summary": {
       "title": "ملخص الطلب",
       "total": "المجموع",
-      "checkout-btn": "المتابعة للدفع"
+      "checkout-btn": "المتابعة للدفع",
+      "complete-profile-modal": {
+        "title": "إكمال الحساب",
+        "subtitle": "يرجى إكمال بياناتك لمساعدتنا في خدمتك بشكل أفضل. كل البيانات مشفرة وآمنة.",
+        "close-btn": "إغلاق",
+        "complete-profile-btn": "إكمال الحساب"
+      }
     },
     "cards": {
       "remove-btn": "إزالة",
       "save-for-later-btn": "حفظ للمرة القادمة"
-    },
-    "complete-profile-modal": {
-      "title": "إكمال الحساب",
-      "subtitle": "يرجى إكمال بياناتك لمساعدتنا في خدمتك بشكل أفضل. كل البيانات مشفرة وآمنة."
     }
+  },
+  "checkout": {
+    "step-1": "الدفع",
+    "step-2": "المستندات",
+    "step-3": "التأكيد",
+    "payment-method": "طريقة الدفع",
+    "title": "الدفع"
   }
 }

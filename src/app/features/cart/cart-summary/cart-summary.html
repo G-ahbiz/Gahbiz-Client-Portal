@@ -1,5 +1,5 @@
 <div class="container-fluid p-0 m-0">
-  <div class="cart-summary-container card px-5 py-4">
+  <div class="cart-summary-container card px-5 py-4 border-0">
 
     <!-- Cart Summary Title -->
     <h3 class="fs-5 fw-bold mb-4">
@@ -25,12 +25,13 @@
       <!-- Cart Checkout Button -->
       <div class="cart-checkout-button">
         @if (isProfileComplete) {
-        <button class="btn btn-primary primary-bg-clr white-text-clr w-100" (click)="proceedToCheckout()">
+        <button class="btn btn-primary primary-bg-clr white-text-clr w-100" [class.d-none]="isButtonDisabled"
+          (click)="proceedToCheckout()">
           {{'cart.summary.checkout-btn' | translate}}
         </button>
         } @else {
-        <button class="btn btn-primary primary-bg-clr white-text-clr w-100" data-bs-toggle="modal"
-          data-bs-target="#completeProfileModal">
+        <button class="btn btn-primary primary-bg-clr white-text-clr w-100" [class.d-none]="isButtonDisabled"
+          data-bs-toggle="modal" data-bs-target="#completeProfileModal">
           {{'cart.summary.checkout-btn' | translate}}
         </button>
         }

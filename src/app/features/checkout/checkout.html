@@ -1,11 +1,54 @@
 <app-navbar></app-navbar>
-<div class="container-fluid p-0 m-0 bg-clr2">
+<div class="container-fluid p-2 p-lg-5 m-0 bg-clr2 d-flex flex-column justify-content-center align-items-center gap-5">
 
-  <div class="checkout-container p-2 p-lg-5 white-bg-clr d-flex justify-content-center align-items-center">
-    <div
-      class="steps-container step-1 rounded-circle primary-bg-clr p-4 d-flex justify-content-center align-items-center white-text-clr">
-      <h1>Checkout</h1>
+  <div class="checkout-container-header p-2 p-lg-5 d-flex flex-column justify-content-center align-items-center w-100">
+
+    <!-- Steps Container -->
+    <div class="steps-container d-flex justify-content-center align-items-center">
+      <!-- Step 1 -->
+      <div
+        class="step step-1 rounded-circle primary-bg-clr p-4 d-flex justify-content-center align-items-center white-text-clr">
+        <p class="m-0 p-0">1</p>
+      </div>
+      <!-- Line -->
+      <div class="line-container"></div>
+      <!-- Step 2 -->
+      <div
+        class="step step-2 rounded-circle primary-bg-clr p-4 d-flex justify-content-center align-items-center white-text-clr">
+        <p class="m-0 p-0">2</p>
+      </div>
+      <!-- Line -->
+      <div class="line-container"></div>
+      <!-- Step 3 -->
+      <div
+        class="step step-3 rounded-circle primary-bg-clr p-4 d-flex justify-content-center align-items-center white-text-clr">
+        <p class="m-0 p-0">3</p>
+      </div>
     </div>
+    <!-- Checkout Content -->
+    <div class="steps-titles-container mt-2 d-flex justify-content-between align-items-center">
+      <div class="step-title">
+        <p class="m-0 p-0 fw-semibold">{{'checkout.step-1' | translate}}</p>
+      </div>
+      <div class="step-title">
+        <p class="m-0 p-0 fw-semibold ms-3">{{'checkout.step-2' | translate}}</p>
+      </div>
+      <div class="step-title">
+        <p class="m-0 p-0 fw-semibold">{{'checkout.step-3' | translate}}</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Checkout Title -->
+  <div class="checkout-title w-100">
+    <h1 class="fs-3 fw-semibold ab-text-start">
+      {{'checkout.title' | translate}}
+    </h1>
+  </div>
+
+  <div class="checkout-container-body">
+    <router-outlet></router-outlet>
   </div>
 
 </div>

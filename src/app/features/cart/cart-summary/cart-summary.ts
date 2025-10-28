@@ -21,6 +21,8 @@ export class CartSummary implements OnInit {
 
   isProfileComplete: boolean = true;
 
+  @Input() isButtonDisabled: boolean = false;
+
   constructor(private translateService: TranslateService, private router: Router) { }
 
   ngOnInit() {

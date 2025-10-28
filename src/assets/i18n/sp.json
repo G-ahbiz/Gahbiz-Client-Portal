@@ -208,15 +208,24 @@
     "summary": {
       "title": "Resumen de la orden",
       "total": "Total",
-      "checkout-btn": "Continuar al pago"
+      "checkout-btn": "Continuar al pago",
+      "complete-profile-modal": {
+        "title": "Completar su perfil",
+        "subtitle": "Por favor, complete su perfil para continuar con su compra.",
+        "close-btn": "Cerrar",
+        "complete-profile-btn": "Completar perfil"
+      }
     },
     "cards": {
       "remove-btn": "Eliminar",
       "save-for-later-btn": "Guardar para más tarde"
-    },
-    "complete-profile-modal": {
-      "title": "Completar su perfil",
-      "subtitle": "Por favor, complete su perfil para continuar con su compra."
     }
+  },
+  "checkout": {
+    "step-1": "Pago",
+    "step-2": "Documentos",
+    "step-3": "Confirmación",
+    "payment-method": "Método de pago",
+    "title": "Pago"
   }
 }

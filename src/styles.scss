@@ -230,6 +230,14 @@ input[type='password']::-webkit-outer-spin-button {
   color: var(--text-mute-clr2) !important;
 }
 
+.ab-text-start {
+  text-align: start !important;
+}
+
+.ab-text-end {
+  text-align: end !important;
+}
+
 /* === Height-based Breakpoints === */
 @media (max-width: 640px) {
   :root {

@@ -388,5 +388,12 @@
       "remove-btn": "Remove",
       "save-for-later-btn": "Save for later"
     }
+  },
+  "checkout": {
+    "step-1": "Checkout",
+    "step-2": "Documentation",
+    "step-3": "Confirmation",
+    "payment-method": "Payment Method",
+    "title": "Checkout"
   }
 }
