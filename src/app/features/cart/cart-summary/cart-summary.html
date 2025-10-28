@@ -43,15 +43,15 @@
 
           <div class="modal-body d-flex flex-column justify-content-center align-items-center">
             <!-- Modal Image -->
-            <img src="assets/images/cart/coution.svg" alt="" class="">
+            <img src="assets/images/cart/coution.svg" alt="" class="mb-3">
 
             <!-- Modal Title -->
-            <h1 class="modal-title fs-5" id="completeProfileModalLabel">
+            <h1 class="modal-title fs-3 fw-bold" id="completeProfileModalLabel">
               {{'cart.summary.complete-profile-modal.title' | translate}}
             </h1>
 
             <!-- Modal Subtitle -->
-            <p class="subtitle w-50 text-center">
+            <p class="subtitle w-75 text-center fw-semibold fs-6">
               {{'cart.summary.complete-profile-modal.subtitle' | translate}}
             </p>
           </div>
@@ -62,7 +62,7 @@
               {{'cart.summary.complete-profile-modal.close-btn' | translate}}
             </button>
             <!-- Complete Profile Button -->
-            <button type="button" class="btn btn-primary" routerLink="/complete-profile">
+            <button type="button" class="btn btn-primary" (click)="navigateToCompleteProfile()">
               {{'cart.summary.complete-profile-modal.complete-profile-btn' | translate}}
             </button>
           </div>

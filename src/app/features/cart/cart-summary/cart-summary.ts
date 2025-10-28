@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart-summary',
-  imports: [TranslateModule, CommonModule],
+  imports: [TranslateModule, CommonModule, RouterLink],
   templateUrl: './cart-summary.html',
   styleUrl: './cart-summary.scss'
 })
@@ -18,7 +19,7 @@ export class CartSummary implements OnInit {
   @Input() cartItems: any[] | undefined;
   totalPrice: number = 0;
 
-  constructor(private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService, private router: Router) { }
 
   ngOnInit() {
     this.initializeTranslation();
@@ -57,6 +58,11 @@ export class CartSummary implements OnInit {
   // Calculate total price
   private calculateTotalPrice() {
     this.totalPrice = this.cartItems?.reduce((total, cartItem) => total + parseFloat(cartItem.priceOffer), 0) || 0;
+  }
+
+  // navigate to complete profile
+  navigateToCompleteProfile() {
+    this.router.navigate(['/complete-profile']);
   }
 
 }
