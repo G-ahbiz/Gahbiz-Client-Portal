@@ -24,13 +24,16 @@
 
       <!-- Cart Checkout Button -->
       <div class="cart-checkout-button">
-        <!-- <button class="btn btn-primary primary-bg-clr white-text-clr w-100">
+        @if (isProfileComplete) {
+        <button class="btn btn-primary primary-bg-clr white-text-clr w-100">
           {{'cart.summary.checkout-btn' | translate}}
-        </button> -->
+        </button>
+        } @else {
         <button class="btn btn-primary primary-bg-clr white-text-clr w-100" data-bs-toggle="modal"
           data-bs-target="#completeProfileModal">
           {{'cart.summary.checkout-btn' | translate}}
         </button>
+        }
       </div>
 
     </div>

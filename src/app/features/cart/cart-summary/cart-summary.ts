@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart-summary',
-  imports: [TranslateModule, CommonModule, RouterLink],
+  imports: [TranslateModule, CommonModule],
   templateUrl: './cart-summary.html',
   styleUrl: './cart-summary.scss'
 })
@@ -18,6 +18,8 @@ export class CartSummary implements OnInit {
 
   @Input() cartItems: any[] | undefined;
   totalPrice: number = 0;
+
+  isProfileComplete: boolean = false;
 
   constructor(private translateService: TranslateService, private router: Router) { }
 
@@ -62,7 +64,7 @@ export class CartSummary implements OnInit {
 
   // navigate to complete profile
   navigateToCompleteProfile() {
-    this.router.navigate(['/complete-profile']);
+    window.location.href = '/complete-profile';
   }
 
 }

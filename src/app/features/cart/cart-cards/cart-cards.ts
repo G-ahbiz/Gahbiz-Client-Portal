@@ -22,7 +22,7 @@ export class CartCards implements OnInit {
 
   // Pagination state
   currentPage: number = 1;
-  pageSize: number = 4;
+  pageSize: number = 2;
   totalPages: number[] = [];
 
   @Input() cartItems: any[] | undefined;
