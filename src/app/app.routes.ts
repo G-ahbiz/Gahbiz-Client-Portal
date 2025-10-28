@@ -14,8 +14,8 @@ export const routes: Routes = [
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
-    path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices), children: [
-      { path: 'service-details', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/service-datails/service-datails').then(m => m.ServiceDatails) }
+    path: 'all-services', canActivate: [AuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices), children: [
+      { path: 'service-details', canActivate: [AuthGuard], loadComponent: () => import('./features/all-services/service-datails/service-datails').then(m => m.ServiceDatails) }
     ]
   },
   { path: 'complete-profile', canActivate: [AuthGuard], loadComponent: () => import('./features/complete-profile/complete-profile').then(m => m.CompleteProfile) },

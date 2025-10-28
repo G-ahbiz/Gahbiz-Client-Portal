@@ -265,7 +265,25 @@
   "all-services": {
     "title1": "Our ",
     "title2": "Services",
-    "subtitle": "Explore our tax and business solutions designed to make things easier for you."
+    "subtitle": "Explore our tax and business solutions designed to make things easier for you.",
+    "all-tab": "All Services",
+    "buy-now": "Buy Now",
+    "add-to-cart": "Add to Cart",
+    "loading": "Loading...",
+    "breadcrumb_services": "Our Services",
+    "no-data": "No services found.",
+    "no-services-in-category": "There are currently no services available in this category.",
+    "previous-page": "Previous page",
+    "next-page": "Next page",
+    "page": "Page",
+    "of": "of",
+    "toast": {
+      "load_categories_error": "Unable to load service categories. Please check your connection and try again.",
+      "load_services_error": "Unable to load services. Please check your connection and try again.",
+      "load_category_filters_error": "Unable to load category filters.",
+      "update_category_services_error": "Unable to update services.",
+      "generic_error": "A network error occurred. Please check your connection and try again."
+    }
   },
   "services-list": {
     "tax-services": "Tax Services",

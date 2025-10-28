@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
-import { Service } from '@features/all-services/all-services';
+import { ServiceDetails } from '@features/all-services/interfaces/service-details';
 import { User } from '@features/auth/interfaces/sign-in/user';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -20,7 +20,7 @@ export class Navbar {
   isSpanish: boolean = false;
 
   // services list
-  services: Service[] | undefined;
+  services: any | undefined;
 
   isLoggedIn$: Observable<boolean>;
   currentUser$: Observable<User | null>;
