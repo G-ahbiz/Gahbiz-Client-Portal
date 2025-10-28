@@ -1,183 +1,420 @@
 import { TranslateModule, LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Navbar } from "@shared/components/navbar/navbar";
-import { Footer } from "@shared/components/footer/footer";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  inject,
+  signal,
+  computed,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
+import { Navbar } from '@shared/components/navbar/navbar';
+import { Footer } from '@shared/components/footer/footer';
 import { MenuItem } from 'primeng/api';
-import { Breadcrumb } from 'primeng/breadcrumb';
 import { RatingModule } from 'primeng/rating';
-import { ServicesComponent } from "./services-component/services-component";
-import { AllServicesLists } from "./all-services-lists/all-services-lists";
+import { ServicesComponent } from './services-component/services-component';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { AllServicePageFacadeService } from './services/all-service-page-facade.service';
+import { PaginatedServices } from './interfaces/paginated-services';
+import { ServiceCategory } from './interfaces/service-category';
+import { ServiceDetails } from './interfaces/service-details';
+import { PaginatedCategories } from './interfaces/paginated-categories';
+import { finalize, Subject, takeUntil } from 'rxjs';
+import { ToastService } from '@shared/services/toast.service';
 
-
-export interface Service {
-  id: number;
-  serviceEn: string;
-  serviceAr: string;
-  serviceSp: string;
-  active: boolean;
+interface BreadcrumbItem {
+  label: string;
+  isActive?: boolean;
+  command?: () => void;
 }
 
 @Component({
   selector: 'app-all-services',
-  imports: [TranslateModule, Navbar, Footer, Breadcrumb, RatingModule, ServicesComponent, AllServicesLists, CommonModule],
+  imports: [
+    TranslateModule,
+    Navbar,
+    Footer,
+    RatingModule,
+    ServicesComponent,
+    CommonModule,
+    RouterLink,
+  ],
   templateUrl: './all-services.html',
-  styleUrl: './all-services.scss'
+  styleUrls: ['./all-services.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllServices implements OnInit, OnDestroy {
+  private translateService = inject(TranslateService);
+  private facadeService = inject(AllServicePageFacadeService);
+  private toastService = inject(ToastService);
 
-  constructor(private translateService: TranslateService) { }
+  private destroy$ = new Subject<void>();
 
-  // Language
-  isArabic: boolean = false;
-  isEnglish: boolean = false;
-  isSpanish: boolean = false;
+  // Add ViewChild to reference the services container
+  @ViewChild('servicesContainer', { static: false })
+  servicesContainer!: ElementRef<HTMLElement>;
+
+  // Language state using signals
+  readonly currentLang = signal<string>('en');
+  readonly isRTL = computed(() => this.currentLang() === 'ar');
 
   // breadcrumb
-  items: MenuItem[] = [{ label: 'Our Services', routerLink: '/all-services' }];
-  home: MenuItem | undefined;
+  readonly breadcrumbItems = signal<BreadcrumbItem[]>([]);
+  readonly home = signal<MenuItem | undefined>(undefined);
 
-  // services list
-  services: Service[] | undefined;
+  // Loading and data states
+  readonly isLoading = signal(false);
+  readonly categoryPagination = signal<PaginatedCategories | null>(null);
+  readonly allCategoryFilters = signal<ServiceCategory[]>([]);
+  readonly singleCategoryServices = signal<PaginatedServices | null>(null);
+  readonly activeCategoryId = signal<string | null>(null);
+  readonly singleCategoryTitle = signal('');
 
-  // active service
-  activeService: number = 1;
+  // Computed signals for derived state
+  readonly hasCategoryData = computed(() => !!this.categoryPagination()?.items?.length);
+  readonly hasSingleCategoryData = computed(() => !!this.singleCategoryServices()?.items?.length);
+  readonly isAllServicesView = computed(() => this.activeCategoryId() === null);
+  readonly shouldShowMainPagination = computed(() => {
+    const pagination = this.categoryPagination();
+    return pagination && pagination.totalPages > 1;
+  });
 
-  // all services list
-  allServices: any[] | undefined;
+  // Constants
+  readonly categoriesPageSize = 4;
+  readonly servicesPageSize = 4;
 
   ngOnInit() {
-    // initialize translation
     this.initializeTranslation();
-    this.home = { icon: 'pi pi-home', routerLink: '/home' };
+    this.home.set({ icon: 'pi pi-home', routerLink: '/home' });
 
-    // services list
-    this.services = [
-      { id: 1, serviceEn: 'All Services', serviceAr: 'كل الخدمات', serviceSp: 'Todos los Servicios', active: true },
-      { id: 2, serviceEn: 'Tax Services', serviceAr: 'خدمات الضرائب', serviceSp: 'Servicios de Impuestos', active: true },
-      { id: 3, serviceEn: 'Public Services', serviceAr: 'خدمات العامة', serviceSp: 'Servicios Públicos', active: true },
-      { id: 4, serviceEn: 'Immigration Services', serviceAr: 'خدمات الهجرة', serviceSp: 'Servicios de Inmigración', active: true },
-      { id: 5, serviceEn: 'Food Vendor Services', serviceAr: 'خدمات المطاعم', serviceSp: 'Servicios de Vendedores de Alimentos', active: true },
-      { id: 6, serviceEn: 'Business License Services', serviceAr: 'خدمات رخصة الأعمال', serviceSp: 'Servicios de Licencia Comercial', active: true },
-      { id: 7, serviceEn: 'ITIN & EIN Services', serviceAr: 'خدمات ITIN & EIN', serviceSp: 'Servicios de ITIN & EIN', active: true },
-      { id: 8, serviceEn: 'DMV Services', serviceAr: 'خدمات DMV', serviceSp: 'Servicios de DMV', active: true },
-      { id: 9, serviceEn: 'Translation & Notary Public Services', serviceAr: 'خدمات الترجمة والعهد العام', serviceSp: 'Servicios de Traducción y Notario Público', active: true },
-      { id: 10, serviceEn: 'Appointment Service', serviceAr: 'خدمات المواعيد', serviceSp: 'Servicios de Reservación', active: true },
-    ];
-    // set active service
-    this.checkActiveService();
-    // get all services list
-    this.getAllServicesList();
-  }
-
-  ngOnDestroy() {
-    localStorage.removeItem('activeService');
-  }
-
-  // Initialize translation
-  private initializeTranslation() {
-    // Set default language if not already set
-    if (!localStorage.getItem('servabest-language')) {
-      localStorage.setItem('servabest-language', 'en');
-    }
-
-    // Get saved language and set it
-    const savedLang = localStorage.getItem('servabest-language') || 'en';
-    this.translateService.setDefaultLang('en');
-    this.translateService.use(savedLang);
-    if (savedLang === 'en' || savedLang === 'sp') {
-      document.documentElement.style.direction = 'ltr';
-    } else if (savedLang === 'ar') {
-      document.documentElement.style.direction = 'rtl';
-    }
-
-    // Set initial language state
-    this.isArabic = savedLang === 'ar';
-    this.isEnglish = savedLang === 'en';
-    this.isSpanish = savedLang === 'sp';
-    // Subscribe to language changes
-    this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.isArabic = event.lang === 'ar';
-      this.isEnglish = event.lang === 'en';
-      this.isSpanish = event.lang === 'sp';
-    });
-  }
-
-  //  Check active service
-  checkActiveService() {
-    // let activeService = localStorage.getItem('activeService');
-    let activeService = parseInt(localStorage.getItem('activeService') || '1');
-    if (!activeService) {
-      this.activeService = 1;
-    } else {
-      this.activeService = activeService;
-    }
-  }
-
-  // set active service
-  setActiveServiceList(serviceId: number) {
-    this.activeService = serviceId;
-    localStorage.setItem('activeService', serviceId.toString());
+    this.loadCategories(1);
+    this.loadCategoryFilters();
     this.updateBreadcrumb();
   }
 
-  // update breadcrumb
-  updateBreadcrumb() {
-    this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
-    let activeService = parseInt(localStorage.getItem('activeService') || '1');
-    if (activeService != 1) {
-      let activeServiceTitle = this.isArabic ? this.services?.find(service => service.id === activeService)?.serviceAr : this.isEnglish ? this.services?.find(service => service.id === activeService)?.serviceEn : this.services?.find(service => service.id === activeService)?.serviceSp;
-      this.items?.push({ label: activeServiceTitle, routerLink: '' });
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  /**
+   * Initialize translation with proper error handling
+   */
+  private initializeTranslation(): void {
+    try {
+      const savedLang = localStorage.getItem('servabest-language') || 'en';
+      this.setLanguage(savedLang);
+
+      this.translateService.onLangChange.pipe(takeUntil(this.destroy$)).subscribe({
+        next: (event: LangChangeEvent) => this.handleLanguageChange(event),
+        error: (error) => console.error('Language change error:', error),
+      });
+    } catch (error) {
+      console.error('Translation initialization failed:', error);
+      this.setLanguage('en'); // Fallback to English
     }
   }
 
-  // get all services list
-  getAllServicesList() {
-    this.allServices = [
-      {
-        id: 1,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle: 'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 3,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'basic'
-      },
-      {
-        id: 2,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle: 'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 2,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'standard'
-      },
-      {
-        id: 3,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle: 'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 5,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'gold'
-      },
-      {
-        id: 4,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle: 'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 4,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'silver'
-      },
-    ]
+  private setLanguage(lang: string): void {
+    this.translateService.setDefaultLang('en');
+    this.translateService.use(lang);
+    this.currentLang.set(lang);
+
+    const direction = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('dir', direction);
+  }
+
+  private handleLanguageChange(event: LangChangeEvent): void {
+    this.currentLang.set(event.lang);
+
+    const direction = event.lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('dir', direction);
+
+    this.updateBreadcrumb();
+  }
+
+  /**
+   * Fetches a page of ALL CATEGORIES for the "All" view
+   */
+  loadCategories(page: number): void {
+    this.isLoading.set(true);
+
+    this.facadeService
+      .getCategories(page, this.categoriesPageSize, true, this.servicesPageSize)
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => {
+          this.isLoading.set(false);
+          // Scroll to top after categories are loaded
+          this.scrollToServicesTop();
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.succeeded && res.data) {
+            this.categoryPagination.set(res.data);
+          } else {
+            this.handleEmptyResponse('categories');
+          }
+        },
+        error: (error) => this.handleError('load_categories', error),
+      });
+  }
+
+  /**
+   * Fetches ALL category names for the filter buttons at the top
+   */
+  loadCategoryFilters(): void {
+    this.facadeService
+      .getCategoryFilters()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          if (res.succeeded && res.data) {
+            this.allCategoryFilters.set(res.data.items);
+          }
+        },
+        error: (error) => this.handleError('load_category_filters', error),
+      });
+  }
+
+  /**
+   * Handles click events from the filter buttons
+   */
+  onFilterChange(category: ServiceCategory | null): void {
+    if (category === null) {
+      // "All Services" view
+      this.activeCategoryId.set(null);
+      this.singleCategoryServices.set(null);
+      this.loadCategories(1);
+    } else {
+      // Specific category view
+      this.activeCategoryId.set(category.id);
+      this.singleCategoryTitle.set(category.name);
+      this.categoryPagination.set(null);
+      this.loadServicesForCategory(category.id, 1);
+    }
+
+    this.updateBreadcrumb();
+    this.scrollToContent();
+  }
+
+  /**
+   * Fetches services for ONLY ONE category
+   */
+  loadServicesForCategory(categoryId: string, page: number): void {
+    this.isLoading.set(true);
+
+    this.facadeService
+      .getServicesByCategory(categoryId, page, this.servicesPageSize)
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => {
+          this.isLoading.set(false);
+          // Scroll to top after single category services are loaded
+          this.scrollToServicesTop();
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.succeeded && res.data) {
+            this.singleCategoryServices.set(res.data);
+          } else {
+            this.handleEmptyResponse('services');
+          }
+        },
+        error: (error) => this.handleError('load_services', error),
+      });
+  }
+
+  /**
+   * Handles the MAIN pagination at the BOTTOM of the page
+   */
+  onCategoryPageChange(event: { page: number; pageSize: number }): void {
+    this.loadCategories(event.page);
+  }
+
+  /**
+   * Handles pagination CLICKS INSIDE a single category component
+   */
+  onServicePageChange(event: { page: number; pageSize: number }, categoryId: string): void {
+    if (this.activeCategoryId() === null) {
+      // Update services within a category in "All" view
+      this.updateCategoryServices(categoryId, event.page, event.pageSize);
+    } else {
+      // Update services in single category view
+      this.loadServicesForCategory(this.activeCategoryId()!, event.page);
+    }
+  }
+
+  private updateCategoryServices(categoryId: string, page: number, pageSize: number): void {
+    const currentData = this.categoryPagination();
+    if (!currentData) return;
+    const category = currentData.items.find((c: ServiceCategory) => c.id === categoryId);
+
+    if (!category) return;
+
+    this.facadeService
+      .getServicesByCategory(categoryId, page, pageSize)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          if (res.succeeded && res.data) {
+            const updatedItems = currentData.items.map((c: ServiceCategory) =>
+              c.id === categoryId ? { ...c, services: res.data } : c
+            );
+            this.categoryPagination.set({ ...currentData, items: updatedItems });
+          }
+        },
+        error: (error) => this.handleError('update_category_services', error),
+      });
+  }
+
+  /** Updates breadcrumb based on the active category */
+  updateBreadcrumb(): void {
+    const servicesLabel = this.translateService.instant('all-services.breadcrumb_services');
+    const newBreadcrumbItems: BreadcrumbItem[] = [];
+
+    if (this.activeCategoryId() === null) {
+      // "All Services" view
+      newBreadcrumbItems.push({
+        label: servicesLabel,
+        isActive: true,
+      });
+    } else {
+      // Specific category view
+      newBreadcrumbItems.push({
+        label: servicesLabel,
+        isActive: false,
+        command: () => this.onFilterChange(null),
+      });
+      newBreadcrumbItems.push({
+        label: this.singleCategoryTitle(),
+        isActive: true,
+      });
+    }
+
+    this.breadcrumbItems.set(newBreadcrumbItems);
+  }
+
+  /** Handles the MAIN pagination for "All Categories" (Previous) */
+  onCategoryPreviousPage(): void {
+    const pagination = this.categoryPagination();
+    if (pagination?.hasPreviousPage) {
+      this.loadCategories(pagination.pageNumber - 1);
+    }
+  }
+
+  /** Handles the MAIN pagination for "All Categories" (Next) */
+  onCategoryNextPage(): void {
+    const pagination = this.categoryPagination();
+    if (pagination?.hasNextPage) {
+      this.loadCategories(pagination.pageNumber + 1);
+    }
+  }
+
+  /**
+   * Scrolls the view to the top of the services content area (tabs)
+   */
+  private scrollToContent(): void {
+    requestAnimationFrame(() => {
+      const element = document.querySelector('.tabs-wrapper') as HTMLElement;
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  /**
+   * Scrolls to the top of the services categories
+   */
+  private scrollToServicesTop(): void {
+    requestAnimationFrame(() => {
+      // Try multiple selectors to find the services container
+      const selectors = [
+        '#services-content-container',
+        '.services-content-container',
+        '.d-flex.flex-column.justify-content-center.align-items-center.gap-5.py-5',
+      ];
+
+      let targetElement: HTMLElement | null = null;
+
+      for (const selector of selectors) {
+        targetElement = document.querySelector(selector);
+        if (targetElement) break;
+      }
+
+      // Fallback to the first services component or the content area
+      if (!targetElement) {
+        targetElement =
+          document.querySelector('app-services-component') ||
+          document.querySelector(
+            '.d-flex.flex-column.justify-content-center.align-items-center.gap-5.py-5'
+          );
+      }
+
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      }
+    });
+  }
+
+  /**
+   * Error handling utility - Only show toasts for critical errors
+   */
+  private handleError(context: string, error: any): void {
+    console.error(`${context} failed:`, error);
+    this.isLoading.set(false);
+
+    // Only show toast for critical network/API errors
+    // Don't show for empty responses or validation errors
+    if (this.isCriticalError(error)) {
+      const errorMessage = this.translateService.instant(`all-services.toast.${context}_error`);
+      this.toastService.error(
+        errorMessage || this.translateService.instant('all-services.toast.generic_error')
+      );
+    }
+  }
+
+  /**
+   * Determine if an error is critical enough to show a toast
+   */
+  private isCriticalError(error: any): boolean {
+    // Show toast for network errors, server errors, and timeouts
+    if (error.status === 0) return true; // Network error
+    if (error.status >= 500) return true; // Server error
+    if (error.status === 408) return true; // Timeout
+    if (error.name === 'TimeoutError') return true;
+
+    // Don't show toast for client errors (4xx) unless it's critical
+    if (error.status === 404) return false; // Not found - handled by UI
+    if (error.status === 400) return false; // Bad request - handled by validation
+
+    return false; // Default: don't show toast
+  }
+
+  private handleEmptyResponse(context: string): void {
+    console.warn(`Empty response received for ${context}`);
+    // No toast for empty responses - UI shows appropriate message
+  }
+
+  // TrackBy functions for optimal ngFor performance
+  trackByCategoryId(index: number, category: ServiceCategory): string {
+    return category.id;
+  }
+
+  trackByServiceId(index: number, service: ServiceDetails): string {
+    return service.id;
+  }
+
+  trackByBreadcrumbItem(index: number, item: BreadcrumbItem): string {
+    return item.label;
   }
 }

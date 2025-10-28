@@ -1,4 +1,167 @@
 {
+  "HOME": "Inicio",
+  "SIGN_IN": "Iniciar sesión",
+  "SIGN_UP": "Crear cuenta",
+  "AUTH": {
+    "WELCOME_BACK": "¡Bienvenido de nuevo!",
+    "DONT_HAVE_ACCOUNT": "¿No tienes una cuenta?",
+    "SIGN_UP_NOW": "Regístrate ahora",
+    "EMAIL_ADDRESS": "Correo electrónico",
+    "PASSWORD": "Contraseña",
+    "ENTER_EMAIL": "Ingresa tu correo electrónico",
+    "ENTER_PASSWORD": "Ingresa tu contraseña",
+    "LOGIN": "Iniciar sesión",
+    "SIGNING_IN": "Iniciando sesión...",
+    "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
+    "LOGIN_WITH_GOOGLE": "Iniciar sesión con Google",
+    "LOGIN_WITH_FACEBOOK": "Iniciar sesión con Facebook",
+    "FORGOT_YOUR_PASSWORD": "¿Olvidaste tu contraseña?",
+    "NO_WORRIES": "No te preocupes, te enviaremos instrucciones para restablecer",
+    "RESET_PASSWORD": "Restablecer contraseña",
+    "RESETTING_PASSWORD": "Restableciendo contraseña...",
+    "BACK_TO_LOGIN": "Volver a iniciar sesión",
+    "PASSWORD_RESET": "Establecer nueva contraseña",
+    "PASSWORD_RESET_INSTRUCTIONS": "Debe tener al menos 8 caracteres",
+    "WE_SENT_CODE": "Enviamos un código a",
+    "CONTINUE": "Continuar",
+    "VERIFYING": "Verificando...",
+    "DIDNT_RECEIVE_CODE": "¿No recibiste un código?",
+    "CLICK_TO_RESEND": "Haz clic para reenviar",
+    "NEW_PASSWORD": "Nueva contraseña",
+    "ENTER_NEW_PASSWORD": "Ingresa tu nueva contraseña",
+    "CONFIRM_PASSWORD": "Confirmar contraseña",
+    "CONFIRM_NEW_PASSWORD": "Confirma tu nueva contraseña",
+    "RESETTING_PASSWORD_LOADING": "Restableciendo contraseña...",
+    "BACK_TO_OTP": "Volver al código",
+    "PASSWORDS_DO_NOT_MATCH": "Las contraseñas no coinciden",
+    "PASSWORD_RESET_SUCCESS": "¡Contraseña restablecida con éxito!",
+    "INVALID_OTP": "Código OTP inválido",
+    "FAILED_TO_VERIFY_OTP": "Error al verificar el código OTP",
+    "CODE_RESENT_SUCCESS": "¡Código reenviado con éxito!",
+    "FAILED_TO_RESEND_CODE": "Error al reenviar el código",
+    "EMAIL_REQUIRED": "El correo electrónico es requerido",
+    "PASSWORD_REQUIRED": "La contraseña es requerida",
+    "VALID_EMAIL": "Por favor ingresa una dirección de correo electrónico válida",
+    "PASSWORD_PATTERN": "La contraseña debe tener al menos 8 caracteres con mayúsculas, minúsculas, números y caracteres especiales",
+    "CODE_REQUIRED": "El código es requerido",
+    "CODE_4_DIGITS": "El código debe tener 4 dígitos",
+    "CODE_NUMBERS_ONLY": "El código debe contener solo números",
+    "NEW_PASSWORD_REQUIRED": "La nueva contraseña es requerida",
+    "CONFIRM_PASSWORD_REQUIRED": "La confirmación de contraseña es requerida",
+    "NEW_PASSWORD_PATTERN": "La nueva contraseña debe tener al menos 8 caracteres con mayúsculas, minúsculas y números",
+    "CONFIRM_PASSWORD_PATTERN": "La confirmación de contraseña debe tener al menos 8 caracteres con mayúsculas, minúsculas y números",
+    "ERRORS": {
+      "REQUIRED": "Este campo es requerido.",
+      "MIN_LENGTH": "Debe tener al menos {{requiredLength}} caracteres.",
+      "MAX_LENGTH": "No puede exceder {{requiredLength}} caracteres.",
+      "EMAIL": "Por favor ingresa una dirección de correo electrónico válida.",
+      "FULLNAME_PATTERN": "Solo se permiten letras, espacios, apóstrofes y guiones.",
+      "PHONE_PATTERN": "Por favor ingresa un número de teléfono válido.",
+      "PASSWORD_PATTERN": "La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales.",
+      "INVALID": "El valor ingresado no es válido."
+    }
+  },
+  "COMMON": {
+    "OR": "O",
+    "AND": "Y",
+    "ALREADY_HAVE_ACCOUNT": "¿Ya tienes una cuenta?",
+    "SUCCESS": "Éxito",
+    "ERROR": "Error"
+  },
+  "NEW_PASSWORD": {
+    "ERRORS": {
+      "REQUIRED": "Este campo es requerido.",
+      "PASSWORD_PATTERN": "La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales.",
+      "INVALID": "El valor ingresado no es válido.",
+      "OTP_PATTERN": "El código debe contener solo números.",
+      "LENGTH": "Debe tener exactamente {{requiredLength}} caracteres."
+    },
+    "MESSAGES": {
+      "SUCCESS": "¡Contraseña restablecida con éxito!",
+      "INVALID_OTP": "Código OTP inválido",
+      "FAILED_TO_VERIFY_OTP": "Error al verificar el código OTP",
+      "CODE_RESENT_SUCCESS": "¡Código reenviado con éxito!",
+      "FAILED_TO_RESEND_CODE": "Error al reenviar el código"
+    }
+  },
+  "SIGNUP": {
+    "TITLE": "Comienza Ahora",
+    "SUBTITLE": "Por favor ingresa tu información para acceder a tu cuenta",
+    "FIELDS": {
+      "FULL_NAME": "Nombre completo",
+      "EMAIL": "Correo electrónico",
+      "PHONE": "Teléfono",
+      "PASSWORD": "Contraseña",
+      "TERMS": "Acepto los",
+      "TERMS_LINK": "Términos de servicio",
+      "PRIVACY_LINK": "Política de privacidad"
+    },
+    "PLACEHOLDERS": {
+      "FULL_NAME": "Ingresa tu nombre completo",
+      "EMAIL": "Ingresa tu correo electrónico",
+      "PHONE": "Ingresa tu teléfono",
+      "PASSWORD": "Ingresa tu contraseña"
+    },
+    "BUTTONS": {
+      "SUBMIT": "Registrarse",
+      "SUBMITTING": "Registrando...",
+      "GOOGLE": "Registrarse con Google",
+      "FACEBOOK": "Registrarse con Facebook"
+    },
+    "MESSAGES": {
+      "SUCCESS_DETAIL": "Hemos enviado un enlace de confirmación a {{email}}.",
+      "FAILURE_EMAIL_EXISTS": "Este correo electrónico ya está registrado. Por favor inicia sesión en su lugar.",
+      "FAILURE_INVALID_INPUT": "Algunas de tus entradas son inválidas. Por favor verifica e intenta nuevamente.",
+      "FAILURE_WEAK_PASSWORD": "Tu contraseña es muy débil. Por favor elige una más segura.",
+      "FAILURE_SERVER": "Ocurrió un error del servidor. Por favor intenta más tarde.",
+      "FAILURE": "Algo salió mal. Por favor intenta nuevamente."
+    },
+    "ERRORS": {
+      "REQUIRED": "Este campo es requerido.",
+      "MIN_LENGTH": "Debe tener al menos {{requiredLength}} caracteres.",
+      "MAX_LENGTH": "No puede exceder {{requiredLength}} caracteres.",
+      "EMAIL": "Por favor ingresa una dirección de correo electrónico válida.",
+      "FULLNAME_PATTERN": "Solo se permiten letras, espacios, apóstrofes y guiones.",
+      "PHONE_PATTERN": "Por favor ingresa un número de teléfono válido.",
+      "PASSWORD_PATTERN": "La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales.",
+      "INVALID": "El valor ingresado no es válido."
+    }
+  },
+  "CONFIRM_EMAIL": {
+    "TITLE": "Confirmar correo electrónico",
+    "SUBTITLE": "Enviamos un código a",
+    "BUTTONS": {
+      "SUBMIT": "Confirmar correo electrónico",
+      "SUBMITTING": "Confirmando...",
+      "RESEND": "Reenviar código",
+      "RESENDING": "Reenviar código después de",
+      "CONFIRM_WITH_EMAIL": "Confirmar con enlace de correo"
+    },
+    "MESSAGES": {
+      "SUCCESS": "Tu correo electrónico ha sido confirmado exitosamente.",
+      "INVALID_OR_EXPIRED": "El código de verificación es inválido o ha expirado. Por favor intenta nuevamente o solicita uno nuevo.",
+      "USER_NOT_FOUND": "No pudimos encontrar tu cuenta. Por favor regístrate nuevamente.",
+      "ALREADY_VERIFIED": "Tu correo electrónico ya está confirmado. Puedes iniciar sesión directamente.",
+      "UPDATE_FAILED": "No pudimos verificar tu correo electrónico debido a un problema del sistema. Por favor intenta más tarde.",
+      "FAILURE": "No pudimos confirmar tu correo electrónico en este momento. Por favor intenta más tarde.",
+      "RESEND_SUCCESS_OTP": "Se ha enviado un nuevo código de verificación a tu correo electrónico. Por favor revisa tu bandeja de entrada.",
+      "RESEND_SUCCESS_LINK": "Se ha enviado un nuevo enlace de verificación a tu correo electrónico. Por favor revisa tu bandeja de entrada.",
+      "RESEND_SUCCESS_GENERIC": "Si tu correo electrónico está registrado, recibirás un mensaje de confirmación pronto.",
+      "RESEND_ALREADY_VERIFIED": "Tu correo electrónico ya está confirmado. Puedes iniciar sesión directamente.",
+      "RESEND_FAILURE": "No pudimos reenviar el correo de confirmación. Por favor intenta más tarde.",
+      "INVALID_LINK": "El enlace de confirmación es inválido.",
+      "BLOCKED": "No pudimos verificar tu registro. Por favor inicia sesión nuevamente."
+    },
+    "ERRORS": {
+      "REQUIRED": "El código es requerido.",
+      "LENGTH": "El código debe tener exactamente {{length}} dígitos.",
+      "DIGITS": "El código debe contener solo números.",
+      "INVALID": "Código inválido."
+    }
+  },
+  "HEADER": {
+    "LOG_OUT": "Cerrar sesión"
+  },
   "navbar": {
     "home": "Inicio",
     "about": "Acerca de",
@@ -38,7 +201,7 @@
     "choiceoptinoptout": "Opción/Opt-In/Opt-Out",
     "policymodifications": "Modificaciones de política",
     "earnmoneywithus": "Ganar dinero con nosotros",
-    "sellproductsongahbiz": "Vender productos en Gahbiz",
+    "sellproductsongahbiz": "Vender productos en Servabest",
     "advertiseyourservices": "Publicitar tus servicios",
     "selfpublishwithus": "Publicar con nosotros",
     "becomeserviceagent": "Convertirse en agente de servicio",
@@ -58,7 +221,7 @@
     "exploreservices": "Explorar Servicios"
   },
   "our-services": {
-    "subtitle": "Qué ofrecemos?",
+    "subtitle": "¿Qué ofrecemos?",
     "title1": "Nuestros ",
     "title2": "Servicios",
     "explore": "Explorar Más Servicios",
@@ -67,7 +230,7 @@
   },
   "how-it-works": {
     "title1": "Cómo Funciona",
-    "title2": "Nuestros Servicios",
+    "title2": "",
     "description": "Nuestro proceso simplificado hace que obtener servicios profesionales de impuestos y negocios sea simple y sin estrés",
     "step1": {
       "title": "Selecciona Tu Servicio",
@@ -97,7 +260,30 @@
     "title2": "confían en nosotros ",
     "title3": "con sus ",
     "title4": "impuestos",
-    "description": "No solo tomemos nuestra palabra - escucha a clientes satisfechos que confían en nosotros con sus necesidades financieras"
+    "description": "No solo tome nuestra palabra - escuche a clientes satisfechos que confían en nosotros con sus necesidades financieras"
+  },
+  "all-services": {
+    "title1": "Nuestros ",
+    "title2": "Servicios",
+    "subtitle": "Explora nuestras soluciones de impuestos y negocios diseñadas para facilitarte las cosas.",
+    "all-tab": "Todos los Servicios",
+    "buy-now": "Comprar Ahora",
+    "add-to-cart": "Agregar al Carrito",
+    "loading": "Cargando...",
+    "breadcrumb_services": "Nuestros Servicios",
+    "no-data": "No se encontraron servicios.",
+    "no-services-in-category": "No hay servicios disponibles en esta categoría.",
+    "previous-page": "Página anterior",
+    "next-page": "Página siguiente",
+    "page": "Página",
+    "of": "de",
+    "toast": {
+      "load_categories_error": "No se pueden cargar las categorías de servicios. Por favor verifica tu conexión e intenta nuevamente.",
+      "load_services_error": "No se pueden cargar los servicios. Por favor verifica tu conexión e intenta nuevamente.",
+      "load_category_filters_error": "No se pueden cargar los filtros de categoría.",
+      "update_category_services_error": "No se pueden actualizar los servicios.",
+      "generic_error": "Ocurrió un error de red. Por favor verifica tu conexión e intenta nuevamente."
+    }
   },
   "services-list": {
     "tax-services": "Servicios de impuestos",
@@ -108,15 +294,15 @@
     "itin-ein-services": "Servicios ITIN y EIN",
     "dmv-services": "Servicios DMV",
     "translation-notary-public-services": "Servicios de traducción y notario público",
-    "appointment-service": "Servicios de reservación",
+    "appointment-service": "Servicio de citas",
     "basic": "Básico",
     "standard": "Estándar",
     "gold": "Oro",
     "silver": "Plata"
   },
   "complete-profile": {
-    "title": "Completar su perfil",
-    "description": "Por favor, proporcione su información para ayudarnos a servirle mejor. Todos los datos están encriptados y seguros.",
+    "title": "Completar Tu Perfil",
+    "description": "Por favor proporciona tu información para ayudarnos a servirte mejor. Todos los datos están encriptados y seguros.",
     "personal-details": "Detalles personales",
     "address": "Dirección",
     "completed": "Completado",
@@ -137,44 +323,45 @@
       "gender-female": "Femenino",
       "phone": "Teléfono",
       "phone-placeholder": "Ingrese su teléfono",
-      "national-id": "ID nacional",
+      "national-id": "ID Nacional",
       "national-id-placeholder": "Ingrese su ID nacional",
       "country": "País",
       "country-placeholder": "Seleccione su país",
       "state": "Estado",
       "state-placeholder": "Seleccione su estado",
-      "postal-code": "Código postal",
+      "postal-code": "Código Postal",
       "postal-code-placeholder": "Ingrese código postal",
       "submit": "Guardar",
-      "birth-date": "Fecha de nacimiento",
+      "submitting": "Guardando...",
+      "birth-date": "Fecha de Nacimiento",
       "birth-month-placeholder": "MM",
       "birth-day-placeholder": "DD",
-      "birth-year-placeholder": "YYYY",
+      "birth-year-placeholder": "AAAA",
       "error": {
         "required": "Este campo es requerido.",
         "minlength": "Debe tener al menos {{requiredLength}} caracteres.",
         "maxlength": "No puede exceder {{requiredLength}} caracteres.",
-        "email": "Por favor, ingrese un correo electrónico válido.",
+        "email": "Por favor ingrese un correo electrónico válido.",
         "fullname_pattern": "Solo se permiten letras, espacios, apóstrofes y guiones.",
-        "phone_pattern": "Por favor, ingrese un número de teléfono válido.",
+        "phone_pattern": "Por favor ingrese un número de teléfono válido.",
         "invalid": "El valor ingresado no es válido.",
-        "national_id": "Por favor, ingrese un ID nacional válido.",
-        "birth_month": "Por favor, ingrese un mes de nacimiento válido.",
-        "birth_day": "Por favor, ingrese un día de nacimiento válido.",
-        "birth_year": "Por favor, ingrese un año de nacimiento válido.",
-        "country": "Por favor, ingrese un país válido.",
-        "state": "Por favor, ingrese un estado válido.",
-        "postal_code": "Por favor, ingrese un código postal válido."
+        "national_id": "Por favor ingrese un ID nacional válido.",
+        "birth_month": "Por favor ingrese un mes de nacimiento válido.",
+        "birth_day": "Por favor ingrese un día de nacimiento válido.",
+        "birth_year": "Por favor ingrese un año de nacimiento válido.",
+        "country": "Por favor ingrese un país válido.",
+        "state": "Por favor ingrese un estado válido.",
+        "postal_code": "Por favor ingrese un código postal válido."
       }
     },
     "messages": {
       "update_success": "¡Perfil actualizado con éxito!",
-      "update_error": "Ocurrió un error al actualizar su perfil. Por favor, inténtelo de nuevo.",
-      "form_invalid": "Por favor, corrija los errores en el formulario antes de enviarlo.",
+      "update_error": "Ocurrió un error al actualizar su perfil. Por favor inténtelo de nuevo.",
+      "form_invalid": "Por favor corrija los errores en el formulario antes de enviarlo.",
       "birthdate_invalid": "La fecha de nacimiento proporcionada no es válida.",
-      "load_countries_error": "No se pudieron cargar los países. Por favor, actualice.",
+      "load_countries_error": "No se pudieron cargar los países. Por favor actualice.",
       "load_states_error": "No se pudieron cargar los estados para el país seleccionado.",
-      "load_profile_error": "No se pudieron cargar los datos del perfil. Por favor, inténtelo de nuevo."
+      "load_profile_error": "No se pudieron cargar los datos del perfil. Por favor inténtelo de nuevo."
     },
     "states": {
       "ny": "Nueva York",
@@ -183,8 +370,8 @@
       "fl": "Florida",
       "il": "Illinois",
       "oh": "Ohio",
-      "mi": "Michigan",
-      "pa": "Pennsylvania"
+      "mi": "Míchigan",
+      "pa": "Pensilvania"
     }
   }
 }

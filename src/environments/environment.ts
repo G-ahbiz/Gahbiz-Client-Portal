@@ -1,6 +1,3 @@
-import { CompleteProfile } from "@features/complete-profile/complete-profile";
-import { count } from "rxjs";
-
 export const environment = {
   production: false,
 
@@ -28,6 +25,8 @@ export const environment = {
     getAllServiceCategories: '/ServiceCategories',
   },
   services: {
+    getAllServices: '/Services',
+    getServiceByCategory: '/Services/category/',
     bestOffers: '/Services/best-offers',
   },
   states: {

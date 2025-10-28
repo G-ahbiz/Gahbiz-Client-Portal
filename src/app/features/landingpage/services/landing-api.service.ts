@@ -13,12 +13,36 @@ export class LandingApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAllCategories(): Observable<Category[]> {
-    return this.http
-      .get<ApiResponse<Category[]>>(
-        `${this.base}${environment.serviceCategories.getAllServiceCategories}`
-      )
-      .pipe(map((res) => res?.data ?? []));
+  getAllCategories(includeServices = false): Observable<Category[]> {
+    const pageSize = 50;
+    let pageNumber = 1;
+    let allItems: Category[] = [];
+
+    return new Observable<Category[]>((observer) => {
+      const fetchPage = () => {
+        this.http
+          .get<ApiResponse<{ items: Category[]; hasNextPage: boolean }>>(
+            `${this.base}${environment.serviceCategories.getAllServiceCategories}`,
+            { params: { includeServices, pageNumber, pageSize } }
+          )
+          .subscribe({
+            next: (res) => {
+              const items = res?.data?.items ?? [];
+              allItems = [...allItems, ...items];
+              if (res?.data?.hasNextPage) {
+                pageNumber++;
+                fetchPage();
+              } else {
+                observer.next(allItems);
+                observer.complete();
+              }
+            },
+            error: (err) => observer.error(err),
+          });
+      };
+
+      fetchPage();
+    });
   }
 
   getBestOffers(): Observable<any[]> {
