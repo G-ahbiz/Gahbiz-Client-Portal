@@ -1,4 +1,12 @@
-import { Component, HostListener, OnDestroy, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Inject,
+  PLATFORM_ID,
+  inject,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -8,7 +16,7 @@ import { TagModule } from 'primeng/tag';
 import { Router } from '@angular/router';
 import { LandingFacadeService } from '@features/landingpage/services/landing-facade.service';
 import { Category } from '@features/landingpage/interfaces/category';
-import { filter, Subject, take, takeUntil } from 'rxjs';
+import { filter, map, Observable, Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-our-services',
@@ -20,7 +28,10 @@ import { filter, Subject, take, takeUntil } from 'rxjs';
 export class OurServices implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
-  services: Array<any> = [];
+  private router = inject(Router);
+
+  services$!: Observable<any[]>;
+  services: any[] = [];
   isLoading = true;
 
   // slider state
@@ -44,7 +55,6 @@ export class OurServices implements OnInit, OnDestroy {
 
   constructor(
     private translateService: TranslateService,
-    private router: Router,
     private landingFacade: LandingFacadeService,
     @Inject(PLATFORM_ID) private platformId: any
   ) {}
@@ -53,27 +63,25 @@ export class OurServices implements OnInit, OnDestroy {
     this.checkScreenSize();
     this.initializeTranslation();
 
-    // load categories from facade
     this.isLoading = true;
     this.landingFacade.loadCategories();
 
-    this.landingFacade.categories$
-      .pipe(
-        filter((cats: Category[] | null) => Array.isArray(cats)),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((categories: Category[]) => {
-        this.services = categories.map((c) => this.mapCategoryToSlide(c));
-        this.currentIndex = 0;
-        this.isLoading = false;
+    this.services$ = this.landingFacade.categories$.pipe(
+      filter((cats: Category[] | null) => Array.isArray(cats)),
+      map((categories: Category[]) => categories.map((c) => this.mapCategoryToSlide(c))),
+      tap((mappedServices) => {
+        this.services = mappedServices;
 
-        // start autoplay if there are multiple items
-        if (this.services.length > 1) {
+        this.isLoading = false;
+        this.currentIndex = 0;
+        if (mappedServices.length > 1) {
           this.startAutoplay();
         } else {
           this.stopAutoplay();
         }
-      });
+      }),
+      takeUntil(this.destroy$)
+    );
   }
 
   ngOnDestroy(): void {
@@ -284,11 +292,12 @@ export class OurServices implements OnInit, OnDestroy {
 
   private getMobileSlideStyle(i: number) {
     const diff = i - this.currentIndex;
-
-    const translateX = diff * 105 - 50;
+    
+    const baseTranslateX = diff * 105;
 
     const dirSign = this.isArabic ? -1 : 1;
-    const finalTranslateX = translateX * dirSign;
+
+    const finalTranslateX = (baseTranslateX * dirSign) - 50;
     const transform = `translateX(${finalTranslateX}%) scale(1)`;
 
     const isActive = i === this.currentIndex;
@@ -330,6 +339,14 @@ export class OurServices implements OnInit, OnDestroy {
     this.services = [];
     this.stopAutoplay();
     this.landingFacade.loadCategories(true);
+  }
+
+  navigateToCategory(categoryId: string) {
+    if (!categoryId) return;
+
+    this.router.navigate(['/all-services'], {
+      queryParams: { categoryId: categoryId },
+    });
   }
 
   trackById(index: number, item: any): string {

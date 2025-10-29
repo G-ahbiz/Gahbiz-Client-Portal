@@ -13,16 +13,17 @@
     </div>
   </div>
 
+  @if (services$ | async; as services) {
+
   @if (isLoading) {
   <div class="slider-loading">
     <div class="spinner"></div>
   </div>
-  }
+  } @else {
 
-  @if (!isLoading && services.length === 0) {
+  @if (services.length === 0) {
   <div class="slider-empty txt-clr text-center">
     <p class="fs-5 mb-4">{{ 'our-services.noServices' | translate }}</p>
-
     <button class="btn explore-button orange-bg-clr d-flex justify-content-center align-items-center gap-3 px-5 py-3"
       (click)="retryLoadServices()">
       <span class="fw-semibold fs-6 text-nowrap">{{ 'our-services.tryAgain' | translate }}</span>
@@ -32,16 +33,16 @@
       </svg>
     </button>
   </div>
-  }
-
-  @if (!isLoading && services.length > 0) {
+  } @else {
   <div class="our-slider">
     <div class="slider-viewport mx-auto" tabindex="0" (keydown.arrowleft)="navigatePrev()"
       (keydown.arrowright)="navigateNext()" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)"
-      (focusin)="stopAutoplay()" (focusout)="startAutoplay()" role="list" aria-label="Our services slider">
+      (focusin)="stopAutoplay()" (focusout)="startAutoplay()" role="list"
+      [attr.aria-label]="'our-services.sliderAriaLabel' | translate">
+
       @for (s of services; track s.category; let i = $index) {
-      <div class="slide" [ngStyle]="getSlideStyle(i)" [class.slide-active]="i === currentIndex" [attr.data-index]="i"
-        (click)="onServiceClick(s)" role="listitem">
+      <div class="slide" (click)="navigateToCategory(s.category)" [ngStyle]="getSlideStyle(i)"
+        [class.slide-active]="i === currentIndex" [attr.data-index]="i" role="listitem">
         <div class="image-wrapper">
           <img [src]="s.image" [alt]="s.title" class="slide-image" />
         </div>
@@ -50,15 +51,15 @@
           <div class="details-left">
             <div class="service-title">{{ s.title }}
               <span class="service-count">
-                (has {{ s.serviceCount }}
-                {{ s.serviceCount === 1 ? ('Service' | translate) : ('Services' | translate) }})
+                {{ 'our-services.serviceCount' | translate:{ count: s.serviceCount } }}
               </span>
             </div>
             <div class="service-caption">{{ s.caption }}</div>
           </div>
 
           <div class="details-action" aria-hidden="true">
-            <div class="arrow-round" [attr.aria-label]="'open ' + s.title">
+            <div class="arrow-round"
+              [attr.aria-label]="'our-services.openService' | translate:{ serviceName: s.title }">
               @if (!isArabic) {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path d="M10 6L16 12L10 18" stroke="#005db5" stroke-width="2" stroke-linecap="round"
@@ -78,24 +79,31 @@
     </div>
 
     <div class="slider-controls d-flex justify-content-between align-items-center">
-      <button class="ctrl prev btn" (click)="navigatePrev()" aria-label="Previous slide" (mouseenter)="stopAutoplay()"
+      <button class="ctrl prev btn" (click)="navigatePrev()"
+        [attr.aria-label]="'our-services.previousSlide' | translate" (mouseenter)="stopAutoplay()"
         (mouseleave)="startAutoplay()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          @if (!isArabic) {
           <path d="M15 18L9 12L15 6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          } @else {
+          <path d="M9 6L15 12L9 18" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          }
         </svg>
       </button>
 
-      <button class="ctrl next btn" (click)="navigateNext()" aria-label="Next slide" (mouseenter)="stopAutoplay()"
-        (mouseleave)="startAutoplay()">
+      <button class="ctrl next btn" (click)="navigateNext()" [attr.aria-label]="'our-services.nextSlide' | translate"
+        (mouseenter)="stopAutoplay()" (mouseleave)="startAutoplay()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          @if (!isArabic) {
           <path d="M9 6L15 12L9 18" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          } @else {
+          <path d="M15 18L9 12L15 6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          }
         </svg>
       </button>
     </div>
   </div>
-  }
 
-  @if (!isLoading && services.length > 0) {
   <div class="explore-button-container w-100 d-flex justify-content-center align-items-center mt-5">
     <button class="btn explore-button orange-bg-clr d-flex justify-content-center align-items-center gap-3 px-5 py-3"
       (click)="navigateToAllServices()">
@@ -111,5 +119,7 @@
       }
     </button>
   </div>
+  }
+  }
   }
 </div>

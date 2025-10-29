@@ -226,7 +226,12 @@
     "title2": "Servicios",
     "explore": "Explorar Más Servicios",
     "noServices": "No hay servicios disponibles en este momento. Por favor, vuelva más tarde.",
-    "tryAgain": "Intentar de nuevo"
+    "tryAgain": "Intentar de nuevo",
+    "sliderAriaLabel": "Slider de Servicios",
+    "previousSlide": "Diapositiva anterior",
+    "nextSlide": "Siguiente diapositiva",
+    "openService": "Abrir {{serviceName}}",
+    "serviceCount": "(tiene {{count}} Servicios)"
   },
   "how-it-works": {
     "title1": "Cómo Funciona",
@@ -253,7 +258,11 @@
     "title1": "Mejores ",
     "title2": "Ofertas",
     "add-to-cart": "Agregar al Carrito",
-    "view-all": "Ver Todas Las Ofertas"
+    "view-all": "Ver Todas Las Ofertas",
+    "toasts": {
+      "url-copied": "URL copiada.",
+      "url-copy-failed": "Fallo al copiar la URL."
+    }
   },
   "testimonials": {
     "title1": "Vea por qué millones ",
