@@ -16,7 +16,7 @@ import { MenuItem } from 'primeng/api';
 import { RatingModule } from 'primeng/rating';
 import { ServicesComponent } from './services-component/services-component';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AllServicePageFacadeService } from './services/all-service-page-facade.service';
 import { PaginatedServices } from './interfaces/paginated-services';
 import { ServiceCategory } from './interfaces/service-category';
@@ -50,6 +50,8 @@ export class AllServices implements OnInit, OnDestroy {
   private translateService = inject(TranslateService);
   private facadeService = inject(AllServicePageFacadeService);
   private toastService = inject(ToastService);
+
+  private route = inject(ActivatedRoute);
 
   private destroy$ = new Subject<void>();
 
@@ -90,9 +92,42 @@ export class AllServices implements OnInit, OnDestroy {
     this.initializeTranslation();
     this.home.set({ icon: 'pi pi-home', routerLink: '/home' });
 
-    this.loadCategories(1);
-    this.loadCategoryFilters();
-    this.updateBreadcrumb();
+    // Check the URL for a categoryId
+    const categoryIdFromRoute = this.route.snapshot.queryParamMap.get('categoryId');
+
+    this.facadeService
+      .getCategoryFilters()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          if (res.succeeded && res.data) {
+            this.allCategoryFilters.set(res.data.items);
+          }
+
+          if (categoryIdFromRoute && res.succeeded && res.data) {
+            const foundCategory = res.data.items.find((c: ServiceCategory) => c.id === categoryIdFromRoute);
+
+            if (foundCategory) {
+              this.onFilterChange(foundCategory);
+            } else {
+              console.warn('Category ID from route not found, loading all categories.');
+              this.loadCategories(1);
+              this.updateBreadcrumb();
+            }
+          } else if (!categoryIdFromRoute) {
+            this.loadCategories(1);
+            this.updateBreadcrumb();
+          } else {
+            this.loadCategories(1);
+            this.updateBreadcrumb();
+          }
+        },
+        error: (error) => {
+          this.handleError('load_category_filters', error);
+          this.loadCategories(1);
+          this.updateBreadcrumb();
+        },
+      });
   }
 
   ngOnDestroy() {
@@ -242,10 +277,8 @@ export class AllServices implements OnInit, OnDestroy {
    */
   onServicePageChange(event: { page: number; pageSize: number }, categoryId: string): void {
     if (this.activeCategoryId() === null) {
-      // Update services within a category in "All" view
       this.updateCategoryServices(categoryId, event.page, event.pageSize);
     } else {
-      // Update services in single category view
       this.loadServicesForCategory(this.activeCategoryId()!, event.page);
     }
   }

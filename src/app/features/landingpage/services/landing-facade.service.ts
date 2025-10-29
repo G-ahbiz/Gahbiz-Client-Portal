@@ -25,9 +25,12 @@ export class LandingFacadeService {
       .getAllCategories()
       .pipe(
         take(1),
+        // This tap only runs on SUCCESS
         tap((cats) => this.categoriesSub.next(cats)),
         catchError((err) => {
           console.error('LandingFacade: failed to load categories', err);
+          // FIX: Manually push the empty array to the subject on error
+          this.categoriesSub.next([] as Category[]);
           return of([] as Category[]);
         })
       )
@@ -37,5 +40,4 @@ export class LandingFacadeService {
   getCategoriesSnapshot(): Category[] {
     return this.categoriesSub.value;
   }
-
 }

@@ -226,7 +226,12 @@
     "title2": "Services",
     "explore": "Explore More Services",
     "noServices": "No services available at the moment. Please check back later.",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "sliderAriaLabel": "Our services slider",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "openService": "Open {{serviceName}}",
+    "serviceCount": "(has {{count}} Services)"
   },
   "how-it-works": {
     "title1": "How It",
@@ -253,7 +258,11 @@
     "title1": "Best ",
     "title2": "Offers",
     "add-to-cart": "Add to Cart",
-    "view-all": "View All Offers"
+    "view-all": "View All Offers",
+    "toasts": {
+      "url-copied": "URL copied to clipboard!",
+      "url-copy-failed": "Failed to copy URL."
+    }
   },
   "testimonials": {
     "title1": "See why millions ",
