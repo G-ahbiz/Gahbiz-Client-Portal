@@ -71,8 +71,9 @@
             <label class="fs-6 fw-semibold mb-2 d-flex justify-content-start align-items-start gap-2" for="rating">
               <span class="">Your Rating</span>
               <span class="required-asterisk text-danger">*</span>
-              <p-rating [ngModel]="userRating" [readonly]="false" [stars]="5" [iconOnStyle]="{'color':'#ffca19'}"
-                [iconOffStyle]="{'color':'#ffca19'}"></p-rating>
+              <p-rating formControlName="rating" [readonly]="false" [stars]="5" [iconOnStyle]="{'color':'#ffca19'}"
+                [iconOffStyle]="{'color':'#ffca19'}">
+              </p-rating>
             </label>
           </div>
           <!-- Name Input -->

@@ -15,17 +15,17 @@
         <!-- Card Header -->
         <div class="card-header overflow-hidden position-relative p-0 border-0">
           <!-- Card Image -->
-          <img src="assets/images/landingpage/best-offers/{{ offer.image }}" [alt]="offer.description" />
+          <img src="assets/images/landingpage/best-offers/{{ offer.imageUrl }}" [alt]="offer.title" />
           <!-- Card Icons -->
           <div class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3">
             <div
               class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-              (click)="putInFavorites(offer.id)">
+              (click)="putInFavorites(+offer.id)">
               <i class="pi pi-heart fs-4 red-heart"></i>
             </div>
             <div
               class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-              (click)="share(offer.id)">
+              (click)="share(+offer.id)">
               <i class="pi pi-share-alt fs-4"></i>
             </div>
           </div>
@@ -33,7 +33,7 @@
         <!-- Card Body -->
         <div class="card-body px-3">
           <!-- Card Description -->
-          <p class="card-description ">{{ offer.description }}</p>
+          <p class="card-description ">{{ offer.title }}</p>
           <!-- Card Details -->
           <div class="card-details d-flex justify-content-between align-items-center">
             <!-- Card Price and Discount -->
@@ -42,11 +42,11 @@
               <span class="card-price fw-bold">${{ offer.price }}</span>
               <!-- Card Discount -->
               <span class="card-discount">
-                <del>${{ offer.discount }}</del>
+                <del>${{ offer.priceBefore }}</del>
               </span>
             </div>
             <!-- Card Rate -->
-            <app-rating [rating]="offer.stars"></app-rating>
+            <app-rating [rating]="offer.rating"></app-rating>
           </div>
           <!-- Card Button -->
           <div class="card-button d-flex justify-content-start align-items-center gap-2 w-100 mt-3">

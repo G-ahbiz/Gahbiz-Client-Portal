@@ -20,13 +20,13 @@ export class ReviewsTab implements OnInit {
 
   // Form
   reviewsForm: FormGroup;
-  userRating: number = 0;
 
   constructor(private fb: FormBuilder) {
     this.reviewsForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       review: ['', [Validators.required]],
+      rating: new FormControl(null, Validators.required)
     });
   }
 

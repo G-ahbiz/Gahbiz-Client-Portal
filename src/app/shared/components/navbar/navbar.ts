@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
-import { ServiceDetails } from '@features/all-services/interfaces/service-details';
+import { AllServicesComponentService } from '@shared/services/all-services-component';
 import { User } from '@features/auth/interfaces/sign-in/user';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -29,7 +29,8 @@ export class Navbar {
   constructor(
     private translateService: TranslateService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private allServicesService: AllServicesComponentService
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.currentUser$ = this.authService.currentUser$;

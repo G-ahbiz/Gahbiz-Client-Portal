@@ -4,6 +4,6 @@ export interface Offer {
   imageUrl: string | null;
   price: number;
   priceBefore: number;
-  discountPercentage: number;
+  discountPercentage?: number;
   rating: number;
 }

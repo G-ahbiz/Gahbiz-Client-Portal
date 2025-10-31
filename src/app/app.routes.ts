@@ -15,10 +15,10 @@ export const routes: Routes = [
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
-  { path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices) },
+  { path: 'all-services', canActivate: [AuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices) },
   { path: 'service-details', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/service-datails/service-datails').then(m => m.ServiceDatails) },
   { path: 'appointment-service', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/appointment-service-component/appointment-service-component').then(m => m.AppointmentServiceComponent) },
-  { path: 'complete-profile', canActivate: [NoAuthGuard], loadComponent: () => import('./features/complete-profile/complete-profile').then(m => m.CompleteProfile) },
+  { path: 'complete-profile', canActivate: [AuthGuard], loadComponent: () => import('./features/complete-profile/complete-profile').then(m => m.CompleteProfile) },
   { path: 'cart', canActivate: [NoAuthGuard], loadComponent: () => import('./features/cart/cart').then(m => m.Cart) },
   { path: 'checkout', canActivate: [NoAuthGuard], loadChildren: () => import('./features/checkout/checkout.routing').then(m => m.CHECKOUT_ROUTES) },
   // { path: 'checkout', canActivate: [NoAuthGuard], loadComponent: () => import('./features/checkout/checkout').then(m => m.Checkout) },

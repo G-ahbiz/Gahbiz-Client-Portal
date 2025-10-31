@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Offer } from '@features/landingpage/components/best-offers/best-offers';
-import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Offer } from '@features/landingpage/interfaces/offer';
+import { TranslateModule } from '@ngx-translate/core';
 import { Rating } from '@shared/components/rating/rating';
 
 @Component({
@@ -22,28 +22,28 @@ export class RelatedServices implements OnInit {
   getOffers() {
     this.offers = [
       {
-        id: 1,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
+        id: "1",
+        imageUrl: 'offer-1.png',
+        title: 'Translate Certificate of birth',
         price: 100,
-        discount: 10,
-        stars: 4,
+        priceBefore: 10,
+        rating: 4,
       },
       {
-        id: 2,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
+        id: "2",
+        imageUrl: 'offer-1.png',
+        title: 'Translate Certificate of birth',
         price: 100,
-        discount: 10,
-        stars: 4,
+        priceBefore: 10,
+        rating: 4,
       },
       {
-        id: 3,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
+        id: "3",
+        imageUrl: 'offer-1.png',
+        title: 'Translate Certificate of birth',
         price: 100,
-        discount: 10,
-        stars: 4,
+        priceBefore: 10,
+        rating: 4,
       }
     ];
   }
