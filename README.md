@@ -1,59 +1,213 @@
-# GahbizClientPortal
+# Application Guidelines
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.2.
+This document outlines the standards and conventions to be followed for Angular application development to ensure consistency, maintainability, and scalability.
 
-## Development server
+---
 
-To start a local development server, run:
+## **1. Folder Structure**
 
-```bash
-ng serve
+### **1.1 General Folder Structure**
+Organize the application into core, shared, and feature-specific modules.
+
+```plaintext
+src/
+|
+├── app/
+│   ├── core/               // Singleton services, interceptors, guards, app-level utilities
+│   │   ├── services/       // Global services
+│   │   ├── interceptors/   // HTTP interceptors
+│   │   └── guards/         // Route guards
+│   │
+│   ├── shared/             // Reusable components, directives, and pipes
+│   │   ├── components/     // Shared UI components
+│   │   ├── directives/     // Reusable directives
+│   │   └── pipes/          // Reusable pipes
+│   │
+│   ├── features/           // Feature modules (see structure below)
+│   │
+│   ├── assets/             // Static assets like images, fonts, etc.
+│   └── environments/       // Environment-specific configurations
+|
+├── styles/                 // Global SCSS or CSS styles
+├── index.html              // Entry point for the app
+└── main.ts                 // Bootstrapping file
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### **1.2 Feature Module Structure**
+Each feature module should be self-contained and follow this structure:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```plaintext
+features/feature-name
+  ├── pages
+  │   ├── page-one
+  │   │   ├── page-one.component.ts
+  │   │   ├── page-one.component.html
+  │   │   └── page-one.component.scss
+  │   └── page-two
+  │       ├── page-two.component.ts
+  │       ├── page-two.component.html
+  │       └── page-two.component.scss
+  ├── components
+  │   ├── shared
+  │   │   ├── shared-component-one
+  │   │   │   ├── shared-component-one.component.ts
+  │   │   │   ├── shared-component-one.component.html
+  │   │   │   └── shared-component-one.component.scss
+  │   │   └── shared-component-two
+  │   │       ├── shared-component-two.component.ts
+  │   │       ├── shared-component-two.component.html
+  │   │       └── shared-component-two.component.scss
+  │   └── page-one-components
+  │       ├── specific-component-one
+  │       │   ├── specific-component-one.component.ts
+  │       │   ├── specific-component-one.component.html
+  │       │   └── specific-component-one.component.scss
+  │       └── specific-component-two
+  │           ├── specific-component-two.component.ts
+  │           ├── specific-component-two.component.html
+  │           └── specific-component-two.component.scss
+  └── services
+      ├── feature-name-api.service.ts
+      └── feature-name-facade.service.ts
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+## **2. Service Patterns**
+Use the **Facade Pattern** by default unless unnecessary. A feature module typically consists of the following services:
+
+### **2.1 Facade Service**
+- The **facade service** serves as the single entry point for the UI layer to interact with the feature's logic.
+- Handles interaction with the state and API services.
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class FeatureFacadeService {
+  constructor(private apiService: FeatureApiService) {}
+
+  getData(): Observable<Data[]> {
+    return this.apiService.getData();
+  }
+}
 ```
 
-## Building
+### **2.2 API Service**
+- Handles HTTP requests specific to the feature.
 
-To build the project run:
+```typescript
+@Injectable({ providedIn: 'root' })
+export class FeatureApiService {
+  constructor(private http: HttpClient) {}
 
-```bash
-ng build
+  getData(): Observable<Data[]> {
+    return this.http.get<Data[]>(`/api/feature`);
+  }
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## **3. Naming Conventions**
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### **3.1 File Naming**
+- Use **kebab-case** for file names.
 
-```bash
-ng test
+Examples:
+```plaintext
+user-profile.component.ts
+user-api.service.ts
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+### **3.2 Class Names**
+- Use **PascalCase** for class names.
+Examples:
+```typescript
+export class ServicesList {}
+export class UserProfileComponent {}
+export class UserApiService {}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### **3.3 variables and methods**
+- Use camelCase `firstName`.
+- prefix private and protected members with `_`.
+- for booleans use prefixes like `is`, `has`.
+Example:
+```typescript
+private _apiUrl = 'https://api.example.com';
+isLoggedIn: boolean = true;
+```
 
-## Additional Resources
+- for event handler methods use prefixes like `on`.
+Example:
+```typescript
+onClick(): void{
+    // Handle click event logic
+}
+onFormSubmit(): void {
+    // Handle submit event logic
+}
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### **3.4 Constants**
+- All uppercase with underscores `MAX_ITEMS`, `API_URL`.
+
+## **3.5 EventEmitter**
+- CamelCase `factoriesSelected`.
+
+## **3.6 HTML Classes**
+- Follow the BEM methodology. You can learn more about it here: https://getbem.com/
+
+---
+
+## **4. No Magic Numbers**
+- Avoid using hardcoded values in the code. Use constants or configuration files instead.
+
+### **Example:**
+```typescript
+// Avoid
+setTimeout(() => console.log('Done'), 1000);
+
+// Use constants
+const TIMEOUT_DELAY = 1000;
+setTimeout(() => console.log('Done'), TIMEOUT_DELAY);
+```
+
+### **Define Constants:**
+Use a dedicated file for constants:
+```typescript
+export const FEATURE_CONSTANTS = {
+  TIMEOUT_DELAY: 1000,
+  API_RETRY_COUNT: 3,
+};
+```
+
+---
+
+## **5. Best Practices**
+
+### **5.1 Reusable Components**
+- Place reusable components in the `shared/components` directory.
+- Ensure components are generic and configurable via `@Input` and `@Output` properties.
+
+### **5.2 Avoid Logic in Templates**
+- Minimize logic in the HTML template to improve readability.
+
+### **5.3 Unsubscribe from Observables**
+- Always unsubscribe from subscriptions in `OnDestroy` to avoid memory leaks.
+
+Example:
+```typescript
+private subscription: Subscription;
+
+ngOnInit(): void {
+  this.subscription = this.featureService.getData().subscribe();
+}
+
+ngOnDestroy(): void {
+  if (this.subscription) {
+    this.subscription.unsubscribe();
+  }
+}
+```
+
+---

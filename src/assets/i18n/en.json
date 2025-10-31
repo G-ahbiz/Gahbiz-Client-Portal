@@ -169,6 +169,8 @@
     "services": "Services",
     "contact": "Contact",
     "login": "Login",
+    "profile": "Profile",
+    "logout": "Logout",
     "createaccount": "Create Account",
     "taxservices": "Tax Services",
     "itinandein": "ITIN & EIN",
@@ -178,6 +180,7 @@
     "dmv": "DMV",
     "foodvendorservices": "Food Vendor Services",
     "immigration": "IMMIGRATION",
+    "search": "Search",
     "english": "English",
     "arabic": "Arabic",
     "spanish": "Spanish",
@@ -221,7 +224,14 @@
     "subtitle": "What we offer?",
     "title1": "Our ",
     "title2": "Services",
-    "explore": "Explore More Services"
+    "explore": "Explore More Services",
+    "noServices": "No services available at the moment. Please check back later.",
+    "tryAgain": "Try Again",
+    "sliderAriaLabel": "Our services slider",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "openService": "Open {{serviceName}}",
+    "serviceCount": "(has {{count}} Services)"
   },
   "how-it-works": {
     "title1": "How It",
@@ -247,7 +257,12 @@
   "best-offers": {
     "title1": "Best ",
     "title2": "Offers",
-    "view-all": "View All Offers"
+    "add-to-cart": "Add to Cart",
+    "view-all": "View All Offers",
+    "toasts": {
+      "url-copied": "URL copied to clipboard!",
+      "url-copy-failed": "Failed to copy URL."
+    }
   },
   "testimonials": {
     "title1": "See why millions ",
@@ -259,7 +274,25 @@
   "all-services": {
     "title1": "Our ",
     "title2": "Services",
-    "subtitle": "Explore our tax and business solutions designed to make things easier for you."
+    "subtitle": "Explore our tax and business solutions designed to make things easier for you.",
+    "all-tab": "All Services",
+    "buy-now": "Buy Now",
+    "add-to-cart": "Add to Cart",
+    "loading": "Loading...",
+    "breadcrumb_services": "Our Services",
+    "no-data": "No services found.",
+    "no-services-in-category": "There are currently no services available in this category.",
+    "previous-page": "Previous page",
+    "next-page": "Next page",
+    "page": "Page",
+    "of": "of",
+    "toast": {
+      "load_categories_error": "Unable to load service categories. Please check your connection and try again.",
+      "load_services_error": "Unable to load services. Please check your connection and try again.",
+      "load_category_filters_error": "Unable to load category filters.",
+      "update_category_services_error": "Unable to update services.",
+      "generic_error": "A network error occurred. Please check your connection and try again."
+    }
   },
   "services-list": {
     "tax-services": "Tax Services",
@@ -284,11 +317,17 @@
     "completed": "Completed",
     "not-completed": "Not Completed",
     "form": {
+      "loading": "Loading...",
+      "loading-countries": "Loading countries...",
+      "loading-states": "Loading states...",
+      "select-country-first": "Select a country first",
+      "no-states-available": "No states available for this country",
       "full-legal-name": "Full Legal Name",
       "full-legal-name-placeholder": "Enter your name",
       "email": "Email",
       "email-placeholder": "Enter your email",
       "gender": "Gender",
+      "gender-placeholder": "Select your gender",
       "gender-male": "Male",
       "gender-female": "Female",
       "phone": "Phone",
@@ -302,6 +341,7 @@
       "postal-code": "Postal Code",
       "postal-code-placeholder": "Enter postal code",
       "submit": "Save",
+      "submitting": "Saving...",
       "birth-date": "Date of Birth",
       "birth-month-placeholder": "MM",
       "birth-day-placeholder": "DD",
@@ -322,6 +362,15 @@
         "state": "Please enter a valid state.",
         "postal_code": "Please enter a valid postal code."
       }
+    },
+    "messages": {
+      "update_success": "Profile updated successfully!",
+      "update_error": "An error occurred while updating your profile. Please try again.",
+      "form_invalid": "Please correct the errors in the form before submitting.",
+      "birthdate_invalid": "The birth date provided is invalid.",
+      "load_countries_error": "Could not load countries. Please refresh.",
+      "load_states_error": "Could not load states for the selected country.",
+      "load_profile_error": "Could not load profile data. Please try again."
     },
     "states": {
       "ny": "New York",

@@ -14,6 +14,7 @@ export const routes: Routes = [
     ]
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+
   { path: 'all-services', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/all-services').then(m => m.AllServices) },
   { path: 'service-details', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/service-datails/service-datails').then(m => m.ServiceDatails) },
   { path: 'appointment-service', canActivate: [NoAuthGuard], loadComponent: () => import('./features/all-services/appointment-service-component/appointment-service-component').then(m => m.AppointmentServiceComponent) },

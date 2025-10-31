@@ -37,21 +37,8 @@
                  rounded-[var(--border-radius)] shadow-lg max-h-60 overflow-y-auto
                  text-[var(--font-sm)] transition-all duration-200">
         @for (c of countries; track c.iso2) {
-        <li (click)="selectCountry(c); $event.stopPropagation()" class="dropdown-item flex items-center gap-2 px-[var(--space-md)]
-                   py-[var(--space-sm)] hover:bg-light-hover dark:hover:bg-dark-hover
-                   cursor-pointer transition-colors">
-          <span class="fi fi-{{ c.iso2 }}"></span>
-          <span class="ml-2">{{ c.dialCode }}</span>
-        </li>
-        }
-      </ul>
-      <ul class="dropdown-menu absolute z-20 w-48 left-0 mt-[var(--space-xs)]
-                 bg-light-input  border border-light-border
-                 rounded-[var(--border-radius)] shadow-lg max-h-60 overflow-y-auto
-                 text-[var(--font-sm)] transition-all duration-200">
-        @for (c of countries; track c.iso2) {
-        <li (click)="selectCountry(c); $event.stopPropagation()" class="dropdown-item flex items-center gap-2 px-[var(--space-md)]
-                   py-[var(--space-sm)] hover:bg-light-hover
+        <li (click)="selectCountry(c); $event.stopPropagation()" class="dropdown-item flex items-center gap-2 px-[var(--space-md)] 
+                   py-[var(--space-sm)] hover:bg-light-hover  
                    cursor-pointer transition-colors">
           <span class="fi fi-{{ c.iso2 }}"></span>
           <span class="ml-2">{{ c.dialCode }}</span>

@@ -1,31 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { Offer } from '@features/landingpage/interfaces/offer';
+import { LandingApiService } from '@features/landingpage/services/landing-api.service';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Rating } from '@shared/components/rating/rating';
-
-export interface Offer {
-  id: number;
-  image: string;
-  description: string;
-  price: number;
-  discount: number;
-  stars: number;
-}
+import { catchError, Observable, of, tap } from 'rxjs';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-best-offers',
   imports: [TranslateModule, CommonModule, Rating],
   templateUrl: './best-offers.html',
-  styleUrl: './best-offers.scss'
+  styleUrl: './best-offers.scss',
 })
 export class BestOffers implements OnInit {
   isArabic: boolean = false;
   isEnglish: boolean = false;
   isSpanish: boolean = false;
 
-  offers: Offer[] = [];
+  offers$!: Observable<Offer[]>;
+  isLoading: boolean = true;
+  error: string = '';
 
-  constructor(private translateService: TranslateService) { }
+  copiedOfferId: string | null = null;
+
+  private translateService = inject(TranslateService);
+  private landingApiService = inject(LandingApiService);
+  private toastService = inject(ToastService);
+  private cd = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.initializeTranslation();
@@ -62,59 +64,54 @@ export class BestOffers implements OnInit {
   }
 
   getOffers() {
-    this.offers = [
-      {
-        id: 1,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 4,
-      },
-      {
-        id: 2,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 1,
-      },
-      {
-        id: 3,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 2,
-      },
-      {
-        id: 4,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 3,
-      },
-      {
-        id: 5,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 4,
-      },
-      {
-        id: 6,
-        image: 'offer-1.png',
-        description: 'Translate Certificate of birth',
-        price: 100,
-        discount: 10,
-        stars: 5,
-      }
-    ];
+    this.isLoading = true;
+    this.error = '';
+
+    this.offers$ = this.landingApiService.getBestOffers().pipe(
+      tap(() => {
+        this.isLoading = false;
+      }),
+      catchError((error) => {
+        console.error('Error fetching best offers:', error);
+        this.error = 'Failed to load best offers';
+        this.isLoading = false;
+        return of([]);
+      })
+    );
   }
 
-  putInFavorites(id: number) { }
-  share(id: number) { }
+  putInFavorites(id: string) {
+    // Implement favorite functionality
+    console.log('Add to favorites:', id);
+  }
 
+  copyPageUrl(offerId: string) {
+    if (!offerId || this.copiedOfferId === offerId) return;
+
+    const baseUrl = window.location.origin;
+    const serviceUrl = `${baseUrl}/services/${offerId}`;
+
+    // Use the modern Clipboard API
+    navigator.clipboard.writeText(serviceUrl).then(
+      () => {
+        // Success
+        this.copiedOfferId = offerId;
+        this.cd.markForCheck();
+
+        const message = this.translateService.instant('best-offers.toasts.url-copied');
+        this.toastService.success(message || 'Service URL copied!');
+
+        setTimeout(() => {
+          this.copiedOfferId = null;
+          this.cd.markForCheck();
+        }, 2000);
+      },
+      (err) => {
+        // Failure
+        console.error('Failed to copy URL: ', err);
+        const message = this.translateService.instant('best-offers.toasts.url-copy-failed');
+        this.toastService.error(message || 'Failed to copy URL.');
+      }
+    );
+  }
 }

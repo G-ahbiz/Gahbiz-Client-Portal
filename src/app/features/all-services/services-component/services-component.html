@@ -1,109 +1,116 @@
-<div class="d-flex flex-column justify-content-center align-items-center gap-4 mt-5">
-
-  <div class="services-list d-flex flex-column justify-content-center align-items-start gap-4 w-100">
-    <div class="service-title d-flex justify-content-between align-items-center w-100">
-      <h1 class="fs-3 fw-semibold">
-        {{'services-list.' + title| translate}}
+<div class="d-flex flex-column gap-4 w-100" [class.rtl]="currentLang() === 'ar'">
+  <div class="services-list d-flex flex-column align-items-start gap-4 w-100">
+    <!-- Header with Title and Pagination -->
+    <div class="service-title d-flex flex-column flex-md-row align-items-md-center w-100 gap-3"
+      [class.rtl-layout]="currentLang() === 'ar'">
+      <h1 class="fs-3 fw-semibold mb-0 flex-grow-1" [attr.aria-label]="title">
+        {{ title }}
       </h1>
 
+      @if (shouldShowPagination()) {
+      <nav aria-label="Services pagination">
+        <ul class="d-flex justify-content-center align-items-center gap-2 gap-sm-4 list-unstyled mb-0">
+          <li
+            class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
+            [class.disabled]="!paginationData!.hasPreviousPage" (click)="onPreviousPage()"
+            [attr.aria-disabled]="!paginationData!.hasPreviousPage">
+            <i class="pi fs-875" [class.pi-chevron-left]="currentLang() !== 'ar'"
+              [class.pi-chevron-right]="currentLang() === 'ar'" aria-hidden="true"></i>
+            <span class="visually-hidden">{{ 'all-services.previous-page' | translate }}</span>
+          </li>
 
-      <!-- Pagination Controls -->
-      <nav aria-label="Services pagination" class="mt-4 align-self-end">
-        <ul class="d-flex justify-content-center align-items-center gap-4">
-          <!-- dropdown for page size -->
-          <li class="btn-group">
-            <button type="button" class="btn btn-primary primary-bg-clr dropdown-toggle" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              {{pageSize}}
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(2)">2</a></li>
-              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(4)">4</a></li>
-              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(6)">6</a></li>
-              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(8)">8</a></li>
-              <li><a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(10)">10</a></li>
-            </ul>
+          <li class="page-item page-number-display">
+            <span class="fw-medium">{{ paginationData!.pageNumber }}</span>
+            <span class="mx-1" aria-hidden="true">-</span>
+            <span class="fw-medium">{{ paginationData!.totalPages }}</span>
+            <span class="visually-hidden">
+              {{ 'all-services.page' | translate }} {{ paginationData!.pageNumber }} {{ 'all-services.of' | translate }}
+              {{ paginationData!.totalPages }}
+            </span>
           </li>
-          <!-- Previous Page -->
+
           <li
             class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
-            [class.disabled]="currentPage === 1" (click)="onPreviousPage()">
-            <i class="pi pi-chevron-left fs-875 orange-text-clr"></i>
-          </li>
-          <!-- Page Numbers -->
-          @for (i of totalPages; track i ) {
-          <li class="page-item py-1 px-2 cursor-pointer" [class.active]="currentPage === i"
-            [class.disabled]="currentPage != i">
-            <a class="page-link" href="javascript:void(0)" (click)="onPageChange(i)">{{i}}</a>
-          </li>
-          }
-          <!-- Next Page -->
-          <li
-            class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
-            [class.disabled]="currentPage === totalPages.length" (click)="onNextPage()">
-            <i class="pi pi-chevron-right fs-875 orange-text-clr"></i>
+            [class.disabled]="!paginationData!.hasNextPage" (click)="onNextPage()"
+            [attr.aria-disabled]="!paginationData!.hasNextPage">
+            <i class="pi fs-875" [class.pi-chevron-right]="currentLang() !== 'ar'"
+              [class.pi-chevron-left]="currentLang() === 'ar'" aria-hidden="true"></i>
+            <span class="visually-hidden">{{ 'all-services.next-page' | translate }}</span>
           </li>
         </ul>
       </nav>
+      }
     </div>
 
-    <!-- Service List -->
-    <div class="service-list d-flex flex-wrap justify-content-between align-items-start gap-4 mt-3 w-100">
-      @for (service of getPaginatedServices(); track service.id) {
+    <!-- Services Grid -->
+    <div
+      class="service-list-container d-flex flex-wrap justify-content-center justify-content-lg-start gap-4 mt-3 w-100">
+      @if (serviceList && serviceList.length > 0) {
+      @for (service of serviceList; track trackByServiceId($index, service)) {
+      <div class="card service-card d-flex flex-column flex-sm-row rounded-4" [class.rtl-card]="currentLang() === 'ar'"
+        [attr.aria-label]="service.name">
 
-      <!-- Service Card -->
-      <div class="card flex-row p-3 rounded-4 w-100">
-        <!-- Image Card & Overlay Container -->
-        <div class="image-container rounded-3 overflow-hidden position-relative">
-          <img src="assets/images/all-services/{{service.image}}" [alt]="service.title" class="w-100 h-100" />
-          <div class="image-overlay position-absolute d-flex justify-content-center align-items-center"
-            [class]="service.type + '-card'">
-            <span class="text-white fs-875 fw-medium text-center text-nowrap w-100 h-100">
-              {{'services-list.'+ service.type | translate}}
-            </span>
-          </div>
+        <!-- Service Image -->
+        <div class="image-container rounded-3 overflow-hidden position-relative flex-shrink-0">
+          <img [src]="getServiceImage(service)" [alt]="service.name" class="w-100 h-100" loading="lazy" />
+
+          @if (service.tags) {
+          <span class="service-tag image-overlay position-absolute" [ngClass]="service.tags.toLowerCase()">
+            {{ service.tags }}
+          </span>
+          }
         </div>
 
-        <!-- Service Card Body -->
-        <div class="card-body d-flex flex-column justify-content-between align-items-start gap-1 py-0">
+        <!-- Service Details -->
+        <div class="card-body d-flex flex-column justify-content-between align-items-start gap-2">
 
-          <!-- Service Card Title & Subtitle -->
-          <div class="service-card-title-subtitle d-flex flex-column justify-content-between align-items-start gap-1">
-            <h3 class="fs-5 fw-semibold">{{service.title}}</h3>
-            <p class="fs-6 fw-medium overflow-hidden text-ellipsis">{{service.subTitle}}</p>
+          <!-- Title and Description -->
+          <div class="service-card-title-subtitle w-100">
+            <h3 class="fs-5 fw-semibold" [class.rtl-text]="currentLang() === 'ar'">{{ service.name }}</h3>
+            <p class="fs-6 fw-medium" [class.rtl-text]="currentLang() === 'ar'">{{ service.description }}</p>
           </div>
 
-          <!-- Service Card Price & Rating -->
-          <div class="d-flex justify-content-between align-items-center w-100">
-
-            <!-- Service Card Price -->
-            <div class="d-flex justify-content-start align-items-center gap-3">
-              <span class="price-offer fw-bold">${{service.priceOffer}}</span>
-              <span class="orignal-price text-muted"><del class="text-muted">${{service.orignalPrice}}</del></span>
+          <!-- Price and Rating -->
+          <div class="d-flex justify-content-between align-items-center w-100"
+            [class.rtl-price-rating]="currentLang() === 'ar'">
+            <div class="d-flex justify-content-start align-items-center gap-2">
+              <span class="price-offer fw-bold">${{ service.price }}</span>
+              @if (hasDiscount(service)) {
+              <span class="orignal-price text-muted">
+                <del>${{ service.priceBefore }}</del>
+              </span>
+              }
             </div>
 
-            <!-- Service Card Rating -->
             <div class="rating-container d-flex justify-content-start align-items-center gap-1">
-              <app-rating [rating]="service.rating"></app-rating>
-              <span class="ratings-count fs-75">({{service.ratingsCount}})</span>
+              <app-rating [rating]="service.rate"></app-rating>
+              <span class="review-count text-muted fw-medium">
+                ({{ service.rateCount || 0 }})
+              </span>
             </div>
           </div>
 
-          <!-- Service Card Button -->
-          <div class="button-container d-flex justify-content-start align-items-center gap-2 w-100 mt-2">
-
-            <!-- Buy Now Button -->
-            <button class="btn btn-primary card-btn text-nowrap py-2 px-4 w-50"
-              (click)="navigateToServiceDetails(service.id)">Buy Now</button>
-
-            <!-- Add to Cart Button -->
-            <button class="btn btn-outline-primary card-btn text-nowrap py-2 px-4 w-50"
-              (click)="addToCart(service.id)">Add to Cart</button>
+          <!-- Action Buttons -->
+          <div
+            class="button-container d-flex flex-column flex-md-row justify-content-start align-items-center gap-2 w-100 mt-2"
+            [class.rtl-buttons]="currentLang() === 'ar'">
+            <button class="btn btn-primary card-btn text-nowrap py-2 px-3 flex-grow-1"
+              [attr.aria-label]="'Buy now ' + service.name">
+              {{'all-services.buy-now'| translate}}
+            </button>
+            <button class="btn btn-outline-primary card-btn text-nowrap py-2 px-3 flex-grow-1"
+              [attr.aria-label]="'Add to cart ' + service.name">
+              {{'all-services.add-to-cart'| translate}}
+            </button>
           </div>
         </div>
       </div>
       }
+      } @else {
+      <div class="w-100 text-muted p-4 text-center">
+        <p class="fs-5 mb-0">{{ 'all-services.no-services-in-category' | translate }}</p>
+      </div>
+      }
     </div>
   </div>
-
 </div>

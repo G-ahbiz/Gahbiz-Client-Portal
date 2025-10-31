@@ -6,7 +6,7 @@
     "WELCOME_BACK": "مرحباً بعودتك!",
     "DONT_HAVE_ACCOUNT": "ليس لديك حساب؟",
     "SIGN_UP_NOW": "سجل الآن",
-    "EMAIL_ADDRESS": "عنوان البريد",
+    "EMAIL_ADDRESS": "البريد الإلكتروني",
     "PASSWORD": "كلمة المرور",
     "ENTER_EMAIL": "أدخل بريدك الإلكتروني",
     "ENTER_PASSWORD": "أدخل كلمة المرور",
@@ -21,7 +21,7 @@
     "RESETTING_PASSWORD": "جاري إعادة تعيين كلمة المرور...",
     "BACK_TO_LOGIN": "العودة لتسجيل الدخول",
     "PASSWORD_RESET": "ضبط كلمة المرور الجديدة",
-    "PASSWORD_RESET_INSTRUCTIONS": "يجب ان تكون على الاقل 8 حروف",
+    "PASSWORD_RESET_INSTRUCTIONS": "يجب أن تكون على الأقل 8 أحرف",
     "WE_SENT_CODE": "أرسلنا رمزاً إلى",
     "CONTINUE": "متابعة",
     "VERIFYING": "جاري التحقق...",
@@ -130,12 +130,6 @@
   "CONFIRM_EMAIL": {
     "TITLE": "تأكيد البريد الإلكتروني",
     "SUBTITLE": "أرسلنا رمزاً إلى",
-    "FIELDS": {
-      "OTP": "رمز التحقق"
-    },
-    "PLACEHOLDERS": {
-      "OTP": "أدخل رمز التحقق"
-    },
     "BUTTONS": {
       "SUBMIT": "تأكيد البريد الإلكتروني",
       "SUBMITTING": "جاري التأكيد...",
@@ -175,6 +169,8 @@
     "faq": "الأسئلة الشائعة",
     "contact": "اتصل بنا",
     "login": "تسجيل الدخول",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج",
     "createaccount": "إنشاء حساب",
     "taxservices": "خدمات الضرائب",
     "itinandein": "ITIN & EIN",
@@ -184,9 +180,10 @@
     "dmv": "DMV",
     "foodvendorservices": "خدمات المطاعم",
     "immigration": "الهجرة",
+    "search": "بحث",
     "english": "الإنجليزية",
     "arabic": "العربية",
-    "spanish": "الأسبانية",
+    "spanish": "الإسبانية",
     "bookaservice": "احجز خدمة"
   },
   "footer": {
@@ -204,10 +201,10 @@
     "choiceoptinoptout": "اختيار/إنضمام/إخراج",
     "policymodifications": "تعديلات السياسة",
     "earnmoneywithus": "كسب المال معنا",
-    "sellproductsongahbiz": "بيع المنتجات في غابيز",
+    "sellproductsongahbiz": "بيع المنتجات على Servabest",
     "advertiseyourservices": "إعلان خدماتك",
     "selfpublishwithus": "نشر بنفسك معنا",
-    "becomeserviceagent": "أصبح عامل خدمة",
+    "becomeserviceagent": "كن وكيل خدمات",
     "allrightsreserved": "جميع الحقوق محفوظة.",
     "needhelp": "تحتاج للمساعدة؟",
     "your-account": "حسابك",
@@ -216,23 +213,30 @@
     "payments": "الدفعات"
   },
   "hero": {
-    "title1": "لدينا",
-    "title2": "خدمات موثوقة",
-    "title3": "لأي خدمة – من الضرائب إلى الاحتياجات المنزلية",
-    "description": "حجز سريع وآمن وموثوق للأفراد والشركات.",
-    "booknow": "حجز الآن",
+    "title1": "ابحث عن",
+    "title2": "محترفين موثوقين",
+    "title3": "لأي خدمة - من الضرائب إلى الاحتياجات المنزلية",
+    "description": "حجوزات سريعة وآمنة وموثوقة للأفراد والشركات.",
+    "booknow": "احجز الآن",
     "exploreservices": "استكشف الخدمات"
   },
   "our-services": {
     "subtitle": "ماذا نقدم؟",
-    "title1": "خدماتنا",
-    "title2": "الخدمات",
-    "explore": "اكتشف المزيد من الخدمات"
+    "title1": "خدمات",
+    "title2": "نا",
+    "explore": "استكشف المزيد من الخدمات",
+    "noServices": "لا توجد خدمات متاحة في الوقت الحالي. يرجى التحقق مرة أخرى لاحقًا.",
+    "tryAgain": "حاول مرة أخرى",
+    "sliderAriaLabel": "شريط تمرير خدماتنا",
+    "previousSlide": "الشريحة السابقة",
+    "nextSlide": "الشريحة التالية",
+    "openService": "فتح {{serviceName}}",
+    "serviceCount": "({{count}} خدمات)"
   },
   "how-it-works": {
-    "title1": "كيف تعمل ",
-    "title2": "خدماتنا",
-    "description": "عمليتنا المبسطة تجعل الحصول على خدمات مهنية من الضرائب والأعمال بسهولة وبدون إجهاد",
+    "title1": "كيف",
+    "title2": " تعمل ",
+    "description": "عملنا المبسط يجعل الحصول على خدمات مهنية من الضرائب والأعمال بسهولة وبدون إجهاد",
     "step1": {
       "title": "اختر خدمتك",
       "description": "اختر من مجموعتنا الشاملة من خدمات الضرائب والأعمال"
@@ -251,58 +255,93 @@
     }
   },
   "best-offers": {
-    "title1": "أفضل ",
-    "title2": "العروض",
-    "view-all": "عرض جميع العروض"
+    "title1": "أفضل",
+    "title2": " العروض",
+    "add-to-cart": "أضف إلى السلة",
+    "view-all": "عرض جميع العروض",
+    "toasts": {
+      "url-copied": "تم نسخ الرابط بنجاح!",
+      "url-copy-failed": "فشل في نسخ الرابط"
+    }
   },
   "testimonials": {
-    "title1": "شاهد لماذا ملايين ",
-    "title2": "يثقون بنا ",
-    "title3": "مع خدماتهم ",
-    "title4": "الضرائب",
-    "description": "لا تأخذ كلمتنا للكلمة - اسمع من العملاء الراضين الذين يثقون بنا باحتياجاتهم المالية"
+    "title1": "شاهد لماذا الملايين",
+    "title2": " يثقون بنا",
+    "title3": " مع خدماتهم",
+    "title4": " الضرائب",
+    "description": "لا تأخذ كلمتنا فقط - اسمع من العملاء الراضين الذين يثقون بنا باحتياجاتهم المالية"
+  },
+  "all-services": {
+    "title1": "خدماتنا",
+    "title2": "",
+    "subtitle": "اكتشف حلولنا الضريبية والتجارية المصممة لتسهيل الأمور عليك.",
+    "all-tab": "جميع الخدمات",
+    "buy-now": "اشترِ الآن",
+    "add-to-cart": "أضف إلى السلة",
+    "loading": "جارٍ التحميل...",
+    "breadcrumb_services": "خدماتنا",
+    "no-data": "لا توجد خدمات.",
+    "no-services-in-category": "لا توجد خدمات متاحة حالياً في هذه الفئة.",
+    "previous-page": "الصفحة السابقة",
+    "next-page": "الصفحة التالية",
+    "page": "الصفحة",
+    "of": "من",
+    "toast": {
+      "load_categories_error": "غير قادر على تحميل فئات الخدمات. يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+      "load_services_error": "غير قادر على تحميل الخدمات. يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+      "load_category_filters_error": "غير قادر على تحميل مرشحات الفئات.",
+      "update_category_services_error": "غير قادر على تحديث الخدمات.",
+      "generic_error": "حدث خطأ في الشبكة. يرجى التحقق من اتصالك والمحاولة مرة أخرى."
+    }
   },
   "services-list": {
     "tax-services": "خدمات الضرائب",
     "public-services": "الخدمات العامة",
     "immigration-services": "خدمات الهجرة",
-    "food-vendor-services": "خدمات المطاعم",
-    "business-license-services": "خدمات رخصة الأعمال",
+    "food-vendor-services": "خدمات باعة الطعام",
+    "business-license-services": "خدمات تراخيص الأعمال",
     "itin-ein-services": "خدمات ITIN & EIN",
     "dmv-services": "خدمات DMV",
     "translation-notary-public-services": "خدمات الترجمة والعهد العام",
-    "appointment-service": "خدمات المواعيد",
-    "basic": "Basic",
-    "standard": "Standard",
-    "gold": "Gold",
-    "silver": "Silver"
+    "appointment-service": "خدمة المواعيد",
+    "basic": "أساسي",
+    "standard": "قياسي",
+    "gold": "ذهبي",
+    "silver": "فضي"
   },
   "complete-profile": {
-    "title": "إكمال الحساب",
-    "description": "يرجى تقديم بياناتك لمساعدتنا في خدمتك بشكل أفضل. كل البيانات مشفرة وآمنة.",
+    "title": "أكمل ملفك الشخصي",
+    "description": "يرجى تقديم معلوماتك لمساعدتنا في خدمتك بشكل أفضل. جميع البيانات مشفرة وآمنة.",
     "personal-details": "التفاصيل الشخصية",
     "address": "العنوان",
     "completed": "مكتمل",
     "not-completed": "غير مكتمل",
     "form": {
+      "loading": "جارٍ التحميل...",
+      "loading-countries": "جارٍ تحميل الدول...",
+      "loading-states": "جارٍ تحميل الولايات...",
+      "select-country-first": "اختر دولة أولاً",
+      "no-states-available": "لا توجد ولايات متاحة لهذه الدولة",
       "full-legal-name": "الاسم القانوني الكامل",
       "full-legal-name-placeholder": "أدخل اسمك",
       "email": "البريد الإلكتروني",
       "email-placeholder": "أدخل بريدك الإلكتروني",
       "gender": "الجنس",
+      "gender-placeholder": "اختر جنسك",
       "gender-male": "ذكر",
       "gender-female": "أنثى",
-      "phone": "رقم الهاتف",
+      "phone": "الهاتف",
       "phone-placeholder": "أدخل رقم هاتفك",
-      "national-id": "الرقم القومي",
-      "national-id-placeholder": "أدخل رقمك القومي",
+      "national-id": "الهوية الوطنية",
+      "national-id-placeholder": "أدخل هويتك الوطنية",
       "country": "الدولة",
-      "country-placeholder": "اختر الدولة",
+      "country-placeholder": "اختر دولتك",
       "state": "الولاية",
-      "state-placeholder": "اختر الولاية",
+      "state-placeholder": "اختر ولايتك",
       "postal-code": "الرمز البريدي",
       "postal-code-placeholder": "أدخل الرمز البريدي",
       "submit": "حفظ",
+      "submitting": "جارٍ الحفظ...",
       "birth-date": "تاريخ الميلاد",
       "birth-month-placeholder": "شهر",
       "birth-day-placeholder": "يوم",
@@ -315,7 +354,7 @@
         "fullname_pattern": "يسمح فقط بالأحرف والمسافات والشرطات والفواصل.",
         "phone_pattern": "يرجى إدخال رقم هاتف صحيح.",
         "invalid": "القيمة المدخلة غير صالحة.",
-        "national_id": "يرجى إدخال رقم قومي صحيح.",
+        "national_id": "يرجى إدخال هوية وطنية صحيحة.",
         "birth_month": "يرجى إدخال شهر ميلاد صحيح.",
         "birth_day": "يرجى إدخال يوم ميلاد صحيح.",
         "birth_year": "يرجى إدخال سنة ميلاد صحيحة.",
@@ -323,6 +362,15 @@
         "state": "يرجى إدخال ولاية صحيحة.",
         "postal_code": "يرجى إدخال رمز بريدي صحيح."
       }
+    },
+    "messages": {
+      "update_success": "تم تحديث الملف الشخصي بنجاح!",
+      "update_error": "حدث خطأ أثناء تحديث ملفك الشخصي. يرجى المحاولة مرة أخرى.",
+      "form_invalid": "يرجى تصحيح الأخطاء في النموذج قبل الإرسال.",
+      "birthdate_invalid": "تاريخ الميلاد المقدم غير صالح.",
+      "load_countries_error": "لا يمكن تحميل الدول. يرجى التحديث.",
+      "load_states_error": "لا يمكن تحميل الولايات للدولة المحددة.",
+      "load_profile_error": "لا يمكن تحميل بيانات الملف الشخصي. يرجى المحاولة مرة أخرى."
     },
     "states": {
       "ny": "نيويورك",
@@ -332,7 +380,7 @@
       "il": "إلينوي",
       "oh": "أوهايو",
       "mi": "ميشيغان",
-      "pa": "بنسيلفانيا"
+      "pa": "بنسلفانيا"
     }
   },
   "related-services": {

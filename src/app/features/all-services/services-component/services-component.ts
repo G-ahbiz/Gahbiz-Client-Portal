@@ -1,135 +1,123 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  signal,
+} from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Rating } from '@shared/components/rating/rating';
 import { PaginatorModule } from 'primeng/paginator';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { AllServicesComponentService } from '@shared/services/all-services-component';
+import { CommonModule, NgClass } from '@angular/common';
+import { PaginatedServices } from '../interfaces/paginated-services';
+import { ServiceDetails } from '../interfaces/service-details';
+import { Subject, takeUntil } from 'rxjs';
+
 @Component({
   selector: 'app-services-component',
-  imports: [TranslateModule, Rating, PaginatorModule, MatIconModule, CommonModule],
+  imports: [TranslateModule, Rating, PaginatorModule, MatIconModule, CommonModule, NgClass],
   templateUrl: './services-component.html',
-  styleUrl: './services-component.scss'
+  styleUrls: ['./services-component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ServicesComponent implements OnInit {
+export class ServicesComponent implements OnDestroy {
+  private translateService = inject(TranslateService);
+  private destroy$ = new Subject<void>();
 
-  // Language
-  isArabic: boolean = false;
-  isEnglish: boolean = false;
-  isSpanish: boolean = false;
+  // Language state
+  readonly currentLang = signal('en');
+  readonly isRTL = signal(false);
 
-  // Pagination state
-  currentPage: number = 1;
-  pageSize: number = 4;
-  totalPages: number[] = [];
+  // Input properties with type safety
+  @Input({ required: true }) serviceList: ServiceDetails[] = [];
+  @Input({ required: true }) title: string = '';
+  @Input() paginationData: PaginatedServices | null = null;
 
-  @Input() serviceList: any[] | undefined;
-  @Input() title: string = '';
+  @Output() pageChanged = new EventEmitter<{ page: number; pageSize: number }>();
 
+  // Computed properties
+  readonly shouldShowPagination = () => this.paginationData && this.paginationData.totalPages > 1;
 
-  constructor(private translateService: TranslateService, private router: Router, private allServicesService: AllServicesComponentService) { }
+  readonly getPageSize = (): number => 4;
 
   ngOnInit() {
     this.initializeTranslation();
-    this.updateTotalPages();
   }
 
-  // navigate to service details
-  navigateToServiceDetails(serviceId: number) {
-    this.allServicesService.setActiveService(serviceId);
-    this.router.navigate(['/service-details']);
-  }
+  /**
+   * Initialize translation with proper error handling
+   */
+  private initializeTranslation(): void {
+    try {
+      const savedLang = localStorage.getItem('servabest-language') || 'en';
+      this.translateService.setDefaultLang('en');
+      this.translateService.use(savedLang);
+      this.currentLang.set(savedLang);
+      this.isRTL.set(savedLang === 'ar');
 
-  // add to cart
-  addToCart(serviceId: number) {
-    this.allServicesService.setActiveService(serviceId);
-    this.allServicesService.addToCart(serviceId);
-  }
-
-  // Initialize translation
-  private initializeTranslation() {
-    // Set default language if not already set
-    if (!localStorage.getItem('servabest-language')) {
-      localStorage.setItem('servabest-language', 'en');
-    }
-
-    // Get saved language and set it
-    const savedLang = localStorage.getItem('servabest-language') || 'en';
-    this.translateService.setDefaultLang('en');
-    this.translateService.use(savedLang);
-    if (savedLang === 'en' || savedLang === 'sp') {
-      document.documentElement.style.direction = 'ltr';
-    } else if (savedLang === 'ar') {
-      document.documentElement.style.direction = 'rtl';
-    }
-
-    // Set initial language state
-    this.isArabic = savedLang === 'ar';
-    this.isEnglish = savedLang === 'en';
-    this.isSpanish = savedLang === 'sp';
-    // Subscribe to language changes
-    this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.isArabic = event.lang === 'ar';
-      this.isEnglish = event.lang === 'en';
-      this.isSpanish = event.lang === 'sp';
-    });
-  }
-
-  // get total pages
-  getTotalPages() {
-    if (!this.serviceList || this.serviceList.length === 0) return 0;
-    return Math.ceil(this.serviceList.length / this.pageSize);
-  }
-  // get current page
-  getCurrentPage() {
-    return this.currentPage;
-  }
-  // get page size
-  getPageSize() {
-    return this.pageSize;
-  }
-
-  // get paginated services for current page
-  getPaginatedServices() {
-    if (!this.serviceList || this.serviceList.length === 0) return [];
-
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    return this.serviceList.slice(startIndex, endIndex);
-  }
-
-  // update total pages array
-  private updateTotalPages() {
-    const totalPages = this.getTotalPages();
-    this.totalPages = Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-
-  // on page change with validation
-  onPageChange(page: number) {
-    if (page >= 1 && page <= this.getTotalPages()) {
-      this.currentPage = page;
+      this.translateService.onLangChange.pipe(takeUntil(this.destroy$)).subscribe({
+        next: (event) => {
+          this.currentLang.set(event.lang);
+          this.isRTL.set(event.lang === 'ar');
+        },
+        error: (error) => {
+          console.error('Language change error in ServicesComponent:', error);
+        },
+      });
+    } catch (error) {
+      console.error('Translation initialization failed in ServicesComponent:', error);
+      this.currentLang.set('en');
+      this.isRTL.set(false);
     }
   }
 
-  // on previous page with validation
-  onPreviousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
+  onPreviousPage(): void {
+    if (this.paginationData?.hasPreviousPage) {
+      this.pageChanged.emit({
+        page: this.paginationData.pageNumber - 1,
+        pageSize: this.getPageSize(),
+      });
     }
   }
 
-  // on next page with validation
-  onNextPage() {
-    if (this.currentPage < this.getTotalPages()) {
-      this.currentPage++;
+  onNextPage(): void {
+    if (this.paginationData?.hasNextPage) {
+      this.pageChanged.emit({
+        page: this.paginationData.pageNumber + 1,
+        pageSize: this.getPageSize(),
+      });
     }
   }
 
-  // on page size change
-  onPageSizeChange(size: number) {
-    this.pageSize = size;
-    this.currentPage = 1;
-    this.updateTotalPages();
+  // TrackBy function for optimal performance
+  trackByServiceId(index: number, service: ServiceDetails): string {
+    return service.id;
+  }
+
+  // Safe image URL fallback
+  getServiceImage(service: ServiceDetails): string {
+    return service.image?.path || 'assets/images/placeholder.jpg';
+  }
+
+  // Check if service has discount
+  hasDiscount(service: ServiceDetails): boolean {
+    return service.priceBefore > service.price;
+  }
+
+  // Get appropriate chevron direction based on language
+  getChevronDirection(direction: 'left' | 'right'): string {
+    if (this.currentLang() === 'ar') {
+      return direction === 'left' ? 'pi-chevron-right' : 'pi-chevron-left';
+    }
+    return direction === 'left' ? 'pi-chevron-left' : 'pi-chevron-right';
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

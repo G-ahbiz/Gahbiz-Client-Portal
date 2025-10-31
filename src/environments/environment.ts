@@ -17,7 +17,23 @@ export const environment = {
     confirmEmail: '/Account/ConfirmEmail', // link to confirm email
     resendEmailConfirmation: '/Account/resend-email-confirmation',
     verifyOtp: '/Account/verify-otp', // OTP to verify email
+    getProfile: '/Account/profile',
+    CompleteProfile: '/Account/Profile',
     externalLogin: '/Account/external-login',
+  },
+  serviceCategories: {
+    getAllServiceCategories: '/ServiceCategories',
+  },
+  services: {
+    getAllServices: '/Services',
+    getServiceByCategory: '/Services/category/',
+    bestOffers: '/Services/best-offers',
+  },
+  states: {
+    getStatesByCountry: '/states/country/',
+  },
+  countries: {
+    getAllCountries: '/countries/All/Countries',
   },
 
   facebookAppId: '1786936631940004',
