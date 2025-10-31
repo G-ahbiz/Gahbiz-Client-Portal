@@ -382,5 +382,67 @@
       "mi": "Míchigan",
       "pa": "Pensilvania"
     }
+  },
+  "related-services": {
+    "title": "Servicios relacionados"
+  },
+  "appointment-service": {
+    "title": "Reservación",
+    "form": {
+      "first-name": "Nombre",
+      "first-name-placeholder": "Ingrese su nombre",
+      "last-name": "Apellido",
+      "last-name-placeholder": "Ingrese su apellido",
+      "email-address": "Correo electrónico",
+      "email-address-placeholder": "Ingrese su correo electrónico",
+      "phone-number": "Teléfono",
+      "phone-number-placeholder": "Ingrese su teléfono",
+      "location": "Ubicación",
+      "location-placeholder": "Seleccione su estado",
+      "location-1": "Ubicación 1",
+      "location-2": "Ubicación 2",
+      "location-3": "Ubicación 3",
+      "date-selection": "Selección de fecha",
+      "date-selection-placeholder": "Seleccione una fecha",
+      "available-time": "Hora disponible",
+      "duration": "Duración",
+      "duration-1": "Seleccione la duración de la reservación",
+      "duration-2": "Duración 2",
+      "duration-3": "Duración 3",
+      "fees": "Tarifas",
+      "available-time-1": "Hora disponible 1",
+      "duration-fees-1": "Duración & Tarifas 1",
+      "book-now-btn": "Reservar ahora"
+    }
+  },
+  "cart": {
+    "empty": {
+      "title": "Tu carrito está vacío",
+      "description": "No has agregado nada a tu carrito todavía!",
+      "explore-services-btn": "Explorar servicios"
+    },
+    "title": "Tu carrito",
+    "summary": {
+      "title": "Resumen de la orden",
+      "total": "Total",
+      "checkout-btn": "Continuar al pago",
+      "complete-profile-modal": {
+        "title": "Completar su perfil",
+        "subtitle": "Por favor, complete su perfil para continuar con su compra.",
+        "close-btn": "Cerrar",
+        "complete-profile-btn": "Completar perfil"
+      }
+    },
+    "cards": {
+      "remove-btn": "Eliminar",
+      "save-for-later-btn": "Guardar para más tarde"
+    }
+  },
+  "checkout": {
+    "step-1": "Pago",
+    "step-2": "Documentos",
+    "step-3": "Confirmación",
+    "payment-method": "Método de pago",
+    "title": "Pago"
   }
 }

@@ -45,6 +45,15 @@
   --border-radius: clamp(0.375rem, 0.5vh + 0.2vw, 0.75rem);
   --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
+  @include mat.datepicker-overrides(
+    (
+      calendar-body-label-text-color: orange,
+      calendar-date-selected-state-background-color: red,
+      calendar-date-text-color: grey,
+      calendar-date-today-outline-color: red,
+    )
+  );
+
   // General Styles
   --app-font-family: 'Libre Franklin', sans-serif;
   --app-font-family-ar: 'cairo', sans-serif;
@@ -53,9 +62,11 @@
   --primary-clr-hover: #006edb;
   --accent-clr: #ffca19;
   --bg-clr: #fafafa;
+  --bg-clr2: #f8f9fa;
   --bg-dark-clr: #121212;
   --text-clr: #121212;
   --text-mute-clr: #616161;
+  --text-mute-clr2: #d0d0d0;
   --text-light-clr: #f1f1f1;
 }
 
@@ -167,6 +178,9 @@ input[type='password']::-webkit-outer-spin-button {
 
 .primary-bg-clr {
   background-color: var(--primary-clr) !important;
+  &:hover {
+    background-color: var(--primary-clr-hover) !important;
+  }
 }
 
 .primary-text-clr {
@@ -179,6 +193,13 @@ input[type='password']::-webkit-outer-spin-button {
 
 .dark-text-clr {
   color: var(--bg-dark-clr) !important;
+}
+
+.bg-clr2 {
+  background-color: var(--bg-clr2) !important;
+}
+.mute-text-clr {
+  color: var(--text-mute-clr) !important;
 }
 
 .ltr {
@@ -203,6 +224,18 @@ input[type='password']::-webkit-outer-spin-button {
 .scale-down:active {
   scale: 0.98;
   transition: all 0.2s ease;
+}
+
+.card-discount {
+  color: var(--text-mute-clr2) !important;
+}
+
+.ab-text-start {
+  text-align: start !important;
+}
+
+.ab-text-end {
+  text-align: end !important;
 }
 
 /* === Height-based Breakpoints === */

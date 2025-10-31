@@ -1,0 +1,20 @@
+.rating-container,
+.reviews-container {
+  width: 48% !important;
+}
+
+.range {
+  width: 70%;
+  height: 0.5rem;
+  background-color: #d0d0d0;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.test {
+  color: #ffca19 !important;
+
+  :hover {
+    color: #ffca19 !important;
+  }
+}

@@ -164,14 +164,13 @@ export class Navbar {
 
   // set active service
   setActiveServiceList(serviceId: number) {
-    let activeService = localStorage.getItem('activeService');
-    if (activeService) {
-      localStorage.setItem('activeService', serviceId.toString());
-      // active service in all-services component
-      // this.allServicesComponent.setActiveServiceList(serviceId);
+    // Use the shared service to set active service
+    if (serviceId === 10) {
+      this.allServicesService.setActiveServiceList(serviceId);
+      this.router.navigate(['/appointment-service']);
     } else {
-      localStorage.setItem('activeService', serviceId.toString());
-      // this.allServicesComponent.setActiveServiceList(serviceId);
+      this.allServicesService.setActiveServiceList(serviceId);
+      this.router.navigate(['/all-services']);
     }
     this.router.navigate(['/all-services']);
   }

@@ -80,7 +80,6 @@
       </div>
       } @else {
       <div class="d-flex flex-column align-items-start w-100 gap-5">
-
         @if (isAllServicesView()) {
         @if (hasCategoryData()) {
         @for (category of categoryPagination()!.items; track trackByCategoryId($index, category)) {

@@ -1,0 +1,10 @@
+<div class="services-tabs d-flex flex-wrap justify-content-center align-items-center gap-4 mt-5">
+  @for (service of servicesListTitles; track service.id) {
+  <button type="button" class="btn btn-outline-primary service-item"
+    [class]="service.id === activeService ? 'active-service' : ''" (click)="setActiveServiceList(service.id)">
+    <span class="service-item-title">
+      {{ isArabic ? service?.serviceAr : isEnglish ? service?.serviceEn : service?.serviceSp }}
+    </span>
+  </button>
+  }
+</div>
