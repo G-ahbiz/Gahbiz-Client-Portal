@@ -66,7 +66,34 @@
     "AND": "And",
     "ALREADY_HAVE_ACCOUNT": "Already have an account?",
     "SUCCESS": "Success",
-    "ERROR": "Error"
+    "ERROR": "Error",
+    "LOADING": "Loading...",
+    "SAVING": "Saving...",
+    "SUBMITTING": "Submitting...",
+    "YES": "Yes",
+    "NO": "No",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "UPDATE": "Update",
+    "SAVE": "Save",
+    "CLOSE": "Close",
+    "BACK": "Back",
+    "NEXT": "Next",
+    "PREVIOUS": "Previous",
+    "SEARCH": "Search",
+    "FILTER": "Filter",
+    "SORT": "Sort",
+    "VIEW": "View",
+    "ADD": "Add",
+    "REMOVE": "Remove",
+    "CREATED": "Created",
+    "UPDATED": "Updated",
+    "DELETED": "Deleted",
+    "TRY_AGAIN": "Try Again",
+    "READ_MORE": "Read More",
+    "NOT_AVAILABLE": "N/A"
   },
   "NEW_PASSWORD": {
     "ERRORS": {
@@ -109,7 +136,7 @@
       "FACEBOOK": "Sign Up with Facebook"
     },
     "MESSAGES": {
-      "SUCCESS_DETAIL": "We’ve sent a confirmation link to {{email}}.",
+      "SUCCESS_DETAIL": "We've sent a confirmation link to {{email}}.",
       "FAILURE_EMAIL_EXISTS": "This email is already registered. Please log in instead.",
       "FAILURE_INVALID_INPUT": "Some of your inputs are invalid. Please check and try again.",
       "FAILURE_WEAK_PASSWORD": "Your password is too weak. Please choose a stronger one.",
@@ -140,17 +167,17 @@
     "MESSAGES": {
       "SUCCESS": "Your email has been confirmed successfully.",
       "INVALID_OR_EXPIRED": "The verification code is invalid or has expired. Please try again or request a new one.",
-      "USER_NOT_FOUND": "We couldn’t find your account. Please sign up again.",
+      "USER_NOT_FOUND": "We couldn't find your account. Please sign up again.",
       "ALREADY_VERIFIED": "Your email is already confirmed. You can sign in directly.",
-      "UPDATE_FAILED": "We couldn’t verify your email due to a system issue. Please try again later.",
+      "UPDATE_FAILED": "We couldn't verify your email due to a system issue. Please try again later.",
       "FAILURE": "We couldn't confirm your email right now. Please try again later.",
       "RESEND_SUCCESS_OTP": "A new verification code has been sent to your email. Please check your inbox.",
       "RESEND_SUCCESS_LINK": "A new verification link has been sent to your email. Please check your inbox.",
       "RESEND_SUCCESS_GENERIC": "If your email is registered, you will receive a confirmation message shortly.",
       "RESEND_ALREADY_VERIFIED": "Your email is already confirmed. You can sign in directly.",
-      "RESEND_FAILURE": "We couldn’t resend the confirmation email. Please try again later.",
+      "RESEND_FAILURE": "We couldn't resend the confirmation email. Please try again later.",
       "INVALID_LINK": "The confirmation link is invalid.",
-      "BLOCKED": "We couldn’t verify your registration. Please sign in again."
+      "BLOCKED": "We couldn't verify your registration. Please sign in again."
     },
     "ERRORS": {
       "REQUIRED": "Code is required.",
@@ -383,9 +410,6 @@
       "pa": "Pennsylvania"
     }
   },
-  "related-services": {
-    "title": "Related Services"
-  },
   "appointment-service": {
     "title": "Appointment",
     "form": {
@@ -444,5 +468,159 @@
     "step-3": "Confirmation",
     "payment-method": "Payment Method",
     "title": "Checkout"
+  },
+  "REVIEWS": {
+    "COUNT": "Reviews",
+    "ADD_REVIEW": "Add your review",
+    "EMAIL_DISCLAIMER": "Your email address will not be published. Required fields are marked *",
+    "YOUR_RATING": "Your Rating",
+    "NAME": "Name",
+    "NAME_PLACEHOLDER": "Enter your name",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "YOUR_REVIEW": "Your review",
+    "REVIEW_PLACEHOLDER": "Enter your review",
+    "SUBMIT": "Submit",
+    "REVIEWS_LIST": "Reviews List",
+    "SORT_BY": "Sort by",
+    "NEWEST": "Newest",
+    "OLDEST": "Oldest",
+    "HIGHEST_RATING": "Highest Rating",
+    "LOWEST_RATING": "Lowest Rating",
+    "SHOWING_RESULTS": "Showing {{start}}-{{end}} of {{total}} results",
+    "VIEW_ALL": "View All",
+    "VIEW_MORE": "View More",
+    "NO_REVIEWS_YET": "No reviews yet",
+    "BE_THE_FIRST": "Be the first to review this service",
+    "RATING_DISTRIBUTION": "Rating Distribution",
+    "AVERAGE_RATING": "Average Rating",
+    "WRITE_REVIEW": "Write a Review",
+    "CHARACTERS_REMAINING": "{{remaining}} characters remaining",
+    "REVIEW_TOO_SHORT": "Review must be at least 10 characters",
+    "RATING_REQUIRED": "Rating is required",
+
+    "SUBMIT_SUCCESS": "Thank you for your review!",
+    "SUBMIT_FAILED": "Failed to submit review. Please try again.",
+    "ERROR_LOAD": "Failed to load reviews.",
+    "ERROR_NETWORK": "Network error. Please check your connection.",
+    "ERROR_CLIENT": "Invalid request. Please try again.",
+    "ERROR_SERVER": "Server error. Please try again later.",
+    "INVALID_DATA": "Invalid review data. Please check your inputs."
+  },
+  "REQUIREMENTS": {
+    "TITLE": "Documents You'll Need",
+    "LOADING_TEXT": "Loading required documents...",
+    "DOCUMENT_COUNT": "{{count}} required documents for this service",
+    "ERRORS": {
+      "NO_SERVICE_ID": "Service ID is not available. Please try again later.",
+      "LOAD_FAILED": "Failed to load required documents. Please try again.",
+      "LOAD_SERVICE_FAILED": "Unable to Load Service"
+    },
+    "DEFAULT_DESCRIPTIONS": {
+      "W-2_FORM": "A tax form from your employer...",
+      "BANK_STATEMENT": "Recent statements from your bank...",
+      "PAY_STUBS": "Your recent pay slips from your employer...",
+      "INCOME_PROOF": "Any additional document that shows income...",
+      "GENERIC": "Required document: {{fileName}}. Please upload this file to complete your service submission."
+    }
+  },
+  "related-services": {
+    "title": "Related Services"
+  },
+  "SERVICE_DETAILS": {
+    "DESCRIPTION": "Description",
+    "FEATURES": "Features",
+    "REVIEWS": "Reviews",
+    "HOW_IT_WORKS": "How it works",
+    "REQUIREMENTS": "Requirements",
+    "RELATED_SERVICES": "Related Services",
+    "ADD_TO_CART": "Add to Cart",
+    "BUY_NOW": "Buy Now",
+    "QUANTITY": "Quantity",
+    "DELIVERY_TIME": "Delivery Time",
+    "DELIVERY_RATE": "Delivery Rate",
+    "FREE_DELIVERY": "Free Delivery",
+    "DELIVERY": "Delivery",
+    "READ_MORE": "Read More",
+    "SHOW_LESS": "Show Less",
+    "OUT_OF_STOCK": "Out of Stock",
+    "IN_STOCK": "In Stock",
+    "DISCOUNT": "Discount",
+    "YOU_SAVE": "You Save",
+    "ORIGINAL_PRICE": "Original Price",
+    "PRICE": "Price",
+    "CURRENCY": "Currency",
+    "FREE": "Free",
+    "TIME_UNITS": {
+      "MINUTES": "Minutes",
+      "HOURS": "Hours",
+      "DAYS": "Days"
+    },
+    "ERRORS": {
+      "INVALID_SERVICE_ID": "Service ID not found or invalid.",
+      "ROUTE_PARAMS": "Failed to load service parameters.",
+      "NETWORK_ERROR": "Network error - please check your connection.",
+      "SERVICE_NOT_FOUND": "Service not found.",
+      "ACCESS_DENIED": "Access denied to this service.",
+      "SERVER_ERROR": "Server error - please try again later.",
+      "GENERIC_ERROR": "Failed to load service details. Please try again.",
+      "NO_SERVICE_DATA": "No service data found.",
+      "RETRYING_ATTEMPT": "Attempt {{attempt}} of {{maxAttempts}}"
+    }
+  },
+  "BREADCRUMB": {
+    "HOME": "Home",
+    "SERVICES": "Services",
+    "SERVICE_DETAILS": "Service Details",
+    "CART": "Cart",
+    "CHECKOUT": "Checkout",
+    "PROFILE": "Profile"
+  },
+  "NOTIFICATIONS": {
+    "SUCCESS": "Success",
+    "ERROR": "Error",
+    "WARNING": "Warning",
+    "INFO": "Information",
+    "ADDED_TO_CART": "Item added to cart successfully",
+    "REMOVED_FROM_CART": "Item removed from cart",
+    "PROFILE_UPDATED": "Profile updated successfully",
+    "ORDER_PLACED": "Order placed successfully",
+    "REVIEW_ADDED": "Review added successfully",
+    "NETWORK_ERROR": "Network error occurred",
+    "SERVER_ERROR": "Server error occurred",
+    "UNAUTHORIZED": "Please log in to continue"
+  },
+  "VALIDATION": {
+    "REQUIRED": "This field is required",
+    "EMAIL": "Please enter a valid email address",
+    "MIN_LENGTH": "Must be at least {{requiredLength}} characters",
+    "MAX_LENGTH": "Cannot exceed {{requiredLength}} characters",
+    "WHITESPACE": "Cannot contain only whitespace",
+    "RATING": "Please select a rating between 1 and 5 stars",
+    "INVALID": "Invalid value"
+  },
+  "PAGINATION": {
+    "ITEMS_PER_PAGE": "Items per page",
+    "FIRST_PAGE": "First page",
+    "LAST_PAGE": "Last page",
+    "NEXT_PAGE": "Next page",
+    "PREVIOUS_PAGE": "Previous page",
+    "OF": "of",
+    "RESULTS": "results"
+  },
+  "FILTERS": {
+    "CATEGORY": "Category",
+    "PRICE_RANGE": "Price Range",
+    "RATING": "Rating",
+    "LOCATION": "Location",
+    "AVAILABILITY": "Availability",
+    "SORT_BY": "Sort by",
+    "APPLY_FILTERS": "Apply Filters",
+    "CLEAR_FILTERS": "Clear Filters",
+    "ALL_CATEGORIES": "All Categories",
+    "MIN_PRICE": "Min Price",
+    "MAX_PRICE": "Max Price",
+    "IN_STOCK": "In Stock",
+    "OUT_OF_STOCK": "Out of Stock"
   }
 }

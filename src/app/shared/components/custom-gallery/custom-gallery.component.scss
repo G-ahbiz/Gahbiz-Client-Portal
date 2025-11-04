@@ -1,0 +1,334 @@
+.custom-gallery {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--bg-clr);
+}
+
+/* === MAIN IMAGE CONTAINER === */
+.gallery-item-container {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .main-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: inherit;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
+  /* === FLOATING ACTION ICONS === */
+  .gallery-icons {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    z-index: 10;
+
+    .icon-container {
+      width: 42px;
+      height: 42px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+      transition: all 0.25s ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f9fafb;
+        transform: translateY(-2px);
+      }
+
+      i {
+        font-size: 1.2rem;
+        color: #444;
+      }
+
+      .red-heart {
+        color: #e53935;
+        transition: transform 0.2s ease;
+      }
+
+      &:active .red-heart {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  /* === MAIN ARROWS === */
+  .main-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #222;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.25s ease;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background-color: #fff;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    i {
+      font-size: 1.3rem;
+    }
+
+    &.prev {
+      left: 0.8rem;
+    }
+
+    &.next {
+      right: 0.8rem;
+    }
+  }
+}
+
+/* === THUMBNAIL SECTION === */
+.thumbnail-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+/* SCROLLER CONTAINER */
+.thumbnail-scroller {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0.5rem;
+  flex: 1;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* THUMBNAIL IMAGE STYLING */
+.thumbnail-image {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+  filter: brightness(0.95);
+
+  &:hover {
+    border-color: #d1d5db;
+    filter: brightness(1);
+  }
+
+  &.active {
+    border-color: #2563eb;
+    filter: brightness(1.05);
+    transform: scale(1.05);
+  }
+}
+
+/* === THUMBNAIL ARROWS === */
+.thumb-arrow-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.thumb-arrow {
+  background-color: #f4f4f4;
+  border: none;
+  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  i {
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    background-color: #e5e7eb;
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+/* === RESPONSIVE BREAKPOINTS === */
+
+/* Tablet (≤ 992px) */
+@media (max-width: 992px) {
+  .gallery-item-container {
+    .main-image {
+      aspect-ratio: 4 / 3;
+    }
+
+    .main-arrow {
+      width: 38px;
+      height: 38px;
+      i {
+        font-size: 1.1rem;
+      }
+    }
+
+    .gallery-icons {
+      top: 0.6rem;
+      right: 0.6rem;
+      gap: 0.4rem;
+
+      .icon-container {
+        width: 38px;
+        height: 38px;
+
+        i {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+
+  .thumbnail-image {
+    width: 85px;
+    height: 60px;
+  }
+}
+
+/* Mobile (≤ 600px) */
+@media (max-width: 600px) {
+  .gallery-item-container {
+    .main-image {
+      aspect-ratio: 1 / 1;
+    }
+
+    .main-arrow {
+      width: 34px;
+      height: 34px;
+      i {
+        font-size: 1rem;
+      }
+    }
+
+    .gallery-icons {
+      flex-direction: row;
+      gap: 0.3rem;
+
+      .icon-container {
+        width: 34px;
+        height: 34px;
+
+        i {
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+
+  .thumbnail-section {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /*
+  *
+  * === THIS IS THE FIX ===
+  *
+  * This tells the scroller to take up 100% of its parent's width,
+  * which allows the internal overflow-x: auto to work correctly
+  * without forcing the whole page to scroll.
+  *
+  */
+  .thumbnail-scroller {
+    width: 100%;
+  }
+
+  .thumb-arrow-column {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+
+  .thumb-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .thumbnail-image {
+    width: 70px;
+    height: 55px;
+  }
+}
+
+/* Extra Small (≤ 400px) */
+@media (max-width: 400px) {
+  .gallery-item-container {
+    .main-image {
+      aspect-ratio: 1 / 1.2;
+    }
+
+    .main-arrow {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .thumbnail-image {
+    width: 60px;
+    height: 45px;
+  }
+
+  .icon-container {
+    width: 30px;
+    height: 30px;
+  }
+}

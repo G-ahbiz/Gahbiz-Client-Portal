@@ -1,49 +1,60 @@
 <div class="container-fluid p-0 m-0 my-5">
   <div class="description-tab-container">
-    <!-- Introduction -->
+    @if (service) {
+    <div [innerHTML]="safeDescription"></div>
+    } @else {
+    <p>{{ 'SERVICE_DETAILS.LOADING_DESCRIPTION' | translate }}</p>
+    }
+  </div>
+</div>
+
+<!-- <div class="container-fluid p-0 m-0 my-5">
+  <div class="description-tab-container">
+
     <div class="description-tab-header">
       <div class="introduction d-flex justify-content-start align-items-center gap-2">
         <i class="pi pi-info-circle primary-text-clr fs-4"></i>
         <h2 class="fs-5 fw-bold mb-0">Introduction</h2>
       </div>
-      <!-- Introduction Description -->
-      <div class="introduction-description fs-6 w-75 fw-normal mt-4">
-        <p>Starting in 2024, many businesses are required to file <strong>a Beneficial Ownership Information (BOI)
-            Report</strong> with
-          <strong>the Financial Crimes Enforcement Network (FinCEN)</strong> as part of the Corporate Transparency
-          Act.<br>
-          We offer fast and accurate assistance with <strong>BOI report preparation and filing</strong> to help
-          your business stay
-          compliant and avoid penalties.
-        </p>
-      </div>
-    </div>
 
-    <!-- Who Must File -->
-    <div class="who-must-file">
-      <!-- Who Must File Header -->
-      <div class="who-must-file-header d-flex justify-content-start align-items-center gap-2">
-        <i class="pi pi-info-circle primary-text-clr fs-4"></i>
-        <h2 class="fs-5 fw-bold mb-0">Who Must File</h2>
-      </div>
-      <!-- Who Must File Description -->
-      <div class="who-must-file-description fs-6 w-75 fw-normal mt-4">
-        <ul type="disc" class="list-unstyled">
-          <li class="mb-2">You are required to file a BOI report if your business is:</li>
-          <li class="d-flex align-items-center gap-3">
-            <i class="pi pi-circle-fill fs-75"></i>
-            <span><strong>A Corporation, LLC,</strong> or similar entity registered with a U.S. state. </span>
-          </li>
-          <li class="d-flex align-items-center gap-3">
-            <i class="pi pi-circle-fill fs-75"></i>
-            <span>Created <strong>before or after January 1, 2024,</strong> and not exempt under the CTA.</span>
-          </li>
-        </ul>
-      </div>
-    </div>
+<div class="introduction-description fs-6 w-75 fw-normal mt-4">
+  <p>Starting in 2024, many businesses are required to file <strong>a Beneficial Ownership Information (BOI)
+      Report</strong> with
+    <strong>the Financial Crimes Enforcement Network (FinCEN)</strong> as part of the Corporate Transparency
+    Act.<br>
+    We offer fast and accurate assistance with <strong>BOI report preparation and filing</strong> to help
+    your business stay
+    compliant and avoid penalties.
+  </p>
+</div>
+</div>
 
-    <div class="button-container d-flex justify-content-center align-items-center gap-2 mt-4">
-      <button class="btn btn-primary primary-bg-clr view-more-button fw-semibold fs-5">View More</button>
-    </div>
+
+<div class="who-must-file">
+
+  <div class="who-must-file-header d-flex justify-content-start align-items-center gap-2">
+    <i class="pi pi-info-circle primary-text-clr fs-4"></i>
+    <h2 class="fs-5 fw-bold mb-0">Who Must File</h2>
+  </div>
+
+  <div class="who-must-file-description fs-6 w-75 fw-normal mt-4">
+    <ul type="disc" class="list-unstyled">
+      <li class="mb-2">You are required to file a BOI report if your business is:</li>
+      <li class="d-flex align-items-center gap-3">
+        <i class="pi pi-circle-fill fs-75"></i>
+        <span><strong>A Corporation, LLC,</strong> or similar entity registered with a U.S. state. </span>
+      </li>
+      <li class="d-flex align-items-center gap-3">
+        <i class="pi pi-circle-fill fs-75"></i>
+        <span>Created <strong>before or after January 1, 2024,</strong> and not exempt under the CTA.</span>
+      </li>
+    </ul>
   </div>
 </div>
+
+<div class="button-container d-flex justify-content-center align-items-center gap-2 mt-4">
+  <button class="btn btn-primary primary-bg-clr view-more-button fw-semibold fs-5">View More</button>
+</div>
+</div>
+</div>
+-->

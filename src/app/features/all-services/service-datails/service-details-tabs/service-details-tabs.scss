@@ -1,8 +1,107 @@
-.label-text {
-  color: #888;
-  font-family: 'Libre Franklin';
-  font-size: 1.5625rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 2.8125rem;
+:host {
+  ::ng-deep {
+    .mat-mdc-tab-header {
+      display: flex;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      &::-webkit-scrollbar {
+        display: none !important;
+      }
+    }
+
+    /* Remove the center alignment from tab header */
+    .mat-mdc-tab-header {
+      justify-content: flex-start !important;
+    }
+
+    /* Center the entire tab group on large screens */
+    .mat-mdc-tab-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* On large screens, center the tabs by making container centered but tabs left-aligned */
+    @media (min-width: 769px) {
+      .mat-mdc-tab-header {
+        width: auto;
+        max-width: max-content;
+        margin: 0 auto;
+      }
+    }
+
+    .mat-mdc-tab-header-pagination {
+      flex: 0 0 auto !important;
+      display: none !important;
+    }
+
+    .mat-mdc-tab-label-container {
+      border-bottom-color: #e3e1e190;
+      flex-wrap: nowrap !important;
+      overflow: visible !important;
+    }
+
+    .mat-mdc-tab-list {
+      flex-wrap: nowrap !important;
+    }
+
+    .mat-mdc-tab-group[mat-stretch-tabs='false'] .mat-mdc-tab-header {
+      border-bottom: 1px solid #e3e1e170 !important;
+    }
+
+    .mat-mdc-tab-group .mdc-tab-indicator {
+      display: none !important;
+    }
+
+    .label-text {
+      font-family: 'Libre Franklin', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #888;
+      padding: 0 1.25rem;
+      margin: 0;
+      line-height: 2.8125rem;
+      border-bottom: 3px solid transparent;
+      position: relative;
+      bottom: -1px;
+      white-space: nowrap;
+    }
+
+    .mat-mdc-tab.mdc-tab--active {
+      .label-text {
+        color: var(--primary-clr, #005db5);
+        font-weight: 600;
+        border-bottom-color: var(--primary-clr, #005db5);
+      }
+    }
+
+    .mat-mdc-tab .mdc-tab__ripple {
+      display: none;
+    }
+
+    .mat-mdc-tab {
+      flex: 0 0 auto !important;
+      min-width: fit-content !important;
+    }
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  :host {
+    ::ng-deep {
+      .label-text {
+        font-size: 1.2rem;
+        padding: 0 1rem;
+      }
+
+      /* Allow full width scrolling on mobile */
+      .mat-mdc-tab-header {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+      }
+    }
+  }
 }

@@ -1,6 +1,6 @@
 <div class="d-flex flex-column gap-4 w-100" [class.rtl]="currentLang() === 'ar'">
   <div class="services-list d-flex flex-column align-items-start gap-4 w-100">
-    <!-- Header with Title and Pagination -->
+    <!-- Header with Title and Pagination (unchanged) -->
     <div class="service-title d-flex flex-column flex-md-row align-items-md-center w-100 gap-3"
       [class.rtl-layout]="currentLang() === 'ar'">
       <h1 class="fs-3 fw-semibold mb-0 flex-grow-1" [attr.aria-label]="title">
@@ -48,7 +48,7 @@
       @if (serviceList && serviceList.length > 0) {
       @for (service of serviceList; track trackByServiceId($index, service)) {
       <div class="card service-card d-flex flex-column flex-sm-row rounded-4" [class.rtl-card]="currentLang() === 'ar'"
-        [attr.aria-label]="service.name">
+        [attr.aria-label]="service.name" (click)="navigateToServiceDetails(service.id)" style="cursor: pointer;">
 
         <!-- Service Image -->
         <div class="image-container rounded-3 overflow-hidden position-relative flex-shrink-0">
@@ -95,11 +95,11 @@
             class="button-container d-flex flex-column flex-md-row justify-content-start align-items-center gap-2 w-100 mt-2"
             [class.rtl-buttons]="currentLang() === 'ar'">
             <button class="btn btn-primary card-btn text-nowrap py-2 px-3 flex-grow-1"
-              [attr.aria-label]="'Buy now ' + service.name">
+              [attr.aria-label]="'Buy now ' + service.name" (click)="onBuyNow(service, $event)">
               {{'all-services.buy-now'| translate}}
             </button>
             <button class="btn btn-outline-primary card-btn text-nowrap py-2 px-3 flex-grow-1"
-              [attr.aria-label]="'Add to cart ' + service.name">
+              [attr.aria-label]="'Add to cart ' + service.name" (click)="onAddToCart(service, $event)">
               {{'all-services.add-to-cart'| translate}}
             </button>
           </div>

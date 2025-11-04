@@ -66,7 +66,33 @@
     "AND": "Y",
     "ALREADY_HAVE_ACCOUNT": "¿Ya tienes una cuenta?",
     "SUCCESS": "Éxito",
-    "ERROR": "Error"
+    "ERROR": "Error",
+    "LOADING": "Cargando...",
+    "SAVING": "Guardando...",
+    "SUBMITTING": "Enviando...",
+    "YES": "Sí",
+    "NO": "No",
+    "CANCEL": "Cancelar",
+    "CONFIRM": "Confirmar",
+    "DELETE": "Eliminar",
+    "EDIT": "Editar",
+    "UPDATE": "Actualizar",
+    "SAVE": "Guardar",
+    "CLOSE": "Cerrar",
+    "BACK": "Atrás",
+    "NEXT": "Siguiente",
+    "PREVIOUS": "Anterior",
+    "SEARCH": "Buscar",
+    "FILTER": "Filtrar",
+    "SORT": "Ordenar",
+    "VIEW": "Ver",
+    "ADD": "Agregar",
+    "REMOVE": "Quitar",
+    "CREATED": "Creado",
+    "UPDATED": "Actualizado",
+    "DELETED": "Eliminado",
+    "TRY_AGAIN": "Intentar de nuevo",
+    "READ_MORE": "Leer más"
   },
   "NEW_PASSWORD": {
     "ERRORS": {
@@ -383,9 +409,6 @@
       "pa": "Pensilvania"
     }
   },
-  "related-services": {
-    "title": "Servicios relacionados"
-  },
   "appointment-service": {
     "title": "Reservación",
     "form": {
@@ -444,5 +467,158 @@
     "step-3": "Confirmación",
     "payment-method": "Método de pago",
     "title": "Pago"
+  },
+  "REVIEWS": {
+    "COUNT": "Reseñas",
+    "ADD_REVIEW": "Agrega tu reseña",
+    "EMAIL_DISCLAIMER": "Tu dirección de correo electrónico no se publicará. Los campos obligatorios están marcados con *",
+    "YOUR_RATING": "Tu calificación",
+    "NAME": "Nombre",
+    "NAME_PLACEHOLDER": "Ingresa tu nombre",
+    "EMAIL": "Correo electrónico",
+    "EMAIL_PLACEHOLDER": "Ingresa tu correo electrónico",
+    "YOUR_REVIEW": "Tu reseña",
+    "REVIEW_PLACEHOLDER": "Escribe tu reseña",
+    "SUBMIT": "Enviar",
+    "REVIEWS_LIST": "Lista de reseñas",
+    "SORT_BY": "Ordenar por",
+    "NEWEST": "Más reciente",
+    "OLDEST": "Más antiguo",
+    "HIGHEST_RATING": "Calificación más alta",
+    "LOWEST_RATING": "Calificación más baja",
+    "SHOWING_RESULTS": "Mostrando {{start}}-{{end}} de {{total}} resultados",
+    "VIEW_ALL": "Ver todo",
+    "VIEW_MORE": "Ver más",
+    "NO_REVIEWS_YET": "Aún no hay reseñas",
+    "BE_THE_FIRST": "Sé el primero en reseñar este servicio",
+    "RATING_DISTRIBUTION": "Distribución de calificaciones",
+    "AVERAGE_RATING": "Calificación promedio",
+    "WRITE_REVIEW": "Escribir una reseña",
+    "CHARACTERS_REMAINING": "{{remaining}} caracteres restantes",
+    "REVIEW_TOO_SHORT": "La reseña debe tener al menos 10 caracteres",
+    "RATING_REQUIRED": "La calificación es requerida",
+    "SUBMIT_SUCCESS": "¡Gracias por tu reseña!",
+    "SUBMIT_FAILED": "Error al enviar la reseña. Por favor intenta nuevamente.",
+    "ERROR_LOAD": "Error al cargar las reseñas.",
+    "ERROR_NETWORK": "Error de red. Por favor verifica tu conexión.",
+    "ERROR_CLIENT": "Solicitud inválida. Por favor intenta nuevamente.",
+    "ERROR_SERVER": "Error del servidor. Por favor intenta más tarde.",
+    "INVALID_DATA": "Datos de reseña inválidos. Por favor verifica tus entradas."
+  },
+  "REQUIREMENTS": {
+    "TITLE": "Documentos que necesitarás",
+    "LOADING_TEXT": "Cargando documentos requeridos...",
+    "DOCUMENT_COUNT": "{{count}} documentos requeridos para este servicio",
+    "ERRORS": {
+      "NO_SERVICE_ID": "El ID del servicio no está disponible. Por favor intenta más tarde.",
+      "LOAD_FAILED": "Error al cargar los documentos requeridos. Por favor intenta nuevamente.",
+      "LOAD_SERVICE_FAILED": "No se puede cargar el servicio"
+    },
+    "DEFAULT_DESCRIPTIONS": {
+      "W-2_FORM": "Un formulario de impuestos de tu empleador...",
+      "BANK_STATEMENT": "Estados de cuenta recientes de tu banco...",
+      "PAY_STUBS": "Tus recibos de pago recientes de tu empleador...",
+      "INCOME_PROOF": "Cualquier documento adicional que muestre ingresos...",
+      "GENERIC": "Documento requerido: {{fileName}}. Por favor carga este archivo para completar tu envío de servicio."
+    }
+  },
+  "related-services": {
+    "title": "Servicios relacionados"
+  },
+  "SERVICE_DETAILS": {
+    "DESCRIPTION": "Descripción",
+    "FEATURES": "Características",
+    "REVIEWS": "Reseñas",
+    "HOW_IT_WORKS": "Cómo funciona",
+    "REQUIREMENTS": "Requisitos",
+    "RELATED_SERVICES": "Servicios relacionados",
+    "ADD_TO_CART": "Agregar al carrito",
+    "BUY_NOW": "Comprar ahora",
+    "QUANTITY": "Cantidad",
+    "DELIVERY": "Entrega",
+    "DELIVERY_TIME": "Tiempo de entrega",
+    "DELIVERY_RATE": "Tasa de entrega",
+    "FREE_DELIVERY": "Entrega gratuita",
+    "MINUTES": "Minutos",
+    "HOURS": "Horas",
+    "DAYS": "Días",
+    "READ_MORE": "Leer más",
+    "SHOW_LESS": "Mostrar menos",
+    "OUT_OF_STOCK": "Agotado",
+    "IN_STOCK": "Disponible",
+    "DISCOUNT": "Descuento",
+    "YOU_SAVE": "Ahorras",
+    "ORIGINAL_PRICE": "Precio original",
+    "PRICE": "Precio",
+    "CURRENCY": "Moneda",
+    "LOAD_SUCCESS": "Detalles del servicio cargados exitosamente.",
+    "FREE": "Gratis",
+    "LOADING_DESCRIPTION": "Cargando descripción...",
+    "ERRORS": {
+      "INVALID_SERVICE_ID": "ID de servicio no encontrado o inválido.",
+      "ROUTE_PARAMS": "Error al cargar parámetros del servicio.",
+      "NETWORK_ERROR": "Error de red - por favor verifica tu conexión.",
+      "SERVICE_NOT_FOUND": "Servicio no encontrado.",
+      "ACCESS_DENIED": "Acceso denegado a este servicio.",
+      "SERVER_ERROR": "Error del servidor - por favor intenta más tarde.",
+      "GENERIC_ERROR": "Error al cargar detalles del servicio. Por favor intenta nuevamente.",
+      "NO_SERVICE_DATA": "No se encontraron datos del servicio.",
+      "RETRYING_ATTEMPT": "Intento {{attempt}} de {{maxAttempts}}"
+    }
+  },
+  "BREADCRUMB": {
+    "HOME": "Inicio",
+    "SERVICES": "Servicios",
+    "SERVICE_DETAILS": "Detalles del servicio",
+    "CART": "Carrito",
+    "CHECKOUT": "Pago",
+    "PROFILE": "Perfil"
+  },
+  "NOTIFICATIONS": {
+    "SUCCESS": "Éxito",
+    "ERROR": "Error",
+    "WARNING": "Advertencia",
+    "INFO": "Información",
+    "ADDED_TO_CART": "Artículo agregado al carrito exitosamente",
+    "REMOVED_FROM_CART": "Artículo eliminado del carrito",
+    "PROFILE_UPDATED": "Perfil actualizado exitosamente",
+    "ORDER_PLACED": "Pedido realizado exitosamente",
+    "REVIEW_ADDED": "Reseña agregada exitosamente",
+    "NETWORK_ERROR": "Ocurrió un error de red",
+    "SERVER_ERROR": "Ocurrió un error del servidor",
+    "UNAUTHORIZED": "Por favor inicia sesión para continuar"
+  },
+  "VALIDATION": {
+    "REQUIRED": "Este campo es requerido",
+    "EMAIL": "Por favor ingresa una dirección de correo electrónico válida",
+    "MIN_LENGTH": "Debe tener al menos {{requiredLength}} caracteres",
+    "MAX_LENGTH": "No puede exceder {{requiredLength}} caracteres",
+    "WHITESPACE": "No puede contener solo espacios en blanco",
+    "RATING": "Por favor selecciona una calificación entre 1 y 5 estrellas",
+    "INVALID": "Valor inválido"
+  },
+  "PAGINATION": {
+    "ITEMS_PER_PAGE": "Elementos por página",
+    "FIRST_PAGE": "Primera página",
+    "LAST_PAGE": "Última página",
+    "NEXT_PAGE": "Página siguiente",
+    "PREVIOUS_PAGE": "Página anterior",
+    "OF": "de",
+    "RESULTS": "resultados"
+  },
+  "FILTERS": {
+    "CATEGORY": "Categoría",
+    "PRICE_RANGE": "Rango de precio",
+    "RATING": "Calificación",
+    "LOCATION": "Ubicación",
+    "AVAILABILITY": "Disponibilidad",
+    "SORT_BY": "Ordenar por",
+    "APPLY_FILTERS": "Aplicar filtros",
+    "CLEAR_FILTERS": "Limpiar filtros",
+    "ALL_CATEGORIES": "Todas las categorías",
+    "MIN_PRICE": "Precio mínimo",
+    "MAX_PRICE": "Precio máximo",
+    "IN_STOCK": "Disponible",
+    "OUT_OF_STOCK": "Agotado"
   }
 }

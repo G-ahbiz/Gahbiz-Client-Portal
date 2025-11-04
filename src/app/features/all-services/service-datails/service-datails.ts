@@ -9,6 +9,7 @@ import { RelatedServices } from "./related-services/related-services";
 
 @Component({
   selector: 'app-service-datails',
+  standalone: true,
   imports: [Navbar, Footer, TranslateModule, ServiceDetailsContent, ServiceDetailsTabs, RelatedServices],
   templateUrl: './service-datails.html',
   styleUrl: './service-datails.scss'

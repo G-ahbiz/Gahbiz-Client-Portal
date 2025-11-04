@@ -7,6 +7,10 @@ export const environment = {
   googleClientId: '710517406086-vlr501mfdnbmc5o8p8jv07qaks1jvveg.apps.googleusercontent.com',
   googleUrl: 'https://accounts.google.com/gsi/client',
 
+  reviews: {
+    createReview: '/Reviews',
+    getReviewsByService: '/Reviews/service/',
+  },
   account: {
     login: '/Account/login',
     refresh: '/Account/refresh-token',
@@ -27,6 +31,7 @@ export const environment = {
   services: {
     getAllServices: '/Services',
     getServiceByCategory: '/Services/category/',
+    getServiceById: '/Services/',
     bestOffers: '/Services/best-offers',
   },
   states: {
@@ -34,6 +39,9 @@ export const environment = {
   },
   countries: {
     getAllCountries: '/countries/All/Countries',
+  },
+  serviceSubmissions: {
+    getRequiredFiles: `/ServiceSubmissions/`,
   },
 
   facebookAppId: '1786936631940004',

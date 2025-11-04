@@ -1,56 +1,75 @@
-<div class="container-fluid p-0 m-0">
+@if (relatedServices$ | async; as state) {
 
+@if (state.isLoading) {
+<div class="cards-container row g-4 justify-content-center my-5">
+  @for (_ of [1, 2, 3]; track $index) {
+  <div class="col-lg-4 col-md-6 col-12">
+    <div class="skeleton-card card h-100">
+      <div class="skeleton-image"></div>
+      <div class="skeleton-body">
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text short"></div>
+        <div class="skeleton-button"></div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+}
+
+@else if (state.error) {
+<div class="w-100 text-center text-danger my-5">
+  {{ state.error }}
+</div>
+}
+
+@else if (state.services.length > 0) {
+<div class="container-fluid p-0 m-0">
   <div class="related-services-container">
-    <!-- Title Container -->
+
     <div class="title-container w-100 d-flex justify-content-center align-items-center">
       <h2 class="title fw-bold">
-        {{'related-services.title'| translate}}
+        {{'related-services.title' | translate}}
       </h2>
     </div>
 
-    <!-- Cards Container -->
-    <div class="cards-container d-flex flex-row flex-wrap gap-3 justify-content-center align-items-center my-5">
-      @for (offer of offers; track offer.id) {
-      <div class="offer-card card mb-2">
-        <!-- Card Header -->
-        <div class="card-header overflow-hidden position-relative p-0 border-0">
-          <!-- Card Image -->
-          <img src="assets/images/landingpage/best-offers/{{ offer.imageUrl }}" [alt]="offer.title" />
-          <!-- Card Icons -->
-          <div class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3">
-            <div
-              class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-              (click)="putInFavorites(+offer.id)">
-              <i class="pi pi-heart fs-4 red-heart"></i>
-            </div>
-            <div
-              class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-              (click)="share(+offer.id)">
-              <i class="pi pi-share-alt fs-4"></i>
+    <div class="cards-container row g-4 justify-content-center my-5">
+      @for (offer of state.services; track offer.id) {
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="offer-card card h-100 cursor-pointer" (click)="openServiceDetails(offer.id)">
+          <div class="card-header overflow-hidden position-relative p-0 border-0">
+            <img [src]="offer.image?.path || 'assets/images/placeholder.jpg'" [alt]="offer.name" class="img-fluid" />
+            <div class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3">
+              <div
+                class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
+                (click)="putInFavorites($event, offer.id)">
+                <i class="pi pi-heart fs-4 red-heart"></i>
+              </div>
+              <div
+                class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
+                (click)="copyPageUrl($event, offer.id)">
+                @if (copiedOfferId === offer.id) {
+                <i class="pi pi-check fs-4 copied-icon"></i>
+                } @else {
+                <i class="pi pi-share-alt fs-4"></i>
+                }
+              </div>
             </div>
           </div>
-        </div>
-        <!-- Card Body -->
-        <div class="card-body px-3">
-          <!-- Card Description -->
-          <p class="card-description ">{{ offer.title }}</p>
-          <!-- Card Details -->
-          <div class="card-details d-flex justify-content-between align-items-center">
-            <!-- Card Price and Discount -->
-            <div class="card-price-discount d-flex justify-content-start align-items-center gap-2">
-              <!-- Card Price -->
-              <span class="card-price fw-bold">${{ offer.price }}</span>
-              <!-- Card Discount -->
-              <span class="card-discount">
-                <del>${{ offer.priceBefore }}</del>
-              </span>
+          <div class="card-body px-3">
+            <p class="card-description ">{{ offer.name }}</p>
+            <div class="card-details d-flex justify-content-between align-items-center">
+              <div class="card-price-discount d-flex justify-content-start align-items-center gap-2">
+                <span class="card-price fw-bold">${{ offer.price }}</span>
+                <span class="card-discount">
+                  <del>${{ offer.priceBefore }}</del>
+                </span>
+              </div>
+              <app-rating [rating]="offer.rate"></app-rating>
             </div>
-            <!-- Card Rate -->
-            <app-rating [rating]="offer.rating"></app-rating>
-          </div>
-          <!-- Card Button -->
-          <div class="card-button d-flex justify-content-start align-items-center gap-2 w-100 mt-3">
-            <button class="btn primary-bg-clr w-100 white-text-clr">Add to Cart</button>
+            <div class="card-button d-flex justify-content-start align-items-center gap-2 w-100 mt-3">
+              <button class="btn primary-bg-clr w-100 white-text-clr">{{'best-offers.add-to-cart'| translate}}</button>
+            </div>
           </div>
         </div>
       </div>
@@ -59,3 +78,5 @@
 
   </div>
 </div>
+}
+}

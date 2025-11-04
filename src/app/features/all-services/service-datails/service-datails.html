@@ -5,17 +5,21 @@
 
     <!-- Service Details Top -->
     <div class="service-details-top">
-      <app-service-details-content></app-service-details-content>
+      <app-service-details-content #serviceContent>
+      </app-service-details-content>
     </div>
 
     <!-- Service Details Body -->
     <div class="service-details-body">
-      <app-service-details-tabs></app-service-details-tabs>
+      <app-service-details-tabs [service]="serviceContent.serviceDetail()">
+      </app-service-details-tabs>
     </div>
 
     <!-- Service Details Footer -->
     <div class="service-details-footer">
-      <app-related-services></app-related-services>
+      <app-related-services [categoryId]="serviceContent.serviceDetail()?.categoryId"
+        [currentServiceId]="serviceContent.serviceDetail()?.id">
+      </app-related-services>
     </div>
 
   </div>

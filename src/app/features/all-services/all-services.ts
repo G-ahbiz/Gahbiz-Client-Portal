@@ -17,11 +17,11 @@ import { RatingModule } from 'primeng/rating';
 import { ServicesComponent } from './services-component/services-component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AllServicePageFacadeService } from './services/all-service-page-facade.service';
-import { PaginatedServices } from './interfaces/paginated-services';
-import { ServiceCategory } from './interfaces/service-category';
-import { ServiceDetails } from './interfaces/service-details';
-import { PaginatedCategories } from './interfaces/paginated-categories';
+import { AllServicePageFacadeService } from './services/all-service/all-service-page-facade.service';
+import { PaginatedServices } from './interfaces/all-services/paginated-services';
+import { ServiceCategory } from './interfaces/all-services/service-category';
+import { ServiceDetails } from './interfaces/all-services/service-details';
+import { PaginatedCategories } from './interfaces/all-services/paginated-categories';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
 
@@ -105,7 +105,9 @@ export class AllServices implements OnInit, OnDestroy {
           }
 
           if (categoryIdFromRoute && res.succeeded && res.data) {
-            const foundCategory = res.data.items.find((c: ServiceCategory) => c.id === categoryIdFromRoute);
+            const foundCategory = res.data.items.find(
+              (c: ServiceCategory) => c.id === categoryIdFromRoute
+            );
 
             if (foundCategory) {
               this.onFilterChange(foundCategory);

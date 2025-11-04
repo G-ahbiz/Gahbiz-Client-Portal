@@ -22,9 +22,6 @@ export interface AllServicesDetails {
 
 export interface serviceDatailsInfo {
   id: number;
-  nameEn: string;
-  nameAr: string;
-  nameSp: string;
   titleEn: string;
   titleAr: string;
   titleSp: string;
@@ -36,6 +33,7 @@ export interface serviceDatailsInfo {
   rating: number;
   ratingsCount: number;
   images: string[];
+  categoryName: string;
 }
 @Injectable({
   providedIn: 'root'
@@ -106,9 +104,7 @@ export class AllServicesComponentService {
   seviceDetails: serviceDatailsInfo[] = [
     {
       id: 1,
-      nameEn: 'Tax 1040',
-      nameAr: 'ضريبة 1040',
-      nameSp: 'Impuesto 1040',
+      categoryName: 'Tax Services',
       titleEn: 'File Your Tax 1040 Single or MJS - Stander',
       titleAr: 'تقديم ضريبة 1040 الفردية أو MJS - معيار',
       titleSp: 'Presentación de la declaración de impuestos 1040 individual o MJS - Estándar',
@@ -120,11 +116,11 @@ export class AllServicesComponentService {
       rating: 4,
       ratingsCount: 36,
       images: [
-        'assets/images/all-services/ServiceDetails/1.jpg',
-        'assets/images/all-services/ServiceDetails/2.jpg',
-        'assets/images/all-services/ServiceDetails/3.jpg',
-        'assets/images/all-services/ServiceDetails/4.jpg',
-        'assets/images/all-services/ServiceDetails/5.jpg',
+        'assets/images/All-services/ServiceDetails/1.jpg',
+        'assets/images/All-services/ServiceDetails/2.jpg',
+        'assets/images/All-services/ServiceDetails/3.jpg',
+        'assets/images/All-services/ServiceDetails/4.jpg',
+        'assets/images/All-services/ServiceDetails/5.jpg',
       ],
     },
   ]

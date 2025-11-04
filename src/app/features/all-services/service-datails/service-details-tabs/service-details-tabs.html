@@ -1,8 +1,6 @@
-<div class="container-fluid p-0 m-0 my-5">
+<!-- <div class="container-fluid p-0 m-0 my-5">
   <div class="service-details-tabs-container mt-4">
-
-    <!-- Service Details Tabs -->
-    <!-- <div class="card">
+    <div class="card">
       <p-tabs value="0">
         <p-tablist >
           <p-tab value="0">Description</p-tab>
@@ -37,40 +35,40 @@
       </p-tabs>
     </div> -->
 
-    <mat-tab-group>
-      <!-- Description Tab -->
+<div class="container-fluid p-0 m-0 my-5">
+  <div class="service-details-tabs-container mt-4">
+    <mat-tab-group (selectedTabChange)="onTabChange($event)" (animationDone)="onAnimationDone()" #tabGroup>
       <mat-tab>
         <ng-template mat-tab-label>
-          <span class="label-text fw-bold">Description</span>
+          <span class="label-text" data-tab="description">{{ 'SERVICE_DETAILS.DESCRIPTION' | translate }}</span>
         </ng-template>
-        <app-description-tab></app-description-tab>
+        <app-description-tab [service]="service"></app-description-tab>
       </mat-tab>
 
-      <!-- How It Works Tab -->
       <mat-tab>
         <ng-template mat-tab-label>
-          <span class="label-text fw-bold">How It Works</span>
+          <span class="label-text" data-tab="how-it-works">{{ 'SERVICE_DETAILS.HOW_IT_WORKS' | translate }}</span>
         </ng-template>
         <app-how-it-works></app-how-it-works>
       </mat-tab>
 
-      <!-- Requirements Tab -->
       <mat-tab>
         <ng-template mat-tab-label>
-          <span class="label-text fw-bold">Requirements</span>
+          <span class="label-text" data-tab="requirements">{{ 'SERVICE_DETAILS.REQUIREMENTS' | translate }}</span>
         </ng-template>
-        <app-requirements-tab></app-requirements-tab>
+        <app-requirements-tab [serviceId]="service?.id"></app-requirements-tab>
       </mat-tab>
 
-      <!-- Reviews Tab -->
       <mat-tab>
         <ng-template mat-tab-label>
-          <span class="label-text fw-bold">Reviews</span>
+          <span class="label-text" data-tab="reviews">{{ 'SERVICE_DETAILS.REVIEWS' | translate }}</span>
         </ng-template>
-        <app-reviews-tab></app-reviews-tab>
+        <ng-template matTabContent>
+          @if(service?.id) {
+          <app-reviews-tab [serviceId]="service?.id"></app-reviews-tab>
+          }
+        </ng-template>
       </mat-tab>
     </mat-tab-group>
-
-
   </div>
 </div>
