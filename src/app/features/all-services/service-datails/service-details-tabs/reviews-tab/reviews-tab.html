@@ -1,112 +1,256 @@
 <div class="container-fluid p-0 m-0 my-5">
+  <!-- Error Banner -->
+  @if (error()) {
+  <div class="alert alert-danger alert-dismissible fade show mx-3 mx-md-5 mt-3" role="alert">
+    <div class="d-flex align-items-center">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      <span>{{ error() }}</span>
+    </div>
+    <button type="button" class="btn-close" (click)="onRetry()" aria-label="Close"></button>
+  </div>
+  }
+
   <div
-    class="reviews-tab-container my-5 p-5 d-flex flex-column flex-md-row justify-content-start align-items-start gap-4">
-
-    <!-- Rating Container -->
-    <div class="rating-container d-flex flex-column justify-content-start align-items-start gap-2">
-      <!-- Rating Header -->
-      <div class="rating-header d-flex flex-column justify-content-center align-items-center gap-2 w-100">
-        <!-- Rating Number -->
-        <p class="fs-1 fw-bold mb-0">{{rating}}</p>
-        <!-- Rating Stars -->
-        <app-rating [rating]="rating"></app-rating>
-        <!-- Rating Reviews -->
-        <p class="fs-6 fw-medium mb-0 mute-text-clr">{{sumOfReviews}} Reviews</p>
+    class="reviews-tab-container my-5 p-3 p-md-5 d-flex flex-column flex-md-row justify-content-start align-items-start gap-4 gap-md-5">
+    <div class="rating-container d-flex flex-column justify-content-start align-items-start gap-3 w-100">
+      @if (isLoading() && totalReviews() === 0) {
+      <div class="rating-header d-flex flex-column justify-content-center align-items-center gap-2 w-100 text-center">
+        <div class="skeleton-loader skeleton-large" style="width: 100px; height: 3rem; border-radius: 8px"></div>
+        <div class="skeleton-loader skeleton-text"
+          style="width: 120px; height: 1.5rem; border-radius: 8px; margin-top: 8px"></div>
+        <div class="skeleton-loader skeleton-text"
+          style="width: 100px; height: 1rem; border-radius: 8px; margin-top: 8px"></div>
       </div>
-
-      <!-- Rating Content -->
-      <div class="rating-content d-flex flex-column justify-content-start align-items-start gap-3 w-100">
-        <!-- 5 Stars Rating -->
-        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
-          <app-rating [rating]="5"></app-rating>
-          <div class="range" [class.primary-bg-clr]="numberOfReviews[0] > 0"></div>
-          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[0]}}</p>
+      <div class="rating-content d-flex flex-column justify-content-start align-items-start gap-3 w-100 mt-3">
+        @for (star of [5,4,3,2,1]; track star) {
+        <div class="rating-item d-flex justify-content-start align-items-center gap-3 w-100">
+          <div class="skeleton-loader skeleton-text" style="width: 80px; height: 1.2rem; border-radius: 8px"></div>
+          <div class="range-bar-container flex-grow-1 position-relative">
+            <div class="range-bar-background"></div>
+          </div>
+          <div class="skeleton-loader skeleton-text" style="width: 30px; height: 1.2rem; border-radius: 8px"></div>
         </div>
-
-        <!-- 4 Stars Rating -->
-        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
-          <app-rating [rating]="4"></app-rating>
-          <div class="range" [class.primary-bg-clr]="numberOfReviews[1] > 0"></div>
-          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[1]}}</p>
-        </div>
-
-        <!-- 3 Stars Rating -->
-        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
-          <app-rating [rating]="3"></app-rating>
-          <div class="range" [class.primary-bg-clr]="numberOfReviews[2] > 0"></div>
-          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[2]}}</p>
-        </div>
-
-        <!-- 2 Stars Rating -->
-        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
-          <app-rating [rating]="2"></app-rating>
-          <div class="range" [class.primary-bg-clr]="numberOfReviews[3] > 0"></div>
-          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[3]}}</p>
-        </div>
-
-        <!-- 1 Star Rating -->
-        <div class="rating-item d-flex justify-content-start align-items-center gap-2 w-100">
-          <app-rating [rating]="1"></app-rating>
-          <div class="range" [class.primary-bg-clr]="numberOfReviews[4] > 0"></div>
-          <p class="fs-6 fw-medium mb-0 mute-text-clr ">{{numberOfReviews[4]}}</p>
-        </div>
-
+        }
       </div>
+      } @else {
+      <div class="rating-header d-flex flex-column justify-content-center align-items-center gap-2 w-100 text-center">
+        <p class="fs-1 fw-bold mb-0">{{ rating().toFixed(1) }}</p>
+        <app-rating [rating]="rating()"></app-rating>
+        <p class="fs-6 fw-medium mb-0 mute-text-clr">
+          {{ totalReviews() }} {{ 'REVIEWS.COUNT' | translate }}
+        </p>
+      </div>
+      <div class="rating-content d-flex flex-column justify-content-start align-items-start gap-3 w-100 mt-3">
+        @for (star of [5,4,3,2,1]; track star; let i = $index) {
+        <div class="rating-item d-flex justify-content-start align-items-center gap-3 w-100">
+          <app-rating [rating]="star" class="rating-stars"></app-rating>
+          <div class="range-bar-container flex-grow-1 position-relative">
+            <div class="range-bar-background"></div>
+            <div class="range-bar-filled" [style.width.%]="getRatingPercentage(i)"></div>
+          </div>
+          <p class="fs-6 fw-medium mb-0 mute-text-clr min-width-40 text-end">
+            {{ ratingDistribution()[i] }}
+          </p>
+        </div>
+        }
+      </div>
+      }
     </div>
 
-    <!-- Reviews Container -->
-    <div class="reviews-container">
-      <!-- Reviews Header -->
+    <div class="reviews-container w-100">
       <div class="reviews-header d-flex flex-column justify-content-center align-items-start gap-2 w-100 mb-4">
-        <h2 class="fs-5 fw-bold mb-0">Add your review</h2>
-        <p class="fs-6 fw-medium mb-0 mute-text-clr">Your email address will not be published. Required fields are
-          marked *</p>
+        <h2 class="fs-5 fw-bold mb-0">
+          {{ 'REVIEWS.ADD_REVIEW' | translate }}
+        </h2>
+        <p class="fs-6 fw-medium mb-0 mute-text-clr text-justify">
+          {{ 'REVIEWS.EMAIL_DISCLAIMER' | translate }}
+        </p>
       </div>
-
-      <!-- Reviews Form -->
       <div class="reviews-form d-flex flex-column justify-content-start align-items-start gap-3 w-100 mt-2">
-        <form [formGroup]="reviewsForm" class="w-100 d-flex flex-column justify-content-start align-items-start gap-3">
-          <!-- Rating Input -->
-          <div class="form-group w-100 flex-row justify-content-start align-items-center gap-5">
-            <label class="fs-6 fw-semibold mb-2 d-flex justify-content-start align-items-start gap-2" for="rating">
-              <span class="">Your Rating</span>
+        <form [formGroup]="reviewsForm" (ngSubmit)="onSubmit()"
+          class="w-100 d-flex flex-column justify-content-start align-items-start gap-3">
+
+          <!-- Rating Field -->
+          <div
+            class="form-group w-100 d-flex flex-column flex-sm-row justify-content-start align-items-start align-items-sm-center gap-2 gap-sm-3">
+            <label class="fs-6 fw-semibold mb-0 d-flex justify-content-start align-items-center gap-2 min-width-120"
+              for="rating">
+              <span>{{ 'REVIEWS.YOUR_RATING' | translate }}</span>
               <span class="required-asterisk text-danger">*</span>
-              <p-rating formControlName="rating" [readonly]="false" [stars]="5" [iconOnStyle]="{'color':'#ffca19'}"
-                [iconOffStyle]="{'color':'#ffca19'}">
-              </p-rating>
             </label>
+            <div class="flex-grow-1">
+              <p-rating formControlName="rating" [readonly]="false" [stars]="5" [iconOnStyle]="{ color: '#ffca19' }"
+                [iconOffStyle]="{ color: '#e0e0e0' }"></p-rating>
+              @if (isFieldInvalid('rating')) {
+              <div class="invalid-feedback d-block mt-1">
+                {{ getFieldError('rating') }}
+              </div>
+              }
+            </div>
           </div>
-          <!-- Name Input -->
+
+          <!-- Name Field -->
           <div class="form-group w-100">
-            <label class="fs-6 fw-semibold mb-2" for="name">
-              <span class="">Name</span>
+            <label class="fs-6 fw-semibold mb-2 d-flex align-items-center gap-2" for="name">
+              <span>{{ 'REVIEWS.NAME' | translate }}</span>
               <span class="required-asterisk text-danger">*</span>
             </label>
-            <input class="form-control" type="text" id="name" formControlName="name" />
+            <input class="form-control" [class.is-invalid]="isFieldInvalid('name')" type="text" id="name"
+              formControlName="name" [placeholder]="'REVIEWS.NAME_PLACEHOLDER' | translate" />
+            @if (isFieldInvalid('name')) {
+            <div class="invalid-feedback">
+              {{ getFieldError('name') }}
+            </div>
+            }
           </div>
-          <!-- Email Input -->
+
+          <!-- Email Field -->
           <div class="form-group w-100">
-            <label class="fs-6 fw-semibold mb-2" for="email">
-              <span class="">Email</span>
+            <label class="fs-6 fw-semibold mb-2 d-flex align-items-center gap-2" for="email">
+              <span>{{ 'REVIEWS.EMAIL' | translate }}</span>
               <span class="required-asterisk text-danger">*</span>
             </label>
-            <input class="form-control" type="email" id="email" formControlName="email" />
+            <input class="form-control" [class.is-invalid]="isFieldInvalid('email')" type="email" id="email"
+              formControlName="email" [placeholder]="'REVIEWS.EMAIL_PLACEHOLDER' | translate" />
+            @if (isFieldInvalid('email')) {
+            <div class="invalid-feedback">
+              {{ getFieldError('email') }}
+            </div>
+            }
           </div>
-          <!-- Review Input -->
+
+          <!-- Comment Field -->
           <div class="form-group w-100">
-            <label class="fs-6 fw-semibold mb-2" for="review">
-              <span class="">Review</span>
+            <label class="fs-6 fw-semibold mb-2 d-flex align-items-center gap-2" for="comment">
+              <span>{{ 'REVIEWS.YOUR_REVIEW' | translate }}</span>
               <span class="required-asterisk text-danger">*</span>
             </label>
-            <textarea class="form-control" id="review" formControlName="review" rows="5"></textarea>
+            <textarea class="form-control" [class.is-invalid]="isFieldInvalid('comment')" id="comment"
+              formControlName="comment" rows="5" [placeholder]="'REVIEWS.REVIEW_PLACEHOLDER' | translate"></textarea>
+            @if (isFieldInvalid('comment')) {
+            <div class="invalid-feedback">
+              {{ getFieldError('comment') }}
+            </div>
+            }
+            <small class="form-text text-muted mt-1">
+              {{ 'REVIEWS.CHARACTERS_REMAINING' | translate:{ remaining: getRemainingCharacters() } }}
+            </small>
           </div>
+
           <!-- Submit Button -->
           <div class="form-group w-100">
-            <button class="btn btn-primary primary-bg-clr white-text-clr px-5 py-2" type="submit">Submit</button>
+            <button class="btn btn-primary primary-bg-clr white-text-clr px-4 px-md-5 py-2 w-100 w-sm-auto"
+              type="submit" [disabled]="reviewsForm.invalid || isSubmitting() || isLoading()">
+              @if (isSubmitting()) {
+              <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+              }
+              {{ 'REVIEWS.SUBMIT' | translate }}
+            </button>
           </div>
         </form>
       </div>
     </div>
+  </div>
 
+  <div class="reviews-list-container p-3 p-md-5 pt-0">
+    <div
+      class="list-header d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4">
+      <h2 class="fs-5 fw-bold mb-0">
+        {{ 'REVIEWS.REVIEWS_LIST' | translate }}
+      </h2>
+      <div class="sort-by d-flex align-items-center gap-2">
+        <label for="reviews-sort-select" class="fs-6 fw-medium mute-text-clr mb-0 nowrap">
+          {{ 'REVIEWS.SORT_BY' | translate }}:
+        </label>
+        <select id="reviews-sort-select" class="form-select form-select-sm" (change)="onSortChange($event)"
+          style="min-width: 140px">
+          <option value="Newest">
+            {{ 'REVIEWS.NEWEST' | translate }}
+          </option>
+          <option value="Oldest">
+            {{ 'REVIEWS.OLDEST' | translate }}
+          </option>
+          <option value="HighestRating">
+            {{ 'REVIEWS.HIGHEST_RATING' | translate }}
+          </option>
+          <option value="LowestRating">
+            {{ 'REVIEWS.LOWEST_RATING' | translate }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    @if (pagination(); as pg) {
+    <p class="fs-6 fw-medium mb-4 mute-text-clr">
+      {{ 'REVIEWS.SHOWING_RESULTS' | translate: {
+      start: ((pg.pageNumber - 1) * pg.items.length) + 1,
+      end: ((pg.pageNumber - 1) * pg.items.length) + reviewsList().length,
+      total: pg.totalCount
+      } }}
+    </p>
+    }
+
+    @if (isLoading() && reviewsList().length === 0) {
+    <div class="list-content row g-3 g-md-4">
+      @for (item of [1,2]; track item) {
+      <div class="col-12 col-lg-6">
+        <div class="review-card border rounded p-3 p-md-4 h-100">
+          <div
+            class="card-header bg-white border-0 p-0 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-3">
+            <div class="skeleton-loader skeleton-text" style="width: 120px; height: 1.2rem; border-radius: 8px"></div>
+            <div class="skeleton-loader skeleton-text" style="width: 100px; height: 1rem; border-radius: 8px"></div>
+          </div>
+          <div class="skeleton-loader skeleton-text"
+            style="width: 120px; height: 1.2rem; border-radius: 8px; margin-top: 8px"></div>
+          <div class="skeleton-loader" style="width: 100%; height: 3rem; border-radius: 8px; margin-top: 8px"></div>
+        </div>
+      </div>
+      }
+    </div>
+    } @else if (reviewsList().length > 0) {
+    <div class="list-content row g-3 g-md-4">
+      @for (review of reviewsList(); track review.id) {
+      <div class="col-12 col-lg-6">
+        <div class="review-card border rounded p-3 p-md-4 h-100">
+          <div
+            class="card-header bg-white border-0 p-0 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-3">
+            <span class="fw-bold fs-6">{{ review.authorName }}</span>
+            <span class="fs-6 mute-text-clr text-nowrap">{{
+              review.createdAt | date:'medium'
+              }}</span>
+          </div>
+          <div class="rating-container mb-2">
+            <app-rating [rating]="review.rating"></app-rating>
+          </div>
+          <p class="fs-6 mute-text-clr mb-0 line-clamp-3">
+            {{ review.comment }}
+          </p>
+        </div>
+      </div>
+      }
+    </div>
+    } @else if (!isLoading()) {
+    <div class="text-center p-4 border rounded bg-light">
+      <p class="fs-5 fw-medium mb-0">
+        {{ 'REVIEWS.NO_REVIEWS_YET' | translate }}
+      </p>
+      <p class="mute-text-clr mb-0">
+        {{ 'REVIEWS.BE_THE_FIRST' | translate }}
+      </p>
+    </div>
+    }
+
+    @if (pagination().hasNextPage) {
+    <div class="text-center mt-5 pt-3">
+      <button class="btn btn-primary primary-bg-clr white-text-clr px-4 px-md-5 py-2" (click)="onViewMore()"
+        [disabled]="isLoading()">
+        @if (isLoading()) {
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        } @else {
+        <span>{{ 'REVIEWS.VIEW_MORE' | translate }}</span>
+        }
+      </button>
+    </div>
+    }
   </div>
 </div>

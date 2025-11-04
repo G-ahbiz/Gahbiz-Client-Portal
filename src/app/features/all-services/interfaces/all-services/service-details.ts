@@ -1,4 +1,4 @@
-import { ApiImage } from "./api-image";
+import { ApiImage } from "../../../../core/interfaces/api-image";
 
 export interface ServiceDetails {
   id: string;

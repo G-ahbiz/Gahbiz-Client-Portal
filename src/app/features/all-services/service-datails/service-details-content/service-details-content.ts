@@ -1,166 +1,516 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { Breadcrumb } from 'primeng/breadcrumb';
-import { GalleriaModule } from 'primeng/galleria';
 import { FormsModule } from '@angular/forms';
 import { Rating } from '@shared/components/rating/rating';
-import { AllServicesComponentService, serviceDatailsInfo } from '@shared/services/all-services-component';
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize } from 'rxjs';
+import { CustomGalleryComponent } from '@shared/components/custom-gallery/custom-gallery.component';
+import { ServicesDetailsFacadeService } from '../../services/services-details/services-details-facade.service';
+import { ServicesDetailsResponse } from '@features/all-services/interfaces/services-details/services-details-response';
+import { CurrencyService } from '@shared/services/currency.service';
+
+interface BreadcrumbItem {
+  label: string;
+  isActive?: boolean;
+  command?: () => void;
+}
 
 @Component({
   selector: 'app-service-details-content',
-  imports: [TranslateModule, Breadcrumb, GalleriaModule, FormsModule, Rating],
+  standalone: true,
+  imports: [TranslateModule, CustomGalleryComponent, FormsModule, Rating, RouterLink, CommonModule],
   templateUrl: './service-details-content.html',
-  styleUrl: './service-details-content.scss'
+  styleUrl: './service-details-content.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServiceDetailsContent implements OnInit {
+  private readonly DEFAULT_LANGUAGE = 'en';
+  public readonly MIN_SERVICE_COUNTER = 1;
+  private readonly DESCRIPTION_TRUNCATION_LENGTH = 200;
+  private readonly SCROLL_DELAY_MS = 300;
 
-  // Language
-  isArabic: boolean = false;
-  isEnglish: boolean = false;
-  isSpanish: boolean = false;
+  // Dependency Injection
+  private readonly translateService = inject(TranslateService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly servicesDetailsFacade = inject(ServicesDetailsFacadeService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly currencyService = inject(CurrencyService);
 
-  // breadcrumb
-  items: MenuItem[] = [{ label: 'Home', routerLink: '/home' }];
-  home: MenuItem | undefined;
+  // State Management
+  readonly isLoading = signal<boolean>(true);
+  readonly serviceDetail = signal<ServicesDetailsResponse | null>(null);
+  readonly error = signal<string | null>(null);
+  readonly currentLang = signal<string>(this.DEFAULT_LANGUAGE);
 
-  // service details
-  serviceDetails: serviceDatailsInfo[] = [];
+  // UI State
+  readonly breadcrumbItems = signal<BreadcrumbItem[]>([]);
+  readonly home = signal<MenuItem | undefined>(undefined);
+  readonly serviceCounter = signal<number>(this.MIN_SERVICE_COUNTER);
 
-  // service counter
-  serviceCounter: number = 1;
+  // Computed Properties
+  readonly imageUrls = computed(() => {
+    const service = this.serviceDetail();
+    return service?.images?.map((img) => img.path) ?? [];
+  });
 
-  // service details images
-  images: any[] = [
-    {
-      itemImageSrc: 'assets/images/all-services/ServiceDetails/1.jpg',
-      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/1.jpg',
-    },
-    {
-      itemImageSrc: 'assets/images/all-services/ServiceDetails/2.jpg',
-      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/2.jpg',
-    },
-    {
-      itemImageSrc: 'assets/images/all-services/ServiceDetails/3.jpg',
-      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/3.jpg',
-    },
-    {
-      itemImageSrc: 'assets/images/all-services/ServiceDetails/4.jpg',
-      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/4.jpg',
-    },
-    {
-      itemImageSrc: 'assets/images/all-services/ServiceDetails/5.jpg',
-      thumbnailImageSrc: 'assets/images/all-services/ServiceDetails/5.jpg',
-    }
-  ];
-  carouselPostition: any = 'bottom';
+  readonly currencyInfo = computed(() => {
+    const service = this.serviceDetail();
+    const currencyCode = service?.currency ?? 'USD';
+    return this.currencyService.getCurrencyInfo(currencyCode);
+  });
 
-  position: 'left' | 'right' | 'top' | 'bottom' = this.carouselPostition = 'bottom';
+  readonly isDescriptionLong = computed(() => {
+    const service = this.serviceDetail();
+    return (service?.description?.length ?? 0) > this.DESCRIPTION_TRUNCATION_LENGTH;
+  });
 
-  positionOptions = [
-    {
-      label: 'Bottom',
-      value: 'bottom'
-    },
-    {
-      label: 'Top',
-      value: 'top'
-    },
-    {
-      label: 'Left',
-      value: 'left'
-    },
-    {
-      label: 'Right',
-      value: 'right'
-    }
-  ];
+  readonly currencySymbol = computed(() => this.currencyInfo().symbol);
+  readonly hasDiscount = computed(() => {
+    const service = this.serviceDetail();
+    return !!(service?.priceBefore && service.priceBefore > service.price);
+  });
 
-  responsiveOptions: any[] = [
-    {
-      breakpoint: '1300px',
-      numVisible: 4,
-    },
-    {
-      breakpoint: '575px',
-      numVisible: 1,
-    },
-  ];
+  readonly discountPercentage = computed(() => {
+    const service = this.serviceDetail();
+    if (!this.hasDiscount() || !service?.priceBefore) return 0;
+    return Math.round(((service.priceBefore - service.price) / service.priceBefore) * 100);
+  });
 
-  constructor(private translateService: TranslateService, private allServicesService: AllServicesComponentService) { }
-
-  ngOnInit() {
-    this.initializeTranslation();
-
-    // service details
-    this.getServiceDetails();
-
-    // breadcrumb Home Icon
-    this.home = { icon: 'pi pi-home', routerLink: '/home' };
-
-    // update breadcrumb
-    this.updateBreadcrumb();
+  constructor() {
+    this.setupLanguageSubscription();
   }
 
-  // Initialize translation
-  private initializeTranslation() {
-    // Set default language if not already set
-    if (!localStorage.getItem('servabest-language')) {
-      localStorage.setItem('servabest-language', 'en');
-    }
+  ngOnInit(): void {
+    this.initializeComponent();
+  }
 
-    // Get saved language and set it
-    const savedLang = localStorage.getItem('servabest-language') || 'en';
-    this.translateService.setDefaultLang('en');
-    this.translateService.use(savedLang);
-    if (savedLang === 'en' || savedLang === 'sp') {
-      document.documentElement.style.direction = 'ltr';
-    } else if (savedLang === 'ar') {
-      document.documentElement.style.direction = 'rtl';
-    }
+  /**
+   * Initialize component
+   */
+  private initializeComponent(): void {
+    this.initializeTranslation();
+    this.initializeHomeBreadcrumb();
 
-    // Set initial language state
-    this.isArabic = savedLang === 'ar';
-    this.isEnglish = savedLang === 'en';
-    this.isSpanish = savedLang === 'sp';
-    // Subscribe to language changes
-    this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.isArabic = event.lang === 'ar';
-      this.isEnglish = event.lang === 'en';
-      this.isSpanish = event.lang === 'sp';
+    this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
+      this.isLoading.set(true);
+      this.error.set(null);
+
+      const serviceId = params.get('id');
+
+      if (!this.isValidServiceId(serviceId)) {
+        this.handleInvalidServiceId();
+      } else {
+        this.fetchServiceDetails(serviceId);
+      }
     });
   }
 
-  // update breadcrumb
-  updateBreadcrumb() {
-    this.items = [{ label: 'Our Services', routerLink: '/all-services' }];
-    const activeServiceList = this.allServicesService.getActiveServiceList();
-    const activeService = this.allServicesService.getActiveService();
-    if (activeServiceList != 1) {
-      let activeServiceTitle = this.isArabic ? this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceAr : this.isEnglish ? this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceEn : this.allServicesService.servicesListTitles?.find(service => service.id === activeServiceList)?.serviceSp;
-      this.items?.push({ label: activeServiceTitle, routerLink: '' });
-      this.items?.push({ label: this.isArabic ? this.serviceDetails[0].nameAr : this.isEnglish ? this.serviceDetails[0].nameEn : this.serviceDetails[0].nameSp, routerLink: '' });
+  /**
+   * Set up language change subscription
+   */
+  private setupLanguageSubscription(): void {
+    this.translateService.onLangChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (event: LangChangeEvent) => {
+        this.currentLang.set(event.lang);
+        this.updateBreadcrumb();
+      },
+      error: (error) => {
+        console.error('Language change subscription error:', error);
+      },
+    });
+  }
+
+  /**
+   * Initialize translation settings
+   */
+  private initializeTranslation(): void {
+    try {
+      const savedLang = localStorage.getItem('servabest-language') ?? this.DEFAULT_LANGUAGE;
+      this.translateService.setDefaultLang(this.DEFAULT_LANGUAGE);
+      this.translateService.use(savedLang);
+
+      this.setDocumentDirection(savedLang);
+      this.currentLang.set(savedLang);
+    } catch (error) {
+      console.error('Translation initialization failed:', error);
+      this.fallbackToDefaultLanguage();
     }
   }
 
-  // get service details
-  getServiceDetails() {
-    this.serviceDetails = this.allServicesService.seviceDetails;
+  /**
+   * Set document direction based on language
+   */
+  private setDocumentDirection(language: string): void {
+    const isRTL = language === 'ar';
+    document.documentElement.style.direction = isRTL ? 'rtl' : 'ltr';
+    document.documentElement.lang = language;
   }
 
-  // increment service counter
-  incrementServiceCounter() {
-    if (this.serviceCounter >= 1) {
-      this.serviceCounter++;
+  /**
+   * Fallback to default language on error
+   */
+  private fallbackToDefaultLanguage(): void {
+    this.translateService.use(this.DEFAULT_LANGUAGE);
+    this.currentLang.set(this.DEFAULT_LANGUAGE);
+    document.documentElement.style.direction = 'ltr';
+  }
+
+  /**
+   * Initialize home breadcrumb
+   */
+  private initializeHomeBreadcrumb(): void {
+    this.home.set({
+      icon: 'pi pi-home',
+      command: () => this.router.navigate(['/home']), // Use command for navigation
+    });
+  }
+
+  /**
+   * Load service details from API
+   */
+  public loadServiceDetails(): void {
+    this.isLoading.set(true);
+    this.error.set(null);
+
+    const serviceId = this.getServiceIdFromRoute();
+
+    if (!this.isValidServiceId(serviceId)) {
+      this.handleInvalidServiceId();
+      return;
+    }
+
+    this.fetchServiceDetails(serviceId);
+  }
+
+  /**
+   * Get service ID from route parameters
+   */
+  private getServiceIdFromRoute(): string | null {
+    return this.route.snapshot.paramMap.get('id');
+  }
+
+  /**
+   * Validate service ID
+   */
+  private isValidServiceId(serviceId: string | null): serviceId is string {
+    return !!serviceId && serviceId.length > 0 && serviceId !== 'null' && serviceId !== 'undefined';
+  }
+
+  /**
+   * Handle invalid service ID
+   */
+  private handleInvalidServiceId(): void {
+    // TRANSLATED
+    const errorMessage = this.translateService.instant('SERVICE_DETAILS.ERRORS.INVALID_SERVICE_ID');
+    this.error.set(errorMessage);
+    this.isLoading.set(false);
+    this.cdr.markForCheck();
+  }
+
+  /**
+   * Fetch service details from API
+   */
+  private fetchServiceDetails(serviceId: string): void {
+    this.servicesDetailsFacade
+      .getServiceDetails(serviceId)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => {
+          this.isLoading.set(false);
+          this.cdr.markForCheck();
+        })
+      )
+      .subscribe({
+        next: (data) => this.handleServiceDetailsSuccess(data),
+        error: (error) => this.handleServiceDetailsError(error),
+      });
+  }
+
+  /**
+   * Handle successful service details response
+   */
+  private handleServiceDetailsSuccess(data: ServicesDetailsResponse): void {
+    if (!data) {
+      this.handleEmptyResponse();
+      return;
+    }
+
+    this.serviceDetail.set(data);
+    this.updateBreadcrumb();
+    this.cdr.markForCheck();
+
+    window.scrollTo(0, 0);
+  }
+
+  /**
+   * Handle empty API response
+   */
+  private handleEmptyResponse(): void {
+    // TRANSLATED
+    const errorMessage = this.translateService.instant('SERVICE_DETAILS.ERRORS.NO_SERVICE_DATA');
+    this.error.set(errorMessage);
+    console.warn('Empty service data received from API');
+  }
+
+  /**
+   * Handle service details error
+   */
+  private handleServiceDetailsError(error: any): void {
+    const userMessage = this.getUserFriendlyErrorMessage(error);
+    this.error.set(userMessage);
+    console.error('Service details fetch error:', error);
+  }
+
+  /**
+   * Get user-friendly error message
+   */
+  private getUserFriendlyErrorMessage(error: any): string {
+    // ALL TRANSLATED
+    if (error.status === 0) {
+      return this.translateService.instant('SERVICE_DETAILS.ERRORS.NETWORK_ERROR');
+    } else if (error.status === 404) {
+      return this.translateService.instant('SERVICE_DETAILS.ERRORS.SERVICE_NOT_FOUND');
+    } else if (error.status >= 500) {
+      return this.translateService.instant('SERVICE_DETAILS.ERRORS.SERVER_ERROR');
+    } else {
+      return this.translateService.instant('SERVICE_DETAILS.ERRORS.GENERIC_ERROR');
     }
   }
 
-  // decrement service counter
-  decrementServiceCounter() {
-    if (this.serviceCounter > 1) {
-      this.serviceCounter--;
-    } else if (this.serviceCounter === 0) {
-      this.serviceCounter = 1;
+  /**
+   * Update breadcrumb navigation
+   */
+  private updateBreadcrumb(): void {
+    const service = this.serviceDetail();
+    if (!service) return;
+
+    const breadcrumbItems: BreadcrumbItem[] = this.buildBreadcrumbItems(service);
+    this.breadcrumbItems.set(breadcrumbItems);
+  }
+
+  /**
+   * Build breadcrumb items array
+   */
+  private buildBreadcrumbItems(service: ServicesDetailsResponse): BreadcrumbItem[] {
+    const items: BreadcrumbItem[] = [
+      this.createServicesBreadcrumbItem(),
+      ...this.createCategoryBreadcrumbItems(service),
+      this.createServiceBreadcrumbItem(service),
+    ];
+
+    return items;
+  }
+
+  /**
+   * Create services breadcrumb item
+   */
+  private createServicesBreadcrumbItem(): BreadcrumbItem {
+    // Using BREADCRUMB.SERVICES key
+    const label = this.translateService.instant('BREADCRUMB.SERVICES') || 'Our Services';
+    return {
+      label,
+      isActive: false,
+      command: () => this.navigateToAllServices(),
+    };
+  }
+
+  /**
+   * Create category breadcrumb items
+   */
+  private createCategoryBreadcrumbItems(service: ServicesDetailsResponse): BreadcrumbItem[] {
+    const items: BreadcrumbItem[] = [];
+
+    if (service.categoryName && service.categoryId) {
+      items.push({
+        label: service.categoryName, // This comes from the API, so it's assumed to be in the correct language
+        isActive: false,
+        command: () => this.navigateToCategory(service.categoryId),
+      });
     }
+
+    return items;
+  }
+
+  /**
+   * Create service breadcrumb item
+   */
+  private createServiceBreadcrumbItem(service: ServicesDetailsResponse): BreadcrumbItem {
+    return {
+      label: service.name, // This also comes from the API
+      isActive: true,
+    };
+  }
+
+  /**
+   * Navigate to all services page
+   */
+  private navigateToAllServices(): void {
+    this.router.navigate(['/all-services']);
+  }
+
+  /**
+   * Navigate to category page
+   */
+  private navigateToCategory(categoryId: string): void {
+    this.router.navigate(['/all-services'], {
+      queryParams: { categoryId },
+    });
+  }
+
+  // Public Methods
+
+  /**
+   * Format price with currency symbol
+   */
+  formatPrice(price: number | undefined): string {
+    if (price === undefined || price === null) {
+      // TRANSLATED
+      return this.translateService.instant('COMMON.NOT_AVAILABLE');
+    }
+
+    const symbol = this.currencySymbol();
+    return `${symbol}${price.toLocaleString()}`;
+  }
+
+  /**
+   * Navigate to description tab
+   */
+  navigateToDescriptionTab(): void {
+    try {
+      // Method 1: Using URL fragment
+      this.router
+        .navigate([], {
+          fragment: 'description',
+          relativeTo: this.route,
+        })
+        .then(() => {
+          this.scrollToTabsSection();
+        })
+        .catch((error) => {
+          console.error('Navigation to description tab failed:', error);
+          this.fallbackToDescriptionTab();
+        });
+    } catch (error) {
+      console.error('Error navigating to description tab:', error);
+      this.fallbackToDescriptionTab();
+    }
+  }
+
+  /**
+   * Scroll to tabs section
+   */
+  private scrollToTabsSection(): void {
+    setTimeout(() => {
+      const tabsSection = document.querySelector('.service-details-tabs-container');
+      if (tabsSection) {
+        tabsSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      }
+    }, this.SCROLL_DELAY_MS);
+  }
+
+  /**
+   * Fallback method for description tab navigation
+   */
+  private fallbackToDescriptionTab(): void {
+    const descriptionTab = document.querySelector('[data-tab="description"]') as HTMLElement;
+    if (descriptionTab) {
+      descriptionTab.click();
+      this.scrollToTabsSection();
+    }
+  }
+
+  /**
+   * Increment service counter
+   */
+  incrementServiceCounter(): void {
+    this.serviceCounter.update((current) => current + 1);
+  }
+
+  /**
+   * Decrement service counter
+   */
+  decrementServiceCounter(): void {
+    this.serviceCounter.update((current) =>
+      current > this.MIN_SERVICE_COUNTER ? current - 1 : this.MIN_SERVICE_COUNTER
+    );
+  }
+
+  /**
+   * Add to cart functionality
+   */
+  addToCart(): void {
+    const service = this.serviceDetail();
+    if (service) {
+      console.log('Add to cart:', {
+        serviceId: service.id,
+        serviceName: service.name,
+        quantity: this.serviceCounter(),
+        price: service.price,
+      });
+      // TODO: Implement cart service integration
+    }
+  }
+
+  /**
+   * Buy now functionality
+   */
+  buyNow(): void {
+    const service = this.serviceDetail();
+    if (service) {
+      console.log('Buy now:', service.id);
+      // TODO: Implement checkout flow
+    }
+  }
+
+  /**
+   * TrackBy function for breadcrumb items
+   */
+  trackByBreadcrumbItem(index: number, item: BreadcrumbItem): string {
+    return `${item.label}-${index}`;
+  }
+
+  /**
+   * Get delivery time display text
+   */
+  getDeliveryTimeDisplay(service: ServicesDetailsResponse): string {
+    const time = service.deliveryTime || 30;
+    const rate = (service.deliveryTimeRate || 'min').toLowerCase();
+
+    // TRANSLATED
+    let rateKey = 'SERVICE_DETAILS.TIME_UNITS.MINUTES'; // Default
+    if (rate.startsWith('hour')) {
+      rateKey = 'SERVICE_DETAILS.TIME_UNITS.HOURS';
+    } else if (rate.startsWith('day')) {
+      rateKey = 'SERVICE_DETAILS.TIME_UNITS.DAYS';
+    }
+
+    const rateTranslated = this.translateService.instant(rateKey);
+    return `${time} ${rateTranslated}`;
+  }
+
+  /**
+   * Get delivery rate display text
+   */
+  getDeliveryRateDisplay(): string {
+    // TRANSLATED
+    return this.translateService.instant('SERVICE_DETAILS.FREE_DELIVERY');
   }
 }

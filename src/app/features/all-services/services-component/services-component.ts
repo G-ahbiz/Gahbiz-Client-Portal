@@ -13,9 +13,10 @@ import { Rating } from '@shared/components/rating/rating';
 import { PaginatorModule } from 'primeng/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, NgClass } from '@angular/common';
-import { PaginatedServices } from '../interfaces/paginated-services';
-import { ServiceDetails } from '../interfaces/service-details';
+import { PaginatedServices } from '../interfaces/all-services/paginated-services';
+import { ServiceDetails } from '../interfaces/all-services/service-details';
 import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-services-component',
@@ -26,6 +27,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class ServicesComponent implements OnDestroy {
   private translateService = inject(TranslateService);
+  private router = inject(Router);
   private destroy$ = new Subject<void>();
 
   // Language state
@@ -114,6 +116,23 @@ export class ServicesComponent implements OnDestroy {
       return direction === 'left' ? 'pi-chevron-right' : 'pi-chevron-left';
     }
     return direction === 'left' ? 'pi-chevron-left' : 'pi-chevron-right';
+  }
+
+  navigateToServiceDetails(serviceId: string): void {
+    this.router.navigate(['/service-details', serviceId]);
+  }
+
+  onBuyNow(service: ServiceDetails, event: Event): void {
+    event.stopPropagation(); // Prevent card click when button is clicked
+    // Add buy now logic here, or navigate directly
+    console.log('Buy now:', service.id);
+    // this.router.navigate(['/checkout'], { queryParams: { serviceId: service.id } });
+  }
+
+  onAddToCart(service: ServiceDetails, event: Event): void {
+    event.stopPropagation(); // Prevent card click when button is clicked
+    // Add to cart logic here
+    console.log('Add to cart:', service.id);
   }
 
   ngOnDestroy() {

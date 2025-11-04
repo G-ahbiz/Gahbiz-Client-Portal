@@ -66,7 +66,33 @@
     "AND": "و",
     "ALREADY_HAVE_ACCOUNT": "هل لديك حساب بالفعل؟",
     "SUCCESS": "نجاح",
-    "ERROR": "خطأ"
+    "ERROR": "خطأ",
+    "LOADING": "جارٍ التحميل...",
+    "SAVING": "جارٍ الحفظ...",
+    "SUBMITTING": "جارٍ الإرسال...",
+    "YES": "نعم",
+    "NO": "لا",
+    "CANCEL": "إلغاء",
+    "CONFIRM": "تأكيد",
+    "DELETE": "حذف",
+    "EDIT": "تعديل",
+    "UPDATE": "تحديث",
+    "SAVE": "وفر",
+    "CLOSE": "إغلاق",
+    "BACK": "رجوع",
+    "NEXT": "التالي",
+    "PREVIOUS": "السابق",
+    "SEARCH": "بحث",
+    "FILTER": "تصفية",
+    "SORT": "ترتيب",
+    "VIEW": "عرض",
+    "ADD": "إضافة",
+    "REMOVE": "إزالة",
+    "CREATED": "تم الإنشاء",
+    "UPDATED": "تم التحديث",
+    "DELETED": "تم الحذف",
+    "TRY_AGAIN": "حاول مرة أخرى",
+    "READ_MORE": "اقرأ المزيد"
   },
   "NEW_PASSWORD": {
     "ERRORS": {
@@ -165,8 +191,8 @@
   "navbar": {
     "home": "الرئيسية",
     "about": "عن الشركة",
-    "services": "الخدمات",
     "faq": "الأسئلة الشائعة",
+    "services": "الخدمات",
     "contact": "اتصل بنا",
     "login": "تسجيل الدخول",
     "profile": "الملف الشخصي",
@@ -383,9 +409,6 @@
       "pa": "بنسلفانيا"
     }
   },
-  "related-services": {
-    "title": "الخدمات المتعلقة"
-  },
   "appointment-service": {
     "title": "المواعيد",
     "form": {
@@ -444,5 +467,158 @@
     "step-3": "التأكيد",
     "payment-method": "طريقة الدفع",
     "title": "الدفع"
+  },
+  "REVIEWS": {
+    "COUNT": "التقييمات",
+    "ADD_REVIEW": "أضف تقييمك",
+    "EMAIL_DISCLAIMER": "لن يتم نشر عنوان بريدك الإلكتروني. الحقول المطلوبة محددة ب *",
+    "YOUR_RATING": "تقييمك",
+    "NAME": "الاسم",
+    "NAME_PLACEHOLDER": "أدخل اسمك",
+    "EMAIL": "البريد الإلكتروني",
+    "EMAIL_PLACEHOLDER": "أدخل بريدك الإلكتروني",
+    "YOUR_REVIEW": "تقييمك",
+    "REVIEW_PLACEHOLDER": "أدخل تقييمك",
+    "SUBMIT": "إرسال",
+    "REVIEWS_LIST": "قائمة التقييمات",
+    "SORT_BY": "ترتيب حسب",
+    "NEWEST": "الأحدث",
+    "OLDEST": "الأقدم",
+    "HIGHEST_RATING": "أعلى تقييم",
+    "LOWEST_RATING": "أقل تقييم",
+    "SHOWING_RESULTS": "عرض {{start}}-{{end}} من {{total}} نتيجة",
+    "VIEW_ALL": "عرض الكل",
+    "VIEW_MORE": "عرض المزيد",
+    "NO_REVIEWS_YET": "لا توجد تقييمات بعد",
+    "BE_THE_FIRST": "كن أول من يقيم هذه الخدمة",
+    "RATING_DISTRIBUTION": "توزيع التقييمات",
+    "AVERAGE_RATING": "متوسط التقييم",
+    "WRITE_REVIEW": "اكتب تقييمًا",
+    "CHARACTERS_REMAINING": "باقي {{remaining}} حرف",
+    "REVIEW_TOO_SHORT": "يجب أن يكون التقييم 10 أحرف على الأقل",
+    "RATING_REQUIRED": "التقييم مطلوب",
+    "SUBMIT_SUCCESS": "شكرًا لتقييمك!",
+    "SUBMIT_FAILED": "فشل في إرسال التقييم. يرجى المحاولة مرة أخرى.",
+    "ERROR_LOAD": "فشل في تحميل التقييمات.",
+    "ERROR_NETWORK": "خطأ في الشبكة. يرجى التحقق من اتصالك.",
+    "ERROR_CLIENT": "طلب غير صالح. يرجى المحاولة مرة أخرى.",
+    "ERROR_SERVER": "خطأ في الخادم. يرجى المحاولة لاحقًا.",
+    "INVALID_DATA": "بيانات التقييم غير صالحة. يرجى التحقق من المدخلات."
+  },
+  "REQUIREMENTS": {
+    "TITLE": "المستندات المطلوبة",
+    "LOADING_TEXT": "جارٍ تحميل المستندات المطلوبة...",
+    "DOCUMENT_COUNT": "{{count}} مستندات مطلوبة لهذه الخدمة",
+    "ERRORS": {
+      "NO_SERVICE_ID": "معرف الخدمة غير متوفر. يرجى المحاولة لاحقًا.",
+      "LOAD_FAILED": "فشل في تحميل المستندات المطلوبة. يرجى المحاولة مرة أخرى.",
+      "LOAD_SERVICE_FAILED": "غير قادر على تحميل الخدمة"
+    },
+    "DEFAULT_DESCRIPTIONS": {
+      "W-2_FORM": "نموذج ضريبي من صاحب العمل...",
+      "BANK_STATEMENT": "كشوف الحسابات الحديثة من البنك...",
+      "PAY_STUBS": "كشوف الراتب الحديثة من صاحب العمل...",
+      "INCOME_PROOF": "أي مستند إضافي يوضح الدخل...",
+      "GENERIC": "المستند المطلوب: {{fileName}}. يرجى رفع هذا الملف لإكمال تقديم الخدمة."
+    }
+  },
+  "related-services": {
+    "title": "الخدمات المتعلقة"
+  },
+  "SERVICE_DETAILS": {
+    "DESCRIPTION": "الوصف",
+    "FEATURES": "الميزات",
+    "REVIEWS": "التقييمات",
+    "HOW_IT_WORKS": "كيفية العمل",
+    "REQUIREMENTS": "المتطلبات",
+    "RELATED_SERVICES": "الخدمات المتعلقة",
+    "ADD_TO_CART": "أضف إلى السلة",
+    "BUY_NOW": "اشترِ الآن",
+    "QUANTITY": "الكمية",
+    "DELIVERY": "التوصيل",
+    "DELIVERY_TIME": "وقت التوصيل",
+    "DELIVERY_RATE": "معدل التوصيل",
+    "FREE_DELIVERY": "توصيل مجاني",
+    "MINUTES": "دقائق",
+    "HOURS": "ساعات",
+    "DAYS": "أيام",
+    "READ_MORE": "اقرأ المزيد",
+    "SHOW_LESS": "عرض أقل",
+    "OUT_OF_STOCK": "غير متوفر",
+    "IN_STOCK": "متوفر",
+    "DISCOUNT": "خصم",
+    "YOU_SAVE": "وفرت",
+    "ORIGINAL_PRICE": "السعر الأصلي",
+    "PRICE": "السعر",
+    "CURRENCY": "العملة",
+    "LOAD_SUCCESS": "تم تحميل تفاصيل الخدمة بنجاح.",
+    "FREE": "مجاني",
+    "LOADING_DESCRIPTION": "جارٍ تحميل الوصف...",
+    "ERRORS": {
+      "INVALID_SERVICE_ID": "معرف الخدمة غير موجود أو غير صالح.",
+      "ROUTE_PARAMS": "فشل في تحميل معلمات الخدمة.",
+      "NETWORK_ERROR": "خطأ في الشبكة - يرجى التحقق من اتصالك.",
+      "SERVICE_NOT_FOUND": "الخدمة غير موجودة.",
+      "ACCESS_DENIED": "غير مسموح بالوصول إلى هذه الخدمة.",
+      "SERVER_ERROR": "خطأ في الخادم - يرجى المحاولة لاحقًا.",
+      "GENERIC_ERROR": "فشل في تحميل تفاصيل الخدمة. يرجى المحاولة مرة أخرى.",
+      "NO_SERVICE_DATA": "لم يتم العثور على بيانات الخدمة.",
+      "RETRYING_ATTEMPT": "محاولة {{attempt}} من {{maxAttempts}}"
+    }
+  },
+  "BREADCRUMB": {
+    "HOME": "الرئيسية",
+    "SERVICES": "الخدمات",
+    "SERVICE_DETAILS": "تفاصيل الخدمة",
+    "CART": "سلة التسوق",
+    "CHECKOUT": "الدفع",
+    "PROFILE": "الملف الشخصي"
+  },
+  "NOTIFICATIONS": {
+    "SUCCESS": "نجاح",
+    "ERROR": "خطأ",
+    "WARNING": "تحذير",
+    "INFO": "معلومات",
+    "ADDED_TO_CART": "تمت إضافة العنصر إلى السلة بنجاح",
+    "REMOVED_FROM_CART": "تمت إزالة العنصر من السلة",
+    "PROFILE_UPDATED": "تم تحديث الملف الشخصي بنجاح",
+    "ORDER_PLACED": "تم تقديم الطلب بنجاح",
+    "REVIEW_ADDED": "تمت إضافة التقييم بنجاح",
+    "NETWORK_ERROR": "حدث خطأ في الشبكة",
+    "SERVER_ERROR": "حدث خطأ في الخادم",
+    "UNAUTHORIZED": "يرجى تسجيل الدخول للمتابعة"
+  },
+  "VALIDATION": {
+    "REQUIRED": "هذا الحقل مطلوب",
+    "EMAIL": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+    "MIN_LENGTH": "يجب أن يكون على الأقل {{requiredLength}} حرفًا",
+    "MAX_LENGTH": "لا يمكن أن يتجاوز {{requiredLength}} حرفًا",
+    "WHITESPACE": "لا يمكن أن يحتوي على مسافات فقط",
+    "RATING": "يرجى اختيار تقييم بين 1 و 5 نجوم",
+    "INVALID": "قيمة غير صالحة"
+  },
+  "PAGINATION": {
+    "ITEMS_PER_PAGE": "عناصر في الصفحة",
+    "FIRST_PAGE": "الصفحة الأولى",
+    "LAST_PAGE": "الصفحة الأخيرة",
+    "NEXT_PAGE": "الصفحة التالية",
+    "PREVIOUS_PAGE": "الصفحة السابقة",
+    "OF": "من",
+    "RESULTS": "نتيجة"
+  },
+  "FILTERS": {
+    "CATEGORY": "الفئة",
+    "PRICE_RANGE": "نطاق السعر",
+    "RATING": "التقييم",
+    "LOCATION": "الموقع",
+    "AVAILABILITY": "التوفر",
+    "SORT_BY": "ترتيب حسب",
+    "APPLY_FILTERS": "تطبيق الفلاتر",
+    "CLEAR_FILTERS": "مسح الفلاتر",
+    "ALL_CATEGORIES": "جميع الفئات",
+    "MIN_PRICE": "أقل سعر",
+    "MAX_PRICE": "أعلى سعر",
+    "IN_STOCK": "متوفر",
+    "OUT_OF_STOCK": "غير متوفر"
   }
 }
