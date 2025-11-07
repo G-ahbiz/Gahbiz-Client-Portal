@@ -10,7 +10,7 @@
 
       <div
         class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-        (click)="copyPageUrl(offerId)">
+        (click)="copyPageUrl($event, offerId)">
 
         @if (copiedOfferId === offerId) {
         <i class="pi pi-check fs-4 copied-icon"></i>

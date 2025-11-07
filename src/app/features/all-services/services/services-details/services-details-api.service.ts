@@ -113,7 +113,16 @@ export class ServicesDetailsApiService {
       .pipe(
         timeout(this.API_TIMEOUT),
         map((r) => r.data),
-        catchError((error) => this.handleError(error, 'createReview'))
+        catchError((error: HttpErrorResponse) => {
+          console.error('Create review API error:', error);
+
+          const customError: any = new Error(error.message || 'Unknown error');
+          customError.status = error.status;
+          customError.originalError = error.error;
+          customError.httpError = error;
+
+          return throwError(() => customError);
+        })
       );
   }
 }

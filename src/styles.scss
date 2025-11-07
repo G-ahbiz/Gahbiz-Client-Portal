@@ -262,8 +262,3 @@ input[type='password']::-webkit-outer-spin-button {
     --space-md: 1.5rem;
   }
 }
-
-/* PrimeNG component visibility fixes */
-[class*='p-'] {
-  transform: translateZ(0); // Force hardware acceleration
-}

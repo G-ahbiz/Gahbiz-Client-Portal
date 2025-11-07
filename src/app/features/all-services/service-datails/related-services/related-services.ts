@@ -1,10 +1,11 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RelatedService } from '@features/all-services/interfaces/related-service';
 import { AllServicePageFacadeService } from '@features/all-services/services/all-service/all-service-page-facade.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Rating } from '@shared/components/rating/rating';
+import { ToastService } from '@shared/services/toast.service';
 import { BehaviorSubject, Observable, switchMap, of, map, catchError, startWith } from 'rxjs';
 
 // 1. Define an interface for your view state
@@ -29,6 +30,9 @@ export class RelatedServices implements OnChanges {
   // --- Injected Services ---
   private allServiceFacade = inject(AllServicePageFacadeService);
   private router = inject(Router);
+  private cd = inject(ChangeDetectorRef);
+  private translateService = inject(TranslateService);
+  private toastService = inject(ToastService);
 
   // --- State ---
   public copiedOfferId: string | null = null;
@@ -93,23 +97,36 @@ export class RelatedServices implements OnChanges {
     // TODO: Implement favorite logic
   }
 
-  copyPageUrl(event: MouseEvent, id: string): void {
+  copyPageUrl(event: MouseEvent, offerId: string): void {
     event.stopPropagation();
 
-    const url = `${window.location.origin}/all-services/${id}`;
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        this.copiedOfferId = id;
+    if (!offerId || this.copiedOfferId === offerId) return;
+
+    const baseUrl = window.location.origin;
+    const serviceUrl = `${baseUrl}/services/${offerId}`;
+
+    // Use the modern Clipboard API
+    navigator.clipboard.writeText(serviceUrl).then(
+      () => {
+        // Success
+        this.copiedOfferId = offerId;
+        this.cd.markForCheck();
+
+        const message = this.translateService.instant('best-offers.toasts.url-copied');
+        this.toastService.success(message || 'Service URL copied!');
+
         setTimeout(() => {
-          if (this.copiedOfferId === id) {
-            this.copiedOfferId = null;
-          }
+          this.copiedOfferId = null;
+          this.cd.markForCheck();
         }, 2000);
-      })
-      .catch((err) => {
-        console.error('Failed to copy URL:', err);
-      });
+      },
+      (err) => {
+        // Failure
+        console.error('Failed to copy URL: ', err);
+        const message = this.translateService.instant('best-offers.toasts.url-copy-failed');
+        this.toastService.error(message || 'Failed to copy URL.');
+      }
+    );
   }
 
   addToCart(event: MouseEvent, id: string): void {

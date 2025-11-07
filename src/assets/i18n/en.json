@@ -429,14 +429,26 @@
       "date-selection": "Date Selection",
       "date-selection-placeholder": "Select a date",
       "available-time": "Available Time",
+      "available-time-placeholder": "Select an available time",
       "duration": "Duration",
-      "duration-1": "Select appointment duration",
-      "duration-2": "Duration 2",
-      "duration-3": "Duration 3",
+      "duration-placeholder": "Select a duration",
+      "duration-30": "30 minutes",
+      "choose-date": "Choose Date",
+      "fees-amount": "$10",
       "fees": "Fees",
-      "available-time-1": "Available Time 1",
-      "duration-fees-1": "Duration & Fees 1",
-      "book-now-btn": "Book Appointment"
+      "book-now-btn": "Book Appointment",
+      "no-available-times": "No available times",
+      "no-slots-available": "No available slots for selected date"
+    },
+    "calendar": {
+      "not-available": "Not Available",
+      "available": "Available", 
+      "selected": "Selected"
+    },
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email",
+      "phone": "Please enter a valid phone number"
     }
   },
   "cart": {
@@ -505,6 +517,7 @@
     "ERROR_NETWORK": "Network error. Please check your connection.",
     "ERROR_CLIENT": "Invalid request. Please try again.",
     "ERROR_SERVER": "Server error. Please try again later.",
+    "ALREADY_REVIEWED": "You have already submitted a review for this service. Thank you for your feedback!",
     "INVALID_DATA": "Invalid review data. Please check your inputs."
   },
   "REQUIREMENTS": {

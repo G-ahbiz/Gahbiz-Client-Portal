@@ -25,6 +25,13 @@ export const environment = {
     CompleteProfile: '/Account/Profile',
     externalLogin: '/Account/external-login',
   },
+  appointmentSettings: {
+    getAvailableSlots: (branchId: string) => `/appointment-settings/${branchId}/available-slots`,
+    bookAppointment: (branchId: string) => `/appointment-settings/${branchId}/book`,
+  },
+  branches: {
+    getBranches: '/Branches',
+  },
   serviceCategories: {
     getAllServiceCategories: '/ServiceCategories',
   },

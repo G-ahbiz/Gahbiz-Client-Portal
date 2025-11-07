@@ -5,6 +5,8 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   inject,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
 import { CommonModule } from '@angular/common';
@@ -37,6 +39,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class ServiceDetailsTabs implements AfterViewInit {
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
   @Input() service: ServicesDetailsResponse | null = null;
+  @Output() refreshServiceDetails = new EventEmitter<void>();
 
   private readonly tabNames = ['description', 'how-it-works', 'requirements', 'reviews'];
 
@@ -82,5 +85,12 @@ export class ServiceDetailsTabs implements AfterViewInit {
       this.primengFix.fixRatingComponents();
       window.dispatchEvent(new Event('resize'));
     }
+  }
+
+  /**
+   * Handle review submitted event from reviews tab
+   */
+  onReviewSubmitted(): void {
+    this.refreshServiceDetails.emit();
   }
 }

@@ -50,4 +50,8 @@ export class Hero implements OnInit {
   navigateToAllServices() {
     this.router.navigate(['/all-services']);
   }
+
+  navigateToAppointment() {
+    this.router.navigate(['/appointment-service']);
+  }
 }

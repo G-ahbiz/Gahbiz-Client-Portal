@@ -35,20 +35,20 @@
 
     @for (offer of offers$ | async; track offer.id) {
     <div class="col-lg-4 col-md-6 col-12">
-      <div class="offer-card card h-100">
+      <div class="offer-card card h-100 cursor-pointer" (click)="openServiceDetails(offer.id)">
         <div class="card-header overflow-hidden position-relative p-0">
           <img [src]="offer.imageUrl ?? 'assets/images/placeholder.jpg'" [alt]="offer.title" class="img-fluid" />
           <div class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3">
             <div
               class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-              (click)="putInFavorites(offer.id)">
+              (click)="putInFavorites($event, offer.id)">
 
               <i class="pi pi-heart fs-4 red-heart"></i>
             </div>
 
             <div
               class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-              (click)="copyPageUrl(offer.id)">
+              (click)="copyPageUrl($event, offer.id)">
 
               @if (copiedOfferId === offer.id) {
               <i class="pi pi-check fs-4 copied-icon"></i>

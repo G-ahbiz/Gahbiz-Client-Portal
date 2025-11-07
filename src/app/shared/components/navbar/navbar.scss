@@ -1,3 +1,11 @@
+.offcanvas {
+  z-index: 9999 !important;
+}
+
+.navbar {
+  z-index: 5000;
+}
+
 .dropdown-login,
 .services-dropdown,
 .language-dropdown {
@@ -153,6 +161,12 @@
 }
 
 @media screen and (max-width: 1199.98px) {
+  .offcanvas {
+    z-index: 10000 !important;
+    width: 100% !important;
+    height: 100vh;
+  }
+
   .offcanvas-body {
     .navbar-nav,
     .navbar-actions {
@@ -163,7 +177,7 @@
       margin-top: 1.5rem;
       border-top: 1px solid #eee;
       padding-top: 1.5rem;
-      width: 100%; 
+      width: 100%;
       gap: 1rem !important;
     }
   }

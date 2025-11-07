@@ -30,7 +30,7 @@ export const routes: Routes = [
   },
   {
     path: 'appointment-service',
-    canActivate: [NoAuthGuard],
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import(
         './features/all-services/appointment-service-component/appointment-service-component'

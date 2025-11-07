@@ -74,6 +74,11 @@
         transition: transform 0.2s ease;
       }
 
+      .copied-icon {
+        color: #28a745;
+        animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
       &:active .red-heart {
         transform: scale(1.2);
       }
@@ -206,9 +211,19 @@
   }
 }
 
-/* === RESPONSIVE BREAKPOINTS === */
+/* === ANIMATIONS === */
+@keyframes pop-in {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
-/* Tablet (≤ 992px) */
+/* === RESPONSIVE BREAKPOINTS === */
 @media (max-width: 992px) {
   .gallery-item-container {
     .main-image {
@@ -245,7 +260,6 @@
   }
 }
 
-/* Mobile (≤ 600px) */
 @media (max-width: 600px) {
   .gallery-item-container {
     .main-image {
@@ -280,15 +294,6 @@
     gap: 0.75rem;
   }
 
-  /*
-  *
-  * === THIS IS THE FIX ===
-  *
-  * This tells the scroller to take up 100% of its parent's width,
-  * which allows the internal overflow-x: auto to work correctly
-  * without forcing the whole page to scroll.
-  *
-  */
   .thumbnail-scroller {
     width: 100%;
   }

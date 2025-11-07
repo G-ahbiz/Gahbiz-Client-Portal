@@ -6,6 +6,7 @@ import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-transla
 import { Rating } from '@shared/components/rating/rating';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-best-offers',
@@ -28,6 +29,7 @@ export class BestOffers implements OnInit {
   private landingApiService = inject(LandingApiService);
   private toastService = inject(ToastService);
   private cd = inject(ChangeDetectorRef);
+  private router = inject(Router);
 
   ngOnInit() {
     this.initializeTranslation();
@@ -80,12 +82,19 @@ export class BestOffers implements OnInit {
     );
   }
 
-  putInFavorites(id: string) {
-    // Implement favorite functionality
-    console.log('Add to favorites:', id);
+  openServiceDetails(id: string): void {
+    this.router.navigate(['/service-details', id]);
   }
 
-  copyPageUrl(offerId: string) {
+  putInFavorites(event: MouseEvent, id: string): void {
+    event.stopPropagation();
+    console.log('Add to favorites:', id);
+    // TODO: Implement favorite logic
+  }
+
+  copyPageUrl(event: MouseEvent, offerId: string): void {
+    event.stopPropagation();
+
     if (!offerId || this.copiedOfferId === offerId) return;
 
     const baseUrl = window.location.origin;
@@ -113,5 +122,11 @@ export class BestOffers implements OnInit {
         this.toastService.error(message || 'Failed to copy URL.');
       }
     );
+  }
+
+  addToCart(event: MouseEvent, id: string): void {
+    event.stopPropagation();
+    console.log('Add to cart:', id);
+    // TODO: Implement cart logic
   }
 }

@@ -292,6 +292,16 @@ export class ServiceDetailsContent implements OnInit {
   }
 
   /**
+   * Refresh service details (for updating ratings after new review)
+   */
+  public refreshServiceDetails(): void {
+    const serviceId = this.getServiceIdFromRoute();
+    if (this.isValidServiceId(serviceId)) {
+      this.fetchServiceDetails(serviceId);
+    }
+  }
+
+  /**
    * Update breadcrumb navigation
    */
   private updateBreadcrumb(): void {
