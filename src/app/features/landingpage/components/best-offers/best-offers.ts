@@ -7,6 +7,9 @@ import { Rating } from '@shared/components/rating/rating';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
 import { Router } from '@angular/router';
+import { ServiceDetails } from '@features/all-services/interfaces/all-services/service-details';
+import { CartFacadeService } from '@features/cart/services/cart-facade.service';
+import { CartItem } from '@features/cart/interfaces/cart-item';
 
 @Component({
   selector: 'app-best-offers',
@@ -30,6 +33,7 @@ export class BestOffers implements OnInit {
   private toastService = inject(ToastService);
   private cd = inject(ChangeDetectorRef);
   private router = inject(Router);
+  private cartFacadeService = inject(CartFacadeService);
 
   ngOnInit() {
     this.initializeTranslation();
@@ -92,7 +96,26 @@ export class BestOffers implements OnInit {
     // TODO: Implement favorite logic
   }
 
-  copyPageUrl(event: MouseEvent, offerId: string): void {
+  onAddToCart(offer: Offer, event: Event): void {
+    event.stopPropagation();
+    const cartItem: any = {
+      id: offer.id,
+      name: offer.title,
+      description: offer.title,
+      price: offer.price,
+      priceBefore: offer.priceBefore,
+      rate: offer.rating,
+      image: offer.imageUrl,
+    };
+    const result = this.cartFacadeService.addToCart(cartItem as CartItem);
+    if (result) {
+      this.toastService.success('Item added to cart', 3000);
+    } else {
+      this.toastService.error('Item already in cart', 3000);
+    }
+  }
+
+    copyPageUrl(event: MouseEvent, offerId: string): void {
     event.stopPropagation();
 
     if (!offerId || this.copiedOfferId === offerId) return;
@@ -122,11 +145,5 @@ export class BestOffers implements OnInit {
         this.toastService.error(message || 'Failed to copy URL.');
       }
     );
-  }
-
-  addToCart(event: MouseEvent, id: string): void {
-    event.stopPropagation();
-    console.log('Add to cart:', id);
-    // TODO: Implement cart logic
   }
 }

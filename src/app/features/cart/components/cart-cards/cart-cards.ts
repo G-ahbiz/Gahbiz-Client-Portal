@@ -1,77 +1,71 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Rating } from '@shared/components/rating/rating';
 import { PaginatorModule } from 'primeng/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AllServicesComponentService } from '@shared/services/all-services-component';
+import { CartItem } from '@features/cart/interfaces/cart-item';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-cart-cards',
   imports: [TranslateModule, Rating, PaginatorModule, MatIconModule, CommonModule],
   templateUrl: './cart-cards.html',
-  styleUrl: './cart-cards.scss'
+  styleUrl: './cart-cards.scss',
 })
-export class CartCards implements OnInit {
-
-  // Language
-  isArabic: boolean = false;
-  isEnglish: boolean = false;
-  isSpanish: boolean = false;
-
+export class CartCards implements OnInit, OnChanges, OnDestroy {
   // Pagination state
   currentPage: number = 1;
   pageSize: number = 2;
   totalPages: number[] = [];
 
-  @Input() cartItems: any[] | undefined;
+  @Input() cartItems: CartItem[] = [];
+  @Output() cartItemsChanged = new EventEmitter<string>();
 
-
-  constructor(private translateService: TranslateService, private router: Router, private allServicesService: AllServicesComponentService) { }
+  private destroy$ = new Subject<void>();
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    this.initializeTranslation();
     this.updateTotalPages();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['cartItems'] && !changes['cartItems'].firstChange) {
+      // Reset to first page if current page is out of bounds
+      const totalPages = this.getTotalPages();
+      if (this.currentPage > totalPages && totalPages > 0) {
+        this.currentPage = totalPages;
+      } else if (totalPages === 0) {
+        this.currentPage = 1;
+      }
+      this.updateTotalPages();
+    }
+  }
+
   // navigate to service details
-  removeFromCart(serviceId: number) {
-    console.log('remove from cart', serviceId);
+  removeFromCart(serviceId: string) {
+    this.cartItemsChanged.emit(serviceId);
   }
 
   // save for later
-  saveForLater(serviceId: number) {
-    console.log('save for later', serviceId);
+  saveForLater(serviceId: string) {
+    // TODO: Implement save for later functionality
+    // This feature will be implemented in a future update
   }
 
-  // Initialize translation
-  private initializeTranslation() {
-    // Set default language if not already set
-    if (!localStorage.getItem('servabest-language')) {
-      localStorage.setItem('servabest-language', 'en');
-    }
-
-    // Get saved language and set it
-    const savedLang = localStorage.getItem('servabest-language') || 'en';
-    this.translateService.setDefaultLang('en');
-    this.translateService.use(savedLang);
-    if (savedLang === 'en' || savedLang === 'sp') {
-      document.documentElement.style.direction = 'ltr';
-    } else if (savedLang === 'ar') {
-      document.documentElement.style.direction = 'rtl';
-    }
-
-    // Set initial language state
-    this.isArabic = savedLang === 'ar';
-    this.isEnglish = savedLang === 'en';
-    this.isSpanish = savedLang === 'sp';
-    // Subscribe to language changes
-    this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.isArabic = event.lang === 'ar';
-      this.isEnglish = event.lang === 'en';
-      this.isSpanish = event.lang === 'sp';
-    });
+  // navigate to home
+  navigateToHome() {
+    this.router.navigate(['/all-services']);
   }
 
   // get total pages
@@ -129,5 +123,10 @@ export class CartCards implements OnInit {
     this.pageSize = size;
     this.currentPage = 1;
     this.updateTotalPages();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -17,6 +17,10 @@ import { PaginatedServices } from '../interfaces/all-services/paginated-services
 import { ServiceDetails } from '../interfaces/all-services/service-details';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { CartItem } from '@features/cart/interfaces/cart-item';
+import { CartFacadeService } from '@features/cart/services/cart-facade.service';
+import { ToastService } from '@shared/services/toast.service';
+import { ApiImage } from '@core/interfaces/api-image';
 
 @Component({
   selector: 'app-services-component',
@@ -28,6 +32,8 @@ import { Router } from '@angular/router';
 export class ServicesComponent implements OnDestroy {
   private translateService = inject(TranslateService);
   private router = inject(Router);
+  private cartFacadeService = inject(CartFacadeService);
+  private toastService = inject(ToastService);
   private destroy$ = new Subject<void>();
 
   // Language state
@@ -131,8 +137,22 @@ export class ServicesComponent implements OnDestroy {
 
   onAddToCart(service: ServiceDetails, event: Event): void {
     event.stopPropagation(); // Prevent card click when button is clicked
-    // Add to cart logic here
-    console.log('Add to cart:', service.id);
+    const cartItem: CartItem = {
+      id: service.id,
+      name: service.name,
+      description: service.description,
+      price: service.price,
+      priceBefore: service.priceBefore,
+      rate: service.rate,
+      image: service.image?.path || '',
+      rateCount: service.rateCount,
+    };
+    const result = this.cartFacadeService.addToCart(cartItem);
+    if (result) {
+      this.toastService.success('Item added to cart', 3000);
+    } else {
+      this.toastService.error('Item already in cart', 3000);
+    }
   }
 
   ngOnDestroy() {
