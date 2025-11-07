@@ -6,6 +6,9 @@ import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-transla
 import { Rating } from '@shared/components/rating/rating';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
+import { ServiceDetails } from '@features/all-services/interfaces/all-services/service-details';
+import { CartFacadeService } from '@features/cart/services/cart-facade.service';
+import { CartItem } from '@features/cart/interfaces/cart-item';
 
 @Component({
   selector: 'app-best-offers',
@@ -28,7 +31,7 @@ export class BestOffers implements OnInit {
   private landingApiService = inject(LandingApiService);
   private toastService = inject(ToastService);
   private cd = inject(ChangeDetectorRef);
-
+  private cartFacadeService = inject(CartFacadeService);
   ngOnInit() {
     this.initializeTranslation();
     this.getOffers();
@@ -83,6 +86,25 @@ export class BestOffers implements OnInit {
   putInFavorites(id: string) {
     // Implement favorite functionality
     console.log('Add to favorites:', id);
+  }
+
+  onAddToCart(offer: Offer, event: Event): void {
+    event.stopPropagation(); // Prevent card click when button is clicked
+    const cartItem: any = {
+      id: offer.id,
+      name: offer.title,
+      description: offer.title,
+      price: offer.price,
+      priceBefore: offer.priceBefore,
+      rate: offer.rating,
+      image: offer.imageUrl,
+    };
+    const result = this.cartFacadeService.addToCart(cartItem as CartItem);
+    if (result) {
+      this.toastService.success('Item added to cart', 3000);
+    } else {
+      this.toastService.error('Item already in cart', 3000);
+    }
   }
 
   copyPageUrl(offerId: string) {
