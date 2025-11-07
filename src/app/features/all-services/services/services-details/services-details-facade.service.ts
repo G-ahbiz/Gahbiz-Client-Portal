@@ -149,7 +149,6 @@ export class ServicesDetailsFacadeService {
 
     return this.apiService.createReview(review).pipe(
       switchMap(() => {
-        // Reload with last used params or defaults
         const reloadParams = this.state().lastParams || DEFAULT_REVIEWS_PARAMS;
         return this.loadReviews(review.serviceId, { ...reloadParams, pageNumber: 1 });
       }),
@@ -166,17 +165,18 @@ export class ServicesDetailsFacadeService {
           this.translate.instant('REVIEWS.SUBMIT_FAILED') ||
           'Failed to submit review. Please try again.';
 
-        switch (err.message) {
-          case 'NETWORK_ERROR':
-            errorMsg =
-              this.translate.instant('REVIEWS.ERROR_NETWORK') ||
-              'Network error. Please check your connection.';
-            break;
-          case 'INVALID_REVIEW_DATA':
-            errorMsg =
-              this.translate.instant('REVIEWS.INVALID_DATA') ||
-              'Invalid review data. Please check your inputs.';
-            break;
+        if (err.status === 409 || err.originalError?.statusCode === 'Conflict') {
+          errorMsg =
+            this.translate.instant('REVIEWS.ALREADY_REVIEWED') ||
+            'You have already submitted a review for this service. Thank you for your feedback!';
+        } else if (err.message === 'NETWORK_ERROR') {
+          errorMsg =
+            this.translate.instant('REVIEWS.ERROR_NETWORK') ||
+            'Network error. Please check your connection.';
+        } else if (err.message === 'INVALID_REVIEW_DATA') {
+          errorMsg =
+            this.translate.instant('REVIEWS.INVALID_DATA') ||
+            'Invalid review data. Please check your inputs.';
         }
 
         this.toast.error(errorMsg);

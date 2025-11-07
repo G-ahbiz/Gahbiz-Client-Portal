@@ -1,31 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { Navbar } from "@shared/components/navbar/navbar";
-import { Footer } from "@shared/components/footer/footer";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Navbar } from '@shared/components/navbar/navbar';
+import { Footer } from '@shared/components/footer/footer';
 import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-translate/core';
-import { ServiceDetailsContent } from "./service-details-content/service-details-content";
-import { ServiceDetailsTabs } from "./service-details-tabs/service-details-tabs";
-import { RelatedServices } from "./related-services/related-services";
-
+import { ServiceDetailsContent } from './service-details-content/service-details-content';
+import { ServiceDetailsTabs } from './service-details-tabs/service-details-tabs';
+import { RelatedServices } from './related-services/related-services';
 
 @Component({
   selector: 'app-service-datails',
   standalone: true,
-  imports: [Navbar, Footer, TranslateModule, ServiceDetailsContent, ServiceDetailsTabs, RelatedServices],
+  imports: [
+    Navbar,
+    Footer,
+    TranslateModule,
+    ServiceDetailsContent,
+    ServiceDetailsTabs,
+    RelatedServices,
+  ],
   templateUrl: './service-datails.html',
-  styleUrl: './service-datails.scss'
+  styleUrl: './service-datails.scss',
 })
 export class ServiceDatails implements OnInit {
+  @ViewChild(ServiceDetailsContent) serviceDetailsContent!: ServiceDetailsContent;
 
   // Language
   isArabic: boolean = false;
   isEnglish: boolean = false;
   isSpanish: boolean = false;
 
-  constructor(private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService) {}
 
   ngOnInit() {
     this.initializeTranslation();
-
   }
 
   // Initialize translation
@@ -57,4 +63,12 @@ export class ServiceDatails implements OnInit {
     });
   }
 
+  /**
+   * Handle review submitted event - refresh service details
+   */
+  onReviewSubmitted(): void {
+    if (this.serviceDetailsContent) {
+      this.serviceDetailsContent.refreshServiceDetails();
+    }
+  }
 }

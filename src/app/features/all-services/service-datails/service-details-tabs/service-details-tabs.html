@@ -65,7 +65,7 @@
         </ng-template>
         <ng-template matTabContent>
           @if(service?.id) {
-          <app-reviews-tab [serviceId]="service?.id"></app-reviews-tab>
+          <app-reviews-tab [serviceId]="service?.id" (reviewSubmitted)="onReviewSubmitted()"></app-reviews-tab>
           }
         </ng-template>
       </mat-tab>

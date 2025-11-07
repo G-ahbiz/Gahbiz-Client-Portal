@@ -121,29 +121,34 @@ export class CustomGalleryComponent implements OnChanges, AfterViewInit {
     // Add your favorite API logic here
   }
 
-  copyPageUrl(offerId: string) {
+  copyPageUrl(event: MouseEvent, offerId: string): void {
+    event.stopPropagation();
+
     if (!offerId || this.copiedOfferId === offerId) return;
 
     const baseUrl = window.location.origin;
     const serviceUrl = `${baseUrl}/services/${offerId}`;
 
+    // Use the modern Clipboard API
     navigator.clipboard.writeText(serviceUrl).then(
       () => {
+        // Success
         this.copiedOfferId = offerId;
-        const message = this.translate.instant('best-offers.toasts.url-copied') || 'URL copied!';
-        this.toast.success(message);
-
         this.cdr.markForCheck();
 
-        // reset after 2s
+        const message = this.translate.instant('best-offers.toasts.url-copied');
+        this.toast.success(message || 'Service URL copied!');
+
         setTimeout(() => {
           this.copiedOfferId = null;
           this.cdr.markForCheck();
         }, 2000);
       },
-      () => {
-        const msg = this.translate.instant('best-offers.toasts.url-copy-failed') || 'Copy failed!';
-        this.toast.error(msg);
+      (err) => {
+        // Failure
+        console.error('Failed to copy URL: ', err);
+        const message = this.translate.instant('best-offers.toasts.url-copy-failed');
+        this.toast.error(message || 'Failed to copy URL.');
       }
     );
   }

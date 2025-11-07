@@ -1,8 +1,93 @@
+.container-fluid {
+  background-color: var(--bg-clr);
+}
+
+.breadcump {
+  .breadcrumb {
+    background: transparent !important;
+    margin-bottom: 0;
+    --bs-breadcrumb-divider: '/';
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    // RTL support
+    [dir='rtl'] & {
+      flex-direction: row-reverse;
+    }
+
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+
+      // spacing before each divider
+      &::before {
+        color: #6c757d !important;
+        opacity: 0.6;
+        font-weight: 500;
+        padding: 0 0.75rem;
+      }
+
+      // RTL adjustments for the divider spacing
+      [dir='rtl'] &::before {
+        padding: 0 0.75rem;
+      }
+
+      a {
+        color: #6c757d !important;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: 500;
+
+        &:hover {
+          color: var(--primary-clr) !important;
+        }
+
+        i.pi-home {
+          color: #6c757d !important;
+          transition: color 0.3s ease;
+          font-size: 1rem;
+        }
+
+        &:hover i.pi-home {
+          color: var(--primary-clr) !important;
+        }
+      }
+
+      &.active {
+        color: #6c757d !important;
+      }
+
+      .breadcrumb-current {
+        color: #6c757d !important;
+        cursor: default;
+        font-weight: 500;
+
+        &:hover {
+          color: #6c757d !important;
+        }
+      }
+    }
+  }
+}
+
+.appointment-service-content {
+  border-color: #e3e1e1 !important;
+}
+
 .calendar-card {
-  // width: 80%;
   height: 100%;
-  background-color: #fff;
   box-shadow: none;
+  background-color: transparent;
+}
+
+.mat-mdc-card {
+  background: var(--bg-clr);
 }
 
 .animate-slideIn {
@@ -19,8 +104,107 @@ label {
   letter-spacing: 0.03rem !important;
 }
 
-:host ::ng-deep .mat-calendar {
-  width: 15rem !important;
+// Mobile Calendar Styles
+.mobile-calendar-container {
+  animation: slideDown 0.3s ease-out;
+  z-index: 1000;
+  position: relative;
+}
+
+.mobile-calendar {
+  max-height: 400px;
+  overflow: hidden;
+}
+
+// Calendar Styles for both mobile and desktop
+:host ::ng-deep {
+  [dir='rtl'] & {
+    .mat-calendar-previous-button,
+    .mat-calendar-next-button {
+      transform: rotate(180deg) !important;
+    }
+  }
+
+  // Mobile calendar specific
+  .mobile-calendar .mat-calendar {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .mat-calendar {
+    width: 15rem !important;
+  }
+
+  .mat-calendar-header {
+    padding: 0 0 1rem 0;
+  }
+
+  .mat-calendar-period-button {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000;
+  }
+
+  .mdc-button__label,
+  .mat-calendar-arrow,
+  .mdc-button {
+    color: #121212 !important;
+  }
+
+  .mdc-icon-button {
+    color: #121212 !important;
+  }
+
+  .mat-calendar-table-header th {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #616161 !important;
+  }
+
+  .mat-calendar-body-cell {
+    padding: 0.15rem; // Reduced padding for mobile
+    aspect-ratio: 1 / 1;
+  }
+
+  .mat-calendar-body-cell-content {
+    width: 85%;
+    height: 85%;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-weight: 500;
+    font-size: 0.85rem; // Smaller font for mobile
+  }
+
+  .mat-calendar-body-today {
+    border: none !important;
+  }
+
+  .not-available-date .mat-calendar-body-cell-content {
+    background-color: transparent;
+    color: #b0b0b0;
+    font-weight: 400;
+  }
+
+  .mat-calendar-body-disabled > .mat-calendar-body-cell-content {
+    color: #b0b0b0;
+  }
+
+  .available-date .mat-calendar-body-cell-content {
+    background-color: #ffc107;
+    color: #000;
+    cursor: pointer;
+  }
+  .available-date:hover .mat-calendar-body-cell-content {
+    background-color: #e0a800;
+  }
+
+  .selected-date .mat-calendar-body-cell-content {
+    background-color: #0d6efd;
+    color: #fff;
+  }
 }
 
 @keyframes slideIn {
@@ -34,6 +218,88 @@ label {
   }
 }
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendar-legend {
+  width: 100%;
+  max-width: 25rem;
+  font-size: 0.8rem; // Smaller font for mobile
+  color: #6c757d;
+  padding: 0 0.5rem;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: fit-content;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    &.not-available {
+      background-color: #b0b0b0;
+      border: 1px solid #b0b0b0;
+    }
+    &.available {
+      background-color: #ffc107;
+    }
+    &.selected {
+      background-color: #0d6efd;
+    }
+  }
+}
+
+// Mobile-specific adjustments
+@media screen and (max-width: 991.98px) {
+  .appointment-service-container {
+    padding: 1rem !important;
+  }
+
+  .appointment-service-content {
+    padding: 1rem !important;
+  }
+
+  .calendar-legend {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+
+    .legend-item {
+      flex: 0 0 auto;
+    }
+  }
+
+  :host ::ng-deep {
+    .mat-calendar-body-cell-content {
+      font-size: 0.8rem;
+    }
+
+    .mat-calendar-table-header th {
+      font-size: 0.8rem;
+    }
+
+    .mat-calendar-period-button {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// Desktop styles
 @media screen and (min-width: 992px) {
   .appointment-service-calendar,
   .appointment-service-form {
@@ -44,7 +310,17 @@ label {
   .duration-select-group {
     width: auto !important;
   }
+
   :host ::ng-deep .mat-calendar {
     width: 25rem !important;
+  }
+
+  .calendar-legend {
+    font-size: 0.9rem;
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+    }
   }
 }

@@ -4,9 +4,11 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   inject,
   signal,
 } from '@angular/core';
@@ -56,7 +58,6 @@ function ratingValidator(control: AbstractControl) {
   styleUrl: './reviews-tab.scss',
 })
 export class ReviewsTab implements AfterViewInit, OnDestroy, OnInit {
-  // --- ServiceId with enhanced validation ---
   private _serviceId = '';
   @Input()
   set serviceId(value: string | { id?: string } | null | undefined) {
@@ -119,6 +120,8 @@ export class ReviewsTab implements AfterViewInit, OnDestroy, OnInit {
   pagination = this.facade.pagination;
 
   private resizeListener?: () => void;
+
+  @Output() reviewSubmitted = new EventEmitter<void>();
 
   constructor() {
     this.reviewsForm = this.createForm();
@@ -417,29 +420,15 @@ export class ReviewsTab implements AfterViewInit, OnDestroy, OnInit {
 
     this.facade.postReview(dto).subscribe({
       next: () => {
-        this.reviewsForm.reset();
-        this.reviewsForm.patchValue({ rating: 0 });
-        this.formSubmitted.set(false);
-        this.isSubmitting.set(false);
-
-        // After reset, repopulate with user data if logged in
-        if (this.isUserLoggedIn()) {
-          const currentUser = this.authService.getCurrentUser();
-          if (currentUser) {
-            this.populateUserData(currentUser);
-          }
-        }
-
-        // Reset to first page to see new review
-        this.currentParams.set({ ...this.currentParams(), pageNumber: 1 });
-
-        setTimeout(() => {
-          this.primengFix.fixRatingComponents(this.el.nativeElement);
-          this.scrollToReviewsList();
-        }, 100);
+        this.handleSubmitSuccess();
+        this.reviewSubmitted.emit();
       },
-      error: () => {
+      error: (error) => {
         this.isSubmitting.set(false);
+
+        if (error.status === 409 || error.originalError?.statusCode === 'Conflict') {
+          this.handleAlreadyReviewed();
+        }
       },
     });
   }
@@ -450,6 +439,39 @@ export class ReviewsTab implements AfterViewInit, OnDestroy, OnInit {
   }
 
   // --- Helper Methods ---
+  private handleSubmitSuccess(): void {
+    this.reviewsForm.reset();
+    this.reviewsForm.patchValue({ rating: 0 });
+    this.formSubmitted.set(false);
+    this.isSubmitting.set(false);
+
+    // After reset, repopulate with user data if logged in
+    if (this.isUserLoggedIn()) {
+      const currentUser = this.authService.getCurrentUser();
+      if (currentUser) {
+        this.populateUserData(currentUser);
+      }
+    }
+
+    // Reset to first page to see new review
+    this.currentParams.set({ ...this.currentParams(), pageNumber: 1 });
+
+    setTimeout(() => {
+      this.primengFix.fixRatingComponents(this.el.nativeElement);
+      this.scrollToReviewsList();
+    }, 100);
+  }
+
+  private handleAlreadyReviewed(): void {
+    this.disableReviewForm();
+  }
+
+  private disableReviewForm(): void {
+    Object.keys(this.reviewsForm.controls).forEach((key) => {
+      this.reviewsForm.get(key)?.disable();
+    });
+  }
+
   private markFormGroupTouched(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach((key) => {
       const control = formGroup.get(key);

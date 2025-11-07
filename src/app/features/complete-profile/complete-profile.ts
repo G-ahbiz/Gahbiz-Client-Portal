@@ -4,6 +4,7 @@ import {
   ElementRef,
   HostListener,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
   ViewChild,
@@ -20,9 +21,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { COUNTRIES } from '@shared/config/constants';
-import { ProfileApiService } from '../complete-profile/services/profile-api.service';
 import { Observable, of, tap, catchError, finalize } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
+import { ProfileFacadeService } from './services/profile-facade.service';
 
 @Component({
   selector: 'app-complete-profile',
@@ -30,7 +31,7 @@ import { ToastService } from '@shared/services/toast.service';
   templateUrl: './complete-profile.html',
   styleUrl: './complete-profile.scss',
 })
-export class CompleteProfile implements OnInit, OnChanges {
+export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['completeProfileForm']) {
       this.isDataCompleted = this.completeProfileForm.valid;
@@ -90,9 +91,9 @@ export class CompleteProfile implements OnInit, OnChanges {
   constructor(
     private translateService: TranslateService,
     private formBuilder: FormBuilder,
-    private profileApiService: ProfileApiService,
+    private profileFacadeService: ProfileFacadeService,
     private cdr: ChangeDetectorRef,
-    private toastService: ToastService
+    private toastService: ToastService,
   ) {
     this.completeProfileForm = this.formBuilder.group({
       fullLegalName: [
@@ -229,7 +230,7 @@ export class CompleteProfile implements OnInit, OnChanges {
     this.countriesLoading = true;
     this.cdr.detectChanges();
 
-    this.addressCountries$ = this.profileApiService.getCountries().pipe(
+    this.addressCountries$ = this.profileFacadeService.getCountries().pipe(
       tap((countries) => {
         console.log('Countries loaded:', countries?.length);
         this.allAddressCountries = countries || [];
@@ -252,7 +253,7 @@ export class CompleteProfile implements OnInit, OnChanges {
 
   loadProfile() {
     this.isLoadingProfile = true;
-    this.profileApiService.getProfile().subscribe({
+    this.profileFacadeService.getProfile().subscribe({
       next: (response) => {
         if (response && response.succeeded && response.data) {
           console.log('Profile loaded:', response.data);
@@ -317,7 +318,7 @@ export class CompleteProfile implements OnInit, OnChanges {
       this.completeProfileForm.get('country')?.setValue(foundCountry.id);
 
       this.statesLoading = true;
-      this.profileApiService.getStatesByCountry(foundCountry.id).subscribe((states) => {
+      this.profileFacadeService.getStatesByCountry(foundCountry.id).subscribe((states) => {
         this.availableStates = states || [];
 
         const foundState = this.availableStates.find(
@@ -356,7 +357,7 @@ export class CompleteProfile implements OnInit, OnChanges {
       stateControl?.disable();
       this.cdr.detectChanges(); // Trigger change detection
 
-      this.profileApiService
+      this.profileFacadeService
         .getStatesByCountry(countryId)
         .pipe(
           finalize(() => {
@@ -729,7 +730,7 @@ export class CompleteProfile implements OnInit, OnChanges {
 
     console.log('Submitting API payload:', apiPayload);
 
-    this.profileApiService.completeProfile(apiPayload).subscribe({
+    this.profileFacadeService.completeProfile(apiPayload).subscribe({
       next: (response) => {
         console.log('Profile update successful', response);
         this.isDataCompleted = true;
@@ -740,6 +741,16 @@ export class CompleteProfile implements OnInit, OnChanges {
           'complete-profile.messages.update_success'
         );
         this.toastService.success(successMsg, 3000);
+
+        const oldUserData = JSON.parse(localStorage.getItem('user_data') || '{}');
+        const updatedUserData = {
+          ...oldUserData,
+          email: response.data.email,
+          fullName: response.data.fullName,
+          phoneNumber: response.data.phoneNumber,
+          profileImageUrl: response.data.profileImageUrl,
+        };
+        localStorage.setItem('user_data', JSON.stringify(updatedUserData));
 
         setTimeout(() => {
           window.location.reload();
@@ -776,4 +787,6 @@ export class CompleteProfile implements OnInit, OnChanges {
     // Return in format: DD-MM-YYYY
     return `${paddedDay}-${paddedMonth}-${birthYear}`;
   }
+
+  ngOnDestroy() {}
 }

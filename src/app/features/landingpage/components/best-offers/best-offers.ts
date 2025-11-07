@@ -6,6 +6,7 @@ import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-transla
 import { Rating } from '@shared/components/rating/rating';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
+import { Router } from '@angular/router';
 import { ServiceDetails } from '@features/all-services/interfaces/all-services/service-details';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { CartItem } from '@features/cart/interfaces/cart-item';
@@ -31,7 +32,9 @@ export class BestOffers implements OnInit {
   private landingApiService = inject(LandingApiService);
   private toastService = inject(ToastService);
   private cd = inject(ChangeDetectorRef);
+  private router = inject(Router);
   private cartFacadeService = inject(CartFacadeService);
+
   ngOnInit() {
     this.initializeTranslation();
     this.getOffers();
@@ -83,13 +86,18 @@ export class BestOffers implements OnInit {
     );
   }
 
-  putInFavorites(id: string) {
-    // Implement favorite functionality
+  openServiceDetails(id: string): void {
+    this.router.navigate(['/service-details', id]);
+  }
+
+  putInFavorites(event: MouseEvent, id: string): void {
+    event.stopPropagation();
     console.log('Add to favorites:', id);
+    // TODO: Implement favorite logic
   }
 
   onAddToCart(offer: Offer, event: Event): void {
-    event.stopPropagation(); // Prevent card click when button is clicked
+    event.stopPropagation();
     const cartItem: any = {
       id: offer.id,
       name: offer.title,
@@ -107,7 +115,9 @@ export class BestOffers implements OnInit {
     }
   }
 
-  copyPageUrl(offerId: string) {
+    copyPageUrl(event: MouseEvent, offerId: string): void {
+    event.stopPropagation();
+
     if (!offerId || this.copiedOfferId === offerId) return;
 
     const baseUrl = window.location.origin;

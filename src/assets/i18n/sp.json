@@ -409,33 +409,42 @@
       "pa": "Pensilvania"
     }
   },
-  "appointment-service": {
-    "title": "Reservación",
+    "appointment-service": {
+    "title": "Citas",
     "form": {
-      "first-name": "Nombre",
-      "first-name-placeholder": "Ingrese su nombre",
+      "first-name": "nombre de pila",
+      "first-name-placeholder": "Introduce tu nombre de pila",
       "last-name": "Apellido",
-      "last-name-placeholder": "Ingrese su apellido",
-      "email-address": "Correo electrónico",
-      "email-address-placeholder": "Ingrese su correo electrónico",
-      "phone-number": "Teléfono",
-      "phone-number-placeholder": "Ingrese su teléfono",
+      "last-name-placeholder": "Introduce tu apellido",
+      "email-address": "Dirección de correo",
+      "email-address-placeholder": "Introduce tu dirección de correo",
+      "phone-number": "Número de teléfono",
+      "phone-number-placeholder": "Introduce tu número de teléfono",
       "location": "Ubicación",
-      "location-placeholder": "Seleccione su estado",
-      "location-1": "Ubicación 1",
-      "location-2": "Ubicación 2",
-      "location-3": "Ubicación 3",
+      "location-placeholder": "Selecciona tu estado",
       "date-selection": "Selección de fecha",
-      "date-selection-placeholder": "Seleccione una fecha",
-      "available-time": "Hora disponible",
+      "date-selection-placeholder": "Selecciona una fecha",
+      "available-time": "Tiempo disponible",
+      "available-time-placeholder": "Selecciona un tiempo disponible",
       "duration": "Duración",
-      "duration-1": "Seleccione la duración de la reservación",
-      "duration-2": "Duración 2",
-      "duration-3": "Duración 3",
-      "fees": "Tarifas",
-      "available-time-1": "Hora disponible 1",
-      "duration-fees-1": "Duración & Tarifas 1",
-      "book-now-btn": "Reservar ahora"
+      "duration-placeholder": "Selecciona una duración",
+      "duration-30": "30 minutos",
+      "choose-date": "Elige la fecha",
+      "fees-amount": "$10",
+      "fees": "honorarios",
+      "book-now-btn": "Reservar ahora",
+      "no-available-times": "No hay horas disponibles",
+      "no-slots-available": "No hay horarios disponibles"
+    },
+    "calendar": {
+      "not-available": "No disponible",
+      "available": "Available", 
+      "selected": "Seleccionado"
+    },
+    "validation": {
+      "required": "Este campo es obligatorio",
+      "email": "Por favor ingrese un correo electrónico válido.",
+      "phone": "Por favor ingrese un número de teléfono válido."
     }
   },
   "cart": {
@@ -503,7 +512,8 @@
     "ERROR_NETWORK": "Error de red. Por favor verifica tu conexión.",
     "ERROR_CLIENT": "Solicitud inválida. Por favor intenta nuevamente.",
     "ERROR_SERVER": "Error del servidor. Por favor intenta más tarde.",
-    "INVALID_DATA": "Datos de reseña inválidos. Por favor verifica tus entradas."
+    "INVALID_DATA": "Datos de reseña inválidos. Por favor verifica tus entradas.",
+    "ALREADY_REVIEWED": "Ya has enviado una reseña para este servicio. ¡Gracias por tu feedback!"
   },
   "REQUIREMENTS": {
     "TITLE": "Documentos que necesitarás",

@@ -11,7 +11,8 @@
 
     <!-- Service Details Body -->
     <div class="service-details-body">
-      <app-service-details-tabs [service]="serviceContent.serviceDetail()">
+      <app-service-details-tabs [service]="serviceContent.serviceDetail()"
+        (refreshServiceDetails)="onReviewSubmitted()">
       </app-service-details-tabs>
     </div>
 
