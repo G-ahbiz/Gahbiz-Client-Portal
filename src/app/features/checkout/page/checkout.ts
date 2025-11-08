@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Navbar } from '@shared/components/navbar/navbar';
-import { Footer } from '@shared/components/footer/footer';
-import { CartSummary } from '@features/cart/components/cart-summary/cart-summary';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { AllServicesComponentService } from '@shared/services/all-services-component';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
-  imports: [Navbar, Footer, TranslateModule, CommonModule, RouterModule],
+  imports: [TranslateModule, CommonModule, RouterModule],
   templateUrl: './checkout.html',
   styleUrl: './checkout.scss',
 })
@@ -22,9 +18,7 @@ export class Checkout implements OnInit {
   // Cart items
   cartItems: any[] = [];
 
-  constructor(
-    private translateService: TranslateService
-  ) {}
+  constructor(private translateService: TranslateService) {}
 
   ngOnInit() {
     this.initializeTranslation();

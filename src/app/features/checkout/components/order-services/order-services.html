@@ -1,0 +1,111 @@
+<div class="order-services-wrapper py-4 py-md-5">
+  <div class="checkout-container">
+    <div class="card order-tracking-card h-auto">
+      <div class="card-body px-3 px-md-4 py-4 py-md-5">
+        <div class="section-header mb-4">
+          <h5 class="fw-semibold mb-0">
+            {{ 'checkout.ordered-services' | translate }}
+          </h5>
+        </div>
+
+        <!-- Desktop Table View -->
+        <div class="table-responsive d-none d-md-block">
+          <table class="table services-table">
+            <thead>
+              <tr>
+                <th scope="col" class="border-bottom pb-3">
+                  <strong>{{ 'checkout.service' | translate }}</strong>
+                </th>
+                <th scope="col" class="text-center border-bottom pb-3">
+                  <strong>{{ 'checkout.quantity' | translate }}</strong>
+                </th>
+                <th scope="col" class="text-center border-bottom pb-3">
+                  <strong>{{ 'checkout.price' | translate }}</strong>
+                </th>
+                <th scope="col" class="text-end border-bottom pb-3">
+                  <strong>{{ 'checkout.total' | translate }}</strong>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let service of services; let last = last" [class.border-bottom]="last">
+                <td class="py-3">
+                  <div class="d-flex align-items-center gap-4">
+                    <div class="service-image-wrapper">
+                      <img
+                        [src]="getImageUrl(service)"
+                        [alt]="service.itemName"
+                        (error)="onImageError($event)"
+                        class="service-image"
+                      />
+                    </div>
+                    <div class="service-name fw-medium">{{ service.itemName }}</div>
+                  </div>
+                </td>
+                <td class="text-center py-3">
+                  <span class="service-quantity">{{ service.quantity }}</span>
+                </td>
+                <td class="text-center py-3">
+                  <span class="service-price">{{ service.amount | currency }}</span>
+                </td>
+                <td class="text-end py-3">
+                  <span class="service-total fw-semibold text-black">{{
+                    service.total | currency
+                  }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Card View -->
+        <div class="d-block d-md-none">
+          <div class="service-item-mobile mb-3 p-3 border rounded" *ngFor="let service of services">
+            <div class="d-flex gap-3 mb-3">
+              <div class="service-image-wrapper-mobile">
+                <img
+                  [src]="getImageUrl(service)"
+                  [alt]="service.itemName"
+                  (error)="onImageError($event)"
+                  class="service-image-mobile"
+                />
+              </div>
+              <div class="flex-grow-1">
+                <div class="service-name fw-semibold">{{ service.itemName }}</div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">{{ 'checkout.quantity' | translate }}:</span>
+              <span class="fw-medium">{{ service.quantity }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">{{ 'checkout.price' | translate }}:</span>
+              <span class="fw-medium">{{ service.amount | currency }}</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">{{ 'checkout.total' | translate }}:</span>
+              <span class="fw-semibold text-black">{{ service.total | currency }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!--  Total -->
+        <div class="total-section">
+          <div class="row align-items-center">
+            <div class="col-6 col-md-8"></div>
+            <div
+              class="col-6 col-md-4 d-flex justify-content-end align-items-center flex-row gap-4 text-end"
+            >
+              <h5 class="fw-semibold mb-0 text-muted fs-5">
+                {{ 'checkout.grand-total' | translate }}
+              </h5>
+              <h6 class="grand-total-amount fw-semibold mb-0 text-black fs-5">
+                {{ getGrandTotal() | currency }}
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

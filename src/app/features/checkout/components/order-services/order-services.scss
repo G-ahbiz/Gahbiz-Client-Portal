@@ -1,0 +1,225 @@
+.order-services-wrapper {
+  width: 100%;
+}
+
+.checkout-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1rem;
+
+  .order-tracking-card {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    width: 100%;
+
+    .card-body {
+      border-radius: 0;
+      width: 100%;
+    }
+
+    .section-header {
+      h5 {
+        color: #2c3e50;
+        font-size: 1.25rem;
+
+        i {
+          color: var(--primary-color, #0d6efd);
+        }
+      }
+    }
+
+    // Desktop Table Styles
+    .services-table {
+      margin-bottom: 0;
+      width: 100%;
+
+      thead {
+        th {
+          color: #6c757d;
+          font-size: 0.875rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          border-top: none;
+          background-color: transparent;
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: 1px solid #e9ecef;
+          transition: background-color 0.2s ease;
+
+          &:hover {
+            background-color: #f8f9fa;
+          }
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          td {
+            vertical-align: middle;
+            color: #495057;
+
+            .service-image-wrapper {
+              width: 60px;
+              height: 60px;
+              border-radius: 0;
+              overflow: hidden;
+              background-color: #f8f9fa;
+              border: 1px solid #e9ecef;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+
+              .service-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.2s ease;
+              }
+            }
+
+            &:hover {
+              .service-image {
+                transform: scale(1.05);
+              }
+            }
+
+            .service-name {
+              color: #2c3e50;
+              line-height: 1.5;
+            }
+
+            .service-quantity,
+            .service-price {
+              color: #6c757d;
+            }
+
+            .service-total {
+              color: var(--primary-color, #0d6efd);
+              font-size: 1.05rem;
+            }
+          }
+        }
+      }
+    }
+
+    // Mobile Card Styles
+    .service-item-mobile {
+      background-color: #f8f9fa;
+      border-color: #e9ecef !important;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: #e9ecef;
+      }
+
+      .service-image-wrapper-mobile {
+        width: 70px;
+        height: 70px;
+        border-radius: 0;
+        overflow: hidden;
+        background-color: #ffffff;
+        border: 1px solid #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        .service-image-mobile {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .service-name {
+        color: #2c3e50;
+        font-size: 1rem;
+        line-height: 1.4;
+      }
+    }
+
+    // Total Section
+    .total-section {
+      background-color: #f8f9fa;
+      padding: 1.25rem;
+      border-radius: 0;
+
+      h5 {
+        color: #2c3e50;
+      }
+
+      .grand-total-amount {
+        font-size: 1.75rem;
+        color: var(--primary-color, #0d6efd);
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 767.98px) {
+  .checkout-container {
+    padding: 0 0.5rem;
+
+    .order-tracking-card {
+      .card-body {
+        padding: 1.5rem !important;
+      }
+
+      .section-header {
+        h5 {
+          font-size: 1.1rem;
+        }
+      }
+
+      .service-item-mobile {
+        .service-name {
+          font-size: 0.95rem;
+        }
+      }
+
+      .total-section {
+        padding: 1rem;
+
+        h5 {
+          font-size: 1rem;
+        }
+
+        .grand-total-amount {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+// Medium screens
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .checkout-container {
+    padding: 0 2rem;
+  }
+}
+
+// Large screens
+@media (min-width: 1200px) {
+  .checkout-container {
+    padding: 0 2rem;
+  }
+}
+
+// Print styles
+@media print {
+  .checkout-container {
+    .order-tracking-card {
+      border: 1px solid #dee2e6;
+    }
+  }
+}
