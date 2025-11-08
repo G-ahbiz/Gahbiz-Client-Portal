@@ -167,7 +167,7 @@
         </div>
 
         <div class="buttons-container">
-          <button type="button" class="btn add-to-cart-btn" (click)="addToCart()">
+          <button type="button" class="btn add-to-cart-btn" (click)="onAddToCart($any(service), $event)">
             {{"all-services.add-to-cart" | translate}}
           </button>
 

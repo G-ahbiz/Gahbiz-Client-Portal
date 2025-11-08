@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
-  imports: [Navbar, Footer, CartSummary, TranslateModule, CommonModule, RouterModule],
+  imports: [Navbar, Footer, TranslateModule, CommonModule, RouterModule],
   templateUrl: './checkout.html',
   styleUrl: './checkout.scss',
 })
@@ -23,13 +23,11 @@ export class Checkout implements OnInit {
   cartItems: any[] = [];
 
   constructor(
-    private translateService: TranslateService,
-    private allServicesService: AllServicesComponentService
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
     this.initializeTranslation();
-    this.getCartItems();
   }
 
   // Initialize translation
@@ -59,47 +57,5 @@ export class Checkout implements OnInit {
       this.isEnglish = event.lang === 'en';
       this.isSpanish = event.lang === 'sp';
     });
-  }
-
-  // Get cart items
-  private getCartItems() {
-    this.cartItems = [
-      {
-        id: 1,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle:
-          'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 3,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'basic',
-      },
-      {
-        id: 2,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle:
-          'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 3,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'basic',
-      },
-      {
-        id: 3,
-        title: 'File Your Tax 1040 Single or MJS - Stander',
-        subTitle:
-          'Live Filfing - Single - File your tax as status of Single with 2 w2 form or 2 - Schdule C....',
-        priceOffer: '85',
-        orignalPrice: '102',
-        rating: 3,
-        ratingsCount: 36,
-        image: 'service.jpg',
-        type: 'basic',
-      },
-    ];
   }
 }

@@ -1,0 +1,22 @@
+.step {
+  width: 3.75rem;
+  height: 3.75rem;
+  flex-shrink: 0;
+}
+
+.line-container {
+  flex-grow: 1; 
+  height: 0.0625rem;
+  background: #d0d0d0;
+}
+
+@media (max-width: 768px) {
+    .steps-titles-container p {
+        font-size: 0.75rem; 
+    }
+    .step {
+        width: 3rem; 
+        height: 3rem;
+        padding: 3px !important;
+    }
+}
