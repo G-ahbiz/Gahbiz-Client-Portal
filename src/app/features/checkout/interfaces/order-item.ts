@@ -10,4 +10,5 @@ export interface OrderItem {
   order: any;
   deliveryType: string;
   shipping: boolean;
+  itemImageUrl: string;
 }

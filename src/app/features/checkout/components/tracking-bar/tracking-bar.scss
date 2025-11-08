@@ -1,0 +1,273 @@
+.tracking-bar-container {
+  width: 100%;
+  padding: 2rem 0;
+
+  .tracking-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .stages-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .stage-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+
+      // Stage Circle
+      .stage-circle {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+
+        .stage-icon {
+          font-size: 36px;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      // Connecting Line
+      .stage-line {
+        position: absolute;
+        top: 35px; // Half of circle height
+        left: 50%;
+        width: 100%;
+        height: 2px;
+        z-index: 1;
+        transition: all 0.3s ease;
+      }
+
+      // Stage Info
+      .stage-info {
+        text-align: center;
+        margin-top: 0.5rem;
+
+        .stage-label {
+          font-weight: 600;
+          font-size: 1.125rem;
+          margin-bottom: 0.5rem;
+          transition: all 0.3s ease;
+        }
+
+        .stage-date {
+          font-size: 0.9rem;
+          color: #6c757d;
+        }
+      }
+
+      // Completed Stage Styling
+      &.completed {
+        .stage-circle {
+          background-color: #d4e9f7;
+          color: #0d6efd;
+          border: 2px solid #d4e9f7;
+
+          .stage-icon {
+            color: #0d6efd;
+          }
+        }
+
+        .stage-line {
+          background-color: #d4e9f7;
+        }
+
+        .stage-label {
+          color: #d3e0ec;
+        }
+      }
+
+      // Current Stage Styling
+      &.current {
+        .stage-circle {
+          background-color: #0d6efd;
+          color: white;
+          border: 2px solid #0d6efd;
+          box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+
+          .stage-icon {
+            color: #ffffff;
+          }
+        }
+
+        .stage-line {
+          background: linear-gradient(to right, #d4e9f7 0%, #e9ecef 100%);
+        }
+
+        .stage-label {
+          color: #2c3e50;
+          font-weight: 700;
+        }
+      }
+
+      // Pending Stage Styling
+      &.pending {
+        .stage-circle {
+          background-color: #e9ecef;
+          color: #adb5bd;
+          border: 2px solid #e9ecef;
+
+          .stage-icon {
+            color: #adb5bd;
+            opacity: 0.6;
+          }
+        }
+
+        .stage-line {
+          background-color: #e9ecef;
+        }
+
+        .stage-label {
+          color: #adb5bd;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 991.98px) {
+  .tracking-bar-container {
+    padding: 1.5rem 1rem;
+
+    .tracking-bar {
+      .stage-item {
+        .stage-circle {
+          width: 60px;
+          height: 60px;
+
+          .stage-icon {
+            font-size: 30px;
+          }
+        }
+
+        .stage-line {
+          top: 30px;
+        }
+
+        .stage-info {
+          .stage-label {
+            font-size: 1rem;
+          }
+
+          .stage-date {
+            font-size: 0.85rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .tracking-bar-container {
+    padding: 1rem;
+
+    .tracking-bar {
+      .stages-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .stage-item {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .stage-circle {
+          width: 50px;
+          height: 50px;
+          margin-bottom: 0;
+          margin-right: 1rem;
+          flex-shrink: 0;
+
+          .stage-icon {
+            font-size: 26px;
+          }
+        }
+
+        .stage-line {
+          top: auto;
+          left: 25px;
+          width: 2px;
+          height: calc(100% + 2rem);
+          top: 50px;
+        }
+
+        &:last-child .stage-line {
+          display: none;
+        }
+
+        .stage-info {
+          text-align: left;
+          margin-top: 0;
+          flex-grow: 1;
+
+          .stage-label {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+          }
+
+          .stage-date {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// RTL Support
+[dir='rtl'] {
+  .tracking-bar-container {
+    .tracking-bar {
+      .stage-item {
+        .stage-info {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .tracking-bar-container {
+      .tracking-bar {
+        .stage-item {
+          .stage-circle {
+            margin-right: 0;
+            margin-left: 1rem;
+          }
+
+          .stage-line {
+            left: auto;
+            right: 25px;
+          }
+
+          .stage-info {
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+}

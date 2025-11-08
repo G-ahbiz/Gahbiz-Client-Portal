@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Checkout } from './page/checkout';
 
-const CHECKOUT_ROUTES: Routes = [
+export const CHECKOUT_ROUTES: Routes = [
   {
     path: '',
     component: Checkout,
@@ -25,9 +25,12 @@ const CHECKOUT_ROUTES: Routes = [
             (m) => m.Step3Confirmation
           ),
       },
+      {
+        path: 'order-services',
+        loadComponent: () =>
+          import('./components/order-services/order-services').then((m) => m.OrderServices),
+      },
       { path: '', redirectTo: 'step1', pathMatch: 'full' },
     ],
   },
 ];
-
-export default CHECKOUT_ROUTES;

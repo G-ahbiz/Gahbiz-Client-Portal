@@ -442,7 +442,7 @@
     },
     "calendar": {
       "not-available": "Not Available",
-      "available": "Available", 
+      "available": "Available",
       "selected": "Selected"
     },
     "validation": {
@@ -477,7 +477,7 @@
   "checkout": {
     "title": "Checkout",
     "step-1": "Checkout",
-    "step-2": "Documentation", 
+    "step-2": "Documentation",
     "step-3": "Confirmation",
     "payment-method": "Payment Method",
     "personal-information": "Personal Information",
@@ -505,7 +505,7 @@
     "cvv-help-tooltip": "Click for more info",
     "first-name": "First Name",
     "last-name": "Last Name",
-    "address": "Address", 
+    "address": "Address",
     "country": "Country",
     "state": "State",
     "county": "County",
@@ -513,7 +513,7 @@
     "zip-code": "ZIP Code",
     "email": "Email",
     "enter-first-name": "Enter your first name",
-    "enter-last-name": "Enter your last name", 
+    "enter-last-name": "Enter your last name",
     "enter-address": "Enter your street address",
     "enter-country": "Enter your country",
     "enter-state": "Enter your state",
@@ -524,7 +524,7 @@
     "card-number": "Card number",
     "expiration-date": "Expiration Date",
     "card-number-placeholder": "1234 5678 9101 3456",
-    "expiry-placeholder": "MM/YY", 
+    "expiry-placeholder": "MM/YY",
     "cvv-placeholder": "123",
     "cart-empty": "Your cart is empty. Please add items before checkout.",
     "payment-init-failed": "Payment system initialization failed. Please refresh and try again.",
@@ -545,7 +545,24 @@
     "card-expired": "Card has expired",
     "invalid-field": "Invalid field value",
     "documentations": "Documentations",
-    "no-services-found": "No services found"
+    "no-services-found": "No services found",
+    "ordered-services": "Ordered Services",
+    "service": "Service",
+    "quantity": "Quantity",
+    "price": "Price",
+    "grand-total": "Total",
+    "tracking": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "page-title": "Track Your Order",
+      "order-tracking": "Order Tracking",
+      "download-invoice": "Download Invoice",
+      "contact-support": "Contact Support",
+      "status-created": "Your order has been created but payment is pending. Please complete the payment to process your order.",
+      "status-cancelled": "This order has been cancelled. If you have any questions, please contact our support team.",
+      "status-refunded": "This order has been refunded. The amount will be credited to your account within 5-7 business days."
+    }
   },
   "REVIEWS": {
     "COUNT": "Reviews",
@@ -677,7 +694,7 @@
     "WHITESPACE": "Cannot contain only whitespace",
     "RATING": "Please select a rating between 1 and 5 stars",
     "INVALID": "Invalid value",
-    "card-number": "Please enter a valid 12-19 digit card number", 
+    "card-number": "Please enter a valid 12-19 digit card number",
     "expiry-date": "Enter a valid expiration date (MM/YY format)",
     "cvv": "Enter a valid 3-4 digit security code",
     "zip-code": "Valid ZIP code is required (5 digits or 5+4 format)",

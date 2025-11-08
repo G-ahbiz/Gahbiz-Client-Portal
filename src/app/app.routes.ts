@@ -5,21 +5,49 @@ import { Landingpage } from '@features/landingpage/landingpage';
 import { Layout } from '@features/layout/layout';
 
 export const routes: Routes = [
+  // Auth routes without Layout (no navbar/footer)
   {
-    path: 'home',
+    path: 'auth',
+    canActivateChild: [NoAuthGuard],
+    loadChildren: () => import('./features/auth/auth.routing').then((m) => m.AUTH_ROUTES),
+  },
+
+  // All other routes wrapped with Layout (includes navbar/footer)
+  {
+    path: '',
     component: Layout,
     children: [
-      { path: '', component: Landingpage },
-      { path: '**', redirectTo: 'Error404', pathMatch: 'full' },
+      // Home/Landing page
+      {
+        path: 'home',
+        component: Landingpage,
+      },
+
+      // Order Tracking
+      {
+        path: 'order-tracking/:orderId',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./features/checkout/page/order-tracking/order-tracking').then(
+            (m) => m.OrderTracking
+          ),
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
     ],
   },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
 
+  // All Services
   {
     path: 'all-services',
     canActivate: [AuthGuard],
     loadComponent: () => import('./features/all-services/all-services').then((m) => m.AllServices),
   },
+
+  // Service Details
   {
     path: 'service-details/:id',
     canActivate: [AuthGuard],
@@ -28,6 +56,8 @@ export const routes: Routes = [
         (m) => m.ServiceDatails
       ),
   },
+
+  // Appointment Service
   {
     path: 'appointment-service',
     canActivate: [AuthGuard],
@@ -36,50 +66,52 @@ export const routes: Routes = [
         './features/all-services/appointment-service-component/appointment-service-component'
       ).then((m) => m.AppointmentServiceComponent),
   },
+
+  // Complete Profile
   {
     path: 'complete-profile',
     canActivate: [AuthGuard],
     loadComponent: () =>
       import('./features/complete-profile/complete-profile').then((m) => m.CompleteProfile),
   },
+
+  // Cart
   {
     path: 'cart',
     canActivate: [AuthGuard],
     loadComponent: () => import('./features/cart/pages/cart/cart').then((m) => m.Cart),
   },
+
+  // Checkout
   {
     path: 'checkout',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./features/checkout/checkout.routing'),
+    loadChildren: () =>
+      import('./features/checkout/checkout.routing').then((m) => m.CHECKOUT_ROUTES),
   },
-  // { path: 'checkout', canActivate: [NoAuthGuard], loadComponent: () => import('./features/checkout/checkout').then(m => m.Checkout) },
+
+  // Privacy Policy
   {
     path: 'privacy-policy',
-    canActivate: [NoAuthGuard],
     loadComponent: () => import('./shared/components/privacy/privacy').then((m) => m.Privacy),
   },
+
+  // Terms and Conditions
   {
     path: 'terms-and-conditions',
-    canActivate: [NoAuthGuard],
     loadComponent: () => import('./shared/components/terms/terms').then((m) => m.Terms),
   },
+
+  // 404 Error
   {
     path: 'Error404',
-    canActivate: [NoAuthGuard],
     loadComponent: () => import('./shared/components/not-found/not-found').then((m) => m.NotFound),
   },
-  // {
-  //   path: '',
-  //   canActivate: [AuthGuard],
-  //   loadComponent: () =>
-  //     import('./features/landing/pages/landing-page/landing-page.component').then(
-  //       (m) => m.LandingPageComponent
-  //     ),
-  // },
+
+  // Wildcard - redirect to 404
   {
-    path: 'auth',
-    canActivateChild: [NoAuthGuard],
-    loadChildren: () => import('./features/auth/auth.routing').then((m) => m.AUTH_ROUTES),
+    path: '**',
+    redirectTo: 'Error404',
+    pathMatch: 'full',
   },
-  { path: '**', redirectTo: 'Error404', pathMatch: 'full' },
 ];
