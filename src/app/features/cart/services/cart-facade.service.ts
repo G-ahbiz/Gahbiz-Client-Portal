@@ -29,4 +29,8 @@ export class CartFacadeService {
     cart = cart.filter((item) => item.id !== id);
     localStorage.setItem('cart', JSON.stringify(cart));
   }
+
+  clearCart(): void {
+    localStorage.removeItem('cart');
+  }
 }

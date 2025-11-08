@@ -1,0 +1,344 @@
+<div class="checkout-container container py-4 py-md-5">
+  <h2 class="text-center fw-bold mb-4 mb-md-5">{{ 'checkout.title' | translate }}</h2>
+
+  <div class="row g-4 g-lg-5 justify-content-center">
+
+    <!-- Left Column: Payment Section -->
+    <div class="col-lg-7 col-xl-8">
+      <!-- Personal Information Card -->
+      <div class="card shadow-sm payment-card h-auto mb-4">
+        <div class="card-body px-4 px-md-7">
+          <div class="section-header d-flex justify-content-between align-items-center cursor-pointer"
+            (click)="togglePersonalInfo()">
+            <h5 class="fw-bold mb-0">{{ 'checkout.personal-information' | translate }}</h5>
+            <i class="bi" [class.bi-chevron-down]="!isPersonalInfoCollapsed"
+              [class.bi-chevron-up]="isPersonalInfoCollapsed"></i>
+          </div>
+
+          <div class="personal-info-form-container mt-3" *ngIf="!isPersonalInfoCollapsed">
+            <form [formGroup]="form" novalidate>
+              <div class="row g-3 g-md-4">
+                <!-- First Name -->
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">{{ 'checkout.first-name' | translate }}</label>
+                  <input type="text" id="firstName" class="form-control" formControlName="firstName"
+                    [class.is-invalid]="isFieldInvalid('firstName')"
+                    [attr.placeholder]="'checkout.enter-first-name' | translate" />
+                  <div *ngIf="isFieldInvalid('firstName')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('firstName') }}
+                  </div>
+                </div>
+
+                <!-- Last Name -->
+                <div class="col-md-6">
+                  <label for="lastName" class="form-label">{{ 'checkout.last-name' | translate }}</label>
+                  <input type="text" id="lastName" class="form-control" formControlName="lastName"
+                    [class.is-invalid]="isFieldInvalid('lastName')"
+                    [attr.placeholder]="'checkout.enter-last-name' | translate" />
+                  <div *ngIf="isFieldInvalid('lastName')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('lastName') }}
+                  </div>
+                </div>
+
+                <!-- Address -->
+                <div class="col-12">
+                  <label for="address" class="form-label">{{ 'checkout.address' | translate }}</label>
+                  <input type="text" id="address" class="form-control" formControlName="address"
+                    [class.is-invalid]="isFieldInvalid('address')"
+                    [attr.placeholder]="'checkout.enter-address' | translate" />
+                  <div *ngIf="isFieldInvalid('address')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('address') }}
+                  </div>
+                </div>
+
+                <!-- Country -->
+                <div class="col-md-6">
+                  <label for="country" class="form-label">{{ 'checkout.country' | translate }}</label>
+                  <input type="text" id="country" class="form-control" formControlName="country"
+                    [class.is-invalid]="isFieldInvalid('country')"
+                    [attr.placeholder]="'checkout.enter-country' | translate" />
+                  <div *ngIf="isFieldInvalid('country')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('country') }}
+                  </div>
+                </div>
+
+                <!-- State -->
+                <div class="col-md-6">
+                  <label for="state" class="form-label">{{ 'checkout.state' | translate }}</label>
+                  <input type="text" id="state" class="form-control" formControlName="state"
+                    [class.is-invalid]="isFieldInvalid('state')"
+                    [attr.placeholder]="'checkout.enter-state' | translate" />
+                  <div *ngIf="isFieldInvalid('state')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('state') }}
+                  </div>
+                </div>
+
+                <!-- County -->
+                <div class="col-md-6">
+                  <label for="county" class="form-label">{{ 'checkout.county' | translate }}</label>
+                  <input type="text" id="county" class="form-control" formControlName="county"
+                    [class.is-invalid]="isFieldInvalid('county')"
+                    [attr.placeholder]="'checkout.enter-county' | translate" />
+                  <div *ngIf="isFieldInvalid('county')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('county') }}
+                  </div>
+                </div>
+
+                <!-- City -->
+                <div class="col-md-6">
+                  <label for="city" class="form-label">{{ 'checkout.city' | translate }}</label>
+                  <input type="text" id="city" class="form-control" formControlName="city"
+                    [class.is-invalid]="isFieldInvalid('city')"
+                    [attr.placeholder]="'checkout.enter-city' | translate" />
+                  <div *ngIf="isFieldInvalid('city')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('city') }}
+                  </div>
+                </div>
+
+                <!-- ZIP Code -->
+                <div class="col-md-6">
+                  <label for="zip" class="form-label">{{ 'checkout.zip-code' | translate }}</label>
+                  <input type="text" id="zip" class="form-control" formControlName="zip"
+                    [class.is-invalid]="isFieldInvalid('zip')"
+                    [attr.placeholder]="'checkout.zip-placeholder' | translate" />
+                  <div *ngIf="isFieldInvalid('zip')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('zip') }}
+                  </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-md-6">
+                  <label for="contactInfo" class="form-label">{{ 'checkout.email' | translate }}</label>
+                  <input type="email" id="contactInfo" class="form-control" formControlName="contactInfo"
+                    [class.is-invalid]="isFieldInvalid('contactInfo')"
+                    [attr.placeholder]="'checkout.email-placeholder' | translate" />
+                  <div *ngIf="isFieldInvalid('contactInfo')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('contactInfo') }}
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Card -->
+      <div class="card shadow-sm payment-card h-auto">
+        <div class="card-body px-4 px-md-7">
+          <div class="section-header d-flex justify-content-between align-items-center cursor-pointer"
+            (click)="togglePaymentMethod()">
+            <h5 class="fw-bold mb-0">{{ 'checkout.payment-method' | translate }}</h5>
+            <i class="bi" [class.bi-chevron-down]="!isPaymentMethodCollapsed"
+              [class.bi-chevron-up]="isPaymentMethodCollapsed"></i>
+          </div>
+
+          <div class="credit-card-form-container mt-3" *ngIf="!isPaymentMethodCollapsed">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fw-semibold text-dark fs-6">{{ 'checkout.pay-with-credit-card' | translate }}</span>
+              <div class="card-icons">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Old_Visa_Logo.svg" alt="Visa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard">
+              </div>
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="onPay()" novalidate autocomplete="off">
+              <div class="row g-3 g-md-4 mt-2">
+                <!-- Card Number -->
+                <div class="col-12">
+                  <label for="cardNumber" class="form-label">{{ 'checkout.card-number' | translate }}</label>
+                  <div class="input-icon-wrapper">
+                    <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber"
+                      [attr.placeholder]="'checkout.card-number-placeholder' | translate" inputmode="numeric"
+                      (input)="formatCardNumber($event)" [class.is-invalid]="isFieldInvalid('cardNumber')"
+                      autocomplete="cc-number" />
+                    <i class="bi bi-check-circle-fill input-icon"
+                      *ngIf="form.get('cardNumber')?.valid && form.get('cardNumber')?.touched">
+                    </i>
+                  </div>
+                  <div *ngIf="isFieldInvalid('cardNumber')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('cardNumber') }}
+                  </div>
+                </div>
+
+                <!-- Expiration Date -->
+                <div class="col-md-6">
+                  <label for="expMonth" class="form-label">{{ 'checkout.expiration-date' | translate }}</label>
+                  <input type="text" id="expMonth" class="form-control" formControlName="expMonth"
+                    [attr.placeholder]="'checkout.expiry-placeholder' | translate" (input)="formatExpiry($event)"
+                    [class.is-invalid]="isFieldInvalid('expMonth')" autocomplete="cc-exp" />
+                  <div *ngIf="isFieldInvalid('expMonth')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('expMonth') }}
+                  </div>
+                </div>
+
+                <!-- CVV -->
+                <div class="col-md-6">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label for="cvv" class="form-label mb-0">{{ 'checkout.card-security-code' | translate }}</label>
+                    <a href="javascript:void(0)" class="what-is-this text-decoration-none" (click)="showCvvHelp()"
+                      data-bs-toggle="tooltip" data-bs-placement="top"
+                      [attr.title]="'checkout.cvv-help-tooltip' | translate">
+                      {{ 'checkout.what-is-this' | translate }}
+                    </a>
+                  </div>
+                  <input type="text" id="cvv" class="form-control" formControlName="cvv"
+                    [attr.placeholder]="'checkout.cvv-placeholder' | translate" inputmode="numeric" maxlength="4"
+                    [class.is-invalid]="isFieldInvalid('cvv')" autocomplete="cc-csc" />
+                  <div *ngIf="isFieldInvalid('cvv')" class="invalid-feedback d-block mt-1">
+                    {{ getFieldError('cvv') }}
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <!-- Security Note -->
+            <div class="security-note mt-3">
+              <i class="bi bi-shield-lock"></i>
+              <span class="small">
+                {{ 'checkout.security-note' | translate }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pay Button -->
+      <div class="mt-4">
+        <button type="submit" (click)="onPay()" class="btn btn-primary btn-lg w-100 payment-button py-3"
+          [disabled]="loading || form.invalid">
+          <span *ngIf="!loading" class="fw-semibold">
+            {{ 'checkout.pay-button' | translate:{amount: total.toFixed(2)} }}
+          </span>
+          <span *ngIf="loading" class="fw-semibold">
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            {{ 'checkout.processing-payment' | translate }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column: Order Summary -->
+    <div class="col-lg-5 col-xl-4">
+      <div class="card shadow-sm order-summary-card h-auto">
+        <div class="card-body p-4 p-md-5">
+          <div class="section-header d-flex justify-content-between align-items-center cursor-pointer mb-3">
+            <h5 class="fw-semibold mb-0">{{ 'checkout.order-summary' | translate }}</h5>
+          </div>
+
+          <div class="promo-code-section mb-4" [formGroup]="form">
+            <label for="promoCode" class="form-label small mb-2">{{ 'checkout.promo-code' | translate }}</label>
+            <div class="input-group">
+              <input type="text" id="promoCode" class="form-control" formControlName="promoCode"
+                [attr.placeholder]="'checkout.enter-promo-code' | translate" aria-label="Promo Code">
+              <button class="btn btn-outline-secondary" type="button" (click)="applyPromoCode()">
+                {{ 'checkout.apply' | translate }}
+              </button>
+            </div>
+            <div *ngIf="promoCodeApplied" class="text-success small mt-1">
+              <i class="bi bi-check-circle-fill me-1"></i>{{ 'checkout.promo-code-applied' | translate }}
+            </div>
+            <div *ngIf="promoCodeError" class="text-danger small mt-1">
+              <i class="bi bi-exclamation-circle-fill me-1"></i>{{ promoCodeError }}
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <div class="order-items-container">
+            <div *ngFor="let item of itemsControls; let i = index" class="item-row">
+              <div class="item-name-row mb-2">
+                <span class="item-name fw-medium">{{ item.value.name }}</span>
+              </div>
+
+              <div class="item-details-row d-flex justify-content-between align-items-center">
+                <div class="quantity-selector">
+                  <button type="button" class="btn btn-sm" (click)="decrementQuantity(i)"
+                    [disabled]="item.value.quantity <= 1">
+                    <i class="bi bi-dash"></i>
+                  </button>
+                  <span class="quantity-value mx-2">{{ item.value.quantity }}</span>
+                  <button type="button" class="btn btn-sm" (click)="incrementQuantity(i)">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                </div>
+                <span class="item-price fw-semibold">
+                  {{ (item.value.price * item.value.quantity) | currency }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <div class="price-breakdown">
+            <div class="d-flex justify-content-between mb-2">
+              <span>{{ 'checkout.subtotal' | translate }}</span>
+              <span>{{ subtotal | currency }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>{{ 'checkout.tax' | translate }}</span>
+              <span>{{ tax | currency }}</span>
+            </div>
+            <div *ngIf="promoCodeApplied" class="d-flex justify-content-between text-success">
+              <span>{{ 'checkout.discount' | translate }}</span>
+              <span>-{{ promoCodeDiscount | currency }}</span>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <div class="total-row">
+            <span>{{ 'checkout.total' | translate }}</span>
+            <span class="fs-4">{{ total | currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CVV Help Modal -->
+<div class="modal fade" id="cvvHelpModal" tabindex="-1" aria-labelledby="cvvHelpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="cvvHelpModalLabel">{{ 'checkout.cvv-modal-title' | translate }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="cvv-image-container mb-4">
+          <img src="assets/images/cvv.png" alt="CVV Location on Credit Card" class="img-fluid rounded shadow-sm">
+          <div class="image-caption small text-muted mt-2">
+            {{ 'checkout.cvv-location' | translate }}
+          </div>
+        </div>
+
+        <div class="cvv-explanation text-start">
+          <h6 class="fw-semibold mb-3">{{ 'checkout.card-verification-value' | translate }}</h6>
+
+          <div class="explanation-points">
+            <div class="point-item d-flex align-items-start mb-2">
+              <i class="bi bi-shield-check text-primary me-2 mt-1"></i>
+              <div [innerHTML]="'checkout.cvv-security-feature' | translate"></div>
+            </div>
+
+            <div class="point-item d-flex align-items-start mb-2">
+              <i class="bi bi-geo-alt text-primary me-2 mt-1"></i>
+              <div [innerHTML]="'checkout.cvv-location-details' | translate"></div>
+            </div>
+
+            <div class="point-item d-flex align-items-start mb-2">
+              <i class="bi bi-lock text-primary me-2 mt-1"></i>
+              <div [innerHTML]="'checkout.cvv-protection' | translate"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          {{ 'checkout.got-it' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

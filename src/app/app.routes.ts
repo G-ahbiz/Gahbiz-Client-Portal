@@ -49,9 +49,8 @@ export const routes: Routes = [
   },
   {
     path: 'checkout',
-    canActivate: [NoAuthGuard],
-    loadChildren: () =>
-      import('./features/checkout/checkout.routing').then((m) => m.CHECKOUT_ROUTES),
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./features/checkout/checkout.routing'),
   },
   // { path: 'checkout', canActivate: [NoAuthGuard], loadComponent: () => import('./features/checkout/checkout').then(m => m.Checkout) },
   {

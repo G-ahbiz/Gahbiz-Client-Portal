@@ -20,6 +20,10 @@ import { CustomGalleryComponent } from '@shared/components/custom-gallery/custom
 import { ServicesDetailsFacadeService } from '../../services/services-details/services-details-facade.service';
 import { ServicesDetailsResponse } from '@features/all-services/interfaces/services-details/services-details-response';
 import { CurrencyService } from '@shared/services/currency.service';
+import { ServiceDetails } from '@features/all-services/interfaces/all-services/service-details';
+import { CartItem } from '@features/cart/interfaces/cart-item';
+import { ToastService } from '@shared/services/toast.service';
+import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 
 interface BreadcrumbItem {
   label: string;
@@ -49,6 +53,8 @@ export class ServiceDetailsContent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly currencyService = inject(CurrencyService);
+  private readonly toaster = inject(ToastService);
+  private readonly cartFacadeService = inject(CartFacadeService);
 
   // State Management
   readonly isLoading = signal<boolean>(true);
@@ -466,16 +472,23 @@ export class ServiceDetailsContent implements OnInit {
   /**
    * Add to cart functionality
    */
-  addToCart(): void {
-    const service = this.serviceDetail();
-    if (service) {
-      console.log('Add to cart:', {
-        serviceId: service.id,
-        serviceName: service.name,
-        quantity: this.serviceCounter(),
-        price: service.price,
-      });
-      // TODO: Implement cart service integration
+  onAddToCart(service: ServiceDetails, event: Event): void {
+    event.stopPropagation(); // Prevent card click when button is clicked
+    const cartItem: CartItem = {
+      id: service.id,
+      name: service.name,
+      description: service.description,
+      price: service.price,
+      priceBefore: service.priceBefore,
+      rate: service.rate,
+      image: service.image?.path || '',
+      rateCount: service.rateCount,
+    };
+    const result = this.cartFacadeService.addToCart(cartItem);
+    if (result) {
+      this.toaster.success('Item added to cart', 3000);
+    } else {
+      this.toaster.error('Item already in cart', 3000);
     }
   }
 

@@ -1,0 +1,54 @@
+<app-navbar></app-navbar>
+<div class="container-fluid p-2 p-lg-5 m-0 bg-clr2 d-flex flex-column justify-content-center align-items-center gap-5">
+
+  <div
+    class="checkout-container-header p-2 p-lg-5 **px-2** d-flex flex-column justify-content-center align-items-center w-100">
+
+    <div class="steps-container d-flex justify-content-center align-items-center w-100 gap-2 gap-md-4 gap-lg-5">
+
+      <div
+        class="step step-1 rounded-circle primary-bg-clr p-4 d-flex flex-shrink-0 justify-content-center align-items-center white-text-clr">
+        <p class="m-0 p-0">1</p>
+      </div>
+      <div class="line-container"></div>
+
+      <div
+        class="step step-2 rounded-circle primary-bg-clr p-4 d-flex flex-shrink-0 justify-content-center align-items-center white-text-clr">
+        <p class="m-0 p-0">2</p>
+      </div>
+      <div class="line-container"></div>
+
+      <div
+        class="step step-3 rounded-circle primary-bg-clr p-4 d-flex flex-shrink-0 justify-content-center align-items-center white-text-clr">
+        <p class="m-0 p-0">3</p>
+      </div>
+    </div>
+
+    <div
+      class="steps-titles-container mt-2 d-flex justify-content-center align-items-start w-100 gap-2 gap-md-4 gap-lg-5">
+
+      <div class="step-title text-center">
+        <p class="m-0 p-0 fw-semibold">{{'checkout.step-1' | translate}}</p>
+      </div>
+
+      <div class="line-container-spacer" style="flex-grow: 1;"></div>
+
+      <div class="step-title text-center">
+        <p class="m-0 p-0 fw-semibold">{{'checkout.step-2' | translate}}</p>
+      </div>
+
+      <div class="line-container-spacer" style="flex-grow: 1;"></div>
+
+      <div class="step-title text-center">
+        <p class="m-0 p-0 fw-semibold">{{'checkout.step-3' | translate}}</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="checkout-container-body w-100">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
+<app-footer></app-footer>
