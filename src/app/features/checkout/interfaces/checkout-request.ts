@@ -1,4 +1,4 @@
-import { CheckoutItem } from "./checkout-item";
+import { CheckoutItem } from './checkout-item';
 
 export interface CheckoutRequest {
   FirstName: string;
@@ -12,5 +12,6 @@ export interface CheckoutRequest {
   ContactInfo: string;
   CardToken: string;
   PromoCode?: string | null;
+  Metadata?: any;
   Items: CheckoutItem[];
 }

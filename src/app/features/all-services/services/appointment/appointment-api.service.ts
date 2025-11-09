@@ -7,6 +7,7 @@ import { ApiResponse } from '@core/interfaces/api-response';
 import { Branch } from '@features/all-services/interfaces/branch';
 import { AvailableSlotsResponse } from '@features/all-services/interfaces/appointment/available-slots-response';
 import { BookRequest } from '@features/all-services/interfaces/appointment/book-request';
+import { AppointmentSettingsResponse } from '@features/all-services/interfaces/appointment/appointment-settings-response';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +45,13 @@ export class AppointmentApiService {
 
     return this.http
       .post<ApiResponse<any>>(`${this.apiUrl}${endpoint}`, null, { params })
+      .pipe(catchError(this.handleError));
+  }
+
+  getAppointmentSettings(branchId: string): Observable<ApiResponse<AppointmentSettingsResponse>> {
+    const endpoint = environment.appointmentSettings.getAppointmentSettings(branchId);
+    return this.http
+      .get<ApiResponse<AppointmentSettingsResponse>>(`${this.apiUrl}${endpoint}`)
       .pipe(catchError(this.handleError));
   }
 

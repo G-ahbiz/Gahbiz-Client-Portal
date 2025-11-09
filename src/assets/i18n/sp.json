@@ -483,6 +483,7 @@
     "price": "Precio",
     "total": "Total",
     "grand-total": "Total",
+    "qty": "Cant",
     "tracking": {
       "pending": "Pendiente",
       "processing": "Procesando",

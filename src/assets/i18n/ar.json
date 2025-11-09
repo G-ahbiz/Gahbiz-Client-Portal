@@ -483,6 +483,7 @@
     "price": "السعر",
     "total": "المجموع",
     "grand-total": "المجموع",
+    "qty": "الكمية",
     "tracking": {
       "pending": "قيد الانتظار",
       "processing": "قيد المعالجة",
