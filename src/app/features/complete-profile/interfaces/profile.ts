@@ -1,11 +1,11 @@
 export interface Profile {
-  ProfileImage: string;
-  FullName:string;
-  Email: string;
-  PhoneNumber: string;
-  NationalId: string;
-  DateOfBirth: string;
-  Country: string;
-  State: string;
-  PostalCode: string;
+  profileImageUrl: string;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  nationalId: string;
+  dateOfBirth: string;
+  country: string;
+  state: string;
+  postalCode: string;
 }

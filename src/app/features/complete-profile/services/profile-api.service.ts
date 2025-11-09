@@ -28,9 +28,7 @@ export class ProfileApiService {
 
   getStatesByCountry(countryId: number): Observable<any[]> {
     return this.http
-      .get<ApiResponse<any[]>>(
-        `${this.base}${environment.states.getStatesByCountry}${countryId}`
-      )
+      .get<ApiResponse<any[]>>(`${this.base}${environment.states.getStatesByCountry}${countryId}`)
       .pipe(map((response) => response.data));
   }
 }

@@ -60,6 +60,9 @@ export class SignUpPageComponent {
       }
     });
   }
+  navigateToHome() {
+    this.router.navigate([ROUTES.home]);
+  }
 
   onFacebookRegister() {
     this.facebookAuthService

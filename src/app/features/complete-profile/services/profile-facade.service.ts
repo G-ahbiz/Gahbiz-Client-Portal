@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ProfileApiService } from './profile-api.service';
 import { Observable } from 'rxjs';
+import { Profile } from '../interfaces/profile';
+import { ApiResponse } from '@core/interfaces/api-response';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +18,7 @@ export class ProfileFacadeService {
     return this.profileApiService.getStatesByCountry(countryId);
   }
 
-  completeProfile(profileData: any) {
+  completeProfile(profileData: any): Observable<ApiResponse<Profile>> {
     return this.profileApiService.completeProfile(profileData);
   }
 

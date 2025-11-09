@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { ServiceDetails } from '@features/all-services/interfaces/all-services/service-details';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { CartItem } from '@features/cart/interfaces/cart-item';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-best-offers',
@@ -34,6 +36,10 @@ export class BestOffers implements OnInit {
   private cd = inject(ChangeDetectorRef);
   private router = inject(Router);
   private cartFacadeService = inject(CartFacadeService);
+  private authService = inject(AuthService);
+  readonly isLoggedIn = toSignal(this.authService.isLoggedIn$, {
+    initialValue: this.authService.isAuthenticated(),
+  });
 
   ngOnInit() {
     this.initializeTranslation();
@@ -98,6 +104,10 @@ export class BestOffers implements OnInit {
 
   onAddToCart(offer: Offer, event: Event): void {
     event.stopPropagation();
+    if (!this.isLoggedIn()) {
+      this.toastService.error('Please sign in to add items to your cart', 3000);
+      return;
+    }
     const cartItem: any = {
       id: offer.id,
       name: offer.title,
@@ -115,7 +125,7 @@ export class BestOffers implements OnInit {
     }
   }
 
-    copyPageUrl(event: MouseEvent, offerId: string): void {
+  copyPageUrl(event: MouseEvent, offerId: string): void {
     event.stopPropagation();
 
     if (!offerId || this.copiedOfferId === offerId) return;

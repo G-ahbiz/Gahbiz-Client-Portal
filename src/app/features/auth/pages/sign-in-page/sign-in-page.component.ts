@@ -121,6 +121,9 @@ export class SignInPageComponent implements OnDestroy {
       });
   }
 
+  navigateToHome() {
+    this.router.navigate([ROUTES.home]);
+  }
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

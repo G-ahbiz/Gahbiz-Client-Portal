@@ -32,6 +32,13 @@ export const routes: Routes = [
             (m) => m.OrderTracking
           ),
       },
+      // Checkout
+      {
+        path: 'checkout',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./features/checkout/checkout.routing').then((m) => m.CHECKOUT_ROUTES),
+      },
       {
         path: '',
         redirectTo: 'home',
@@ -80,14 +87,6 @@ export const routes: Routes = [
     path: 'cart',
     canActivate: [AuthGuard],
     loadComponent: () => import('./features/cart/pages/cart/cart').then((m) => m.Cart),
-  },
-
-  // Checkout
-  {
-    path: 'checkout',
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./features/checkout/checkout.routing').then((m) => m.CHECKOUT_ROUTES),
   },
 
   // Privacy Policy

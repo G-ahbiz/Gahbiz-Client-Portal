@@ -93,7 +93,7 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
     private formBuilder: FormBuilder,
     private profileFacadeService: ProfileFacadeService,
     private cdr: ChangeDetectorRef,
-    private toastService: ToastService,
+    private toastService: ToastService
   ) {
     this.completeProfileForm = this.formBuilder.group({
       fullLegalName: [
@@ -734,8 +734,9 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
       next: (response) => {
         console.log('Profile update successful', response);
         this.isDataCompleted = true;
-        this.isLoading = false;
         this.cdr.detectChanges();
+
+        this.isLoading = false;
 
         const successMsg = this.translateService.instant(
           'complete-profile.messages.update_success'
@@ -765,7 +766,7 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
           'complete-profile.messages.update_error'
         );
         const apiErrorMessage = err?.error?.message || err?.message;
-        this.toastService.error(apiErrorMessage || genericErrorMsg);
+        this.toastService.error(genericErrorMsg);
       },
     });
   }
@@ -775,17 +776,13 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
     const birthDay = this.completeProfileForm.get('birthDay')?.value;
     const birthYear = this.completeProfileForm.get('birthYear')?.value;
 
-    // Check if all fields have values
-    if (!birthMonth || !birthDay || !birthYear) {
-      return null;
-    }
+    if (!birthMonth || !birthDay || !birthYear) return null;
 
-    // Pad single-digit months and days with leading zeros
     const paddedMonth = birthMonth.toString().padStart(2, '0');
     const paddedDay = birthDay.toString().padStart(2, '0');
 
-    // Return in format: DD-MM-YYYY
-    return `${paddedDay}-${paddedMonth}-${birthYear}`;
+    // ISO format YYYY-MM-DD
+    return `${birthYear}-${paddedMonth}-${paddedDay}`;
   }
 
   ngOnDestroy() {}

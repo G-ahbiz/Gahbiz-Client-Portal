@@ -4,9 +4,18 @@ export const environment = {
   apiUrl: 'https://serva-best.runasp.net/api',
   // apiUrl: 'https://localhost:7204/api',
 
+  // Google third party auth
   googleClientId: '710517406086-vlr501mfdnbmc5o8p8jv07qaks1jvveg.apps.googleusercontent.com',
   googleUrl: 'https://accounts.google.com/gsi/client',
 
+  // Facebook third party auth
+  facebookAppId: '1786936631940004',
+
+  // Authorize.net
+  apiLoginID: '25pQwt2Vd', // sandbox
+  clientKey: '95n56trhr7Cg4cvFMSEjtWL2P9K7m4685G7HQ3mtJGVTW2FSCcbd8TNRCMat5z9x',
+
+  // APIs
   reviews: {
     createReview: '/Reviews',
     getReviewsByService: '/Reviews/service/',
@@ -28,12 +37,19 @@ export const environment = {
   appointmentSettings: {
     getAvailableSlots: (branchId: string) => `/appointment-settings/${branchId}/available-slots`,
     bookAppointment: (branchId: string) => `/appointment-settings/${branchId}/book`,
+    getAppointmentSettings: (branchId: string) => `/appointment-settings/${branchId}`,
   },
   branches: {
     getBranches: '/Branches',
   },
   serviceCategories: {
     getAllServiceCategories: '/ServiceCategories',
+  },
+  orders: {
+    getOrderById: (orderId: string) => `/Orders/${orderId}`,
+  },
+  pay: {
+    checkout: '/Pay',
   },
   services: {
     getAllServices: '/Services',
@@ -49,9 +65,8 @@ export const environment = {
   },
   serviceSubmissions: {
     getRequiredFiles: `/ServiceSubmissions/`,
+    submitService: `/ServiceSubmissions`,
   },
-
-  facebookAppId: '1786936631940004',
 
   confirmTokenTtlMs: 5 * 60 * 100,
 };

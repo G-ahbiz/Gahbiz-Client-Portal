@@ -1,8 +1,14 @@
 <div class="relative min-h-screen w-full flex items-center justify-center bg-neutral-50 p-4">
-  <img src="assets/images/Shapes.png" alt="Confetti" class="absolute inset-0 w-full object-cover z-10 opacity-50" />
+  <img
+    src="assets/images/Shapes.png"
+    alt="Confetti"
+    class="absolute inset-0 w-full object-cover z-10 opacity-50"
+  />
 
-  <div #confirmationCard
-    class="relative z-20 w-full max-w-md inline-flex flex-col justify-start items-center gap-6 p-6 md:p-8 transition-transform duration-500 ease-in-out animate-fade-in-up">
+  <div
+    #confirmationCard
+    class="relative z-20 w-full max-w-md inline-flex flex-col justify-start items-center gap-6 p-6 md:p-8 transition-transform duration-500 ease-in-out animate-fade-in-up"
+  >
     <img src="assets/images/success.png" alt="Success Checkmark" class="w-24 h-24" />
 
     <div class="self-stretch flex flex-col justify-start items-center gap-2 text-center">
@@ -19,11 +25,10 @@
       <strong class="text-neutral-900 font-semibold">#{{ orderId }}</strong>
     </p>
 
-    <a [routerLink]="['/track', orderId]" class="self-stretch h-14 px-6 py-3.5 bg-sky-700 rounded-lg inline-flex justify-center items-center 
-              text-white text-xl font-semibold font-['Libre_Franklin']
-              transition-colors duration-200 ease-in-out
-              hover:bg-sky-800
-              focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
+    <a
+      [routerLink]="['/order-tracking', orderId]"
+      class="self-stretch h-14 px-6 py-3.5 bg-sky-700 rounded-lg inline-flex justify-center items-center text-white text-xl font-semibold font-['Libre_Franklin'] transition-colors duration-200 ease-in-out hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+    >
       {{ 'checkout.confirmation-track-button' | translate }}
     </a>
   </div>

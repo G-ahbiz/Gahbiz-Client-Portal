@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { Rating } from '@shared/components/rating/rating';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs';
 import { CustomGalleryComponent } from '@shared/components/custom-gallery/custom-gallery.component';
 import { ServicesDetailsFacadeService } from '../../services/services-details/services-details-facade.service';
@@ -24,6 +24,8 @@ import { ServiceDetails } from '@features/all-services/interfaces/all-services/s
 import { CartItem } from '@features/cart/interfaces/cart-item';
 import { ToastService } from '@shared/services/toast.service';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
+import { AuthService } from '@core/services/auth.service';
+import { ROUTES } from '@shared/config/constants';
 
 interface BreadcrumbItem {
   label: string;
@@ -55,7 +57,11 @@ export class ServiceDetailsContent implements OnInit {
   private readonly currencyService = inject(CurrencyService);
   private readonly toaster = inject(ToastService);
   private readonly cartFacadeService = inject(CartFacadeService);
+  private readonly authService = inject(AuthService);
 
+  readonly isLoggedIn = toSignal(this.authService.isLoggedIn$, {
+    initialValue: this.authService.isAuthenticated(),
+  });
   // State Management
   readonly isLoading = signal<boolean>(true);
   readonly serviceDetail = signal<ServicesDetailsResponse | null>(null);
@@ -472,16 +478,20 @@ export class ServiceDetailsContent implements OnInit {
   /**
    * Add to cart functionality
    */
-  onAddToCart(service: ServiceDetails, event: Event): void {
+  onAddToCart(service: ServicesDetailsResponse, event: Event): void {
     event.stopPropagation(); // Prevent card click when button is clicked
+    if (!this.isLoggedIn()) {
+      this.toaster.error('Please sign in to add items to your cart', 3000);
+      return;
+    }
     const cartItem: CartItem = {
       id: service.id,
       name: service.name,
       description: service.description,
       price: service.price,
-      priceBefore: service.priceBefore,
+      priceBefore: service.priceBefore ?? 0,
       rate: service.rate,
-      image: service.image?.path || '',
+      image: service.images[0]?.path ?? '',
       rateCount: service.rateCount,
     };
     const result = this.cartFacadeService.addToCart(cartItem);
@@ -498,8 +508,8 @@ export class ServiceDetailsContent implements OnInit {
   buyNow(): void {
     const service = this.serviceDetail();
     if (service) {
-      console.log('Buy now:', service.id);
-      // TODO: Implement checkout flow
+      this.onAddToCart(service, new Event('click'));
+      this.router.navigate([ROUTES.checkout]);
     }
   }
 

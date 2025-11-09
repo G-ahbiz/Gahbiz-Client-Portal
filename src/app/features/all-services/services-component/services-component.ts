@@ -21,6 +21,9 @@ import { CartItem } from '@features/cart/interfaces/cart-item';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { ToastService } from '@shared/services/toast.service';
 import { ApiImage } from '@core/interfaces/api-image';
+import { AuthService } from '@core/services/auth.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ROUTES } from '@shared/config/constants';
 
 @Component({
   selector: 'app-services-component',
@@ -35,6 +38,11 @@ export class ServicesComponent implements OnDestroy {
   private cartFacadeService = inject(CartFacadeService);
   private toastService = inject(ToastService);
   private destroy$ = new Subject<void>();
+  private authService = inject(AuthService);
+
+  readonly isLoggedIn = toSignal(this.authService.isLoggedIn$, {
+    initialValue: this.authService.isAuthenticated(),
+  });
 
   // Language state
   readonly currentLang = signal('en');
@@ -130,13 +138,18 @@ export class ServicesComponent implements OnDestroy {
 
   onBuyNow(service: ServiceDetails, event: Event): void {
     event.stopPropagation(); // Prevent card click when button is clicked
-    // Add buy now logic here, or navigate directly
-    console.log('Buy now:', service.id);
-    // this.router.navigate(['/checkout'], { queryParams: { serviceId: service.id } });
+    if (service) {
+      this.onAddToCart(service, new Event('click'));
+      this.router.navigate([ROUTES.checkout]);
+    }
   }
 
   onAddToCart(service: ServiceDetails, event: Event): void {
     event.stopPropagation(); // Prevent card click when button is clicked
+    if (!this.isLoggedIn()) {
+      this.toastService.error('Please sign in to add items to your cart', 3000);
+      return;
+    }
     const cartItem: CartItem = {
       id: service.id,
       name: service.name,

@@ -7,6 +7,9 @@ export const ROUTES = {
   confirmEmail: '/auth/confirm-email',
   forgotPassword: '/auth/forgot-password',
   resetPassword: '/auth/reset-password',
+  checkout: '/checkout',
+  completeProfile: '/complete-profile',
+  appointmentService: '/appointment-service',
 };
 
 export const COUNTRIES: CountryCodes[] = [

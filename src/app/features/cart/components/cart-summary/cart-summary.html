@@ -23,7 +23,6 @@
 
       <!-- Cart Checkout Button -->
       <div class="cart-checkout-button">
-        @if (isProfileComplete) {
         <button
           class="btn btn-primary primary-bg-clr white-text-clr w-100"
           [class.d-none]="isButtonDisabled"
@@ -31,6 +30,7 @@
         >
           {{ 'cart.summary.checkout-btn' | translate }}
         </button>
+        <!-- @if (isProfileComplete()) {
         } @else {
         <button
           class="btn btn-primary primary-bg-clr white-text-clr w-100"
@@ -40,7 +40,7 @@
         >
           {{ 'cart.summary.checkout-btn' | translate }}
         </button>
-        }
+        } -->
       </div>
     </div>
 
