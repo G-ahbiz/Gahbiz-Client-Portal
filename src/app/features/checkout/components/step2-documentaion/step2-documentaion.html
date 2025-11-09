@@ -123,10 +123,13 @@
                   <div *ngFor="let requiredFile of getRequiredFilesForService(serviceIndex); let i = index"
                     [class]="i % 2 === 0 ? 'col-md-6' : 'col-md-6'">
                     <div class="mb-4">
-                      <label [for]="'file_' + serviceIndex + '_' + requiredFile.id" class="form-label">
+
+                      <label [for]="'file_' + serviceIndex + '_' + requiredFile.id"
+                        class="form-label file-upload-label-fix">
                         {{ requiredFile.name }}
                         <span class="text-danger">*</span>
                       </label>
+
                       <div class="file-upload-container"
                         [class.has-file]="serviceDataForms[serviceIndex].get(getFileFieldName(requiredFile))?.value">
                         <input type="file" [id]="'file_' + serviceIndex + '_' + requiredFile.id"

@@ -1,22 +1,134 @@
-.step {
-  width: 3.75rem;
-  height: 3.75rem;
+/* Main container */
+.steps-main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* Increased from 500px */
+  max-width: 700px; 
+  margin: 0 auto;
+}
+
+/* Each step unit (Circle + Title) */
+.step-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
   flex-shrink: 0;
+  /* Increased slightly to accommodate longer lines */
+  width: 110px; 
+  position: relative;
+  z-index: 2;
 }
 
-.line-container {
-  flex-grow: 1; 
-  height: 0.0625rem;
-  background: #d0d0d0;
+/* Step circles */
+.step {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #888888;
+  background-color: #D0D0D0;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
+.step.active {
+  background-color: #3a82ed;
+  color: #fff;
+}
+
+.step.completed {
+  background-color: #e0eefd;
+  color: #3a82ed;
+}
+
+/* Line connectors */
+.line-connector {
+  flex: 1; 
+  height: 2px;
+  background-color: #D0D0D0;
+  transition: background 0.3s ease;
+  /* Increased from 100px */
+  max-width: 150px; 
+  
+  /* Position line in vertical center of circle */
+  margin-top: 1.75rem; 
+  transform: translateY(-1px); 
+  
+  position: relative;
+  z-index: 1; 
+  
+  /* Overlap "under" the circles to connect */
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.line-connector.completed {
+  background-color: #3a82ed;
+}
+
+/* Step titles */
+.step-title {
+  text-align: center;
+  width: 100%; 
+}
+
+.step-title p {
+  font-size: 0.9rem;
+  color: #888888;
+  white-space: nowrap;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.step-title.active p,
+.step-title.completed p {
+  font-weight: 600;
+  color: #000;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .steps-titles-container p {
-        font-size: 0.75rem; 
-    }
-    .step {
-        width: 3rem; 
-        height: 3rem;
-        padding: 3px !important;
-    }
+  /* Reduced max-width for smaller screens */
+  .steps-main-container {
+    max-width: 500px;
+  }
+  .step-unit {
+    width: 90px;
+  }
+  .step {
+    width: 2.8rem;
+    height: 2.8rem;
+    font-size: 0.9rem;
+  }
+  .line-connector {
+    /* Increased line width for tablets/mid-size devices */
+    max-width: 90px; 
+    margin-top: 1.4rem; 
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+  .step-title p {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .steps-main-container {
+    max-width: 320px;
+  }
+  .step-unit {
+    width: 60px;
+  }
+  .line-connector {
+    max-width: 40px;
+  }
+  .step-title p {
+    white-space: normal; 
+    line-height: 1.2;
+  }
 }

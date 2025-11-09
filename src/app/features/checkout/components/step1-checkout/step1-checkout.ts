@@ -424,6 +424,7 @@ export class Step1Checkout implements OnInit, OnDestroy {
    */
   private async loadAcceptScript(): Promise<void> {
     const id = 'authorize-accept-js';
+    const useSandbox = (environment as any).useSandboxAcceptJs ?? !environment.production;
 
     // Check if already loaded
     if (document.getElementById(id) && window.Accept) {
@@ -440,9 +441,7 @@ export class Step1Checkout implements OnInit, OnDestroy {
       script.id = id;
       script.type = 'text/javascript';
       script.async = true;
-      script.src = environment.production
-        ? this.CONFIG.productionAcceptUrl
-        : this.CONFIG.sandboxAcceptUrl;
+      script.src = useSandbox ? this.CONFIG.sandboxAcceptUrl : this.CONFIG.productionAcceptUrl;
 
       script.onload = () => {
         clearTimeout(timeoutId);
@@ -679,7 +678,7 @@ export class Step1Checkout implements OnInit, OnDestroy {
     this.cartFacade.clearCart();
 
     localStorage.setItem('step1Completed', 'true');
-    
+
     // Clear appointment metadata after successful checkout
     localStorage.removeItem(LOCAL_STORAGE_KEYS.APPOINTMENT_METADATA_KEY);
 

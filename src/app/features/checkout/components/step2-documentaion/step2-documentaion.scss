@@ -11,14 +11,6 @@
   }
 }
 
-.service-title {
-  color: #111827;
-  font-weight: 600;
-  font-size: 1.25rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid #f3f4f6;
-}
-
 /* Form Control Styling */
 .form-label {
   font-size: 0.875rem;
@@ -435,4 +427,35 @@ select.form-control.is-invalid {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.service-title-container {
+  max-width: 90%; 
+}
+
+.service-title-text {
+  color: #111827;
+  font-weight: 600;
+  font-size: 1.25rem;
+  display: block;
+}
+
+.file-upload-label-fix {
+  min-height: 3.5rem;
+  display: block;
+}
+
+@media (max-width: 767.98px) {
+  .file-upload-label-fix {
+    min-height: auto;
+  }
+}
+
+.card-header {
+  background-color: #f9fafb;
+  cursor: pointer;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 1.5rem;
+  transition: background-color 0.2s ease;
+
+  border-bottom: 2px solid #f3f4f6;
 }

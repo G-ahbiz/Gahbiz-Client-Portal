@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-checkout',
@@ -18,38 +19,60 @@ export class Checkout implements OnInit {
   // Cart items
   cartItems: any[] = [];
 
-  constructor(private translateService: TranslateService) {}
+  activeStep: number = 1;
+
+  constructor(
+    private translateService: TranslateService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.initializeTranslation();
+    this.trackStepFromRoute();
   }
 
-  // Initialize translation
   private initializeTranslation() {
-    // Set default language if not already set
     if (!localStorage.getItem('servabest-language')) {
       localStorage.setItem('servabest-language', 'en');
     }
 
-    // Get saved language and set it
     const savedLang = localStorage.getItem('servabest-language') || 'en';
     this.translateService.setDefaultLang('en');
     this.translateService.use(savedLang);
-    if (savedLang === 'en' || savedLang === 'sp') {
-      document.documentElement.style.direction = 'ltr';
-    } else if (savedLang === 'ar') {
-      document.documentElement.style.direction = 'rtl';
-    }
+    document.documentElement.style.direction = savedLang === 'ar' ? 'rtl' : 'ltr';
 
-    // Set initial language state
     this.isArabic = savedLang === 'ar';
     this.isEnglish = savedLang === 'en';
     this.isSpanish = savedLang === 'sp';
-    // Subscribe to language changes
+
     this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
       this.isArabic = event.lang === 'ar';
       this.isEnglish = event.lang === 'en';
       this.isSpanish = event.lang === 'sp';
     });
+  }
+
+  setStep(step: number) {
+    this.activeStep = step;
+    this.router.navigate(['/checkout/step' + step]);
+  }
+
+  private trackStepFromRoute() {
+    // Set step on initial load
+    this.updateStepFromUrl(this.router.url);
+
+    // Update step on navigation
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => this.updateStepFromUrl(this.router.url));
+  }
+
+  private updateStepFromUrl(url: string) {
+    const lowerUrl = url.toLowerCase();
+    if (lowerUrl.includes('/checkout/step1')) this.activeStep = 1;
+    else if (lowerUrl.includes('/checkout/step2')) this.activeStep = 2;
+    else if (lowerUrl.includes('/checkout/step3')) this.activeStep = 3;
+    else this.activeStep = 1;
   }
 }

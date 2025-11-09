@@ -12,6 +12,7 @@ export const environment = {
   facebookAppId: '1786936631940004',
 
   // Authorize.net
+  useSandboxAcceptJs: true, // true: use sandbox, false: use production
   apiLoginID: '25pQwt2Vd', // sandbox
   clientKey: '95n56trhr7Cg4cvFMSEjtWL2P9K7m4685G7HQ3mtJGVTW2FSCcbd8TNRCMat5z9x',
 
