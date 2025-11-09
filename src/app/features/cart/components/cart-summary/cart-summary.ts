@@ -3,6 +3,7 @@ import { Component, computed, input, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartItem } from '@features/cart/interfaces/cart-item';
 import { TranslateModule } from '@ngx-translate/core';
+import { CART_ITEMS } from '@shared/config/constants';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -34,7 +35,17 @@ export class CartSummary implements OnDestroy {
 
   // Proceed to checkout
   proceedToCheckout() {
-    this.router.navigate(['/checkout']);
+    const hasAppointment = this.cartItems().some(
+      (item) => item.id === CART_ITEMS.APPOINTMENT_SERVICE
+    );
+
+    if (hasAppointment) {
+      this.router.navigate(['/appointment-service'], {
+        queryParams: { returnToCheckout: 'true' },
+      });
+    } else {
+      this.router.navigate(['/checkout']);
+    }
   }
 
   ngOnDestroy() {

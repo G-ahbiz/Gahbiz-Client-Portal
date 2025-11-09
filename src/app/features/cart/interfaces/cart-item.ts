@@ -9,4 +9,5 @@ export interface CartItem {
   rate: number;
   rateCount: number;
   image: string;
+  metadata?: string;
 }

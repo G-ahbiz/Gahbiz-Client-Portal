@@ -14,7 +14,7 @@ export const COUNTRIES: CountryCodes[] = [
   { name: 'Egypt', dialCode: '+20', iso2: 'eg' },
   { name: 'Spain', dialCode: '+34', iso2: 'es' },
   { name: 'United Kingdom', dialCode: '+44', iso2: 'gb' },
-  { name: 'Saudi Arabia', dialCode: '+966', iso2: 'sa'},
+  { name: 'Saudi Arabia', dialCode: '+966', iso2: 'sa' },
   { name: 'UAE', dialCode: '+971', iso2: 'ae' },
   { name: 'Canada', dialCode: '+1', iso2: 'ca' },
   { name: 'India', dialCode: '+91', iso2: 'in' },
@@ -56,10 +56,15 @@ export const LOCAL_STORAGE_KEYS = {
   ACCESS_TOKEN_KEY: 'access_token',
   REFRESH_TOKEN_KEY: 'refresh_token',
   USER_DATA_KEY: 'user_data',
+  APPOINTMENT_METADATA_KEY: 'appointment-metadata',
 };
 
 export const REG_EXP = {
   EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   PASSWORD: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
   OTP: /^\d{6}$/,
+};
+
+export const CART_ITEMS = {
+  APPOINTMENT_SERVICE: '9defe476-1fdb-4050-a15b-a1e04985d854',
 };

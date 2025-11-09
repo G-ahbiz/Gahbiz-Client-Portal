@@ -25,7 +25,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
 import { Navbar } from '@shared/components/navbar/navbar';
 import { Footer } from '@shared/components/footer/footer';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { InputComponent } from '@shared/components/input/input.component';
 import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
 import { AppointmentFacadeService } from '../services/appointment/appointment-facade.service';
@@ -36,6 +36,9 @@ import { BookRequest } from '../interfaces/appointment/book-request';
 import { AuthService } from '@core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { BestOffers } from '@features/landingpage/components/best-offers/best-offers';
+import { LOCAL_STORAGE_KEYS } from '@shared/config/constants';
+import { ToastService } from '@shared/services/toast.service';
+import { AppointmentSettingsResponse } from '../interfaces/appointment/appointment-settings-response';
 
 interface BreadcrumbItem {
   label: string;
@@ -78,6 +81,8 @@ export class AppointmentServiceComponent implements OnInit, OnDestroy {
   private readonly translate = inject(TranslateService);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly authService = inject(AuthService);
+  private readonly toastService = inject(ToastService);
+  private readonly route = inject(ActivatedRoute);
 
   // Language
   readonly currentLang = computed(() => this.translateService.currentLang);
@@ -96,6 +101,7 @@ export class AppointmentServiceComponent implements OnInit, OnDestroy {
   readonly availableSlots = signal<AvailableSlotsResponse>({});
   readonly availableDatesSet = signal<Set<string>>(new Set());
   readonly availableTimes = signal<string[]>([]);
+  readonly appointmentSettings = signal<AppointmentSettingsResponse | null>(null);
 
   // Loading states
   readonly isLoading = signal(false);
@@ -126,7 +132,12 @@ export class AppointmentServiceComponent implements OnInit, OnDestroy {
       .subscribe((user) => {
         if (!user) {
           // logged out → clear
-          this.appointmentServiceForm.patchValue({ firstName: '', lastName: '', email: '', phone: '' });
+          this.appointmentServiceForm.patchValue({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+          });
           return;
         }
 
@@ -149,7 +160,7 @@ export class AppointmentServiceComponent implements OnInit, OnDestroy {
           firstName,
           lastName,
           email,
-          phone
+          phone,
         });
 
         this.cdr.markForCheck();
@@ -262,6 +273,7 @@ export class AppointmentServiceComponent implements OnInit, OnDestroy {
   private onLocationChanged(branchId: string): void {
     if (branchId) {
       this.loadAvailableSlotsForLocation(branchId);
+      this.loadAppointmentSettings(branchId);
     } else {
       this.resetAvailableSlots();
     }
@@ -329,6 +341,16 @@ export class AppointmentServiceComponent implements OnInit, OnDestroy {
           this.isLoading.set(false);
           this.cdr.markForCheck();
         },
+      });
+  }
+
+  private loadAppointmentSettings(branchId: string): void {
+    this.appointmentFacadeService
+      .getAppointmentSettings(branchId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((settings) => {
+        this.appointmentSettings.set(settings);
+        this.cdr.markForCheck();
       });
   }
 
@@ -445,10 +467,29 @@ export class AppointmentServiceComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.appointmentServiceForm.valid && !this.isBooking()) {
-      this.isBooking.set(true);
-
       const formData = this.appointmentServiceForm.getRawValue();
       const apiTime = this.convertTimeToApiFormat(formData.time);
+
+      // Check if coming from checkout
+      const returnToCheckout = this.route.snapshot.queryParams['returnToCheckout'];
+
+      if (returnToCheckout === 'true') {
+        // Save metadata and return to checkout
+        const metadata = {
+          appointment_branch_id: formData.location,
+          appointment_date: formData.date,
+          appointment_time: apiTime,
+        };
+
+        localStorage.setItem(LOCAL_STORAGE_KEYS.APPOINTMENT_METADATA_KEY, JSON.stringify(metadata));
+
+        this.toastService.success('Appointment details saved');
+        this.router.navigate(['/checkout']);
+        return;
+      }
+
+      // Original flow: Direct appointment booking
+      this.isBooking.set(true);
 
       const bookingDetails: BookRequest = {
         branchId: formData.location,

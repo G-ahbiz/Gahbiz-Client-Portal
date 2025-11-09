@@ -1,4 +1,4 @@
-import { OrderItem } from "./order-item";
+import { OrderItem } from './order-item';
 
 export interface Order {
   id: string;
@@ -20,4 +20,5 @@ export interface Order {
   orderItems: OrderItem[];
   promocodeId: string | null;
   promocode: any;
+  metadata?: string;
 }
