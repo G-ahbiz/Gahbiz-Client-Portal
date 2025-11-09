@@ -655,7 +655,8 @@ export class Step1Checkout implements OnInit, OnDestroy {
 
     this.toastService.success(successMsg);
     this.cartFacade.clearCart();
-
+    localStorage.setItem('step1Completed', 'true');
+    
     setTimeout(() => {
       this.router
         .navigate(['/checkout/step2', orderId])

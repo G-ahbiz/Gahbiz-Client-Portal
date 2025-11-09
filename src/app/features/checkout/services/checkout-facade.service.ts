@@ -42,6 +42,13 @@ export class CheckoutFacadeService {
     );
   }
 
+  submitServiceSubmission(formData: FormData): Observable<ApiResponse<any>> {
+    if (!formData) {
+      throw new Error('FormData payload is required for service submission.');
+    }
+    return this.api.submitServiceSubmission(formData);
+  }
+
   private validateCheckoutPayload(payload: any): void {
     // If wrapped, use inner object
     const payOrder = payload && payload.payOrder ? payload.payOrder : payload;

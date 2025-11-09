@@ -43,6 +43,18 @@ export class CheckoutApiService {
       );
   }
 
+  submitServiceSubmission(payload: FormData): Observable<ApiResponse<any>> {
+    const url = `${this.apiUrl}${environment.serviceSubmissions.submitService}`;
+
+    return this.http
+      .post<ApiResponse<any>>(url, payload)
+      .pipe(
+        timeout(this.timeoutMs),
+        retry(this.maxRetries),
+        catchError(this.handleError.bind(this))
+      );
+  }
+
   private handleError(error: any): Observable<never> {
     let errorMessage = 'An unexpected error occurred';
 

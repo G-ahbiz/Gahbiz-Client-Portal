@@ -93,7 +93,9 @@
     "DELETED": "Deleted",
     "TRY_AGAIN": "Try Again",
     "READ_MORE": "Read More",
-    "NOT_AVAILABLE": "N/A"
+    "NOT_AVAILABLE": "N/A",
+    "drag-and-drop-or": "Drag and Drop or ",
+    "browse": "Browse"
   },
   "NEW_PASSWORD": {
     "ERRORS": {
@@ -545,7 +547,44 @@
     "card-expired": "Card has expired",
     "invalid-field": "Invalid field value",
     "documentations": "Documentations",
-    "no-services-found": "No services found"
+    "no-services-found": "No services found in your order",
+    "supported-file-types": "Supported file types: PDF, JPG, PNG, Max size: 5MB",
+    "load-order-items-error": "Failed to load order items. Please try again.",
+    "full-name": "Full Name",
+    "enter-full-name": "Enter your full name",
+    "ssn-itin": "SSN / ITIN",
+    "enter-ssn-itin": "Enter your SSN or ITIN (e.g., 123-45-6789)",
+    "business-name": "Business Name",
+    "enter-business-name": "Enter your business name",
+    "ein": "EIN",
+    "enter-ein": "Enter your Employer Identification Number (e.g., 12-3456789)",
+    "business-type": "Business Type",
+    "select-business-type": "Select business type",
+    "sole-proprietorship": "Sole Proprietorship",
+    "partnership": "Partnership",
+    "corporation": "Corporation",
+    "llc": "Limited Liability Company (LLC)",
+    "tax-year": "Tax Year",
+    "select-tax-year": "Select tax year",
+    "submit-service-data": "Submit Documentation",
+    "load-error": "Failed to load documentation data. Please try again.",
+    "service-data-submitted": "Service data submitted successfully",
+    "service-data-error": "Failed to submit service data. Please try again.",
+    "all-services-submitted": "All services submitted successfully!",
+    "required-files-missing": "Please upload all required files",
+    "invalid-file-type": "Invalid file type. Please upload PDF, JPG, or PNG files only",
+    "file-too-large": "File is too large. Maximum size is 5MB",
+    "submitting": "Submitting...",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "submitted": "Submitted",
+    "pending": "Pending",
+    "confirmation-title": "Success",
+    "confirmation-subtitle": "Thank you for trusting Servabest",
+    "confirmation-request-id": "Your request ID:",
+    "confirmation-track-button": "Track Your Order",
+    "confirmation-scroll-message": "Scroll to view your confirmation details"
+
   },
   "REVIEWS": {
     "COUNT": "Reviews",
@@ -686,7 +725,10 @@
     "min-value": "Minimum value is {{min}}",
     "max-value": "Maximum value is {{max}}",
     "invalid-expiry": "Invalid expiration date format",
-    "min-array-length": "At least one item is required"
+    "min-array-length": "At least one item is required",
+    "invalid-format": "Invalid format",
+    "invalid-ssn": "Please enter a valid SSN (123-45-6789)",
+    "invalid-ein": "Please enter a valid EIN (12-3456789)"
   },
   "PAGINATION": {
     "ITEMS_PER_PAGE": "Items per page",
