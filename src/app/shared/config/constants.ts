@@ -10,6 +10,7 @@ export const ROUTES = {
   checkout: '/checkout',
   completeProfile: '/complete-profile',
   appointmentService: '/appointment-service',
+  allServices: '/all-services',
 };
 
 export const COUNTRIES: CountryCodes[] = [

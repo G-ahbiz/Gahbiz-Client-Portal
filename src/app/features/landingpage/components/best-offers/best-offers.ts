@@ -12,6 +12,7 @@ import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { CartItem } from '@features/cart/interfaces/cart-item';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthService } from '@core/services/auth.service';
+import { ROUTES } from '@shared/config/constants';
 
 @Component({
   selector: 'app-best-offers',
@@ -155,5 +156,9 @@ export class BestOffers implements OnInit {
         this.toastService.error(message || 'Failed to copy URL.');
       }
     );
+  }
+
+  navigateToAllServices() {
+    this.router.navigate([ROUTES.allServices]);
   }
 }

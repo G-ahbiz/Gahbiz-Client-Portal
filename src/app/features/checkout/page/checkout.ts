@@ -62,10 +62,21 @@ export class Checkout implements OnInit {
     // Set step on initial load
     this.updateStepFromUrl(this.router.url);
 
+    this.scrollToTop();
+
     // Update step on navigation
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => this.updateStepFromUrl(this.router.url));
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+      this.updateStepFromUrl(this.router.url);
+      this.scrollToTop();
+    });
+  }
+
+  private scrollToTop() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   }
 
   private updateStepFromUrl(url: string) {
