@@ -6,6 +6,7 @@ import { Branch } from '@features/all-services/interfaces/branch';
 import { ToastService } from '@shared/services/toast.service';
 import { AvailableSlotsResponse } from '@features/all-services/interfaces/appointment/available-slots-response';
 import { BookRequest } from '@features/all-services/interfaces/appointment/book-request';
+import { AppointmentSettingsResponse } from '@features/all-services/interfaces/appointment/appointment-settings-response';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,14 @@ export class AppointmentFacadeService {
         console.error('Error loading available slots:', error.message);
         this.toastService.error(userMessage);
         return of({});
+      })
+    );
+  }
+
+  getAppointmentSettings(branchId: string): Observable<AppointmentSettingsResponse> {
+    return this.api.getAppointmentSettings(branchId).pipe(
+      map((response) => {
+        return response.data || {};
       })
     );
   }

@@ -17,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CheckoutItem } from '@features/checkout/interfaces/checkout-item';
 import { CheckoutResponse } from '@features/checkout/interfaces/checkout-response';
 import { ToastService } from '@shared/services/toast.service';
+import { CART_ITEMS, LOCAL_STORAGE_KEYS } from '@shared/config/constants';
 
 declare global {
   interface Window {
@@ -92,6 +93,21 @@ export class Step1Checkout implements OnInit, OnDestroy {
       this.toastService.error(errorMessage);
       this.navigateToCart();
       return;
+    }
+
+    // Check if cart contains appointment
+    const hasAppointment = cartItems.some((item) => item.id === CART_ITEMS.APPOINTMENT_SERVICE);
+
+    if (hasAppointment) {
+      const metadata = localStorage.getItem(LOCAL_STORAGE_KEYS.APPOINTMENT_METADATA_KEY);
+
+      // If no appointment details yet, redirect to booking
+      if (!metadata) {
+        this.router.navigate(['/appointment-service'], {
+          queryParams: { returnToCheckout: 'true' },
+        });
+        return;
+      }
     }
 
     this.initForm();
@@ -654,21 +670,37 @@ export class Step1Checkout implements OnInit, OnDestroy {
         : this.translate.instant('checkout.payment-successful') || 'Payment successful';
 
     this.toastService.success(successMsg);
+
+    // Check if cart was appointment-only BEFORE clearing
+    const cartItems = this.cartFacade.getCart();
+    const isAppointmentOnly =
+      cartItems.length === 1 && cartItems[0].id === CART_ITEMS.APPOINTMENT_SERVICE;
+
     this.cartFacade.clearCart();
+
     localStorage.setItem('step1Completed', 'true');
     
+    // Clear appointment metadata after successful checkout
+    localStorage.removeItem(LOCAL_STORAGE_KEYS.APPOINTMENT_METADATA_KEY);
+
     setTimeout(() => {
-      this.router
-        .navigate(['/checkout/step2', orderId])
-        .then((navResult) => {
-          if (!navResult) {
+      if (isAppointmentOnly) {
+        // Appointment only -> go home
+        this.router.navigate(['/home']);
+      } else {
+        // Regular order -> go to tracking
+        this.router
+          .navigate(['/checkout/step2', orderId])
+          .then((navResult) => {
+            if (!navResult) {
+              this.router.navigate(['/home']);
+            }
+          })
+          .catch((err) => {
+            console.error('Navigation error:', err);
             this.router.navigate(['/home']);
-          }
-        })
-        .catch((err) => {
-          console.error('Navigation error:', err);
-          this.router.navigate(['/home']);
-        });
+          });
+      }
     }, 2000);
   }
 
@@ -711,6 +743,20 @@ export class Step1Checkout implements OnInit, OnDestroy {
       };
     });
 
+    // Check for appointment metadata
+    let metadata = null;
+    const appointmentMetadata = localStorage.getItem(LOCAL_STORAGE_KEYS.APPOINTMENT_METADATA_KEY);
+
+    if (appointmentMetadata) {
+      try {
+        // Parse to validate, then stringify for API
+        const parsed = JSON.parse(appointmentMetadata);
+        metadata = JSON.stringify(parsed);
+      } catch (e) {
+        console.error('Invalid appointment metadata', e);
+      }
+    }
+
     const payOrder = {
       firstName: (v.firstName || '').trim(),
       lastName: (v.lastName || '').trim(),
@@ -723,7 +769,7 @@ export class Step1Checkout implements OnInit, OnDestroy {
       contactInfo: (v.contactInfo || '').trim(),
       cardToken: opaque.dataValue, // <-- required by backend
       promoCode: (v.promoCode || '').trim() || null,
-      metadata: v.metadata || null, // include if backend supports it
+      metadata: metadata, // include appointment metadata
       items: items, // <-- required by backend
     };
 
@@ -815,10 +861,22 @@ export class Step1Checkout implements OnInit, OnDestroy {
     return Math.round(total * 100) / 100;
   }
 
+  // Helper method to check if item is appointment
+  isAppointmentItem(serviceId: string): boolean {
+    return serviceId === CART_ITEMS.APPOINTMENT_SERVICE;
+  }
+
   // Quantity methods
   incrementQuantity(index: number): void {
     const itemsArray = this.form.get('items') as FormArray;
     const itemGroup = itemsArray.at(index) as FormGroup;
+    const serviceId = itemGroup.get('serviceId')?.value;
+
+    // Prevent quantity change for appointments
+    if (this.isAppointmentItem(serviceId)) {
+      return;
+    }
+
     const currentQuantity = itemGroup.get('quantity')?.value || 0;
 
     if (currentQuantity < 100) {
@@ -830,6 +888,13 @@ export class Step1Checkout implements OnInit, OnDestroy {
   decrementQuantity(index: number): void {
     const itemsArray = this.form.get('items') as FormArray;
     const itemGroup = itemsArray.at(index) as FormGroup;
+    const serviceId = itemGroup.get('serviceId')?.value;
+
+    // Prevent quantity change for appointments
+    if (this.isAppointmentItem(serviceId)) {
+      return;
+    }
+
     const currentQuantity = itemGroup.get('quantity')?.value || 0;
 
     if (currentQuantity > 1) {

@@ -584,6 +584,27 @@
     "confirmation-request-id": "Tu ID de solicitud:",
     "confirmation-track-button": "Seguir tu pedido",
     "confirmation-scroll-message": "Desplázate para ver los detalles de tu confirmación"
+    "title": "Pago",
+    "order-summary": "Resumen del pedido",
+    "ordered-services": "Servicios solicitados",
+    "service": "Servicio",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "total": "Total",
+    "grand-total": "Total",
+    "qty": "Cant",
+    "tracking": {
+      "pending": "Pendiente",
+      "processing": "Procesando",
+      "completed": "Completado",
+      "page-title": "Seguimiento de Pedido",
+      "order-tracking": "Seguimiento de Pedido",
+      "download-invoice": "Descargar Factura",
+      "contact-support": "Contactar Soporte",
+      "status-created": "Su pedido ha sido creado pero el pago está pendiente. Por favor complete el pago para procesar su pedido.",
+      "status-cancelled": "Este pedido ha sido cancelado. Si tiene alguna pregunta, por favor contacte a nuestro equipo de soporte.",
+      "status-refunded": "Este pedido ha sido reembolsado. El monto será acreditado a su cuenta dentro de 5-7 días hábiles."
+    }
   },
   "REVIEWS": {
     "COUNT": "Reseñas",

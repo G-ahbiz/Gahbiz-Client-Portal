@@ -4,7 +4,7 @@ import { Step1Guard } from './guards/checkout-step1.guard';
 import { Step2Guard } from './guards/checkout-step2.guard';
 import { Step3Guard } from './guards/checkout-step3.guard';
 
-const CHECKOUT_ROUTES: Routes = [
+export const CHECKOUT_ROUTES: Routes = [
   {
     path: '',
     component: Checkout,
@@ -31,9 +31,12 @@ const CHECKOUT_ROUTES: Routes = [
             (m) => m.Step3Confirmation
           ),
       },
+      {
+        path: 'order-services',
+        loadComponent: () =>
+          import('./components/order-services/order-services').then((m) => m.OrderServices),
+      },
       { path: '', redirectTo: 'step1', pathMatch: 'full' },
     ],
   },
 ];
-
-export default CHECKOUT_ROUTES;

@@ -3,28 +3,39 @@
 
 <!-- Appointment Service Container -->
 <div class="container-fluid p-0 m-0 animate-slideIn">
-
   <!-- Appointment Service Container -->
   <div class="appointment-service-container p-2 p-md-5 p-lg-4">
-
     <!-- Breadcrumb & Title Section -->
     <div class="breadcump py-3">
       <nav aria-label="Breadcrumb">
         <ol class="breadcrumb mb-0 bg-transparent p-0">
           <li class="breadcrumb-item">
-            <a [routerLink]="home()?.routerLink ?? '/'" class="text-decoration-none breadcrumb-link" aria-label="Home">
+            <a
+              [routerLink]="home()?.routerLink ?? '/'"
+              class="text-decoration-none breadcrumb-link"
+              aria-label="Home"
+            >
               <i class="pi pi-home" aria-hidden="true"></i>
             </a>
           </li>
 
-          @for (item of breadcrumbItems(); track trackByBreadcrumbItem($index, item); let last = $last) {
-          <li class="breadcrumb-item" [class.active]="item.isActive"
-            [attr.aria-current]="item.isActive ? 'page' : null">
-
+          @for (item of breadcrumbItems(); track trackByBreadcrumbItem($index, item); let last =
+          $last) {
+          <li
+            class="breadcrumb-item"
+            [class.active]="item.isActive"
+            [attr.aria-current]="item.isActive ? 'page' : null"
+          >
             @if (!item.isActive && !last) {
-            <a (click)="item.command ? item.command() : null" (keydown.enter)="item.command ? item.command() : null"
-              [attr.aria-current]="item.isActive ? 'page' : null" [style.cursor]="item.command ? 'pointer' : 'default'"
-              class="text-decoration-none breadcrumb-link" tabindex="0" role="link">
+            <a
+              (click)="item.command ? item.command() : null"
+              (keydown.enter)="item.command ? item.command() : null"
+              [attr.aria-current]="item.isActive ? 'page' : null"
+              [style.cursor]="item.command ? 'pointer' : 'default'"
+              class="text-decoration-none breadcrumb-link"
+              tabindex="0"
+              role="link"
+            >
               {{ item.label }}
             </a>
             } @else {
@@ -39,61 +50,101 @@
     <!-- Title -->
     <div class="title-container w-100 d-flex justify-content-start align-items-center my-3">
       <h1 class="title fw-bold fs-3">
-        {{'appointment-service.title'| translate}}
+        {{ 'appointment-service.title' | translate }}
       </h1>
     </div>
 
     <!-- Appointment Service content -->
     <div
-      class="appointment-service-content d-flex flex-column flex-lg-row justify-content-between align-items-center p-2 p-xl-5 border rounded-3 w-100">
-
+      class="appointment-service-content d-flex flex-column flex-lg-row justify-content-between align-items-center p-2 p-xl-5 border rounded-3 w-100"
+    >
       <!-- Appointment Service Form -->
-      <form [formGroup]="appointmentServiceForm" (ngSubmit)="onSubmit()"
-        class="appointment-service-form d-flex flex-column justify-content-between align-items-start gap-4 p-0 p-lg-3 w-100">
-
+      <form
+        [formGroup]="appointmentServiceForm"
+        (ngSubmit)="onSubmit()"
+        class="appointment-service-form d-flex flex-column justify-content-between align-items-start gap-4 p-0 p-lg-3 w-100"
+      >
         <!-- First Name and Last Name -->
-        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center gap-4 w-100">
+        <div
+          class="d-flex flex-column flex-lg-row justify-content-between align-items-center gap-4 w-100"
+        >
           <!-- First Name -->
-          <app-input [label]="'appointment-service.form.first-name' | translate"
-            [placeholder]="'appointment-service.form.first-name-placeholder' | translate" formControlName="firstName"
+          <app-input
+            [label]="'appointment-service.form.first-name' | translate"
+            [placeholder]="'appointment-service.form.first-name-placeholder' | translate"
+            formControlName="firstName"
             variant="text"
-            [isInvalid]="!!(appointmentServiceForm.get('firstName')?.invalid && appointmentServiceForm.get('firstName')?.touched)"
-            [errorMessage]="getErrorMessageFor('firstName')" class="w-100">
+            [isInvalid]="
+              !!(
+                appointmentServiceForm.get('firstName')?.invalid &&
+                appointmentServiceForm.get('firstName')?.touched
+              )
+            "
+            [errorMessage]="getErrorMessageFor('firstName')"
+            class="w-100"
+          >
           </app-input>
 
           <!-- Last Name -->
-          <app-input [label]="'appointment-service.form.last-name' | translate"
-            [placeholder]="'appointment-service.form.last-name-placeholder' | translate" formControlName="lastName"
+          <app-input
+            [label]="'appointment-service.form.last-name' | translate"
+            [placeholder]="'appointment-service.form.last-name-placeholder' | translate"
+            formControlName="lastName"
             variant="text"
-            [isInvalid]="!!(appointmentServiceForm.get('lastName')?.invalid && appointmentServiceForm.get('lastName')?.touched)"
-            [errorMessage]="getErrorMessageFor('lastName')" class="w-100">
+            [isInvalid]="
+              !!(
+                appointmentServiceForm.get('lastName')?.invalid &&
+                appointmentServiceForm.get('lastName')?.touched
+              )
+            "
+            [errorMessage]="getErrorMessageFor('lastName')"
+            class="w-100"
+          >
           </app-input>
         </div>
 
         <!-- Email Address -->
-        <app-input [label]="'appointment-service.form.email-address' | translate"
-          [placeholder]="'appointment-service.form.email-address-placeholder' | translate" formControlName="email"
+        <app-input
+          [label]="'appointment-service.form.email-address' | translate"
+          [placeholder]="'appointment-service.form.email-address-placeholder' | translate"
+          formControlName="email"
           variant="text"
-          [isInvalid]="!!(appointmentServiceForm.get('email')?.invalid && appointmentServiceForm.get('email')?.touched)"
-          [errorMessage]="getErrorMessageFor('email')" class="w-100">
+          [isInvalid]="
+            !!(
+              appointmentServiceForm.get('email')?.invalid &&
+              appointmentServiceForm.get('email')?.touched
+            )
+          "
+          [errorMessage]="getErrorMessageFor('email')"
+          class="w-100"
+        >
         </app-input>
 
         <!-- Phone Number -->
-        <app-input [label]="'appointment-service.form.phone-number' | translate"
-          [placeholder]="'appointment-service.form.phone-number-placeholder' | translate" formControlName="phone"
+        <app-input
+          [label]="'appointment-service.form.phone-number' | translate"
+          [placeholder]="'appointment-service.form.phone-number-placeholder' | translate"
+          formControlName="phone"
           variant="phone"
-          [isInvalid]="!!(appointmentServiceForm.get('phone')?.invalid && appointmentServiceForm.get('phone')?.touched)"
-          [errorMessage]="getErrorMessageFor('phone')" class="w-100">
+          [isInvalid]="
+            !!(
+              appointmentServiceForm.get('phone')?.invalid &&
+              appointmentServiceForm.get('phone')?.touched
+            )
+          "
+          [errorMessage]="getErrorMessageFor('phone')"
+          class="w-100"
+        >
         </app-input>
 
         <!-- Location -->
         <div class="form-group w-100">
           <label for="location" class="form-label">
-            {{'appointment-service.form.location'| translate}}
+            {{ 'appointment-service.form.location' | translate }}
           </label>
           <select class="form-select" id="location" formControlName="location">
             <option value="" selected disabled class="text-muted">
-              {{'appointment-service.form.location-placeholder'| translate}}
+              {{ 'appointment-service.form.location-placeholder' | translate }}
             </option>
             @for (branch of branches(); track branch.id) {
             <option [value]="branch.id">{{ branch.name }}</option>
@@ -104,47 +155,64 @@
         <!-- Mobile Calendar Toggle -->
         <div class="form-group w-100 d-lg-none">
           <label class="form-label d-block">
-            {{'appointment-service.form.date-selection'| translate}}
+            {{ 'appointment-service.form.date-selection' | translate }}
           </label>
-          <button type="button" class="btn btn-outline-primary w-100 d-flex justify-content-between align-items-center"
-            (click)="toggleMobileCalendar()">
+          <button
+            type="button"
+            class="btn btn-outline-primary w-100 d-flex justify-content-between align-items-center"
+            (click)="toggleMobileCalendar()"
+          >
             <span>
               @if (appointmentServiceForm.get('date')?.value) {
-              {{ appointmentServiceForm.get('date')?.value | date:'mediumDate' }}
+              {{ appointmentServiceForm.get('date')?.value | date : 'mediumDate' }}
               } @else {
-              {{'appointment-service.form.date-selection-placeholder'| translate}}
+              {{ 'appointment-service.form.date-selection-placeholder' | translate }}
               }
             </span>
-            <i class="pi" [class.pi-calendar]="!showMobileCalendar()" [class.pi-times]="showMobileCalendar()"></i>
+            <i
+              class="pi"
+              [class.pi-calendar]="!showMobileCalendar()"
+              [class.pi-times]="showMobileCalendar()"
+            ></i>
           </button>
         </div>
 
         <!-- Mobile Calendar -->
         @if (showMobileCalendar()) {
-        <div class="mobile-calendar-container w-100 d-lg-none border rounded p-3 bg-white shadow-sm"
-          [attr.dir]="isRTL() ? 'rtl' : 'ltr'">
+        <div
+          class="mobile-calendar-container w-100 d-lg-none border rounded p-3 bg-white shadow-sm"
+          [attr.dir]="isRTL() ? 'rtl' : 'ltr'"
+        >
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="mb-0">{{'appointment-service.form.choose-date' | translate}}</h6>
-            <button type="button" class="btn-close" (click)="hideMobileCalendar()" aria-label="Close"></button>
+            <h6 class="mb-0">{{ 'appointment-service.form.choose-date' | translate }}</h6>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="hideMobileCalendar()"
+              aria-label="Close"
+            ></button>
           </div>
           <mat-card class="calendar-card border-0 mobile-calendar">
-            <mat-calendar [(selected)]="selected" [dateClass]="dateClass"
-              (selectedChange)="onMobileCalendarDateSelected($event)">
+            <mat-calendar
+              [(selected)]="selected"
+              [dateClass]="dateClass"
+              (selectedChange)="onMobileCalendarDateSelected($event)"
+            >
             </mat-calendar>
           </mat-card>
 
           <div class="calendar-legend d-flex flex-wrap justify-content-center gap-3 mt-3">
             <div class="legend-item">
               <span class="legend-dot not-available"></span>
-              {{'appointment-service.calendar.not-available'| translate}}
+              {{ 'appointment-service.calendar.not-available' | translate }}
             </div>
             <div class="legend-item">
               <span class="legend-dot available"></span>
-              {{'appointment-service.calendar.available'| translate}}
+              {{ 'appointment-service.calendar.available' | translate }}
             </div>
             <div class="legend-item">
               <span class="legend-dot selected"></span>
-              {{'appointment-service.calendar.selected'| translate}}
+              {{ 'appointment-service.calendar.selected' | translate }}
             </div>
           </div>
         </div>
@@ -153,14 +221,14 @@
         <!-- Available Time -->
         <div class="form-group w-100">
           <label for="available-time" class="form-label">
-            {{'appointment-service.form.available-time'| translate}}
+            {{ 'appointment-service.form.available-time' | translate }}
           </label>
           <select class="form-select" id="available-time" formControlName="time">
             <option value="" selected disabled class="text-muted">
               @if (availableTimes().length === 0 && appointmentServiceForm.get('date')?.value) {
-              {{'appointment-service.form.no-available-times'| translate}}
+              {{ 'appointment-service.form.no-available-times' | translate }}
               } @else {
-              {{'appointment-service.form.available-time-placeholder'| translate}}
+              {{ 'appointment-service.form.available-time-placeholder' | translate }}
               }
             </option>
             @for (time of availableTimes(); track time) {
@@ -169,38 +237,51 @@
           </select>
           @if (appointmentServiceForm.get('date')?.value && availableTimes().length === 0) {
           <div class="text-warning small mt-1">
-            {{'appointment-service.form.no-slots-available'| translate}}
+            {{ 'appointment-service.form.no-slots-available' | translate }}
           </div>
           }
         </div>
 
         <!-- Duration & Fees -->
-        <div class="d-flex flex-column flex-lg-row justify-content-start align-items-center gap-4 w-100">
+        <div
+          class="d-flex flex-column flex-lg-row justify-content-start align-items-center gap-4 w-100"
+        >
           <!-- Duration -->
           <div class="form-group w-100 duration-select-group">
             <label for="duration" class="form-label">
-              {{'appointment-service.form.duration'| translate}}
+              {{ 'appointment-service.form.duration' | translate }}
             </label>
             <select class="form-select" id="duration" formControlName="duration">
               <option value="" selected disabled class="text-muted">
-                {{'appointment-service.form.duration-placeholder'| translate}}
+                {{ 'appointment-service.form.duration-placeholder' | translate }}
               </option>
-              <option value="30">{{'appointment-service.form.duration-30'| translate}}</option>
+              @if (appointmentSettings()) {
+              <option [value]="appointmentSettings()!.slotDurationMinutes.toString()">
+                {{ appointmentSettings()!.slotDurationMinutes }} {{ 'minutes' | translate }}
+              </option>
+              } @else {
+              <option value="" selected disabled class="text-muted">
+                {{ 'appointment-service.form.duration-placeholder' | translate }}
+              </option>
+              }
             </select>
           </div>
 
           <!-- Fees -->
           <div class="fw-bold d-flex flex-column justify-content-center align-items-center">
-            <span class="fs-75">{{'appointment-service.form.fees'| translate}}</span>
-            <span class="fs-5">{{'appointment-service.form.fees-amount' | translate}}</span>
+            <span class="fs-75">{{ 'appointment-service.form.fees' | translate }}</span>
+            <span class="fs-5">{{ 'appointment-service.form.fees-amount' | translate }}</span>
           </div>
         </div>
 
         <!-- Book Now Button -->
         <div class="form-group w-100 mt-4">
-          <button type="submit" class="btn book-appointment-btn btn-primary primary-bg-clr w-100 px-lg-4 py-lg-2"
-            [disabled]="appointmentServiceForm.invalid">
-            {{'appointment-service.form.book-now-btn'| translate}}
+          <button
+            type="submit"
+            class="btn book-appointment-btn btn-primary primary-bg-clr w-100 px-lg-4 py-lg-2"
+            [disabled]="appointmentServiceForm.invalid"
+          >
+            {{ 'appointment-service.form.book-now-btn' | translate }}
           </button>
         </div>
       </form>
@@ -208,25 +289,29 @@
       <!-- Desktop Calendar -->
       <div
         class="appointment-service-calendar d-none d-lg-flex flex-column justify-content-center align-items-center align-self-lg-start w-100 my-lg-0 my-5"
-        [attr.dir]="isRTL() ? 'rtl' : 'ltr'">
+        [attr.dir]="isRTL() ? 'rtl' : 'ltr'"
+      >
         <mat-card class="calendar-card border-0">
-          <mat-calendar [(selected)]="selected" [dateClass]="dateClass"
-            (selectedChange)="onCalendarDateSelected($event)">
+          <mat-calendar
+            [(selected)]="selected"
+            [dateClass]="dateClass"
+            (selectedChange)="onCalendarDateSelected($event)"
+          >
           </mat-calendar>
         </mat-card>
 
         <div class="calendar-legend d-flex justify-content-center gap-4 mt-3">
           <div class="legend-item">
             <span class="legend-dot not-available"></span>
-            {{'appointment-service.calendar.not-available'| translate}}
+            {{ 'appointment-service.calendar.not-available' | translate }}
           </div>
           <div class="legend-item">
             <span class="legend-dot available"></span>
-            {{'appointment-service.calendar.available'| translate}}
+            {{ 'appointment-service.calendar.available' | translate }}
           </div>
           <div class="legend-item">
             <span class="legend-dot selected"></span>
-            {{'appointment-service.calendar.selected'| translate}}
+            {{ 'appointment-service.calendar.selected' | translate }}
           </div>
         </div>
       </div>
@@ -235,7 +320,6 @@
     <div class="">
       <app-best-offers></app-best-offers>
     </div>
-
   </div>
 </div>
 

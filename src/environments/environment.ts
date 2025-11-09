@@ -37,6 +37,7 @@ export const environment = {
   appointmentSettings: {
     getAvailableSlots: (branchId: string) => `/appointment-settings/${branchId}/available-slots`,
     bookAppointment: (branchId: string) => `/appointment-settings/${branchId}/book`,
+    getAppointmentSettings: (branchId: string) => `/appointment-settings/${branchId}`,
   },
   branches: {
     getBranches: '/Branches',

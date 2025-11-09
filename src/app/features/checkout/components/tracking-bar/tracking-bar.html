@@ -1,0 +1,30 @@
+<div class="tracking-bar-container">
+  <div class="tracking-bar">
+    <div class="stages-wrapper">
+      <div
+        *ngFor="let stage of stages; let i = index; let last = last"
+        class="stage-item"
+        [class.completed]="stage.status === 'completed'"
+        [class.current]="stage.status === 'current'"
+        [class.pending]="stage.status === 'pending'"
+      >
+        <!-- Stage Circle with Icon -->
+        <div class="stage-circle">
+          <i
+            [class]="stage.iconPath + ' stage-icon'"
+            [attr.aria-label]="stage.label | translate"
+          ></i>
+        </div>
+
+        <!-- Connecting Line (not shown for last item) -->
+        <div class="stage-line" *ngIf="!last"></div>
+
+        <!-- Stage Label and Date -->
+        <div class="stage-info">
+          <div class="stage-label">{{ stage.label | translate }}</div>
+          <div class="stage-date" *ngIf="stage.date">{{ stage.date }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -444,7 +444,7 @@
     },
     "calendar": {
       "not-available": "غير متاح",
-      "available": "متاح", 
+      "available": "متاح",
       "selected": "محدد"
     },
     "validation": {
@@ -584,6 +584,27 @@
     "confirmation-request-id": "رقم طلبك:",
     "confirmation-track-button": "تتبع طلبك",
     "confirmation-scroll-message": "قم بالتمرير لعرض تفاصيل التأكيد"
+    "title": "الدفع",
+    "order-summary": "ملخص الطلب",
+    "ordered-services": "الخدمات المطلوبة",
+    "service": "الخدمة",
+    "quantity": "الكمية",
+    "price": "السعر",
+    "total": "المجموع",
+    "grand-total": "المجموع",
+    "qty": "الكمية",
+    "tracking": {
+      "pending": "قيد الانتظار",
+      "processing": "قيد المعالجة",
+      "completed": "مكتمل",
+      "page-title": "تتبع طلبك",
+      "order-tracking": "تتبع الطلب",
+      "download-invoice": "تحميل الفاتورة",
+      "contact-support": "الاتصال بالدعم",
+      "status-created": "تم إنشاء طلبك ولكن الدفع معلق. يرجى إكمال الدفع لمعالجة طلبك.",
+      "status-cancelled": "تم إلغاء هذا الطلب. إذا كان لديك أي أسئلة، يرجى الاتصال بفريق الدعم لدينا.",
+      "status-refunded": "تم استرداد هذا الطلب. سيتم إضافة المبلغ إلى حسابك خلال 5-7 أيام عمل."
+    }
   },
   "REVIEWS": {
     "COUNT": "التقييمات",
