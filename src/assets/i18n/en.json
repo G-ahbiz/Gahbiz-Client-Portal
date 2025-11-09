@@ -547,7 +547,7 @@
     "processing": "Processing...",
     "card-expired": "Card has expired",
     "invalid-field": "Invalid field value",
-    "documentations": "Documentations"
+    "documentations": "Documentations",
     "no-services-found": "No services found in your order",
     "supported-file-types": "Supported file types: PDF, JPG, PNG, Max size: 5MB",
     "load-order-items-error": "Failed to load order items. Please try again.",
@@ -584,8 +584,7 @@
     "confirmation-subtitle": "Thank you for trusting Servabest",
     "confirmation-request-id": "Your request ID:",
     "confirmation-track-button": "Track Your Order",
-    "confirmation-scroll-message": "Scroll to view your confirmation details"
-    "no-services-found": "No services found",
+    "confirmation-scroll-message": "Scroll to view your confirmation details",
     "ordered-services": "Ordered Services",
     "service": "Service",
     "quantity": "Quantity",
@@ -633,7 +632,6 @@
     "CHARACTERS_REMAINING": "{{remaining}} characters remaining",
     "REVIEW_TOO_SHORT": "Review must be at least 10 characters",
     "RATING_REQUIRED": "Rating is required",
-
     "SUBMIT_SUCCESS": "Thank you for your review!",
     "SUBMIT_FAILED": "Failed to submit review. Please try again.",
     "ERROR_LOAD": "Failed to load reviews.",

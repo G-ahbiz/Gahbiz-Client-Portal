@@ -52,28 +52,28 @@ export class Testimonials implements OnInit {
   }
 
   // Get testimonials
-  private getTestimonials() {
+private getTestimonials() {
     this.testimonials = [
       {
         id: 1,
-        name: 'Ahmed Abdelawal',
-        position: 'Business Owner',
+        name: 'Fatima El-Sayed',
+        position: 'Freelance Designer',
         image: 'testimonial.png',
-        testimonial: `“Servabest made my tax filing stress-free! Their team is professional and incredibly knowledgeable.”`,
+        testimonial: `“Exceptional service! Servabest helped me streamline my finances and saved me so much time. Highly recommend for any business.”`,
       },
       {
         id: 2,
-        name: 'Omar Ali',
-        position: 'Software Engineer',
+        name: 'Khaled Mansour',
+        position: 'Startup Founder',
         image: 'testimonial.png',
-        testimonial: `“Servabest made my tax filing stress-free! Their team is professional and incredibly knowledgeable.”`,
+        testimonial: `“The consultation I received was invaluable. The team at Servabest is proactive, detail-oriented, and truly cares about client success.”`,
       },
       {
         id: 3,
-        name: 'Ahmed Hassanien',
-        position: 'Software Engineer',
+        name: 'Sara Mounir',
+        position: 'Marketing Manager',
         image: 'testimonial.png',
-        testimonial: `“Servabest made my tax filing stress-free! Their team is professional and incredibly knowledgeable.”`,
+        testimonial: `“Switching to Servabest was the best decision for our company's accounting. Everything is clear, timely, and perfectly managed.”`,
       }
     ];
   }

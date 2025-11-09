@@ -483,7 +483,6 @@
     "step-3": "التأكيد",
     "payment-method": "طريقة الدفع",
     "personal-information": "المعلومات الشخصية",
-    "order-summary": "ملخص الطلب",
     "pay-with-credit-card": "الدفع ببطاقة الائتمان",
     "card-security-code": "رمز الأمان",
     "what-is-this": "ما هذا؟",
@@ -583,14 +582,12 @@
     "confirmation-subtitle": "شكرًا لثقتك في Servabest",
     "confirmation-request-id": "رقم طلبك:",
     "confirmation-track-button": "تتبع طلبك",
-    "confirmation-scroll-message": "قم بالتمرير لعرض تفاصيل التأكيد"
-    "title": "الدفع",
+    "confirmation-scroll-message": "قم بالتمرير لعرض تفاصيل التأكيد",
     "order-summary": "ملخص الطلب",
     "ordered-services": "الخدمات المطلوبة",
     "service": "الخدمة",
     "quantity": "الكمية",
     "price": "السعر",
-    "total": "المجموع",
     "grand-total": "المجموع",
     "qty": "الكمية",
     "tracking": {

@@ -583,14 +583,11 @@
     "confirmation-subtitle": "Gracias por confiar en Servabest",
     "confirmation-request-id": "Tu ID de solicitud:",
     "confirmation-track-button": "Seguir tu pedido",
-    "confirmation-scroll-message": "Desplázate para ver los detalles de tu confirmación"
-    "title": "Pago",
-    "order-summary": "Resumen del pedido",
+    "confirmation-scroll-message": "Desplázate para ver los detalles de tu confirmación",
     "ordered-services": "Servicios solicitados",
     "service": "Servicio",
     "quantity": "Cantidad",
     "price": "Precio",
-    "total": "Total",
     "grand-total": "Total",
     "qty": "Cant",
     "tracking": {
