@@ -19,254 +19,176 @@
     <!-- Service Data Collection Forms -->
     <div class="col-12">
       <div *ngFor="let service of orderItems; let serviceIndex = index" class="card shadow-sm mb-4 service-data-card">
-        <div class="card-body px-4 px-md-5">
-          <h4 class="service-title mb-4">
+
+        <!-- Header (collapsible toggle) -->
+        <div class="card-header d-flex justify-content-between align-items-center" (click)="toggleService(serviceIndex)"
+          [class.disabled]="serviceSubmitted[serviceIndex]">
+          <h4 class="service-title m-0">
             <i class="bi bi-file-earmark-text me-2"></i>
-            {{ service.itemName }} - Required Documents
+            {{ service.itemName }}
           </h4>
+          <i class="bi" [ngClass]="{
+           'bi-chevron-down': !expandedStates[serviceIndex],
+           'bi-chevron-up': expandedStates[serviceIndex]
+         }"></i>
+        </div>
 
-          <form [formGroup]="serviceDataForms[serviceIndex]" novalidate>
-            <!-- Inputs and Selects Section -->
-            <div class="row g-4 mb-4">
-              <!-- Row 1: Full Name - SSN/ITIN -->
-              <div class="row g-3">
-                <div class="col-6">
-                  <label for="fullName{{serviceIndex}}" class="form-label">{{ 'checkout.full-name' | translate
-                    }}</label>
-                  <input type="text" id="fullName{{serviceIndex}}" class="form-control" formControlName="fullName"
-                    [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'fullName')"
-                    [attr.placeholder]="'checkout.enter-full-name' | translate" />
-                  <div *ngIf="isServiceFieldInvalid(serviceIndex, 'fullName')" class="invalid-feedback d-block mt-1">
-                    {{ getServiceFieldError(serviceIndex, 'fullName') }}
-                  </div>
-                </div>
-                <div class="col-6">
-                  <label for="ssn{{serviceIndex}}" class="form-label">{{ 'checkout.ssn-itin' | translate }}</label>
-                  <input type="text" id="ssn{{serviceIndex}}" class="form-control" formControlName="ssn"
-                    [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'ssn')"
-                    [attr.placeholder]="'checkout.enter-ssn-itin' | translate" />
-                  <div *ngIf="isServiceFieldInvalid(serviceIndex, 'ssn')" class="invalid-feedback d-block mt-1">
-                    {{ getServiceFieldError(serviceIndex, 'ssn') }}
-                  </div>
-                </div>
-              </div>
-
-              <!-- Row 2: Business Name - EIN -->
-              <div class="row g-3 mt-3">
-                <div class="col-6">
-                  <label for="businessName{{serviceIndex}}" class="form-label">{{ 'checkout.business-name' | translate
-                    }}</label>
-                  <input type="text" id="businessName{{serviceIndex}}" class="form-control"
-                    formControlName="businessName"
-                    [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'businessName')"
-                    [attr.placeholder]="'checkout.enter-business-name' | translate" />
-                  <div *ngIf="isServiceFieldInvalid(serviceIndex, 'businessName')"
-                    class="invalid-feedback d-block mt-1">
-                    {{ getServiceFieldError(serviceIndex, 'businessName') }}
-                  </div>
-                </div>
-                <div class="col-6">
-                  <label for="ein{{serviceIndex}}" class="form-label">{{ 'checkout.ein' | translate }}</label>
-                  <input type="text" id="ein{{serviceIndex}}" class="form-control" formControlName="ein"
-                    [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'ein')"
-                    [attr.placeholder]="'checkout.enter-ein' | translate" />
-                  <div *ngIf="isServiceFieldInvalid(serviceIndex, 'ein')" class="invalid-feedback d-block mt-1">
-                    {{ getServiceFieldError(serviceIndex, 'ein') }}
-                  </div>
-                </div>
-              </div>
-
-              <!-- Row 3: Business Type - Tax Year -->
-              <div class="row g-3 mt-3">
-                <div class="col-6">
-                  <label for="businessType{{serviceIndex}}" class="form-label">{{ 'checkout.business-type' | translate
-                    }}</label>
-                  <select id="businessType{{serviceIndex}}" class="form-control" formControlName="businessType"
-                    [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'businessType')">
-                    <option value="">{{ 'checkout.select-business-type' | translate }}</option>
-                    <option value="sole-proprietorship">{{ 'checkout.sole-proprietorship' | translate }}</option>
-                    <option value="partnership">{{ 'checkout.partnership' | translate }}</option>
-                    <option value="corporation">{{ 'checkout.corporation' | translate }}</option>
-                    <option value="llc">{{ 'checkout.llc' | translate }}</option>
-                  </select>
-                  <div *ngIf="isServiceFieldInvalid(serviceIndex, 'businessType')"
-                    class="invalid-feedback d-block mt-1">
-                    {{ getServiceFieldError(serviceIndex, 'businessType') }}
-                  </div>
-                </div>
-                <div class="col-6">
-                  <label for="taxYear{{serviceIndex}}" class="form-label">{{ 'checkout.tax-year' | translate
-                    }}</label>
-                  <select id="taxYear{{serviceIndex}}" class="form-control" formControlName="taxYear"
-                    [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'taxYear')">
-                    <option value="">{{ 'checkout.select-tax-year' | translate }}</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                  </select>
-                  <div *ngIf="isServiceFieldInvalid(serviceIndex, 'taxYear')" class="invalid-feedback d-block mt-1">
-                    {{ getServiceFieldError(serviceIndex, 'taxYear') }}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- File Uploads Section - Placed below inputs -->
-            <div class="file-uploads-section mt-4 pt-4 border-top">
-              <h5 class="section-title mb-4">
-                <i class="bi bi-cloud-upload me-2"></i>
-                {{ 'checkout.upload-documents' | translate }}
-              </h5>
-
-              <div class="row g-4">
-                <!-- Left Column File Uploads -->
-                <div class="col-md-6">
-                  <!-- W-2 Form Upload -->
-                  <div class="mb-4">
-                    <label for="w2Form{{serviceIndex}}" class="form-label">{{ 'checkout.w2-form' | translate }}</label>
-                    <div class="file-upload-container">
-                      <input type="file" id="w2Form{{serviceIndex}}" class="form-control file-input"
-                        (change)="onFileSelected($event, serviceIndex, 'w2Form')" accept="image/*,.pdf" #w2FormInput>
-                      <div class="file-upload-preview" *ngIf="serviceDataForms[serviceIndex].get('w2Form')?.value">
-                        <div class="preview-info">
-                          <i class="bi bi-file-earmark-text"></i>
-                          <span class="file-name">{{ getFileName(serviceDataForms[serviceIndex].get('w2Form')?.value)
-                            }}</span>
-                          <button type="button" class="btn-remove"
-                            (click)="removeFile(serviceIndex, 'w2Form', w2FormInput)">
-                            <i class="bi bi-x"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="file-upload-placeholder" *ngIf="!serviceDataForms[serviceIndex].get('w2Form')?.value">
-                        <i class="bi bi-cloud-upload"></i>
-                        <span>{{ 'checkout.upload-w2-form' | translate }}</span>
-                      </div>
-                    </div>
-                    <div *ngIf="isServiceFieldInvalid(serviceIndex, 'w2Form')" class="invalid-feedback d-block mt-1">
-                      {{ getServiceFieldError(serviceIndex, 'w2Form') }}
-                    </div>
+        <!-- Collapsible Body -->
+        <div class="collapse-wrapper" [class.show]="expandedStates[serviceIndex]">
+          <div class="card-body px-4 px-md-5">
+            <form [formGroup]="serviceDataForms[serviceIndex]" novalidate>
+              <!-- Inputs and Selects Section -->
+              <div class="row g-4 mb-4">
+                <!-- Row 1: Full Name - SSN/ITIN -->
+                <div class="row g-3">
+                  <div class="col-6">
+                    <app-input formControlName="fullName" id="fullName{{serviceIndex}}"
+                      [label]="'checkout.full-name' | translate" [placeholder]="'checkout.enter-full-name' | translate"
+                      [isInvalid]="isServiceFieldInvalid(serviceIndex, 'fullName')"
+                      [errorMessage]="getServiceFieldError(serviceIndex, 'fullName')"
+                      [asteriskColorDanger]="'text-danger'">
+                    </app-input>
                   </div>
 
-                  <!-- Bank Statements Upload -->
-                  <div class="mb-4">
-                    <label for="bankStatements{{serviceIndex}}" class="form-label">{{ 'checkout.bank-statements' |
-                      translate }}</label>
-                    <div class="file-upload-container">
-                      <input type="file" id="bankStatements{{serviceIndex}}" class="form-control file-input"
-                        (change)="onFileSelected($event, serviceIndex, 'bankStatements')" accept="image/*,.pdf"
-                        #bankStatementsInput>
-                      <div class="file-upload-preview"
-                        *ngIf="serviceDataForms[serviceIndex].get('bankStatements')?.value">
-                        <div class="preview-info">
-                          <i class="bi bi-file-earmark-text"></i>
-                          <span class="file-name">{{
-                            getFileName(serviceDataForms[serviceIndex].get('bankStatements')?.value) }}</span>
-                          <button type="button" class="btn-remove"
-                            (click)="removeFile(serviceIndex, 'bankStatements', bankStatementsInput)">
-                            <i class="bi bi-x"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="file-upload-placeholder"
-                        *ngIf="!serviceDataForms[serviceIndex].get('bankStatements')?.value">
-                        <i class="bi bi-cloud-upload"></i>
-                        <span>{{ 'checkout.upload-bank-statements' | translate }}</span>
-                      </div>
-                    </div>
-                    <div *ngIf="isServiceFieldInvalid(serviceIndex, 'bankStatements')"
-                      class="invalid-feedback d-block mt-1">
-                      {{ getServiceFieldError(serviceIndex, 'bankStatements') }}
-                    </div>
+                  <div class="col-6">
+                    <app-input formControlName="ssn" id="ssn{{serviceIndex}}" [label]="'checkout.ssn-itin' | translate"
+                      [placeholder]="'checkout.enter-ssn-itin' | translate"
+                      [isInvalid]="isServiceFieldInvalid(serviceIndex, 'ssn')"
+                      [errorMessage]="getServiceFieldError(serviceIndex, 'ssn')">
+                    </app-input>
                   </div>
                 </div>
 
-                <!-- Right Column File Uploads -->
-                <div class="col-md-6">
-                  <!-- Pay Stubs Upload -->
-                  <div class="mb-4">
-                    <label for="payStubs{{serviceIndex}}" class="form-label">{{ 'checkout.pay-stubs' | translate
+                <!-- Row 2: Business Name - EIN -->
+                <div class="row g-3 mt-3">
+                  <div class="col-6">
+                    <app-input formControlName="businessName" id="businessName{{serviceIndex}}"
+                      [label]="'checkout.business-name' | translate"
+                      [placeholder]="'checkout.enter-business-name' | translate"
+                      [isInvalid]="isServiceFieldInvalid(serviceIndex, 'businessName')"
+                      [errorMessage]="getServiceFieldError(serviceIndex, 'businessName')">
+                    </app-input>
+                  </div>
+
+                  <div class="col-6">
+                    <app-input formControlName="ein" id="ein{{serviceIndex}}" [label]="'checkout.ein' | translate"
+                      [placeholder]="'checkout.enter-ein' | translate"
+                      [isInvalid]="isServiceFieldInvalid(serviceIndex, 'ein')"
+                      [errorMessage]="getServiceFieldError(serviceIndex, 'ein')">
+                    </app-input>
+                  </div>
+                </div>
+
+                <!-- Row 3: Business Type - Tax Year (kept as selects) -->
+                <div class="row g-3 mt-3">
+                  <div class="col-6">
+                    <label for="businessType{{serviceIndex}}" class="form-label">{{ 'checkout.business-type' | translate
                       }}</label>
-                    <div class="file-upload-container">
-                      <input type="file" id="payStubs{{serviceIndex}}" class="form-control file-input"
-                        (change)="onFileSelected($event, serviceIndex, 'payStubs')" accept="image/*,.pdf"
-                        #payStubsInput>
-                      <div class="file-upload-preview" *ngIf="serviceDataForms[serviceIndex].get('payStubs')?.value">
-                        <div class="preview-info">
-                          <i class="bi bi-file-earmark-text"></i>
-                          <span class="file-name">{{ getFileName(serviceDataForms[serviceIndex].get('payStubs')?.value)
-                            }}</span>
-                          <button type="button" class="btn-remove"
-                            (click)="removeFile(serviceIndex, 'payStubs', payStubsInput)">
-                            <i class="bi bi-x"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="file-upload-placeholder"
-                        *ngIf="!serviceDataForms[serviceIndex].get('payStubs')?.value">
-                        <i class="bi bi-cloud-upload"></i>
-                        <span>{{ 'checkout.upload-pay-stubs' | translate }}</span>
-                      </div>
-                    </div>
-                    <div *ngIf="isServiceFieldInvalid(serviceIndex, 'payStubs')" class="invalid-feedback d-block mt-1">
-                      {{ getServiceFieldError(serviceIndex, 'payStubs') }}
+                    <select id="businessType{{serviceIndex}}" class="form-control" formControlName="businessType"
+                      [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'businessType')">
+                      <option value="">{{ 'checkout.select-business-type' | translate }}</option>
+                      <option value="sole-proprietorship">{{ 'checkout.sole-proprietorship' | translate }}</option>
+                      <option value="partnership">{{ 'checkout.partnership' | translate }}</option>
+                      <option value="corporation">{{ 'checkout.corporation' | translate }}</option>
+                      <option value="llc">{{ 'checkout.llc' | translate }}</option>
+                    </select>
+                    <div *ngIf="isServiceFieldInvalid(serviceIndex, 'businessType')"
+                      class="invalid-feedback d-block mt-1">
+                      {{ getServiceFieldError(serviceIndex, 'businessType') }}
                     </div>
                   </div>
-
-                  <!-- Other Income Proof Upload -->
-                  <div class="mb-3">
-                    <label for="otherIncomeProof{{serviceIndex}}" class="form-label">{{ 'checkout.other-income-proof' |
-                      translate }}</label>
-                    <div class="file-upload-container">
-                      <input type="file" id="otherIncomeProof{{serviceIndex}}" class="form-control file-input"
-                        (change)="onFileSelected($event, serviceIndex, 'otherIncomeProof')" accept="image/*,.pdf"
-                        #otherIncomeProofInput>
-                      <div class="file-upload-preview"
-                        *ngIf="serviceDataForms[serviceIndex].get('otherIncomeProof')?.value">
-                        <div class="preview-info">
-                          <i class="bi bi-file-earmark-text"></i>
-                          <span class="file-name">{{
-                            getFileName(serviceDataForms[serviceIndex].get('otherIncomeProof')?.value) }}</span>
-                          <button type="button" class="btn-remove"
-                            (click)="removeFile(serviceIndex, 'otherIncomeProof', otherIncomeProofInput)">
-                            <i class="bi bi-x"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="file-upload-placeholder"
-                        *ngIf="!serviceDataForms[serviceIndex].get('otherIncomeProof')?.value">
-                        <i class="bi bi-cloud-upload"></i>
-                        <span>{{ 'checkout.upload-other-income-proof' | translate }}</span>
-                      </div>
-                    </div>
-                    <div *ngIf="isServiceFieldInvalid(serviceIndex, 'otherIncomeProof')"
-                      class="invalid-feedback d-block mt-1">
-                      {{ getServiceFieldError(serviceIndex, 'otherIncomeProof') }}
+                  <div class="col-6">
+                    <label for="taxYear{{serviceIndex}}" class="form-label">{{ 'checkout.tax-year' | translate
+                      }}</label>
+                    <select id="taxYear{{serviceIndex}}" class="form-control" formControlName="taxYear"
+                      [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'taxYear')">
+                      <option value="">{{ 'checkout.select-tax-year' | translate }}</option>
+                      <option value="2023">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                      <option value="2020">2020</option>
+                    </select>
+                    <div *ngIf="isServiceFieldInvalid(serviceIndex, 'taxYear')" class="invalid-feedback d-block mt-1">
+                      {{ getServiceFieldError(serviceIndex, 'taxYear') }}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
+
+              <!-- Dynamic File Uploads Section -->
+              <div class="file-uploads-section mt-4 pt-4">
+
+                <div class="row g-4">
+                  <!-- Dynamic Required Files -->
+                  <div *ngFor="let requiredFile of getRequiredFilesForService(serviceIndex); let i = index"
+                    [class]="i % 2 === 0 ? 'col-md-6' : 'col-md-6'">
+                    <div class="mb-4">
+                      <label [for]="'file_' + serviceIndex + '_' + requiredFile.id" class="form-label">
+                        {{ requiredFile.name }}
+                        <span class="text-danger">*</span>
+                      </label>
+                      <div class="file-upload-container"
+                        [class.has-file]="serviceDataForms[serviceIndex].get(getFileFieldName(requiredFile))?.value">
+                        <input type="file" [id]="'file_' + serviceIndex + '_' + requiredFile.id"
+                          class="form-control file-input" [accept]="requiredFile.accept || 'image/*,.pdf'"
+                          (change)="onFileSelected($event, serviceIndex, getFileFieldName(requiredFile))"
+                          [attr.accept]="requiredFile.accept" #fileInput>
+
+                        <!-- File Preview -->
+                        <div class="file-upload-preview"
+                          *ngIf="serviceDataForms[serviceIndex].get(getFileFieldName(requiredFile))?.value">
+                          <div class="preview-info">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span class="file-name">
+                              {{ getFileName(serviceDataForms[serviceIndex].get(getFileFieldName(requiredFile))?.value)
+                              }}
+                            </span>
+                            <button type="button" class="btn-remove"
+                              (click)="removeFile(serviceIndex, getFileFieldName(requiredFile), fileInput)">
+                              <i class="bi bi-x"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- Upload Placeholder -->
+                        <div class="file-upload-placeholder">
+                          <i class="bi bi-file-earmark-arrow-up"></i>
+                          <span class="upload-text">
+                            {{ 'COMMON.drag-and-drop-or' | translate }}
+                            <span class="browse">{{ 'COMMON.browse' | translate }}</span>
+                          </span>
+                          <span class="upload-subtext" *ngIf="requiredFile.accept">
+                            Accepts: {{ requiredFile.accept }}
+                          </span>
+                          <span class="upload-subtext" *ngIf="requiredFile.description">
+                            {{ requiredFile.description }}
+                          </span>
+                        </div>
+                      </div>
+                      <div *ngIf="isServiceFieldInvalid(serviceIndex, getFileFieldName(requiredFile))"
+                        class="invalid-feedback d-block mt-1">
+                        {{ getServiceFieldError(serviceIndex, getFileFieldName(requiredFile)) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center mt-4">
+                <button type="button" class="btn btn-primary btn-lg px-4"
+                  [disabled]="loading || !serviceDataForms[serviceIndex].valid || serviceSubmitted[serviceIndex]"
+                  (click)="submitServiceData(serviceIndex)">
+                  <span *ngIf="!loading">{{ 'checkout.submit-service-data' | translate }}</span>
+                  <span *ngIf="loading">
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    {{ 'checkout.processing' | translate }}
+                  </span>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Action Buttons -->
-  <div class="row justify-content-center mt-4" *ngIf="!orderLoading && orderItems.length > 0">
-    <div class="col-md-8 col-lg-6 text-center">
-      <button type="button" (click)="submitServiceData()" class="btn btn-primary btn-lg px-5"
-        [disabled]="loading || !areAllServiceFormsValid()">
-        <span *ngIf="!loading" class="fw-semibold">
-          {{ 'checkout.submit-service-data' | translate }}
-        </span>
-        <span *ngIf="loading" class="fw-semibold">
-          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-          {{ 'checkout.processing' | translate }}
-        </span>
-      </button>
     </div>
   </div>
 </div>

@@ -2,6 +2,7 @@ export interface OrderItem {
   id: string;
   itemId: string;
   itemName: string;
+  itemImageUrl: string;
   itemType: string;
   amount: number;
   discount: number;
@@ -10,5 +11,6 @@ export interface OrderItem {
   order: any;
   deliveryType: string;
   shipping: boolean;
-  itemImageUrl: string;
+  branchId: string;
+  branchName: string;
 }

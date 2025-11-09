@@ -2,7 +2,7 @@ export const environment = {
   production: false,
 
   apiUrl: 'https://serva-best.runasp.net/api',
-  // apiUrl: 'https://localhost:7204/api',
+  //apiUrl: 'https://localhost:7204/api',
 
   // Google third party auth
   googleClientId: '710517406086-vlr501mfdnbmc5o8p8jv07qaks1jvveg.apps.googleusercontent.com',

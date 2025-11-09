@@ -678,6 +678,8 @@ export class Step1Checkout implements OnInit, OnDestroy {
 
     this.cartFacade.clearCart();
 
+    localStorage.setItem('step1Completed', 'true');
+    
     // Clear appointment metadata after successful checkout
     localStorage.removeItem(LOCAL_STORAGE_KEYS.APPOINTMENT_METADATA_KEY);
 
