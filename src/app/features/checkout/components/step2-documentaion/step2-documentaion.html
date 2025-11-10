@@ -123,7 +123,6 @@
                   <div *ngFor="let requiredFile of getRequiredFilesForService(serviceIndex); let i = index"
                     [class]="i % 2 === 0 ? 'col-md-6' : 'col-md-6'">
                     <div class="mb-4">
-
                       <label [for]="'file_' + serviceIndex + '_' + requiredFile.id"
                         class="form-label file-upload-label-fix">
                         {{ requiredFile.name }}
@@ -134,8 +133,8 @@
                         [class.has-file]="serviceDataForms[serviceIndex].get(getFileFieldName(requiredFile))?.value">
                         <input type="file" [id]="'file_' + serviceIndex + '_' + requiredFile.id"
                           class="form-control file-input" [accept]="requiredFile.accept || 'image/*,.pdf'"
-                          (change)="onFileSelected($event, serviceIndex, getFileFieldName(requiredFile))"
-                          [attr.accept]="requiredFile.accept" #fileInput>
+                          (change)="onFileSelected($event, serviceIndex, getFileFieldName(requiredFile), requiredFile)"
+                          #fileInput>
 
                         <!-- File Preview -->
                         <div class="file-upload-preview"
@@ -160,6 +159,7 @@
                             {{ 'COMMON.drag-and-drop-or' | translate }}
                             <span class="browse">{{ 'COMMON.browse' | translate }}</span>
                           </span>
+                          <!-- Show accepted file types from API -->
                           <span class="upload-subtext" *ngIf="requiredFile.accept">
                             Accepts: {{ requiredFile.accept }}
                           </span>
@@ -168,6 +168,7 @@
                           </span>
                         </div>
                       </div>
+
                       <div *ngIf="isServiceFieldInvalid(serviceIndex, getFileFieldName(requiredFile))"
                         class="invalid-feedback d-block mt-1">
                         {{ getServiceFieldError(serviceIndex, getFileFieldName(requiredFile)) }}

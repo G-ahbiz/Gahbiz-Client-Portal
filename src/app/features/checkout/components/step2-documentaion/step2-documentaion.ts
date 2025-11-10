@@ -214,21 +214,17 @@ export class Step2Documentaion implements OnInit, OnDestroy {
     return '';
   }
 
-  onFileSelected(event: any, serviceIndex: number, fieldName: string) {
+  onFileSelected(event: any, serviceIndex: number, fieldName: string, requiredFile: RequiredFile) {
     const file = event.target.files[0];
     if (file) {
-      // Validate file type
-      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
-      if (!allowedTypes.includes(file.type)) {
-        this.showErrorMessage('checkout.invalid-file-type');
-        event.target.value = '';
-        return;
-      }
+      console.log('File selected:', file.name, 'Type:', file.type, 'Size:', file.size);
+      console.log('Required file accept criteria:', requiredFile.accept);
 
-      // Validate file size (5MB limit)
-      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-      if (file.size > maxSize) {
-        this.showErrorMessage('checkout.file-too-large');
+      // Use the accept criteria from the API response
+      const validation = this.validateFileAgainstRequirements(file, requiredFile);
+
+      if (!validation.isValid) {
+        this.showErrorMessage(validation.error!);
         event.target.value = '';
         return;
       }
@@ -236,6 +232,113 @@ export class Step2Documentaion implements OnInit, OnDestroy {
       this.serviceDataForms[serviceIndex].get(fieldName)?.setValue(file);
       this.cdr.detectChanges();
     }
+  }
+
+  private validateFileAgainstRequirements(
+    file: File,
+    requiredFile: RequiredFile
+  ): { isValid: boolean; error?: string } {
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      return {
+        isValid: false,
+        error: 'checkout.file-too-large',
+      };
+    }
+
+    const acceptCriteria = requiredFile.accept;
+
+    if (!acceptCriteria) {
+      return { isValid: true };
+    }
+
+    const isValid = this.isFileTypeAccepted(file, acceptCriteria);
+
+    if (!isValid) {
+      const errorMessage =
+        this.translate.instant('checkout.invalid-file-type-specific', {
+          acceptedTypes: acceptCriteria,
+        }) || `File type not allowed. Accepted types: ${acceptCriteria}`;
+
+      this.toast.error(errorMessage);
+      return { isValid: false, error: 'checkout.invalid-file-type' };
+    }
+
+    return { isValid: true };
+  }
+
+  private isFileTypeAccepted(file: File, acceptCriteria: string): boolean {
+    const fileName = file.name.toLowerCase();
+    const fileExtension = fileName.split('.').pop() || '';
+    const fileType = file.type;
+
+    const acceptedTypes = acceptCriteria.split(',').map((type) => type.trim());
+
+    console.log('Validation details:', {
+      fileName,
+      fileExtension,
+      fileType,
+      acceptedTypes,
+    });
+
+    return acceptedTypes.some((acceptedType) => {
+      if (acceptedType.includes('/')) {
+        if (fileType === acceptedType) {
+          return true;
+        }
+
+        if (this.isMimeTypeEquivalent(fileType, acceptedType)) {
+          return true;
+        }
+
+        if (acceptedType.endsWith('/*')) {
+          const category = acceptedType.split('/')[0];
+          return fileType.startsWith(category + '/');
+        }
+      }
+
+      let extension = acceptedType;
+      if (acceptedType.startsWith('.')) {
+        extension = acceptedType.substring(1);
+      }
+
+      const normalizedExtension = extension.toLowerCase();
+
+      if (fileExtension === normalizedExtension) {
+        return true;
+      }
+
+      const mimeTypesForExtension = this.getMimeTypesForExtension(normalizedExtension);
+      if (mimeTypesForExtension && mimeTypesForExtension.includes(fileType)) {
+        return true;
+      }
+
+      return false;
+    });
+  }
+
+  private isMimeTypeEquivalent(actualMimeType: string, acceptedMimeType: string): boolean {
+    const equivalentMimeTypes: { [key: string]: string[] } = {
+      'image/jpg': ['image/jpeg'],
+      'image/jpeg': ['image/jpg'],
+    };
+
+    const equivalents = equivalentMimeTypes[acceptedMimeType];
+    return equivalents ? equivalents.includes(actualMimeType) : false;
+  }
+
+  private getMimeTypesForExtension(extension: string): string[] {
+    const extensionMimeMap: { [key: string]: string[] } = {
+      pdf: ['application/pdf'],
+      jpg: ['image/jpeg', 'image/jpg'],
+      jpeg: ['image/jpeg', 'image/jpg'],
+      png: ['image/png'],
+      gif: ['image/gif'],
+      doc: ['application/msword'],
+      docx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    };
+
+    return extensionMimeMap[extension] || [];
   }
 
   removeFile(serviceIndex: number, fieldName: string, inputElement: any) {
