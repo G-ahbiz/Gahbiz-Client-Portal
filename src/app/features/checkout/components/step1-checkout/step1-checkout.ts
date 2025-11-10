@@ -18,6 +18,9 @@ import { CheckoutItem } from '@features/checkout/interfaces/checkout-item';
 import { CheckoutResponse } from '@features/checkout/interfaces/checkout-response';
 import { ToastService } from '@shared/services/toast.service';
 import { CART_ITEMS, LOCAL_STORAGE_KEYS } from '@shared/config/constants';
+import { ApplyPromoCodeResponse } from '@features/checkout/interfaces/apply-pc-repsonse';
+import { ApplyPromoCodeRequest } from '@features/checkout/interfaces/apply-pc-request';
+import { map } from 'rxjs';
 
 declare global {
   interface Window {
@@ -64,6 +67,7 @@ export class Step1Checkout implements OnInit, OnDestroy {
   promoCodeApplied = false;
   promoCodeError = '';
   promoCodeDiscount = 0;
+  promoCodeSuccessMessage = '';
 
   private modal: any;
   private acceptScriptLoaded = false;
@@ -793,9 +797,9 @@ export class Step1Checkout implements OnInit, OnDestroy {
     }, 0);
   }
 
-  get tax(): number {
-    return Math.round(this.subtotal * 0.04 * 100) / 100; // 4% tax
-  }
+  // get tax(): number {
+  //   return Math.round(this.subtotal * 0.04 * 100) / 100; // 4% tax
+  // }
 
   applyPromoCode(): void {
     const promoCode = this.form.get('promoCode')?.value?.trim();
@@ -807,56 +811,83 @@ export class Step1Checkout implements OnInit, OnDestroy {
       return;
     }
 
-    // Simulate promo code validation with API call
-    this.validatePromoCode(promoCode)
-      .then((valid) => {
-        if (valid) {
-          this.promoCodeApplied = true;
-          this.promoCodeError = '';
-          const sucessMsg = this.translate.instant('checkout.promo-code-applied');
-          this.toastService.success(sucessMsg);
-        } else {
+    this.facade
+      .applyPromoCode({ code: promoCode, priceBefore: this.subtotal })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        map((res) => {
+          if (res && res.succeeded) {
+            return res.data;
+          }
+          return null;
+        })
+      )
+      .subscribe({
+        next: (res: ApplyPromoCodeResponse | null) => {
+          if (res) {
+            if (!res.isValid || (res.expiryDate && new Date(res.expiryDate) < new Date())) {
+              this.promoCodeError = this.translate.instant('checkout.promo-code-expired');
+              this.promoCodeDiscount = 0;
+              this.promoCodeApplied = false;
+              this.promoCodeSuccessMessage = '';
+              return;
+            }
+
+            this.promoCodeApplied = true;
+            this.promoCodeError = '';
+
+            // Calculate discount based on response
+            if (res.price !== undefined && res.price !== null) {
+              // If API returns the final price, calculate discount from it
+              this.promoCodeDiscount = Math.max(0, this.subtotal - res.price);
+            } else {
+              // Otherwise calculate from discount amount and type
+              this.promoCodeDiscount =
+                res.type === 'percentage'
+                  ? (this.subtotal * res.discountAmount!) / 100
+                  : res.discountAmount! || 0;
+            }
+
+            // Set success message with discount details
+            if (res.type === 'percentage' && res.discountAmount) {
+              this.promoCodeSuccessMessage = this.translate.instant(
+                'checkout.promo-code-applied-percentage',
+                { percentage: res.discountAmount }
+              );
+            } else if (res.type === 'fixed' && res.discountAmount) {
+              this.promoCodeSuccessMessage = this.translate.instant(
+                'checkout.promo-code-applied-fixed',
+                { amount: res.discountAmount }
+              );
+            } else {
+              this.promoCodeSuccessMessage = this.translate.instant('checkout.promo-code-applied');
+            }
+
+            // Show success toast
+            this.toastService.success(this.promoCodeSuccessMessage);
+          }
+        },
+        error: () => {
+          this.promoCodeError = this.translate.instant('checkout.promo-code-error');
           this.promoCodeApplied = false;
           this.promoCodeDiscount = 0;
-          const errorMsg = this.translate.instant('checkout.invalid-promo-code');
-          this.promoCodeError = errorMsg;
-          this.toastService.error(errorMsg);
-        }
-      })
-      .catch(() => {
-        this.promoCodeApplied = false;
-        this.promoCodeDiscount = 0;
-        const errorMsg = this.translate.instant('checkout.promo-code-validation-failed');
-        this.promoCodeError = errorMsg;
-        this.toastService.error(errorMsg);
+          this.promoCodeSuccessMessage = '';
+        },
       });
   }
 
-  private async validatePromoCode(code: string): Promise<boolean> {
-    // Simulate API call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const validPromoCodes: { [key: string]: number } = {
-          SUMMER2024: 10, // $10 discount
-          WELCOME10: 0.1, // 10% discount
-          SAVE5: 5, // $5 discount
-        };
-
-        if (validPromoCodes[code]) {
-          const discount = validPromoCodes[code];
-          this.promoCodeDiscount =
-            discount < 1 ? Math.round(this.subtotal * discount * 100) / 100 : discount;
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      }, 500);
-    });
+  removePromoCode(): void {
+    this.promoCodeApplied = false;
+    this.promoCodeError = '';
+    this.promoCodeDiscount = 0;
+    this.promoCodeSuccessMessage = '';
+    this.form.get('promoCode')?.setValue('');
   }
 
   // Update the total calculation to include discount
   get total(): number {
-    const total = Math.max(0, this.subtotal + this.tax - this.promoCodeDiscount);
+    // const total = Math.max(0, this.subtotal + this.tax - this.promoCodeDiscount);
+    const total = Math.max(0, this.subtotal - this.promoCodeDiscount);
     return Math.round(total * 100) / 100;
   }
 

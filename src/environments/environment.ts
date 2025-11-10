@@ -73,6 +73,8 @@ export const environment = {
     addToWishlist: '/Wishlist/add',
     removeFromWishlist: '/Wishlist/remove',
   },
-
+  promoCodes: {
+    applyPromoCode: '/PromoCodes/apply',
+  },
   confirmTokenTtlMs: 5 * 60 * 100,
 };
