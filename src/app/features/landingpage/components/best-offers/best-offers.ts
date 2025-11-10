@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Offer } from '@features/landingpage/interfaces/offer';
 import { LandingApiService } from '@features/landingpage/services/landing-api.service';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -7,16 +7,17 @@ import { Rating } from '@shared/components/rating/rating';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
 import { Router } from '@angular/router';
-import { ServiceDetails } from '@features/all-services/interfaces/all-services/service-details';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { CartItem } from '@features/cart/interfaces/cart-item';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthService } from '@core/services/auth.service';
 import { ROUTES } from '@shared/config/constants';
+import { FavoriteIconComponent } from '@shared/components/favorite-icon/favorite-icon.component';
+import { CopyLinkComponent } from '@shared/components/copy-link/copy-link.component';
 
 @Component({
   selector: 'app-best-offers',
-  imports: [TranslateModule, CommonModule, Rating],
+  imports: [TranslateModule, CommonModule, Rating, FavoriteIconComponent, CopyLinkComponent],
   templateUrl: './best-offers.html',
   styleUrl: './best-offers.scss',
 })
@@ -34,7 +35,6 @@ export class BestOffers implements OnInit {
   private translateService = inject(TranslateService);
   private landingApiService = inject(LandingApiService);
   private toastService = inject(ToastService);
-  private cd = inject(ChangeDetectorRef);
   private router = inject(Router);
   private cartFacadeService = inject(CartFacadeService);
   private authService = inject(AuthService);
@@ -97,12 +97,6 @@ export class BestOffers implements OnInit {
     this.router.navigate(['/service-details', id]);
   }
 
-  putInFavorites(event: MouseEvent, id: string): void {
-    event.stopPropagation();
-    console.log('Add to favorites:', id);
-    // TODO: Implement favorite logic
-  }
-
   onAddToCart(offer: Offer, event: Event): void {
     event.stopPropagation();
     if (!this.isLoggedIn()) {
@@ -124,38 +118,6 @@ export class BestOffers implements OnInit {
     } else {
       this.toastService.error('Item already in cart', 3000);
     }
-  }
-
-  copyPageUrl(event: MouseEvent, offerId: string): void {
-    event.stopPropagation();
-
-    if (!offerId || this.copiedOfferId === offerId) return;
-
-    const baseUrl = window.location.origin;
-    const serviceUrl = `${baseUrl}/services/${offerId}`;
-
-    // Use the modern Clipboard API
-    navigator.clipboard.writeText(serviceUrl).then(
-      () => {
-        // Success
-        this.copiedOfferId = offerId;
-        this.cd.markForCheck();
-
-        const message = this.translateService.instant('best-offers.toasts.url-copied');
-        this.toastService.success(message || 'Service URL copied!');
-
-        setTimeout(() => {
-          this.copiedOfferId = null;
-          this.cd.markForCheck();
-        }, 2000);
-      },
-      (err) => {
-        // Failure
-        console.error('Failed to copy URL: ', err);
-        const message = this.translateService.instant('best-offers.toasts.url-copy-failed');
-        this.toastService.error(message || 'Failed to copy URL.');
-      }
-    );
   }
 
   navigateToAllServices() {

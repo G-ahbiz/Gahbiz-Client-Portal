@@ -1,0 +1,6 @@
+<div class="icon-btn" (click)="copyPageUrl($event)">
+  <i class="copy-icon pi" [ngClass]="{
+      'pi-check copied': copied,
+      'pi-share-alt': !copied
+    }"></i>
+</div>

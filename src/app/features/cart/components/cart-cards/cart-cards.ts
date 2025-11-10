@@ -16,6 +16,9 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CartItem } from '@features/cart/interfaces/cart-item';
 import { Subject } from 'rxjs';
+import { WishlistService } from '@core/services/wishlist.service';
+import { ToastService } from '@shared/services/toast.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart-cards',
@@ -33,7 +36,13 @@ export class CartCards implements OnInit, OnChanges, OnDestroy {
   @Output() cartItemsChanged = new EventEmitter<string>();
 
   private destroy$ = new Subject<void>();
-  constructor(private router: Router) {}
+
+  constructor(
+    private router: Router,
+    private wishlistService: WishlistService,
+    private toast: ToastService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {
     this.updateTotalPages();
@@ -57,10 +66,26 @@ export class CartCards implements OnInit, OnChanges, OnDestroy {
     this.cartItemsChanged.emit(serviceId);
   }
 
-  // save for later
   saveForLater(serviceId: string) {
-    // TODO: Implement save for later functionality
-    // This feature will be implemented in a future update
+    this.wishlistService.add(serviceId).subscribe({
+      next: (added) => {
+        if (added) {
+          const msg = this.translate.instant('cart.cards.saved-for-later-toast');
+          this.toast.success(msg || 'Saved for later');
+
+          // Remove from cart only if added
+          this.cartItemsChanged.emit(serviceId);
+        } else {
+          const msg = this.translate.instant('cart.cards.already-saved-toast');
+          this.toast.info(msg || 'Item already saved for later');
+        }
+      },
+      error: (err) => {
+        console.error('Save for later error:', err);
+        const msg = this.translate.instant('cart.cards.save-for-later-failed');
+        this.toast.error(msg || 'Failed to save for later');
+      },
+    });
   }
 
   // navigate to home

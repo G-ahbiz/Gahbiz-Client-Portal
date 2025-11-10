@@ -199,6 +199,7 @@
     "contact": "Contacto",
     "login": "Iniciar sesión",
     "profile": "Perfil",
+    "wishlist": "Lista de deseos",
     "logout": "Cerrar sesión",
     "createaccount": "Crear cuenta",
     "taxservices": "Servicios de impuestos",
@@ -473,7 +474,10 @@
     },
     "cards": {
       "remove-btn": "Eliminar",
-      "save-for-later-btn": "Guardar para después"
+      "save-for-later-btn": "Guardar para más tarde",
+      "saved-for-later-toast": "Artículo guardado para más tarde",
+      "save-for-later-failed": "No se pudo guardar el artículo",
+      "already-saved-toast": "El artículo ya está guardado para más tarde"
     }
   },
   "checkout": {
@@ -769,5 +773,26 @@
     "MAX_PRICE": "Precio máximo",
     "IN_STOCK": "Disponible",
     "OUT_OF_STOCK": "Agotado"
+  },
+  "WISHLIST": {
+    "ADDED": "Añadido a la lista de deseos",
+    "REMOVED": "Eliminado de la lista de deseos",
+    "ADD_FAILED": "Error al añadir a la lista de deseos.",
+    "REMOVE_FAILED": "Error al eliminar de la lista de deseos.",
+    "ADD_ERROR": "Error al añadir a la lista de deseos.",
+    "REMOVE_ERROR": "Error al eliminar de la lista de deseos.",
+    "LOAD_ERROR": "No se pudo cargar la lista de deseos.",
+    "ALREADY_ADDED": "El artículo ya está en la lista de deseos",
+    "title": "Mi lista de deseos",
+    "items": "elementos",
+    "loading": "Cargando tus servicios favoritos...",
+    "remove": "Eliminar de la lista de deseos",
+    "no_description": "No hay descripción disponible para este servicio.",
+    "load_error": "Error al cargar la lista de deseos. Por favor, vuelva a intentarlo.",
+    "empty": {
+      "title": "No tienes servicios favoritos",
+      "description": "Navega por nuestro sitio y encuentra los servicios que necesitas.",
+      "browse": "Explorar"
+    }
   }
 }

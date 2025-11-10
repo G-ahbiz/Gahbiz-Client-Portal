@@ -40,20 +40,10 @@
           <div class="card-header overflow-hidden position-relative p-0 border-0">
             <img [src]="offer.image?.path || 'assets/images/placeholder.jpg'" [alt]="offer.name" class="img-fluid" />
             <div class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3">
-              <div
-                class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-                (click)="putInFavorites($event, offer.id)">
-                <i class="pi pi-heart fs-4 red-heart"></i>
-              </div>
-              <div
-                class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-                (click)="copyPageUrl($event, offer.id)">
-                @if (copiedOfferId === offer.id) {
-                <i class="pi pi-check fs-4 copied-icon"></i>
-                } @else {
-                <i class="pi pi-share-alt fs-4"></i>
-                }
-              </div>
+
+              <app-favorite-icon [serviceId]="offer.id"></app-favorite-icon>
+
+              <app-copy-link [offerId]="offer.id"></app-copy-link>
             </div>
           </div>
           <div class="card-body px-3">

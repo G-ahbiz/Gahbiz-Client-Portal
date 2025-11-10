@@ -1,0 +1,8 @@
+<div class="icon-btn" (click)="toggleFavorite($event)"
+  [attr.aria-label]="isFavorite ? 'Remove from favorites' : 'Add to favorites'" tabindex="0"
+  (keydown.enter)="toggleFavorite($event)" (keydown.space)="toggleFavorite($event)">
+  <i class="heart-icon pi" [ngClass]="{
+      'pi-heart-fill': isFavorite,
+      'pi-heart': !isFavorite
+    }"></i>
+</div>

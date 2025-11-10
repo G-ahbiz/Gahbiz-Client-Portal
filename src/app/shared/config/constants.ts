@@ -10,6 +10,7 @@ export const ROUTES = {
   checkout: '/checkout',
   completeProfile: '/complete-profile',
   appointmentService: '/appointment-service',
+  wishlist: '/wishlist',
   allServices: '/all-services',
 };
 

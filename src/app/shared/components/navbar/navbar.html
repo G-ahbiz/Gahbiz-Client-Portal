@@ -122,6 +122,15 @@
                     <hr class="dropdown-divider">
                   </li>
                   <li>
+                    <a class="dropdown-item d-flex align-items-center" routerLink="/wishlist">
+                      <i class="pi pi-heart me-2"></i>
+                      {{'navbar.wishlist' | translate}}
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
                     <button class="dropdown-item d-flex align-items-center text-danger" (click)="logout()">
                       <i class="pi pi-sign-out me-2"></i>
                       {{'navbar.logout' | translate}}

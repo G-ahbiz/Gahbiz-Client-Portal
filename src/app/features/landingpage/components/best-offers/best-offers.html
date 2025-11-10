@@ -13,9 +13,7 @@
 }
 
 <div class="container-fluid mt-5 p-2 p-md-5 my-5">
-  <div
-    class="title-container d-flex flex-column justify-content-center align-items-center gap-3 mb-5"
-  >
+  <div class="title-container d-flex flex-column justify-content-center align-items-center gap-3 mb-5">
     <h1 class="title fw-medium">
       <span class="txt-clr">{{ 'best-offers.title1' | translate }}</span>
       <span class="text-highlight">{{ 'best-offers.title2' | translate }}</span>
@@ -31,29 +29,11 @@
     <div class="col-lg-4 col-md-6 col-12">
       <div class="offer-card card h-100 cursor-pointer" (click)="openServiceDetails(offer.id)">
         <div class="card-header overflow-hidden position-relative p-0">
-          <img
-            [src]="offer.imageUrl ?? 'assets/images/placeholder.jpg'"
-            [alt]="offer.title"
-            class="img-fluid"
-          />
-          <div
-            class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3"
-          >
-            <div
-              class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-              (click)="putInFavorites($event, offer.id)">
-              <i class="pi pi-heart fs-4 red-heart"></i>
-            </div>
+          <img [src]="offer.imageUrl ?? 'assets/images/placeholder.jpg'" [alt]="offer.title" class="img-fluid" />
+          <div class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3">
+            <app-favorite-icon [serviceId]="offer.id"></app-favorite-icon>
 
-            <div
-              class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-              (click)="copyPageUrl($event, offer.id)">
-              @if (copiedOfferId === offer.id) {
-              <i class="pi pi-check fs-4 copied-icon"></i>
-              } @else {
-              <i class="pi pi-share-alt fs-4"></i>
-              }
-            </div>
+            <app-copy-link [offerId]="offer.id"></app-copy-link>
           </div>
         </div>
 
@@ -70,10 +50,7 @@
           </div>
 
           <div class="card-button d-flex justify-content-start align-items-center gap-2 w-100 mt-3">
-            <button
-              class="btn primary-bg-clr w-100 white-text-clr"
-              (click)="onAddToCart(offer, $event)"
-            >
+            <button class="btn primary-bg-clr w-100 white-text-clr" (click)="onAddToCart(offer, $event)">
               {{ 'best-offers.add-to-cart' | translate }}
             </button>
           </div>
@@ -86,8 +63,7 @@
   <div class="explore-button-container w-100 d-flex justify-content-center align-items-center mt-5">
     <button
       class="btn explore-button scale-down primary-bg-clr white-text-clr d-flex justify-content-center align-items-center gap-4 px-5 py-3 bounce"
-      (click)="navigateToAllServices()"
-      >
+      (click)="navigateToAllServices()">
       <span class="fw-medium fs-5 text-nowrap">
         {{ 'best-offers.view-all' | translate }}
       </span>

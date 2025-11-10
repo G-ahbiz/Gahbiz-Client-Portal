@@ -30,10 +30,6 @@
   right: 1.25rem;
 }
 
-.red-heart {
-  color: #f20000;
-}
-
 .bounce:hover i {
   animation: bounce 1s infinite;
 }
@@ -53,34 +49,5 @@
 @media(max-width: 768px) {
   .container-fluid{
     padding: 0 4vw !important;
-  }
-}
-
-.icon-container {
-  transition: transform 0.1s ease-out;
-
-  &:active {
-    transform: scale(0.9);
-  }
-
-  .pi {
-    transition: opacity 0.2s ease;
-  }
-
-  .copied-icon {
-    color: #28a745;
-    animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-}
-
-
-@keyframes pop-in {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
   }
 }
