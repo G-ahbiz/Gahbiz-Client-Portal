@@ -6,6 +6,8 @@ import { catchError, retry } from 'rxjs/operators';
 import { CheckoutResponse } from '../interfaces/checkout-response';
 import { ApiResponse } from '@core/interfaces/api-response';
 import { Order } from '../interfaces/order';
+import { ApplyPromoCodeRequest } from '../interfaces/apply-pc-request';
+import { ApplyPromoCodeResponse } from '../interfaces/apply-pc-repsonse';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +47,18 @@ export class CheckoutApiService {
 
   submitServiceSubmission(payload: FormData): Observable<ApiResponse<any>> {
     const url = `${this.apiUrl}${environment.serviceSubmissions.submitService}`;
+
+    return this.http
+      .post<ApiResponse<any>>(url, payload)
+      .pipe(
+        timeout(this.timeoutMs),
+        retry(this.maxRetries),
+        catchError(this.handleError.bind(this))
+      );
+  }
+
+  applyPromoCode(payload: ApplyPromoCodeRequest): Observable<ApiResponse<ApplyPromoCodeResponse>> {
+    const url = `${this.apiUrl}${environment.promoCodes.applyPromoCode}`;
 
     return this.http
       .post<ApiResponse<any>>(url, payload)

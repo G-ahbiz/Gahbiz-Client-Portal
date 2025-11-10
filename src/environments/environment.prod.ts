@@ -68,6 +68,8 @@ export const environment = {
     getRequiredFiles: `/ServiceSubmissions/`,
     submitService: `/ServiceSubmissions`,
   },
-
+  promoCodes: {
+    applyPromoCode: '/PromoCodes/apply',
+  },
   confirmTokenTtlMs: 5 * 60 * 100,
 };

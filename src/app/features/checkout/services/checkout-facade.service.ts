@@ -6,6 +6,8 @@ import { CheckoutResponse } from '../interfaces/checkout-response';
 import { OrderItem } from '../interfaces/order-item';
 import { ApiResponse } from '@core/interfaces/api-response';
 import { Order } from '../interfaces/order';
+import { ApplyPromoCodeRequest } from '../interfaces/apply-pc-request';
+import { ApplyPromoCodeResponse } from '../interfaces/apply-pc-repsonse';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +42,19 @@ export class CheckoutFacadeService {
         return [];
       })
     );
+  }
+
+  applyPromoCode(payload: ApplyPromoCodeRequest): Observable<ApiResponse<ApplyPromoCodeResponse>> {
+    if (!payload) {
+      throw new Error('Payload is required');
+    }
+    if (!payload.code) {
+      throw new Error('Code is required');
+    }
+    if (!payload.priceBefore) {
+      throw new Error('Price before is required');
+    }
+    return this.api.applyPromoCode(payload);
   }
 
   submitServiceSubmission(formData: FormData): Observable<ApiResponse<any>> {
