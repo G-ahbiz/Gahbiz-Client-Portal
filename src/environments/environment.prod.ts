@@ -68,6 +68,11 @@ export const environment = {
     getRequiredFiles: `/ServiceSubmissions/`,
     submitService: `/ServiceSubmissions`,
   },
+  Wishlist: {
+    getWishlist: '/Wishlist',
+    addToWishlist: '/Wishlist/add',
+    removeFromWishlist: '/Wishlist/remove',
+  },
   promoCodes: {
     applyPromoCode: '/PromoCodes/apply',
   },
