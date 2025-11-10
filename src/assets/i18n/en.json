@@ -199,6 +199,7 @@
     "contact": "Contact",
     "login": "Login",
     "profile": "Profile",
+    "wishlist": "Wishlist",
     "logout": "Logout",
     "createaccount": "Create Account",
     "taxservices": "Tax Services",
@@ -473,7 +474,10 @@
     },
     "cards": {
       "remove-btn": "Remove",
-      "save-for-later-btn": "Save for later"
+      "save-for-later-btn": "Save for later",
+      "saved-for-later-toast": "Item saved for later",
+      "save-for-later-failed": "Failed to save item",
+      "already-saved-toast": "Item is already saved for later"
     }
   },
   "checkout": {
@@ -774,5 +778,26 @@
     "MAX_PRICE": "Max Price",
     "IN_STOCK": "In Stock",
     "OUT_OF_STOCK": "Out of Stock"
+  },
+  "WISHLIST": {
+    "ADDED": "Added to wishlist",
+    "REMOVED": "Removed from wishlist",
+    "ADD_FAILED": "Failed to add to wishlist.",
+    "REMOVE_FAILED": "Failed to remove from wishlist.",
+    "ADD_ERROR": "Error while adding to wishlist.",
+    "REMOVE_ERROR": "Error while removing from wishlist.",
+    "LOAD_ERROR": "Failed to load wishlist.",
+    "ALREADY_ADDED": "Item is already in your wishlist.",
+    "title": "My Wishlist",
+    "items": "Items",
+    "loading": "Loading your favorite services...",
+    "remove": "Remove from Wishlist",
+    "no_description": "No description available for this service.",
+    "load_error": "Failed to load wishlist items. Please try again.",
+    "empty": {
+      "title": "Your Wishlist is Empty",
+      "description": "It looks like you haven't added any services yet. Explore our offerings and save your favorites!",
+      "browse": "Browse Services"
+    }
   }
 }

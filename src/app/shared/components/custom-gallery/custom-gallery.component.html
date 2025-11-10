@@ -1,23 +1,9 @@
 <div class="custom-gallery">
   <div class="gallery-item-container">
     <div class="gallery-icons">
-      <div
-        class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-        (click)="putInFavorites(offerId)">
+      <app-favorite-icon [serviceId]="offerId"></app-favorite-icon>
 
-        <i class="pi pi-heart fs-4 red-heart"></i>
-      </div>
-
-      <div
-        class="icon-container white-bg-clr rounded-circle p-3 d-flex justify-content-center align-items-center cursor-pointer"
-        (click)="copyPageUrl($event, offerId)">
-
-        @if (copiedOfferId === offerId) {
-        <i class="pi pi-check fs-4 copied-icon"></i>
-        } @else {
-        <i class="pi pi-share-alt fs-4"></i>
-        }
-      </div>
+      <app-copy-link [offerId]="offerId"></app-copy-link>
     </div>
 
     <button (click)="prevImage()" type="button" class="main-arrow prev">

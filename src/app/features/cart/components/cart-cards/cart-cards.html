@@ -1,13 +1,9 @@
 <div class="d-flex flex-column justify-content-start align-items-start gap-4">
-  <div
-    class="cart-items-list d-flex flex-column justify-content-center align-items-start gap-4 w-100"
-  >
+  <div class="cart-items-list d-flex flex-column justify-content-center align-items-start gap-4 w-100">
     <!-- Cart Items List -->
     <div class="cart-list d-flex flex-column justify-content-between align-items-start gap-4 w-100">
       @if (cartItems.length === 0) {
-      <div
-        class="empty-cart-container d-flex flex-column justify-content-center align-items-center gap-4 w-100"
-      >
+      <div class="empty-cart-container d-flex flex-column justify-content-center align-items-center gap-4 w-100">
         <h3 class="fs-5 fw-semibold">{{ 'cart.empty.title' | translate }}</h3>
         <p class="fs-6 fw-medium text-center">{{ 'cart.empty.description' | translate }}</p>
         <button class="btn btn-primary btn-lg" (click)="navigateToHome()">
@@ -24,13 +20,9 @@
         </div>
 
         <!-- Cart Item Card Body -->
-        <div
-          class="card-body d-flex flex-column justify-content-between align-items-start gap-1 py-0"
-        >
+        <div class="card-body d-flex flex-column justify-content-between align-items-start gap-1 py-0">
           <!-- Cart Item Card Title & Subtitle -->
-          <div
-            class="cart-item-card-title-subtitle d-flex flex-column justify-content-between align-items-start gap-1"
-          >
+          <div class="cart-item-card-title-subtitle d-flex flex-column justify-content-between align-items-start gap-1">
             <h3 class="fs-5 fw-semibold">{{ cartItem.name }}</h3>
             <p class="fs-6 fw-medium overflow-hidden line-clamp-2 text-ellipsis text-wrap">
               {{ cartItem.description }}
@@ -42,9 +34,8 @@
             <!-- Cart Item Card Price -->
             <div class="d-flex justify-content-start align-items-center gap-3">
               <span class="price-offer fw-bold">${{ cartItem.price | number : '1.2-2' }}</span>
-              <span class="orignal-price text-muted"
-                ><del class="text-muted">${{ cartItem.priceBefore | number : '1.2-2' }}</del></span
-              >
+              <span class="orignal-price text-muted"><del class="text-muted">${{ cartItem.priceBefore | number : '1.2-2'
+                  }}</del></span>
             </div>
 
             <!-- Cart Item Card Rating -->
@@ -55,22 +46,15 @@
           </div>
 
           <!-- Cart Item Card Button -->
-          <div
-            class="button-container d-flex justify-content-start align-items-center gap-2 w-100 mt-2"
-          >
+          <div class="button-container d-flex justify-content-start align-items-center gap-2 w-100 mt-2">
             <!-- Cart Item Buy Now Button -->
-            <button
-              class="btn btn-primary card-btn text-nowrap py-2 px-4 w-50"
-              (click)="removeFromCart(cartItem.id)"
-            >
+            <button class="btn btn-primary card-btn text-nowrap py-2 px-4 w-50" (click)="removeFromCart(cartItem.id)">
               {{ 'cart.cards.remove-btn' | translate }}
             </button>
 
             <!-- Cart Item Add to Cart Button -->
-            <button
-              class="btn btn-outline-primary card-btn text-nowrap py-2 px-4 w-50"
-              (click)="saveForLater(cartItem.id)"
-            >
+            <button class="btn btn-outline-primary card-btn text-nowrap py-2 px-4 w-50"
+              (click)="saveForLater(cartItem.id)">
               {{ 'cart.cards.save-for-later-btn' | translate }}
             </button>
           </div>
@@ -84,12 +68,8 @@
       <ul class="d-flex justify-content-center align-items-center gap-4">
         <!-- dropdown for page size -->
         <li class="btn-group">
-          <button
-            type="button"
-            class="btn btn-primary primary-bg-clr dropdown-toggle"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+          <button type="button" class="btn btn-primary primary-bg-clr dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
             {{ pageSize }}
           </button>
           <ul class="dropdown-menu">
@@ -106,36 +86,27 @@
               <a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(8)">8</a>
             </li>
             <li>
-              <a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(10)"
-                >10</a
-              >
+              <a class="dropdown-item" href="javascript:void(0)" (click)="onPageSizeChange(10)">10</a>
             </li>
           </ul>
         </li>
         <!-- Previous Page -->
         <li
           class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
-          [class.disabled]="currentPage === 1"
-          (click)="onPreviousPage()"
-        >
+          [class.disabled]="currentPage === 1" (click)="onPreviousPage()">
           <i class="pi pi-chevron-left fs-875 orange-text-clr"></i>
         </li>
         <!-- Page Numbers -->
         @for (i of totalPages; track i ) {
-        <li
-          class="page-item py-1 px-2 cursor-pointer"
-          [class.active]="currentPage === i"
-          [class.disabled]="currentPage != i"
-        >
+        <li class="page-item py-1 px-2 cursor-pointer" [class.active]="currentPage === i"
+          [class.disabled]="currentPage != i">
           <a class="page-link" href="javascript:void(0)" (click)="onPageChange(i)">{{ i }}</a>
         </li>
         }
         <!-- Next Page -->
         <li
           class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
-          [class.disabled]="currentPage === totalPages.length"
-          (click)="onNextPage()"
-        >
+          [class.disabled]="currentPage === totalPages.length" (click)="onNextPage()">
           <i class="pi pi-chevron-right fs-875 orange-text-clr"></i>
         </li>
       </ul>

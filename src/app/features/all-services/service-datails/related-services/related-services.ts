@@ -7,6 +7,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Rating } from '@shared/components/rating/rating';
 import { ToastService } from '@shared/services/toast.service';
 import { BehaviorSubject, Observable, switchMap, of, map, catchError, startWith } from 'rxjs';
+import { FavoriteIconComponent } from "@shared/components/favorite-icon/favorite-icon.component";
+import { CopyLinkComponent } from '@shared/components/copy-link/copy-link.component';
 
 // 1. Define an interface for your view state
 interface RelatedServicesState {
@@ -18,7 +20,7 @@ interface RelatedServicesState {
 @Component({
   selector: 'app-related-services',
   standalone: true,
-  imports: [Rating, TranslateModule, AsyncPipe, CommonModule],
+  imports: [Rating, TranslateModule, AsyncPipe, CommonModule, FavoriteIconComponent, CopyLinkComponent],
   templateUrl: './related-services.html',
   styleUrl: './related-services.scss',
 })
@@ -89,44 +91,6 @@ export class RelatedServices implements OnChanges {
   // --- Public Methods ---
   openServiceDetails(id: string): void {
     this.router.navigate(['/service-details', id]);
-  }
-
-  putInFavorites(event: MouseEvent, id: string): void {
-    event.stopPropagation();
-    console.log('Add to favorites:', id);
-    // TODO: Implement favorite logic
-  }
-
-  copyPageUrl(event: MouseEvent, offerId: string): void {
-    event.stopPropagation();
-
-    if (!offerId || this.copiedOfferId === offerId) return;
-
-    const baseUrl = window.location.origin;
-    const serviceUrl = `${baseUrl}/services/${offerId}`;
-
-    // Use the modern Clipboard API
-    navigator.clipboard.writeText(serviceUrl).then(
-      () => {
-        // Success
-        this.copiedOfferId = offerId;
-        this.cd.markForCheck();
-
-        const message = this.translateService.instant('best-offers.toasts.url-copied');
-        this.toastService.success(message || 'Service URL copied!');
-
-        setTimeout(() => {
-          this.copiedOfferId = null;
-          this.cd.markForCheck();
-        }, 2000);
-      },
-      (err) => {
-        // Failure
-        console.error('Failed to copy URL: ', err);
-        const message = this.translateService.instant('best-offers.toasts.url-copy-failed');
-        this.toastService.error(message || 'Failed to copy URL.');
-      }
-    );
   }
 
   addToCart(event: MouseEvent, id: string): void {

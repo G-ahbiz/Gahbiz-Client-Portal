@@ -12,6 +12,8 @@ import {
 } from '@angular/core';
 import { ToastService } from '@shared/services/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { FavoriteIconComponent } from '../favorite-icon/favorite-icon.component';
+import { CopyLinkComponent } from "../copy-link/copy-link.component";
 
 interface GalleryImage {
   itemImageSrc: string;
@@ -21,6 +23,7 @@ interface GalleryImage {
 
 @Component({
   selector: 'app-custom-gallery',
+  imports: [FavoriteIconComponent, CopyLinkComponent],
   templateUrl: './custom-gallery.component.html',
   styleUrls: ['./custom-gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -114,42 +117,5 @@ export class CustomGalleryComponent implements OnChanges, AfterViewInit {
   @HostListener('window:resize')
   onResize() {
     this.updateScrollButtons();
-  }
-
-  putInFavorites(id: string) {
-    console.log('Add to favorites:', id);
-    // Add your favorite API logic here
-  }
-
-  copyPageUrl(event: MouseEvent, offerId: string): void {
-    event.stopPropagation();
-
-    if (!offerId || this.copiedOfferId === offerId) return;
-
-    const baseUrl = window.location.origin;
-    const serviceUrl = `${baseUrl}/services/${offerId}`;
-
-    // Use the modern Clipboard API
-    navigator.clipboard.writeText(serviceUrl).then(
-      () => {
-        // Success
-        this.copiedOfferId = offerId;
-        this.cdr.markForCheck();
-
-        const message = this.translate.instant('best-offers.toasts.url-copied');
-        this.toast.success(message || 'Service URL copied!');
-
-        setTimeout(() => {
-          this.copiedOfferId = null;
-          this.cdr.markForCheck();
-        }, 2000);
-      },
-      (err) => {
-        // Failure
-        console.error('Failed to copy URL: ', err);
-        const message = this.translate.instant('best-offers.toasts.url-copy-failed');
-        this.toast.error(message || 'Failed to copy URL.');
-      }
-    );
   }
 }

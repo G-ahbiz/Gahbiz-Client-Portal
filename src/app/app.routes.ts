@@ -82,6 +82,12 @@ export const routes: Routes = [
       import('./features/complete-profile/complete-profile').then((m) => m.CompleteProfile),
   },
 
+  {
+    path: 'wishlist',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./features/wishlist/page/wishlist.component').then((m) => m.WishlistComponent),
+  },
+
   // Cart
   {
     path: 'cart',
