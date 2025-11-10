@@ -151,9 +151,10 @@
       "MAX_LENGTH": "No puede exceder {{requiredLength}} caracteres.",
       "EMAIL": "Por favor ingresa una dirección de correo electrónico válida.",
       "FULLNAME_PATTERN": "Solo se permiten letras, espacios, apóstrofes y guiones.",
-      "PHONE_PATTERN": "Por favor ingresa un número de teléfono válido.",
       "PASSWORD_PATTERN": "La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales.",
-      "INVALID": "El valor ingresado no es válido."
+      "INVALID": "El valor ingresado no es válido.",
+      "US_PHONE_PATTERN": "El número de teléfono debe estar en el formato: +1 seguido de 10 dígitos (por ejemplo, +11234567890).",
+      "PHONE_PATTERN": "Por favor, introduzca un número de teléfono internacional válido."
     }
   },
   "CONFIRM_EMAIL": {

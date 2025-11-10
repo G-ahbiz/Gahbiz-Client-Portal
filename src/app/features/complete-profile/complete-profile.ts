@@ -14,10 +14,12 @@ import { Navbar } from '@shared/components/navbar/navbar';
 import { Footer } from '@shared/components/footer/footer';
 import { CommonModule } from '@angular/common';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { COUNTRIES } from '@shared/config/constants';
@@ -107,7 +109,7 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
       ],
       email: ['', [Validators.required, Validators.email]],
       gender: [null, [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required, this.phoneFormatValidator.bind(this)]],
       nationalId: ['', [Validators.required]],
       birthMonth: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
       birthDay: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
@@ -119,6 +121,54 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
       state: [{ value: null, disabled: true }, [Validators.required]],
       postalCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
     });
+  }
+
+  private phoneFormatValidator(control: AbstractControl): ValidationErrors | null {
+    const raw = control.value;
+    if (!raw || raw.toString().trim() === '') return null;
+
+    let v = String(raw).trim();
+
+    v = v.replace(/^00/, '+');
+    v = v.replace(/[\s-.()]/g, '');
+
+    if (/^\d{10}$/.test(v)) {
+      v = '+1' + v;
+    }
+
+    const usRegex = /^\+1[2-9]\d{9}$/;
+    const intlE164 = /^\+[1-9]\d{6,14}$/;
+
+    if (v.startsWith('+1')) {
+      if (!usRegex.test(v)) return { invalidUSPhone: true };
+    } else {
+      if (!intlE164.test(v)) return { invalidPhone: true };
+    }
+
+    return null;
+  }
+
+  onPhoneBlur(): void {
+    const phoneControl = this.completeProfileForm.get('phoneNumber');
+    if (!phoneControl) return;
+
+    let v = String(phoneControl.value || '').trim();
+    if (!v) {
+      phoneControl.markAsTouched();
+      phoneControl.updateValueAndValidity();
+      this.cdr.detectChanges();
+      return;
+    }
+
+    v = v.replace(/^00/, '+');
+    v = v.replace(/[\s-.()]/g, '');
+
+    if (/^\d{10}$/.test(v)) v = '+1' + v;
+
+    phoneControl.setValue(v);
+    phoneControl.markAsTouched();
+    phoneControl.updateValueAndValidity();
+    this.cdr.detectChanges();
   }
 
   get fullLegalName() {
@@ -177,14 +227,20 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
     if (control.errors['email'])
       return this.translateService.instant('complete-profile.form.error.email');
 
+    // Add phone validation errors from your AppointmentServiceComponent
+    if (control.errors['invalidUSPhone']) {
+      return this.translateService.instant('SIGNUP.ERRORS.US_PHONE_PATTERN');
+    }
+    if (control.errors['invalidPhone']) {
+      return this.translateService.instant('SIGNUP.ERRORS.PHONE_PATTERN');
+    }
+
     if (control.errors['pattern']) {
       switch (controlName) {
         case 'fullLegalName':
           return this.translateService.instant('complete-profile.form.error.fullname_pattern');
         case 'email':
           return this.translateService.instant('complete-profile.form.error.email');
-        case 'phoneNumber':
-          return this.translateService.instant('complete-profile.form.error.phone_pattern');
         case 'nationalId':
           return this.translateService.instant('complete-profile.form.error.national_id');
         case 'birthMonth':

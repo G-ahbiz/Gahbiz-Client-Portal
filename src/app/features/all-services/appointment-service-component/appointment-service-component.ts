@@ -11,10 +11,12 @@ import {
   computed,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -194,12 +196,61 @@ export class AppointmentServiceComponent implements OnInit, OnDestroy {
         ],
       ],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^\+[1-9]\d{6,14}$/)]],
+      phone: ['', [Validators.required, this.phoneFormatValidator.bind(this)]],
       location: ['', [Validators.required]],
       date: ['', [Validators.required]],
       time: [{ value: '', disabled: true }, [Validators.required]],
-      duration: ['30', [Validators.required]],
+      duration: ['', [Validators.required]],
     });
+  }
+
+  private phoneFormatValidator(control: AbstractControl): ValidationErrors | null {
+    const raw = control.value;
+    if (!raw || raw.toString().trim() === '') return null;
+
+    let v = String(raw).trim();
+
+    v = v.replace(/^00/, '+');
+
+    v = v.replace(/[\s-.()]/g, '');
+
+    if (/^\d{10}$/.test(v)) {
+      v = '+1' + v;
+    }
+
+    const usRegex = /^\+1[2-9]\d{9}$/;
+    const intlE164 = /^\+[1-9]\d{6,14}$/;
+
+    if (v.startsWith('+1')) {
+      if (!usRegex.test(v)) return { invalidUSPhone: true };
+    } else {
+      if (!intlE164.test(v)) return { invalidPhone: true };
+    }
+
+    return null;
+  }
+
+  onPhoneBlur(): void {
+    const phoneControl = this.appointmentServiceForm.get('phone');
+    if (!phoneControl) return;
+
+    let v = String(phoneControl.value || '').trim();
+    if (!v) {
+      phoneControl.markAsTouched();
+      phoneControl.updateValueAndValidity();
+      this.cdr.detectChanges();
+      return;
+    }
+
+    v = v.replace(/^00/, '+');
+    v = v.replace(/[\s-.()]/g, '');
+
+    if (/^\d{10}$/.test(v)) v = '+1' + v;
+
+    phoneControl.setValue(v);
+    phoneControl.markAsTouched();
+    phoneControl.updateValueAndValidity();
+    this.cdr.detectChanges();
   }
 
   private initializeHomeBreadcrumb(): void {
@@ -412,6 +463,9 @@ export class AppointmentServiceComponent implements OnInit, OnDestroy {
       if (controlName === 'firstName' || controlName === 'lastName') {
         return this.translate.instant('SIGNUP.ERRORS.NAME_PATTERN');
       }
+    }
+    if (errors['invalidUSPhone']) {
+      return this.translate.instant('SIGNUP.ERRORS.US_PHONE_PATTERN');
     }
     if (errors['invalidPhone']) {
       return this.translate.instant('SIGNUP.ERRORS.PHONE_PATTERN');

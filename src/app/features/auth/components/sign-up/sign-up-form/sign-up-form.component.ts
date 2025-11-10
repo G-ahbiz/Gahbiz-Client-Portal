@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputComponent } from '../../../../../shared/components/input/input.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -44,7 +44,7 @@ export class SignUpFormComponent {
         ],
       ],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^\+[1-9]\d{6,14}$/)]],
+      phoneNumber: ['', [Validators.required, this.phoneFormatValidator.bind(this)]],
       password: [
         '',
         [
@@ -58,6 +58,54 @@ export class SignUpFormComponent {
       ],
       terms: [false, Validators.requiredTrue],
     });
+  }
+
+  private phoneFormatValidator(control: AbstractControl): ValidationErrors | null {
+    const raw = control.value;
+    if (!raw || raw.toString().trim() === '') return null;
+
+    let v = String(raw).trim();
+
+    v = v.replace(/^00/, '+');
+    v = v.replace(/[\s-.()]/g, '');
+
+    if (/^\d{10}$/.test(v)) {
+      v = '+1' + v;
+    }
+
+    const usRegex = /^\+1[2-9]\d{9}$/;
+    const intlE164 = /^\+[1-9]\d{6,14}$/;
+
+    if (v.startsWith('+1')) {
+      if (!usRegex.test(v)) return { invalidUSPhone: true };
+    } else {
+      if (!intlE164.test(v)) return { invalidPhone: true };
+    }
+
+    return null;
+  }
+
+  onPhoneBlur(): void {
+    const phoneControl = this.signUpForm.get('phoneNumber');
+    if (!phoneControl) return;
+
+    let v = String(phoneControl.value || '').trim();
+    if (!v) {
+      phoneControl.markAsTouched();
+      phoneControl.updateValueAndValidity();
+      this.cdr.detectChanges();
+      return;
+    }
+
+    v = v.replace(/^00/, '+');
+    v = v.replace(/[\s-.()]/g, '');
+
+    if (/^\d{10}$/.test(v)) v = '+1' + v;
+
+    phoneControl.setValue(v);
+    phoneControl.markAsTouched();
+    phoneControl.updateValueAndValidity();
+    this.cdr.detectChanges();
   }
 
   // getters
@@ -149,12 +197,17 @@ export class SignUpFormComponent {
 
     if (control.errors['email']) return this.translate.instant('SIGNUP.ERRORS.EMAIL');
 
+    if (control.errors['invalidUSPhone']) {
+      return this.translate.instant('SIGNUP.ERRORS.US_PHONE_PATTERN');
+    }
+    if (control.errors['invalidPhone']) {
+      return this.translate.instant('SIGNUP.ERRORS.PHONE_PATTERN');
+    }
+
     if (control.errors['pattern']) {
       switch (controlName) {
         case 'name':
           return this.translate.instant('SIGNUP.ERRORS.FULLNAME_PATTERN');
-        case 'phoneNumber':
-          return this.translate.instant('SIGNUP.ERRORS.PHONE_PATTERN');
         case 'password':
           return this.translate.instant('SIGNUP.ERRORS.PASSWORD_PATTERN');
       }

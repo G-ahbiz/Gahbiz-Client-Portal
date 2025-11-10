@@ -170,8 +170,8 @@
 
               <input type="text" class="form-control" id="phoneNumber"
                 placeholder="{{'complete-profile.form.phone-placeholder' | translate}}" [ngModel]="phoneInputNumber"
-                [ngModelOptions]="{standalone: true}" (ngModelChange)="onNumberChange($event)"
-                (blur)="completeProfileForm.get('phoneNumber')?.markAsTouched()" #phoneNumberInput>
+                [ngModelOptions]="{standalone: true}" (ngModelChange)="onNumberChange($event)" (blur)="onPhoneBlur()"
+                #phoneNumberInput>
             </div>
 
             <!-- Error Message -->
