@@ -6,6 +6,7 @@ import { ApiResponse } from '@core/interfaces/api-response';
 import { WishlistResponse } from '@core/interfaces/wishlist-response';
 import { ToastService } from '@shared/services/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class WishlistService {
@@ -19,11 +20,19 @@ export class WishlistService {
   constructor(
     private http: HttpClient,
     private toast: ToastService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthService
   ) {}
 
   initWishlist() {
     if (this.loaded || this.loading) return;
+
+    if (!this.authService.isAuthenticated()) {
+      this.wishlistSubject.next([]);
+      this.loaded = true;
+      return;
+    }
+
     this.loading = true;
     this.loadWishlist().subscribe({
       next: () => {

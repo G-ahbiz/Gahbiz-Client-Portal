@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { AllServicesComponentService } from '@shared/services/all-services-component';
 import { User } from '@features/auth/interfaces/sign-in/user';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
-export class Navbar {
+export class Navbar implements OnInit, OnDestroy {
   // Language
   isArabic: boolean = false;
   isEnglish: boolean = false;
@@ -24,13 +25,16 @@ export class Navbar {
 
   isLoggedIn$: Observable<boolean>;
   currentUser$: Observable<User | null>;
-  cartItemCount = 1; //TODO: integrate with Reel API
+
+  cartItemCount = 0;
+  private cartSub?: Subscription;
 
   constructor(
     private translateService: TranslateService,
     private router: Router,
     private authService: AuthService,
-    private allServicesService: AllServicesComponentService
+    private allServicesService: AllServicesComponentService,
+    private cartFacade: CartFacadeService
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.currentUser$ = this.authService.currentUser$;
@@ -38,6 +42,11 @@ export class Navbar {
 
   ngOnInit() {
     this.initializeTranslation();
+
+    this.cartSub = this.cartFacade.cart$.subscribe((cart) => {
+      this.cartItemCount = cart.length;
+    });
+
     // services list
     this.services = [
       {
@@ -180,5 +189,9 @@ export class Navbar {
   logout() {
     this.authService.logout();
     this.router.navigate(['/auth/sign-in']);
+  }
+
+  ngOnDestroy() {
+    this.cartSub?.unsubscribe();
   }
 }

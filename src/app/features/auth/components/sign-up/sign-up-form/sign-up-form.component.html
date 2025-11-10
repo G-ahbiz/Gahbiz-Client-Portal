@@ -13,7 +13,8 @@
 
   <app-input [label]="'SIGNUP.FIELDS.PHONE' | translate" id="phoneNumber" variant="phone"
     [placeholder]="'SIGNUP.PLACEHOLDERS.PHONE' | translate" formControlName="phoneNumber"
-    [isInvalid]="!!(phoneNumber?.invalid && phoneNumber?.touched)" [errorMessage]="getErrorMessageFor('phoneNumber')">
+    [isInvalid]="!!(phoneNumber?.invalid && phoneNumber?.touched)" [errorMessage]="getErrorMessageFor('phoneNumber')"
+    (blur)="onPhoneBlur()">
   </app-input>
 
   <app-input [label]="'SIGNUP.FIELDS.PASSWORD' | translate" id="password" variant="password"

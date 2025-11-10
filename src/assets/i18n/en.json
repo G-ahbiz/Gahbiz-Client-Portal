@@ -151,9 +151,10 @@
       "MAX_LENGTH": "Cannot exceed {{requiredLength}} characters.",
       "EMAIL": "Please enter a valid email address.",
       "FULLNAME_PATTERN": "Only letters, spaces, apostrophes, and hyphens are allowed.",
-      "PHONE_PATTERN": "Please enter a valid phone number.",
       "PASSWORD_PATTERN": "Password must contain uppercase, lowercase, a number, and a special character.",
-      "INVALID": "The entered value is not valid."
+      "INVALID": "The entered value is not valid.",
+      "US_PHONE_PATTERN": "US phone number must be in format: +1 followed by 10 digits (e.g., +11234567890)",
+      "PHONE_PATTERN": "Please enter a valid international phone number"
     }
   },
   "CONFIRM_EMAIL": {
