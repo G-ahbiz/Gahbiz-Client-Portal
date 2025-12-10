@@ -10,12 +10,20 @@ import { ApiResponse } from '@core/interfaces/api-response';
 export class ProfileFacadeService {
   constructor(private profileApiService: ProfileApiService) {}
 
-  getCountries(): Observable<any[]> {
-    return this.profileApiService.getCountries();
+  getCountries(page = 1, pageSize = 100): Observable<any> {
+    return this.profileApiService.getCountries(page, pageSize);
   }
 
-  getStatesByCountry(countryId: number): Observable<any[]> {
-    return this.profileApiService.getStatesByCountry(countryId);
+  getAllCountries(): Observable<any[]> {
+    return this.profileApiService.getAllCountries();
+  }
+
+  getStatesByCountry(countryId: number, page = 1, pageSize = 100): Observable<any> {
+    return this.profileApiService.getStatesByCountry(countryId, page, pageSize);
+  }
+
+  getAllStatesByCountry(countryId: number): Observable<any[]> {
+    return this.profileApiService.getAllStatesByCountry(countryId);
   }
 
   completeProfile(profileData: any): Observable<ApiResponse<Profile>> {

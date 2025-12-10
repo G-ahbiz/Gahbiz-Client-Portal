@@ -41,13 +41,13 @@
       [attr.aria-label]="'our-services.sliderAriaLabel' | translate">
 
       @for (s of services; track s.category; let i = $index) {
-      <div class="slide" (click)="navigateToCategory(s.category)" [ngStyle]="getSlideStyle(i)"
+      <div class="slide" [ngStyle]="getSlideStyle(i)"
         [class.slide-active]="i === currentIndex" [attr.data-index]="i" role="listitem">
-        <div class="image-wrapper">
+        <div class="image-wrapper" (click)="navigateToCategory(s.category)">
           <img [src]="s.image" [alt]="s.title" class="slide-image" />
         </div>
 
-        <div class="details-card">
+        <div class="details-card" (click)="navigateToCategory(s.category)">
           <div class="details-left">
             <div class="service-title">{{ s.title }}
               <span class="service-count">
