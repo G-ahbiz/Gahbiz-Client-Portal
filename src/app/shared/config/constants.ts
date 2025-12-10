@@ -12,6 +12,8 @@ export const ROUTES = {
   appointmentService: '/appointment-service',
   wishlist: '/wishlist',
   allServices: '/all-services',
+  termsAndConditions: '/terms-and-conditions',
+  privacyPolicy: '/privacy-policy',
 };
 
 export const COUNTRIES: CountryCodes[] = [

@@ -40,17 +40,17 @@
             </h5>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" routerLink="terms-and-conditions">
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.termsAndConditions" (click)="scrollTop()">
               {{'footer.termsandconditions' | translate}}
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" routerLink="privacy-policy">
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.privacyPolicy" (click)="scrollTop()">
               {{'footer.privacypolicy' | translate}}
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" routerLink="/refund-policy">
+            <a class="nav-link p-0 py-1" routerLink="/refund-policy" (click)="scrollTop()">
               {{'footer.refundpolicy' | translate}}
             </a>
           </li>

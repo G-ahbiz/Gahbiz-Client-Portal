@@ -286,15 +286,14 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
     this.countriesLoading = true;
     this.cdr.detectChanges();
 
-    this.addressCountries$ = this.profileFacadeService.getCountries().pipe(
+    this.addressCountries$ = this.profileFacadeService.getAllCountries().pipe(
       tap((countries) => {
-        console.log('Countries loaded:', countries?.length);
+        console.log('All countries loaded:', countries?.length);
         this.allAddressCountries = countries || [];
         this.countriesLoading = false;
+        this.cdr.detectChanges();
 
         this.loadProfile();
-
-        this.cdr.detectChanges();
       }),
       catchError((err) => {
         console.error('Error loading countries', err);
@@ -302,6 +301,7 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
         this.cdr.detectChanges();
         const msg = this.translateService.instant('complete-profile.messages.load_countries_error');
         this.toastService.error(msg);
+        this.loadProfile();
         return of([]);
       })
     );
@@ -345,7 +345,18 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
       { emitEvent: false }
     );
 
-    this.profilePic = profile.profileImageUrl;
+    // Fix profile image URL
+    if (profile.profileImageUrl) {
+      try {
+        const url = new URL(profile.profileImageUrl);
+        this.profilePic = profile.profileImageUrl;
+      } catch (e) {
+        console.error('Invalid profile image URL:', e);
+        this.profilePic = 'assets/images/default-avatar.png';
+      }
+    } else {
+      this.profilePic = 'assets/images/default-avatar.png';
+    }
 
     if (profile.dateOfBirth) {
       const dateParts = profile.dateOfBirth.split('T')[0].split('-');
@@ -374,23 +385,35 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
       this.completeProfileForm.get('country')?.setValue(foundCountry.id);
 
       this.statesLoading = true;
-      this.profileFacadeService.getStatesByCountry(foundCountry.id).subscribe((states) => {
-        this.availableStates = states || [];
+      // Use getAllStatesByCountry to get all states
+      this.profileFacadeService.getAllStatesByCountry(foundCountry.id).subscribe({
+        next: (states) => {
+          this.availableStates = states || [];
 
-        const foundState = this.availableStates.find(
-          (s) => s.name.toLowerCase() === stateName?.toLowerCase()
-        );
+          const foundState = this.availableStates.find(
+            (s) => s.name.toLowerCase() === stateName?.toLowerCase()
+          );
 
-        if (foundState) {
-          this.completeProfileForm.get('state')?.setValue(foundState.id);
-        }
+          if (foundState) {
+            this.completeProfileForm.get('state')?.setValue(foundState.id);
+          }
 
-        this.completeProfileForm.get('state')?.enable();
-        this.statesLoading = false;
+          this.completeProfileForm.get('state')?.enable();
+          this.statesLoading = false;
 
-        this.isDataCompleted = this.completeProfileForm.valid;
-        this.syncPhoneInput(this.completeProfileForm.get('phoneNumber')?.value);
-        this.cdr.detectChanges();
+          this.isDataCompleted = this.completeProfileForm.valid;
+          this.syncPhoneInput(this.completeProfileForm.get('phoneNumber')?.value);
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error loading states in patchForm', err);
+          this.availableStates = [];
+          this.completeProfileForm.get('state')?.enable();
+          this.statesLoading = false;
+          this.isDataCompleted = this.completeProfileForm.valid;
+          this.syncPhoneInput(this.completeProfileForm.get('phoneNumber')?.value);
+          this.cdr.detectChanges();
+        },
       });
     } else {
       console.warn(`Could not find a matching ID for country: ${countryName}`);
@@ -411,40 +434,51 @@ export class CompleteProfile implements OnInit, OnChanges, OnDestroy {
     if (countryId) {
       this.statesLoading = true;
       stateControl?.disable();
-      this.cdr.detectChanges(); // Trigger change detection
+      this.cdr.detectChanges();
 
+      // Use getAllStatesByCountry instead of getStatesByCountry
       this.profileFacadeService
-        .getStatesByCountry(countryId)
+        .getAllStatesByCountry(countryId)
         .pipe(
           finalize(() => {
             this.statesLoading = false;
-            this.cdr.detectChanges(); // Trigger change detection when loading completes
+            this.cdr.detectChanges();
           })
         )
         .subscribe({
           next: (states) => {
-            console.log('States loaded:', states?.length);
+            console.log('All states loaded:', states?.length);
             this.availableStates = states || [];
             if (this.availableStates.length > 0) {
               stateControl?.enable();
+
+              // Try to find and set the user's state if it exists
+              if (this.user?.state) {
+                const foundState = this.availableStates.find(
+                  (s) => s.name.toLowerCase() === this.user.state?.toLowerCase()
+                );
+                if (foundState) {
+                  stateControl?.setValue(foundState.id);
+                }
+              }
             } else {
               stateControl?.disable();
               stateControl?.clearValidators();
               stateControl?.updateValueAndValidity();
             }
-            this.cdr.detectChanges(); // Trigger change detection after states are set
+            this.cdr.detectChanges();
           },
           error: (err) => {
             console.error('Error loading states', err);
             this.availableStates = [];
             stateControl?.disable();
-            this.cdr.detectChanges(); // Trigger change detection on error
+            this.cdr.detectChanges();
           },
         });
     } else {
       this.availableStates = [];
       stateControl?.disable();
-      this.cdr.detectChanges(); // Trigger change detection
+      this.cdr.detectChanges();
     }
   }
 

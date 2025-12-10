@@ -6,7 +6,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 import { Subscription, finalize } from 'rxjs';
 import { SignUpFacadeService } from '../../../services/sign-up/sign-up-facade.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../../../../shared/services/toast.service';
 import { ROUTES, SIGNUP_CONSTANTS } from '../../../../../shared/config/constants';
 import { SignUpResponseStorageService } from '@features/auth/services/sign-up/sign-up-response-storage.service';
@@ -14,11 +14,13 @@ import { SignUpResponseStorageService } from '@features/auth/services/sign-up/si
 @Component({
   selector: 'app-sign-up-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputComponent, ButtonComponent, TranslateModule],
+  imports: [CommonModule, ReactiveFormsModule, InputComponent, ButtonComponent, TranslateModule, RouterLink],
   templateUrl: './sign-up-form.component.html',
   styleUrls: ['./sign-up-form.component.scss'],
 })
 export class SignUpFormComponent {
+  readonly ROUTES = ROUTES;
+
   signUpForm: FormGroup;
   isSubmitting = false;
 

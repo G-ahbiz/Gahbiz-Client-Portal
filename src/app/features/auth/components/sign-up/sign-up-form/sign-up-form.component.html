@@ -46,7 +46,7 @@
           {{ 'SIGNUP.FIELDS.TERMS' | translate }}
         </span>
         &nbsp;
-        <a href="#" class="text-[rgba(0,93,181,1)] font-medium hover:underline">
+        <a [routerLink]="ROUTES.termsAndConditions" class="text-[rgba(0,93,181,1)] font-medium hover:underline">
           {{ 'SIGNUP.FIELDS.TERMS_LINK' | translate }}
         </a>
         &nbsp;
@@ -54,7 +54,7 @@
           {{ 'COMMON.AND' | translate }}
         </span>
         &nbsp;
-        <a href="#" class="text-[rgba(0,93,181,1)] font-medium hover:underline">
+        <a [routerLink]="ROUTES.privacyPolicy" class="text-[rgba(0,93,181,1)] font-medium hover:underline">
           {{ 'SIGNUP.FIELDS.PRIVACY_LINK' | translate }}
         </a>
       </div>
