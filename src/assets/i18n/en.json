@@ -612,7 +612,20 @@
       "status-created": "Your order has been created but payment is pending. Please complete the payment to process your order.",
       "status-cancelled": "This order has been cancelled. If you have any questions, please contact our support team.",
       "status-refunded": "This order has been refunded. The amount will be credited to your account within 5-7 business days."
-    }
+    },
+    "edit-submission-files": "Edit Submission Files",
+    "loading-files": "Loading files...",
+    "upload-required-files": "Upload Required Files",
+    "file": "File",
+    "current-file": "Current",
+    "max-file-size": "Max file size",
+    "submit-files": "Submit Files",
+    "no-files-to-edit": "No files available to edit",
+    "files-submitted-successfully": "Files submitted successfully!",
+    "submission-error": "Failed to submit files. Please try again.",
+    "invalid-token": "Invalid or expired token. Please request a new link.",
+    "pending-edits": "Pending Edits",
+    "files-requested-for-edit": "Files Requested for Edit"
   },
   "REVIEWS": {
     "COUNT": "Reviews",

@@ -1,6 +1,7 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { Order } from '../../interfaces/order';
 import { OrderItem } from '../../interfaces/order-item';
 
 @Component({
@@ -10,20 +11,20 @@ import { OrderItem } from '../../interfaces/order-item';
   styleUrl: './order-services.scss',
 })
 export class OrderServices implements OnInit {
-  @Input() orderItems: OrderItem[] = [];
+  @Input() order: Order | null = null;
 
   services: OrderItem[] = [];
 
   placeholderImage = 'assets/images/placeholder.jpg';
 
   ngOnInit() {
-    if (this.orderItems && this.orderItems.length > 0) {
-      this.services = this.orderItems;
+    if (this.order && this.order.orderItems && this.order.orderItems.length > 0) {
+      this.services = this.order.orderItems;
     }
   }
 
   getGrandTotal(): number {
-    return this.services.reduce((sum, service) => sum + service.total, 0);
+    return this.order?.amount || 0;
   }
 
   getImageUrl(service: OrderItem): string {

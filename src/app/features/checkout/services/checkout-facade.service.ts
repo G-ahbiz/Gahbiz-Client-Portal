@@ -8,6 +8,7 @@ import { ApiResponse } from '@core/interfaces/api-response';
 import { Order } from '../interfaces/order';
 import { ApplyPromoCodeRequest } from '../interfaces/apply-pc-request';
 import { ApplyPromoCodeResponse } from '../interfaces/apply-pc-repsonse';
+import { RequiredToEditFilesResponse } from '../interfaces/required-to-edit-files';
 
 @Injectable({
   providedIn: 'root',
@@ -62,6 +63,14 @@ export class CheckoutFacadeService {
       throw new Error('FormData payload is required for service submission.');
     }
     return this.api.submitServiceSubmission(formData);
+  }
+
+  getRequiredToEditFiles(token: string): Observable<RequiredToEditFilesResponse> {
+    return this.api.getRequiredToEditFiles(token);
+  }
+
+  submitEditedFiles(token: string, newFiles: FormData): Observable<string> {
+    return this.api.submitEditedFiles(token, newFiles);
   }
 
   private validateCheckoutPayload(payload: any): void {

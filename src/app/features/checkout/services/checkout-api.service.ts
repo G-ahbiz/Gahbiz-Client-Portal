@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable, throwError, timeout } from 'rxjs';
@@ -8,6 +8,7 @@ import { ApiResponse } from '@core/interfaces/api-response';
 import { Order } from '../interfaces/order';
 import { ApplyPromoCodeRequest } from '../interfaces/apply-pc-request';
 import { ApplyPromoCodeResponse } from '../interfaces/apply-pc-repsonse';
+import { RequiredToEditFilesResponse } from '../interfaces/required-to-edit-files';
 
 @Injectable({
   providedIn: 'root',
@@ -62,6 +63,30 @@ export class CheckoutApiService {
 
     return this.http
       .post<ApiResponse<any>>(url, payload)
+      .pipe(
+        timeout(this.timeoutMs),
+        retry(this.maxRetries),
+        catchError(this.handleError.bind(this))
+      );
+  }
+
+  getRequiredToEditFiles(token: string): Observable<RequiredToEditFilesResponse> {
+    const url = `${this.apiUrl}${environment.serviceSubmissions.getRequiredToEditFiles(token)}`;
+
+    return this.http
+      .get<RequiredToEditFilesResponse>(url)
+      .pipe(
+        timeout(this.timeoutMs),
+        retry(this.maxRetries),
+        catchError(this.handleError.bind(this))
+      );
+  }
+
+  submitEditedFiles(token: string, newFiles: FormData): Observable<string> {
+    const url = `${this.apiUrl}${environment.serviceSubmissions.submitEditedFiles(token)}`;
+
+    return this.http
+      .post<string>(url, newFiles)
       .pipe(
         timeout(this.timeoutMs),
         retry(this.maxRetries),

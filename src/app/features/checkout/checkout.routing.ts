@@ -36,6 +36,11 @@ export const CHECKOUT_ROUTES: Routes = [
         loadComponent: () =>
           import('./components/order-services/order-services').then((m) => m.OrderServices),
       },
+      {
+        path: 'edit-files/:token',
+        loadComponent: () =>
+          import('./page/submission-edit/submission-edit').then((m) => m.SubmissionEdit),
+      },
       { path: '', redirectTo: 'step1', pathMatch: 'full' },
     ],
   },
