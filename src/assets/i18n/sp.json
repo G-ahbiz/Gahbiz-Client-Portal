@@ -612,7 +612,20 @@
       "status-created": "Su pedido ha sido creado pero el pago está pendiente. Por favor complete el pago para procesar su pedido.",
       "status-cancelled": "Este pedido ha sido cancelado. Si tiene alguna pregunta, por favor contacte a nuestro equipo de soporte.",
       "status-refunded": "Este pedido ha sido reembolsado. El monto será acreditado a su cuenta dentro de 5-7 días hábiles."
-    }
+    },
+    "edit-submission-files": "Editar Archivos de Envío",
+    "loading-files": "Cargando archivos...",
+    "upload-required-files": "Cargar Archivos Requeridos",
+    "file": "Archivo",
+    "current-file": "Actual",
+    "max-file-size": "Tamaño máximo de archivo",
+    "submit-files": "Enviar Archivos",
+    "no-files-to-edit": "No hay archivos disponibles para editar",
+    "files-submitted-successfully": "¡Archivos enviados exitosamente!",
+    "submission-error": "Error al enviar archivos. Por favor, inténtelo de nuevo.",
+    "invalid-token": "Token inválido o expirado. Por favor, solicite un nuevo enlace.",
+    "pending-edits": "Ediciones Pendientes",
+    "files-requested-for-edit": "Archivos Solicitados para Editar"
   },
   "REVIEWS": {
     "COUNT": "Reseñas",

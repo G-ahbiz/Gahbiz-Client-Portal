@@ -1,0 +1,178 @@
+<div class="checkout-container container py-md-5">
+  <h2 class="text-left fw-semibold mb-5 mb-md-5">
+    {{ 'checkout.edit-submission-files' | translate }}
+  </h2>
+
+  <!-- Loading State -->
+  <div *ngIf="dataLoading()" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'COMMON.LOADING' | translate }}</span>
+    </div>
+    <p class="mt-3">{{ 'checkout.loading-files' | translate }}</p>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!dataLoading() && editFilesResponse" class="row g-4 g-lg-5 justify-content-center">
+    <div class="col-12">
+      <div class="card shadow-sm mb-4">
+        <!-- Service Information Header -->
+        <div class="card-header">
+          <h4 class="m-0">
+            <i class="bi bi-file-earmark-text me-2"></i>
+            {{ 'checkout.edit-submission-files' | translate }}
+          </h4>
+          <p class="mb-0 mt-2 text-muted">
+            <i class="bi bi-info-circle me-1"></i>
+            <span class="badge bg-warning text-dark">
+              {{ editFilesResponse.pendingEditsCount }}
+              {{ 'checkout.pending-edits' | translate }}
+            </span>
+          </p>
+        </div>
+
+        <!-- Edit Requests Info -->
+        <div class="card-body px-4 px-md-5" *ngIf="editFilesResponse.editRequests.length > 0">
+          <div class="alert alert-info mb-4">
+            <h6 class="alert-heading">
+              <i class="bi bi-exclamation-circle me-2"></i>
+              {{ 'checkout.files-requested-for-edit' | translate }}
+            </h6>
+            <ul class="mb-0">
+              <li *ngFor="let editRequest of editFilesResponse.editRequests">
+                <strong>{{ editRequest.fileName }}</strong>
+                <span class="text-muted" *ngIf="editRequest.comment">
+                  - {{ editRequest.comment }}
+                </span>
+                <br />
+                <small class="text-muted">
+                  {{ 'checkout.current-file' | translate }}: {{ editRequest.currentFileName }}
+                </small>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- File Upload Form -->
+        <div class="card-body px-4 px-md-5">
+          <form [formGroup]="editForm" novalidate *ngIf="editForm">
+            <div class="file-uploads-section">
+              <h5 class="mb-4">{{ 'checkout.upload-required-files' | translate }}</h5>
+
+              <div class="row g-4">
+                <!-- Loop through required files -->
+                <div
+                  *ngFor="let requiredFile of editFilesResponse.editRequests; let i = index"
+                  class="col-md-6"
+                >
+                  <div class="mb-4">
+                    <label
+                      [for]="'file_' + requiredFile.serviceFileId"
+                      class="form-label file-upload-label-fix"
+                    >
+                      <span
+                        *ngIf="getEditRequestByFileId(requiredFile.serviceFileId)"
+                        class="badge bg-primary me-2"
+                      >
+                        {{ getEditRequestByFileId(requiredFile.serviceFileId)?.fileName }}
+                      </span>
+                      <span *ngIf="!getEditRequestByFileId(requiredFile.serviceFileId)">
+                        {{ 'checkout.file' | translate }} {{ i + 1 }}
+                      </span>
+                      <span class="text-danger">*</span>
+                    </label>
+
+                    <!-- Show edit request comment if exists -->
+                    <p
+                      class="text-muted small mb-2"
+                      *ngIf="getEditRequestByFileId(requiredFile.serviceFileId)?.comment"
+                    >
+                      <i class="bi bi-chat-left-text me-1"></i>
+                      {{ getEditRequestByFileId(requiredFile.serviceFileId)?.comment }}
+                    </p>
+
+                    <div
+                      class="file-upload-container"
+                      [class.has-file]="getFileByServiceFileId(requiredFile.serviceFileId)"
+                    >
+                      <input
+                        type="file"
+                        [id]="'file_' + requiredFile.serviceFileId"
+                        class="form-control file-input"
+                        (change)="onFileSelected($event, requiredFile.serviceFileId)"
+                        #fileInput
+                      />
+
+                      <!-- File Preview -->
+                      <div
+                        class="file-upload-preview"
+                        *ngIf="getFileByServiceFileId(requiredFile.serviceFileId)"
+                      >
+                        <div class="preview-info">
+                          <i class="bi bi-file-earmark-text"></i>
+                          <span class="file-name">
+                            {{ getFileName(getFileByServiceFileId(requiredFile.serviceFileId)!) }}
+                          </span>
+                          <button
+                            type="button"
+                            class="btn-remove"
+                            (click)="removeFile(requiredFile.serviceFileId, fileInput)"
+                          >
+                            <i class="bi bi-x"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Upload Placeholder -->
+                      <div class="file-upload-placeholder">
+                        <i class="bi bi-file-earmark-arrow-up"></i>
+                        <span class="upload-text">
+                          {{ 'COMMON.drag-and-drop-or' | translate }}
+                          <span class="browse">{{ 'COMMON.browse' | translate }}</span>
+                        </span>
+                        <span class="upload-subtext">
+                          {{ 'checkout.max-file-size' | translate }}: 5MB
+                        </span>
+                      </div>
+                    </div>
+
+                    <div
+                      *ngIf="isFieldInvalid(requiredFile.serviceFileId)"
+                      class="invalid-feedback d-block mt-1"
+                    >
+                      {{ getFieldError(requiredFile.serviceFileId) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center mt-5">
+              <button
+                type="button"
+                class="btn btn-primary btn-lg px-5"
+                [disabled]="loading() || editForm.invalid"
+                (click)="submitFiles()"
+              >
+                <span *ngIf="!loading()">
+                  <i class="bi bi-upload me-2"></i>
+                  {{ 'checkout.submit-files' | translate }}
+                </span>
+                <span *ngIf="loading()">
+                  <span class="spinner-border spinner-border-sm me-2"></span>
+                  {{ 'checkout.processing' | translate }}
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!dataLoading() && !editFilesResponse" class="alert alert-danger text-center">
+    <i class="bi bi-exclamation-triangle me-2"></i>
+    {{ 'checkout.no-files-to-edit' | translate }}
+  </div>
+</div>

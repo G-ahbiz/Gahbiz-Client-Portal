@@ -2,7 +2,7 @@ export const environment = {
   production: true,
 
   apiUrl: 'https://serva-best.runasp.net/api',
-  // apiUrl: 'https://localhost:7204/api',
+  //apiUrl: 'https://localhost:7204/api',
 
   // Google third party auth
   googleClientId: '710517406086-vlr501mfdnbmc5o8p8jv07qaks1jvveg.apps.googleusercontent.com',
@@ -67,6 +67,8 @@ export const environment = {
   serviceSubmissions: {
     getRequiredFiles: `/ServiceSubmissions/`,
     submitService: `/ServiceSubmissions`,
+    getRequiredToEditFiles: (token: string) => `/ServiceSubmissions/edit/${token}`,
+    submitEditedFiles: (token: string) => `/ServiceSubmissions/submit-edit/${token}`,
   },
   Wishlist: {
     getWishlist: '/Wishlist',

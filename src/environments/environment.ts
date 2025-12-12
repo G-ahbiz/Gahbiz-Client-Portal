@@ -67,6 +67,8 @@ export const environment = {
   serviceSubmissions: {
     getRequiredFiles: `/ServiceSubmissions/`,
     submitService: `/ServiceSubmissions`,
+    getRequiredToEditFiles: (token: string) => `/ServiceSubmissions/edit/${token}`,
+    submitEditedFiles: (token: string) => `/ServiceSubmissions/submit-edit/${token}`,
   },
   Wishlist: {
     getWishlist: '/Wishlist',
