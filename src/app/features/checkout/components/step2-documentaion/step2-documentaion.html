@@ -6,7 +6,7 @@
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">{{ 'COMMON.LOADING' | translate }}</span>
     </div>
-    <p class="mt-3">Loading order details...</p>
+    <p class="mt-3">{{ 'checkout.loading-order-details' | translate }}</p>
   </div>
 
   <!-- No Services Found -->
@@ -37,87 +37,48 @@
         <div class="collapse-wrapper" [class.show]="expandedStates[serviceIndex]">
           <div class="card-body px-4 px-md-5">
             <form [formGroup]="serviceDataForms[serviceIndex]" novalidate>
-              <!-- Inputs and Selects Section -->
-              <div class="row g-4 mb-4">
-                <!-- Row 1: Full Name - SSN/ITIN -->
-                <div class="row g-3">
-                  <div class="col-6">
-                    <app-input formControlName="fullName" id="fullName{{serviceIndex}}"
-                      [label]="'checkout.full-name' | translate" [placeholder]="'checkout.enter-full-name' | translate"
-                      [isInvalid]="isServiceFieldInvalid(serviceIndex, 'fullName')"
-                      [errorMessage]="getServiceFieldError(serviceIndex, 'fullName')"
-                      [asteriskColorDanger]="'text-danger'">
-                    </app-input>
-                  </div>
+              <!-- Dynamic Text Fields Section -->
+              <div class="row g-4 mb-4" *ngIf="getRequiredTextFieldsForService(serviceIndex).length > 0">
+                <!-- Dynamic Text Fields -->
+                <div *ngFor="let textField of getRequiredTextFieldsForService(serviceIndex); let i = index"
+                  [class]="i % 2 === 0 ? 'col-md-6' : 'col-md-6'">
 
-                  <div class="col-6">
-                    <app-input formControlName="ssn" id="ssn{{serviceIndex}}" [label]="'checkout.ssn-itin' | translate"
-                      [placeholder]="'checkout.enter-ssn-itin' | translate"
-                      [isInvalid]="isServiceFieldInvalid(serviceIndex, 'ssn')"
-                      [errorMessage]="getServiceFieldError(serviceIndex, 'ssn')">
+                  <!-- Regular Input Fields (text, number) -->
+                  <ng-container *ngIf="!isSelectField(textField)">
+                    <app-input [formControlName]="textField.key" [id]="textField.key + serviceIndex"
+                      [label]="textField.label"
+                      [placeholder]="'COMMON.ENTER_FIELD' | translate: {field: textField.label}"
+                      [type]="getInputType(textField)" [isInvalid]="isServiceFieldInvalid(serviceIndex, textField.key)"
+                      [errorMessage]="getServiceFieldError(serviceIndex, textField.key)"
+                      [asterisk]="isTextFieldRequired(textField) ? '*' : ''"
+                      [asteriskColorDanger]="isTextFieldRequired(textField) ? 'text-danger' : ''">
                     </app-input>
-                  </div>
-                </div>
+                  </ng-container>
 
-                <!-- Row 2: Business Name - EIN -->
-                <div class="row g-3 mt-3">
-                  <div class="col-6">
-                    <app-input formControlName="businessName" id="businessName{{serviceIndex}}"
-                      [label]="'checkout.business-name' | translate"
-                      [placeholder]="'checkout.enter-business-name' | translate"
-                      [isInvalid]="isServiceFieldInvalid(serviceIndex, 'businessName')"
-                      [errorMessage]="getServiceFieldError(serviceIndex, 'businessName')">
-                    </app-input>
-                  </div>
-
-                  <div class="col-6">
-                    <app-input formControlName="ein" id="ein{{serviceIndex}}" [label]="'checkout.ein' | translate"
-                      [placeholder]="'checkout.enter-ein' | translate"
-                      [isInvalid]="isServiceFieldInvalid(serviceIndex, 'ein')"
-                      [errorMessage]="getServiceFieldError(serviceIndex, 'ein')">
-                    </app-input>
-                  </div>
-                </div>
-
-                <!-- Row 3: Business Type - Tax Year (kept as selects) -->
-                <div class="row g-3 mt-3">
-                  <div class="col-6">
-                    <label for="businessType{{serviceIndex}}" class="form-label">{{ 'checkout.business-type' | translate
-                      }}</label>
-                    <select id="businessType{{serviceIndex}}" class="form-control" formControlName="businessType"
-                      [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'businessType')">
-                      <option value="">{{ 'checkout.select-business-type' | translate }}</option>
-                      <option value="sole-proprietorship">{{ 'checkout.sole-proprietorship' | translate }}</option>
-                      <option value="partnership">{{ 'checkout.partnership' | translate }}</option>
-                      <option value="corporation">{{ 'checkout.corporation' | translate }}</option>
-                      <option value="llc">{{ 'checkout.llc' | translate }}</option>
+                  <!-- Select/Dropdown Fields -->
+                  <ng-container *ngIf="isSelectField(textField)">
+                    <label [for]="textField.key + serviceIndex" class="form-label">
+                      {{ textField.label }}
+                      <span *ngIf="isTextFieldRequired(textField)" class="text-danger">*</span>
+                    </label>
+                    <select [id]="textField.key + serviceIndex" class="form-select" [formControlName]="textField.key"
+                      [class.is-invalid]="isServiceFieldInvalid(serviceIndex, textField.key)">
+                      <option value="" disabled selected>
+                        {{ 'COMMON.SELECT_PLACEHOLDER' | translate: {field: textField.label} }}
+                      </option>
+                      <option *ngFor="let option of getSelectOptions(textField)" [value]="option">
+                        {{ option }}
+                      </option>
                     </select>
-                    <div *ngIf="isServiceFieldInvalid(serviceIndex, 'businessType')"
-                      class="invalid-feedback d-block mt-1">
-                      {{ getServiceFieldError(serviceIndex, 'businessType') }}
+                    <div *ngIf="isServiceFieldInvalid(serviceIndex, textField.key)" class="invalid-feedback d-block">
+                      {{ getServiceFieldError(serviceIndex, textField.key) }}
                     </div>
-                  </div>
-                  <div class="col-6">
-                    <label for="taxYear{{serviceIndex}}" class="form-label">{{ 'checkout.tax-year' | translate
-                      }}</label>
-                    <select id="taxYear{{serviceIndex}}" class="form-control" formControlName="taxYear"
-                      [class.is-invalid]="isServiceFieldInvalid(serviceIndex, 'taxYear')">
-                      <option value="">{{ 'checkout.select-tax-year' | translate }}</option>
-                      <option value="2023">2023</option>
-                      <option value="2022">2022</option>
-                      <option value="2021">2021</option>
-                      <option value="2020">2020</option>
-                    </select>
-                    <div *ngIf="isServiceFieldInvalid(serviceIndex, 'taxYear')" class="invalid-feedback d-block mt-1">
-                      {{ getServiceFieldError(serviceIndex, 'taxYear') }}
-                    </div>
-                  </div>
+                  </ng-container>
                 </div>
               </div>
 
               <!-- Dynamic File Uploads Section -->
-              <div class="file-uploads-section mt-4 pt-4">
-
+              <div class="file-uploads-section mt-4 pt-4" *ngIf="getRequiredFilesForService(serviceIndex).length > 0">
                 <div class="row g-4">
                   <!-- Dynamic Required Files -->
                   <div *ngFor="let requiredFile of getRequiredFilesForService(serviceIndex); let i = index"
@@ -161,7 +122,7 @@
                           </span>
                           <!-- Show accepted file types from API -->
                           <span class="upload-subtext" *ngIf="requiredFile.accept">
-                            Accepts: {{ requiredFile.accept }}
+                            {{ 'COMMON.ACCEPTS' | translate: {types: requiredFile.accept} }}
                           </span>
                           <span class="upload-subtext" *ngIf="requiredFile.description">
                             {{ requiredFile.description }}
@@ -178,9 +139,10 @@
                 </div>
               </div>
 
-              <div class="text-center mt-4">
+              <!-- Submit Button -->
+              <div class="text-center mt-4" *ngIf="!serviceSubmitted[serviceIndex]">
                 <button type="button" class="btn btn-primary btn-lg px-4"
-                  [disabled]="loading || !serviceDataForms[serviceIndex].valid || serviceSubmitted[serviceIndex]"
+                  [disabled]="loading || !serviceDataForms[serviceIndex].valid"
                   (click)="submitServiceData(serviceIndex)">
                   <span *ngIf="!loading">{{ 'checkout.submit-service-data' | translate }}</span>
                   <span *ngIf="loading">
@@ -189,8 +151,27 @@
                   </span>
                 </button>
               </div>
+
+              <!-- Already Submitted Message -->
+              <div *ngIf="serviceSubmitted[serviceIndex]" class="alert alert-success text-center mt-4">
+                <i class="bi bi-check-circle me-2"></i>
+                {{ 'checkout.service-submitted' | translate }}
+              </div>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Services Submitted Message -->
+    <div *ngIf="areAllServicesSubmitted()" class="col-12 mt-4">
+      <div class="alert alert-success text-center">
+        <i class="bi bi-check-circle me-2"></i>
+        {{ 'checkout.all-services-submitted' | translate }}
+        <div class="mt-2">
+          <button type="button" class="btn btn-success" (click)="navigateToStep3()">
+            {{ 'checkout.proceed-to-next-step' | translate }}
+          </button>
         </div>
       </div>
     </div>

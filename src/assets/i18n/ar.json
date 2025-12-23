@@ -95,7 +95,11 @@
     "READ_MORE": "اقرأ المزيد",
     "NOT_AVAILABLE": "غير متوفر",
     "drag-and-drop-or": "اسحب وأفلت أو ",
-    "browse": "تصفح"
+    "browse": "تصفح",
+    "SELECT_PLACEHOLDER": "اختر {{field}}",
+    "LOADING_ORDER_DETAILS": "جارٍ تحميل تفاصيل الطلب...",
+    "ENTER_FIELD": "ادخل {{field}}",
+    "ACCEPTS": "قبول: {{types}}"
   },
   "NEW_PASSWORD": {
     "ERRORS": {
@@ -523,7 +527,7 @@
     "enter-address": "أدخل عنوان الشارع",
     "enter-country": "أدخل دولتك",
     "enter-state": "أدخل ولايتك",
-    "enter-county": "أدخل مقاطعتك (اختياري)",
+    "enter-county": "أدخل مقاطعتك",
     "enter-city": "أدخل مدينتك",
     "zip-placeholder": "مثال: 12345 أو 12345-6789",
     "email-placeholder": "بريدك.الإلكتروني@example.com",
@@ -625,7 +629,11 @@
     "submission-error": "فشل إرسال الملفات. يرجى المحاولة مرة أخرى.",
     "invalid-token": "رمز غير صالح أو منتهي الصلاحية. يرجى طلب رابط جديد.",
     "pending-edits": "التعديلات المعلقة",
-    "files-requested-for-edit": "الملفات المطلوب تعديلها"
+    "files-requested-for-edit": "الملفات المطلوب تعديلها",
+    "loading-order-details": "جارٍ تحميل تفاصيل الطلب...",
+    "proceed-to-next-step": "التقدم لخطوة التالية",
+    "service-submitted": "تم تقديم الخدمة بنجاح",
+    "service-number": "خدمة {{number}}"
   },
   "REVIEWS": {
     "COUNT": "التقييمات",
@@ -768,7 +776,12 @@
     "min-array-length": "مطلوب عنصر واحد على الأقل",
     "invalid-format": "تنسيق غير صالح",
     "invalid-ssn": "يرجى إدخال SSN صالح (123-45-6789)",
-    "invalid-ein": "يرجى إدخال EIN صالح (12-3456789)"
+    "invalid-ein": "يرجى إدخال EIN صالح (12-3456789)",
+    "INVALID_FORMAT": "تنسيق غير صالح",
+    "MIN_VALUE": "الحد الأدنى للقيمة هو {{value}}",
+    "MAX_VALUE": "الحد الأقصى للقيمة هو {{value}}",
+    "INVALID_FILE_TYPE": "نوع الملف غير صالح. يرجى تحميل: {{types}}",
+    "FILE_TOO_LARGE": "الملف كبير جدا. الحد الأقصى هو {{size}}MB"
   },
   "PAGINATION": {
     "ITEMS_PER_PAGE": "عناصر في الصفحة",

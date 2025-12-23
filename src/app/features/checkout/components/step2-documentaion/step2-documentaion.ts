@@ -18,6 +18,7 @@ import { RequiredFilesResponse } from '@features/all-services/interfaces/service
 import { RequiredFile } from '@features/all-services/interfaces/services-details/required-files/required-file';
 import { ServicesDetailsFacadeService } from '@features/all-services/services/services-details/services-details-facade.service';
 import { FileUploadItem } from '@features/checkout/interfaces/file-upload-item';
+import { RequiredTextField } from '@features/all-services/interfaces/services-details/required-files/required-text-field';
 
 @Component({
   selector: 'app-step2-documentaion',
@@ -37,8 +38,9 @@ export class Step2Documentaion implements OnInit, OnDestroy {
   expandedStates: boolean[] = [];
   serviceSubmitted: boolean[] = [];
 
-  // Store required files for each service
+  // Store required files AND text fields for each service
   requiredFilesMap: { [serviceId: string]: RequiredFile[] } = {};
+  requiredTextFieldsMap: { [serviceId: string]: RequiredTextField[] } = {};
 
   constructor(
     private fb: FormBuilder,
@@ -107,9 +109,23 @@ export class Step2Documentaion implements OnInit, OnDestroy {
 
     forkJoin(requests).subscribe({
       next: (responses: RequiredFilesResponse[]) => {
-        // Store required files for each service
+        // Parse JSON data and store required text fields for each service
         this.orderItems.forEach((item, index) => {
-          this.requiredFilesMap[item.itemId] = responses[index]?.files || [];
+          const response = responses[index];
+          this.requiredFilesMap[item.itemId] = response?.files || [];
+
+          // Parse JSON data to get required text fields
+          if (response?.jsonData) {
+            try {
+              const parsedData = JSON.parse(response.jsonData);
+              this.requiredTextFieldsMap[item.itemId] = parsedData.requiredTextFields || [];
+            } catch (error) {
+              console.error('Error parsing JSON data:', error);
+              this.requiredTextFieldsMap[item.itemId] = [];
+            }
+          } else {
+            this.requiredTextFieldsMap[item.itemId] = [];
+          }
         });
 
         this.initializeServiceForms();
@@ -118,9 +134,10 @@ export class Step2Documentaion implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error loading required files:', error);
-        // Initialize with empty required files if API fails
+        // Initialize with empty required files and text fields if API fails
         this.orderItems.forEach((item) => {
           this.requiredFilesMap[item.itemId] = [];
+          this.requiredTextFieldsMap[item.itemId] = [];
         });
         this.initializeServiceForms();
         this.orderLoading = false;
@@ -133,15 +150,45 @@ export class Step2Documentaion implements OnInit, OnDestroy {
   initializeServiceForms() {
     this.serviceDataForms = [];
     this.orderItems.forEach((item, index) => {
-      // Build form controls object dynamically
-      const formControls: { [key: string]: any } = {
-        fullName: ['', [Validators.required]],
-        ssn: ['', [Validators.required, Validators.pattern(/^\d{3}-\d{2}-\d{4}$/)]],
-        businessName: ['', [Validators.required]],
-        ein: ['', [Validators.required, Validators.pattern(/^\d{2}-\d{7}$/)]],
-        businessType: ['', [Validators.required]],
-        taxYear: ['', [Validators.required]],
-      };
+      const formControls: { [key: string]: any } = {};
+
+      // Add dynamic text field controls based on requiredTextFields from API
+      const requiredTextFields = this.requiredTextFieldsMap[item.itemId] || [];
+      requiredTextFields.forEach((textField: RequiredTextField) => {
+        // Check if required property exists, default to true if it doesn't
+        const isRequired = textField.required !== false; // Default to true if not specified
+
+        const validators = [];
+
+        if (isRequired) {
+          validators.push(Validators.required);
+        }
+
+        // Add additional validators based on field type
+        if (textField.type === 'number') {
+          validators.push(Validators.pattern(/^\d*$/)); // Only numbers allowed
+          if (textField.min !== undefined) {
+            validators.push(Validators.min(textField.min));
+          }
+          if (textField.max !== undefined) {
+            validators.push(Validators.max(textField.max));
+          }
+        }
+
+        // Set default value based on field type
+        let defaultValue = '';
+        if (textField.type === 'select' && textField.options && textField.options.length > 0) {
+          // For select fields, set default to empty string or first option
+          defaultValue = '';
+        } else if (textField.type === 'number') {
+          // For number fields, use empty string instead of null
+          defaultValue = '';
+        } else {
+          defaultValue = '';
+        }
+
+        formControls[textField.key] = [defaultValue, validators];
+      });
 
       // Add dynamic file controls based on required files from API
       const requiredFiles = this.requiredFilesMap[item.itemId] || [];
@@ -168,6 +215,21 @@ export class Step2Documentaion implements OnInit, OnDestroy {
   getRequiredFilesForService(serviceIndex: number): RequiredFile[] {
     const serviceId = this.orderItems[serviceIndex]?.itemId;
     return this.requiredFilesMap[serviceId] || [];
+  }
+
+  getRequiredTextFieldsForService(serviceIndex: number): RequiredTextField[] {
+    const serviceId = this.orderItems[serviceIndex]?.itemId;
+    return this.requiredTextFieldsMap[serviceId] || [];
+  }
+
+  // Check if a field is a select type
+  isSelectField(textField: RequiredTextField): boolean {
+    return textField.type === 'select';
+  }
+
+  // Get options for select field
+  getSelectOptions(textField: RequiredTextField): string[] {
+    return textField.options || [];
   }
 
   // Check if all services are submitted
@@ -205,10 +267,16 @@ export class Step2Documentaion implements OnInit, OnDestroy {
     const control = this.serviceDataForms[serviceIndex]?.get(fieldName);
     if (control && control.errors) {
       if (control.errors['required']) {
-        return this.translate.instant('VALIDATION.REQUIRED') || 'This field is required';
+        return this.translate.instant('VALIDATION.REQUIRED');
       }
       if (control.errors['pattern']) {
-        return this.translate.instant('VALIDATION.invalid-format') || 'Invalid format';
+        return this.translate.instant('VALIDATION.INVALID_FORMAT');
+      }
+      if (control.errors['min']) {
+        return this.translate.instant('VALIDATION.MIN_VALUE', { value: control.errors['min'].min });
+      }
+      if (control.errors['max']) {
+        return this.translate.instant('VALIDATION.MAX_VALUE', { value: control.errors['max'].max });
       }
     }
     return '';
@@ -218,13 +286,10 @@ export class Step2Documentaion implements OnInit, OnDestroy {
     const file = event.target.files[0];
     if (file) {
       console.log('File selected:', file.name, 'Type:', file.type, 'Size:', file.size);
-      console.log('Required file accept criteria:', requiredFile.accept);
 
-      // Use the accept criteria from the API response
-      const validation = this.validateFileAgainstRequirements(file, requiredFile);
-
-      if (!validation.isValid) {
-        this.showErrorMessage(validation.error!);
+      const maxSize = 5 * 1024 * 1024;
+      if (file.size > maxSize) {
+        this.showErrorMessage('checkout.file-too-large');
         event.target.value = '';
         return;
       }
@@ -232,113 +297,6 @@ export class Step2Documentaion implements OnInit, OnDestroy {
       this.serviceDataForms[serviceIndex].get(fieldName)?.setValue(file);
       this.cdr.detectChanges();
     }
-  }
-
-  private validateFileAgainstRequirements(
-    file: File,
-    requiredFile: RequiredFile
-  ): { isValid: boolean; error?: string } {
-    const maxSize = 5 * 1024 * 1024;
-    if (file.size > maxSize) {
-      return {
-        isValid: false,
-        error: 'checkout.file-too-large',
-      };
-    }
-
-    const acceptCriteria = requiredFile.accept;
-
-    if (!acceptCriteria) {
-      return { isValid: true };
-    }
-
-    const isValid = this.isFileTypeAccepted(file, acceptCriteria);
-
-    if (!isValid) {
-      const errorMessage =
-        this.translate.instant('checkout.invalid-file-type-specific', {
-          acceptedTypes: acceptCriteria,
-        }) || `File type not allowed. Accepted types: ${acceptCriteria}`;
-
-      this.toast.error(errorMessage);
-      return { isValid: false, error: 'checkout.invalid-file-type' };
-    }
-
-    return { isValid: true };
-  }
-
-  private isFileTypeAccepted(file: File, acceptCriteria: string): boolean {
-    const fileName = file.name.toLowerCase();
-    const fileExtension = fileName.split('.').pop() || '';
-    const fileType = file.type;
-
-    const acceptedTypes = acceptCriteria.split(',').map((type) => type.trim());
-
-    console.log('Validation details:', {
-      fileName,
-      fileExtension,
-      fileType,
-      acceptedTypes,
-    });
-
-    return acceptedTypes.some((acceptedType) => {
-      if (acceptedType.includes('/')) {
-        if (fileType === acceptedType) {
-          return true;
-        }
-
-        if (this.isMimeTypeEquivalent(fileType, acceptedType)) {
-          return true;
-        }
-
-        if (acceptedType.endsWith('/*')) {
-          const category = acceptedType.split('/')[0];
-          return fileType.startsWith(category + '/');
-        }
-      }
-
-      let extension = acceptedType;
-      if (acceptedType.startsWith('.')) {
-        extension = acceptedType.substring(1);
-      }
-
-      const normalizedExtension = extension.toLowerCase();
-
-      if (fileExtension === normalizedExtension) {
-        return true;
-      }
-
-      const mimeTypesForExtension = this.getMimeTypesForExtension(normalizedExtension);
-      if (mimeTypesForExtension && mimeTypesForExtension.includes(fileType)) {
-        return true;
-      }
-
-      return false;
-    });
-  }
-
-  private isMimeTypeEquivalent(actualMimeType: string, acceptedMimeType: string): boolean {
-    const equivalentMimeTypes: { [key: string]: string[] } = {
-      'image/jpg': ['image/jpeg'],
-      'image/jpeg': ['image/jpg'],
-    };
-
-    const equivalents = equivalentMimeTypes[acceptedMimeType];
-    return equivalents ? equivalents.includes(actualMimeType) : false;
-  }
-
-  private getMimeTypesForExtension(extension: string): string[] {
-    const extensionMimeMap: { [key: string]: string[] } = {
-      pdf: ['application/pdf'],
-      jpg: ['image/jpeg', 'image/jpg'],
-      jpeg: ['image/jpeg', 'image/jpg'],
-      png: ['image/png'],
-      gif: ['image/gif'],
-      doc: ['application/msword'],
-      docx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-    };
-
-    return extensionMimeMap[extension] || [];
   }
 
   removeFile(serviceIndex: number, fieldName: string, inputElement: any) {
@@ -409,14 +367,22 @@ export class Step2Documentaion implements OnInit, OnDestroy {
     formData.append('FulfillmentDate', tomorrow.toISOString());
     formData.append('FulfillmentDuration', '01:00:00');
 
-    const jsonData: Record<string, any> = {
-      'Full Name': form.value.fullName,
-      'SSN / ITIN': form.value.ssn,
-      'Business Name': form.value.businessName,
-      EIN: form.value.ein,
-      'Business Type': form.value.businessType,
-      'Tax Year': form.value.taxYear,
-    };
+    // Build JSON data dynamically from required text fields
+    const jsonData: Record<string, any> = {};
+    const requiredTextFields = this.getRequiredTextFieldsForService(index);
+
+    requiredTextFields.forEach((textField: RequiredTextField) => {
+      let value = form.value[textField.key];
+
+      // Convert value based on field type
+      if (textField.type === 'number') {
+        // Convert string to number for number fields
+        value = value ? Number(value) : null;
+      }
+
+      jsonData[textField.label] = value;
+    });
+
     formData.append('JsonData', JSON.stringify(jsonData));
 
     const requiredFiles = this.getRequiredFilesForService(index);
@@ -492,6 +458,23 @@ export class Step2Documentaion implements OnInit, OnDestroy {
 
   // Get service display name
   getServiceName(index: number): string {
-    return this.orderItems[index]?.itemName || `Service ${index + 1}`;
+    return (
+      this.orderItems[index]?.itemName ||
+      this.translate.instant('checkout.service-number', { number: index + 1 })
+    );
+  }
+
+  // Helper method to check if a text field is required
+  isTextFieldRequired(textField: RequiredTextField): boolean {
+    // If required property exists, use it, otherwise default to true
+    return textField.required !== false;
+  }
+
+  // Helper to get input type for non-select fields
+  getInputType(textField: RequiredTextField): string {
+    if (textField.type === 'number') {
+      return 'number';
+    }
+    return 'text'; // default to text for string type
   }
 }

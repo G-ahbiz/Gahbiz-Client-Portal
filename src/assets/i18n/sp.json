@@ -95,7 +95,11 @@
     "READ_MORE": "Leer más",
     "NOT_AVAILABLE": "N/A",
     "drag-and-drop-or": "Arrastrar y soltar o ",
-    "browse": "Examinar"
+    "browse": "Examinar",
+    "SELECT_PLACEHOLDER": "Seleccione {{field}}",
+    "LOADING_ORDER_DETAILS": "Cargando detalles de la orden...",
+    "ENTER_FIELD": "Ingresa {{field}}",
+    "ACCEPTS": "Acepta: {{types}}"
   },
   "NEW_PASSWORD": {
     "ERRORS": {
@@ -524,7 +528,7 @@
     "enter-address": "Ingresa tu dirección",
     "enter-country": "Ingresa tu país",
     "enter-state": "Ingresa tu estado",
-    "enter-county": "Ingresa tu condado (opcional)",
+    "enter-county": "Ingresa tu condado",
     "enter-city": "Ingresa tu ciudad",
     "zip-placeholder": "ej., 12345 o 12345-6789",
     "email-placeholder": "tu.correo@ejemplo.com",
@@ -625,7 +629,11 @@
     "submission-error": "Error al enviar archivos. Por favor, inténtelo de nuevo.",
     "invalid-token": "Token inválido o expirado. Por favor, solicite un nuevo enlace.",
     "pending-edits": "Ediciones Pendientes",
-    "files-requested-for-edit": "Archivos Solicitados para Editar"
+    "files-requested-for-edit": "Archivos Solicitados para Editar",
+    "loading-order-details": "Cargando detalles de pedido...",
+    "proceed-to-next-step": "Continuar al Paso Siguiente",
+    "service-submitted": "Servicio enviado exitosamente",
+    "service-number": "Servicio {{number}}"
   },
   "REVIEWS": {
     "COUNT": "Reseñas",
@@ -768,7 +776,12 @@
     "min-array-length": "Se requiere al menos un elemento",
     "invalid-format": "Formato inválido",
     "invalid-ssn": "Por favor ingresa un SSN válido (123-45-6789)",
-    "invalid-ein": "Por favor ingresa un EIN válido (12-3456789)"
+    "invalid-ein": "Por favor ingresa un EIN válido (12-3456789)",
+    "INVALID_FORMAT": "Formato inválido",
+    "MIN_VALUE": "El valor mínimo es {{value}}",
+    "MAX_VALUE": "El valor.maxcdn es {{value}}",
+    "INVALID_FILE_TYPE": "Tipo de archivo inválido. Por favor carga: {{types}}",
+    "FILE_TOO_LARGE": "El archivo es demasiado grande. El tamaño máximo es {{size}}MB"
   },
   "PAGINATION": {
     "ITEMS_PER_PAGE": "Elementos por página",

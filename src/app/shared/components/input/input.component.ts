@@ -33,8 +33,9 @@ export class InputComponent implements ControlValueAccessor {
   @Input() minlength?: number;
   @Input() maxlength?: number;
   @Input() pattern?: string;
+  @Input() type: string = 'text'; // Add type input property
 
-  /** new: variant controls behavior */
+  /** variant controls behavior */
   @Input() variant: 'text' | 'password' | 'phone' = 'text';
 
   @Output() valueChange = new EventEmitter<string>();
@@ -70,8 +71,8 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   // --- CVA glue ---
-  onChange = (_: any) => { };
-  onTouched = () => { };
+  onChange = (_: any) => {};
+  onTouched = () => {};
 
   writeValue(value: any): void {
     this.value = value ?? '';
@@ -145,5 +146,16 @@ export class InputComponent implements ControlValueAccessor {
 
   handleBlur() {
     this.onTouched();
+  }
+
+  // Helper method to get the actual input type
+  getInputType(): string {
+    if (this.variant === 'password') {
+      return this.showPassword ? 'text' : 'password';
+    } else if (this.variant === 'phone') {
+      return 'text';
+    } else {
+      return this.type; // Use the type property for text/number/email etc.
+    }
   }
 }

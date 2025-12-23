@@ -95,7 +95,11 @@
     "READ_MORE": "Read More",
     "NOT_AVAILABLE": "N/A",
     "drag-and-drop-or": "Drag and Drop or ",
-    "browse": "Browse"
+    "browse": "Browse",
+    "SELECT_PLACEHOLDER": "Select {{field}}",
+    "LOADING_ORDER_DETAILS": "Loading order details...",
+    "ENTER_FIELD": "Enter {{field}}",
+    "ACCEPTS": "Accepts: {{types}}"
   },
   "NEW_PASSWORD": {
     "ERRORS": {
@@ -525,7 +529,7 @@
     "enter-address": "Enter your street address",
     "enter-country": "Enter your country",
     "enter-state": "Enter your state",
-    "enter-county": "Enter your county (optional)",
+    "enter-county": "Enter your county",
     "enter-city": "Enter your city",
     "zip-placeholder": "e.g., 12345 or 12345-6789",
     "email-placeholder": "your.email@example.com",
@@ -625,7 +629,11 @@
     "submission-error": "Failed to submit files. Please try again.",
     "invalid-token": "Invalid or expired token. Please request a new link.",
     "pending-edits": "Pending Edits",
-    "files-requested-for-edit": "Files Requested for Edit"
+    "files-requested-for-edit": "Files Requested for Edit",
+    "loading-order-details": "Loading order details...",
+    "proceed-to-next-step": "Proceed to Next Step",
+    "service-submitted": "Service submitted successfully",
+    "service-number": "Service {{number}}"
   },
   "REVIEWS": {
     "COUNT": "Reviews",
@@ -768,7 +776,12 @@
     "min-array-length": "At least one item is required",
     "invalid-format": "Invalid format",
     "invalid-ssn": "Please enter a valid SSN (123-45-6789)",
-    "invalid-ein": "Please enter a valid EIN (12-3456789)"
+    "invalid-ein": "Please enter a valid EIN (12-3456789)",
+    "INVALID_FORMAT": "Invalid format",
+    "MIN_VALUE": "Minimum value is {{value}}",
+    "MAX_VALUE": "Maximum value is {{value}}",
+    "INVALID_FILE_TYPE": "Invalid file type. Please upload: {{types}}",
+    "FILE_TOO_LARGE": "File is too large. Maximum size is {{size}}MB"
   },
   "PAGINATION": {
     "ITEMS_PER_PAGE": "Items per page",

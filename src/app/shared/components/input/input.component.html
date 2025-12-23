@@ -50,7 +50,7 @@
     }
 
     <!-- Main Input -->
-    <input [id]="id" [type]="variant === 'password' ? (showPassword ? 'text' : 'password') : 'text'" class="form-input flex-1 outline-none bg-transparent text-[var(--font-md)]
+    <input [id]="id" [type]="getInputType()" class="form-input flex-1 outline-none bg-transparent text-[var(--font-md)]
                   min-h-[var(--input-height)] placeholder-light-subtext
                   transition-[var(--transition-base)]" [ngModel]="variant === 'phone' ? phoneNumber : value"
       (ngModelChange)="onInputChange($event)" (blur)="handleBlur()" [attr.placeholder]="placeholder"
