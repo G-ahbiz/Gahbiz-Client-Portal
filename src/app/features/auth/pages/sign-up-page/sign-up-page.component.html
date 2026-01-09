@@ -1,26 +1,28 @@
-<div
-  class="sign-up-page h-screen grid grid-cols-1 lg:grid-cols-2 dark:bg-black dark:text-white"
-  [attr.dir]="dir()"
->
+<div class="sign-up-page h-screen grid grid-cols-1 lg:grid-cols-2" [attr.dir]="dir()">
   <!-- Left: Sign-up form -->
   <div
-    class="signup-container lg:order-1 w-full flex flex-col items-center justify-center p-5 bg-white dark:bg-black overflow-y-auto"
+    class="signup-container lg:order-1 w-full flex flex-col items-center justify-center pb-2 pt-2 p-5 bg-white overflow-y-auto font-IBM-Plex-Serif"
   >
     <div class="w-full max-w-xl mx-auto space-y-2">
       <!-- Logo -->
       <div class="flex justify-center">
-        <img src="assets/images/logo.png" alt="Logo" class="h-16 sm:h-24" />
+        <img
+          src="assets/images/logo.png"
+          alt="Logo"
+          class="h-16 sm:h-24 cursor-pointer"
+          (click)="navigateToHome()"
+        />
       </div>
 
       <!-- Title -->
-      <header class="text-center mb-6">
-        <h1 class="text-neutral-900 dark:text-dark-text text-2xl font-semibold">
+      <header class="text-center">
+        <h1 class="text-neutral-900 text-2xl font-semibold">
           {{ 'SIGNUP.TITLE' | translate }}
         </h1>
       </header>
 
       <!-- Social buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 mb-4">
+      <div class="flex flex-col sm:flex-row gap-4 mb-1">
         <app-social-sign
           (onGoogleRegister)="onGoogleRegister()"
           (onFacebookRegister)="onFacebookRegister()"
@@ -29,20 +31,20 @@
 
       <!-- Divider -->
       <div class="flex items-center gap-6">
-        <div class="flex-1 h-px bg-light-divider dark:bg-dark-divider"></div>
+        <div class="flex-1 h-px bg-light-divider"></div>
         <span class="text-zinc-600 text-base font-normal">
           {{ 'COMMON.OR' | translate }}
         </span>
-        <div class="flex-1 h-px bg-light-divider dark:bg-dark-divider"></div>
+        <div class="flex-1 h-px bg-light-divider"></div>
       </div>
 
       <!-- Form -->
-      <div class="mb-4">
+      <div>
         <app-sign-up-form></app-sign-up-form>
       </div>
 
       <!-- Already have account -->
-      <div class="text-center mt-2">
+      <div class="text-center">
         <span class="text-[rgba(136,136,136,1)] text-base">
           {{ 'COMMON.ALREADY_HAVE_ACCOUNT' | translate }}
         </span>

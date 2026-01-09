@@ -1,5 +1,5 @@
 footer {
-  background-color: var(--primary-clr);
+  background-color: #005db5;
 }
 
 a {
@@ -10,15 +10,17 @@ a {
   font-weight: 300 !important;
   transition: all 0.3s ease-in-out;
   color: var(--text-light-clr);
+  font-size: 0.9rem;
 }
 
 .nav-link:hover {
   color: #c18905;
+  transform: translateX(3px);
 }
 
 .list-header {
   font-weight: 600 !important;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 .text-brown {
@@ -31,35 +33,104 @@ a {
 
 .social-media-icon {
   transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
 
   &:hover {
-    scale: 1.2;
-    /* filter: brightness(1.2) saturate(1.2); */
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.2);
   }
 }
 
-.facebook,
-.instagram,
-.twitter,
-.linkedin {
+/* Brand-specific hover colors */
+.facebook:hover i {
+  color: #1877f2 !important;
+}
+
+.instagram:hover i {
+  color: #e4405f !important;
+}
+
+.twitter:hover i {
+  color: #1da1f2 !important;
+}
+
+.linkedin:hover i {
+  color: #0a66c2 !important;
+}
+
+.footer-logo {
   transition: all 0.3s ease-in-out;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+  padding: 4px;
+  border-radius: 4px;
 }
 
-.facebook:hover {
-  color: var(--facebook-color);
-}
-.instagram:hover {
-  color: var(--instagram-color);
-}
-.twitter:hover {
-  color: var(--twitter-color);
-}
-.linkedin:hover {
-  color: var(--linkedin-color);
+.footer-logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
+  background: rgba(255, 255, 255, 0.1);
 }
 
-@media screen and (min-width: 768px) {
+/* Tablet two-column layout */
+@media screen and (min-width: 768px) and (max-width: 991.98px) {
   .group-0 {
-    width: 25% !important;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* Ensure proper spacing between the two columns */
+  .col-md-6 {
+    margin-bottom: 2rem;
+  }
+
+  /* Last two items in the second row don't need bottom margin */
+  .row .col-md-6:nth-last-child(-n + 2) {
+    margin-bottom: 0;
+  }
+}
+
+/* Large screen optimizations */
+@media screen and (min-width: 992px) {
+  .list-header {
+    font-size: 1.15rem;
+  }
+
+  .nav-link {
+    font-size: 0.92rem;
+  }
+
+  .social-media-icon {
+    width: 40px;
+    height: 40px;
+
+    i {
+      font-size: 1.3rem !important;
+    }
+  }
+}
+
+/* Mobile-specific improvements */
+@media screen and (max-width: 767.98px) {
+  .group-0 {
+    text-align: center;
+  }
+
+  .footer-logo {
+    max-width: 150px !important;
+  }
+
+  .social-media-icon {
+    width: 44px;
+    height: 44px;
+
+    i {
+      font-size: 1.4rem !important;
+    }
   }
 }

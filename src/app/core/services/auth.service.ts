@@ -183,6 +183,17 @@ export class AuthService {
 
     return result;
   }
+
+  updateUserProfile(updatedUser: User): void {
+    const currentTokenData = this.tokenService.getTokenData();
+
+    if (currentTokenData) {
+      this.tokenService.setTokenData(currentTokenData, updatedUser);
+    }
+
+    this.currentUserSubject.next(updatedUser);
+  }
+
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }

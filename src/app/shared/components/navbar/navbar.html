@@ -1,114 +1,101 @@
-<!-- Main Nav -->
-<nav class="navbar navbar-expand-xl px-3 p-lg-5">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
+<nav class="navbar navbar-expand-xl px-2 px-sm-3 px-lg-4 p-xl-5 z-5000">
+  <div class="container-fluid d-flex justify-content-between align-items-center p-0">
 
     <!-- Logo -->
-    <a class="navbar-brand w-25" href="#">
-      <img src="assets/images/logo/logo.png" alt="" class="w-100 main-logo">
+    <a class="navbar-brand logo-container" (click)="navigateTo('/home')" style="cursor: pointer;">
+      <img src="assets/images/logo/logo.png" alt="Logo" class="main-logo">
     </a>
 
-    <!-- Offcanvas Toggle Button -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+    <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
       aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Offcanvas Content -->
     <div class="offcanvas" [class]="isArabic ? 'offcanvas-end' : 'offcanvas-start'" tabindex="-1" id="offcanvasNavbar"
       aria-labelledby="offcanvasNavbarLabel">
 
-      <!-- Offcanvas Header -->
-      <div class="offcanvas-header">
-        <img src="assets/images/gahbiz-logo.png" alt="" class="w-25">
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <div class="offcanvas-header p-3 p-md-4">
+        <div class="offcanvas-logo-container">
+          <img src="assets/images/logo/logo.png" alt="Logo" class="offcanvas-logo">
+        </div>
+        <button type="button" class="btn-close text-reset p-3" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
 
-      <!-- Offcanvas Body -->
       <div class="offcanvas-body">
+        <!-- Adjusted to shift navigation left -->
         <div
-          class="container-fluid p-0 m-0 d-flex flex-column flex-xl-row justify-content-xl-between align-items-xl-center">
+          class="container-fluid p-0 m-0 d-flex flex-column flex-xl-row align-items-xl-center gap-3 gap-xl-0 position-relative">
 
-          <!-- Left Side Nav Links -->
-          <ul class="navbar-nav mb-2 mb-lg-0 gap-4" [class]="isArabic ? 'ms-auto cairo' : 'me-auto'"
-            [class]="isSpanish ? 'gap-2 text-nowrap' : ''">
-            <!-- Home -->
+          <!-- Navigation shifted left with margin -->
+          <ul class="navbar-nav mb-2 mb-lg-0 gap-3 gap-xl-4 flex-xl-grow-1 navigation-center" [class.cairo]="isArabic"
+            [class.gap-2]="isSpanish" [class.text-nowrap]="isSpanish">
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#">{{'navbar.home' | translate}}</a>
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
+                (click)="navigateTo('/home')">{{'navbar.home' | translate}}</a>
             </li>
-            <!-- Services Dropdown -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle fw-medium orange-hover services-dropdown-toggle fs-6" href="#"
-                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle fw-medium orange-hover services-dropdown-toggle fs-6 px-2 px-xl-3 py-2"
+                href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{'navbar.services' | translate}}
               </a>
-              <ul class="dropdown-menu dropdown-menu-end services-dropdown" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.taxservices' | translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.itinandein' | translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.translationandnotarypublic' |
-                    translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.businesslicense' | translate}}</a>
+              <ul class="dropdown-menu dropdown-menu-end services-dropdown py-2" aria-labelledby="navbarDropdown">
+                @for (service of services; track service.id) {
+                <li>
+                  <a class="dropdown-item px-3 py-2" href="javascript:void(0)"
+                    (click)="navigateToCategory(service.id)">
+                    {{ service.name }}
+                  </a>
                 </li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.publicservcies' | translate}}</a>
-                </li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.dmv' | translate}}</a></li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.foodvendorservices' | translate}}</a>
-                </li>
-                <li><a class="dropdown-item orange fw-semibold" href="#">{{'navbar.immigration' | translate}}</a></li>
+                }
               </ul>
             </li>
-            <!-- About -->
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#">{{'navbar.about' | translate}}</a>
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
+                (click)="navigateTo('/about')">{{'navbar.about' | translate}}</a>
             </li>
-            <!-- FAQ -->
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#">{{'navbar.faq' | translate}}</a>
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
+                (click)="navigateTo('/faq')">{{'navbar.faq' | translate}}</a>
             </li>
-            <!-- Contact -->
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#">{{'navbar.contact' | translate}}</a>
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
+                (click)="navigateTo('/contact')">{{'navbar.contact' | translate}}</a>
             </li>
-            <!-- Search -->
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6" href="#"><i class="pi pi-search fs-6"></i></a>
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2" (click)="navigateTo('/search')">
+                <i class="pi pi-search fs-6"></i>
+              </a>
             </li>
           </ul>
 
-          <!-- Language & Login & Book A Service Button -->
-          <div class="d-flex justify-content-start align-items-center gap-4"
-            [class]="isArabic ? ' ms-auto cairo' : 'me-auto'" [class]="isSpanish ? 'gap-2 text-nowrap' : ''">
+          <!-- Actions positioned with proper spacing -->
+          <div class="d-flex justify-content-start align-items-center gap-3 gap-xl-4 navbar-actions"
+            [class.cairo]="isArabic" [class.gap-2]="isSpanish" [class.text-nowrap]="isSpanish">
 
-            <!-- Language Button -->
             <div class="btn-group language-btn-group">
-              <button type="button" class="btn gap-2 d-flex align-items-center outline-0" data-bs-toggle="dropdown"
+              <button type="button" class="btn gap-2 d-flex align-items-center outline-0 p-2" data-bs-toggle="dropdown"
                 aria-expanded="false" [title]="isEnglish ? 'English' : isArabic ? 'عربي' : isSpanish ? 'Español' : ''">
                 <i class="pi pi-globe fs-6"></i>
               </button>
-              <!-- <button type="button" class="btn dropdown-toggle gap-2 d-flex align-items-center" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                @if (isEnglish) {
-                <span class="">{{'navbar.english' | translate}}</span>
-                } @else if (isArabic) {
-                <span class="">{{'navbar.arabic' | translate}}</span>
-                } @else if (isSpanish) {
-                <span class="">{{'navbar.spanish' | translate}}</span>
-                }
-              </button> -->
-              <ul class="dropdown-menu language-dropdown">
+
+              <ul class="dropdown-menu language-dropdown py-2">
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2" href="#" (click)="changeLanguage('en')">
+                  <a class="dropdown-item d-flex align-items-center gap-2 px-3 py-2" href="javascript:void(0)"
+                    (click)="changeLanguage('en')">
                     <img src="assets/images/navbar/language-icons/america.svg" alt="" class="flag-icon">
                     <span class="">{{'navbar.english' | translate}}</span>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2" href="#" (click)="changeLanguage('ar')">
+                  <a class="dropdown-item d-flex align-items-center gap-2 px-3 py-2" href="javascript:void(0)"
+                    (click)="changeLanguage('ar')">
                     <img src="assets/images/navbar/language-icons/egypt.svg" alt="" class="flag-icon">
                     <span class="">{{'navbar.arabic' | translate}}</span>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2" href="#" (click)="changeLanguage('sp')">
+                  <a class="dropdown-item d-flex align-items-center gap-2 px-3 py-2" href="javascript:void(0)"
+                    (click)="changeLanguage('sp')">
                     <img src="assets/images/navbar/language-icons/spain.svg" alt="" class="flag-icon">
                     <span class="">{{'navbar.spanish' | translate}}</span>
                   </a>
@@ -116,12 +103,67 @@
               </ul>
             </div>
 
-            <!-- Login -->
-            <a class="nav-link fw-normal primary-clr fs-6" routerLink="auth">{{'navbar.login' | translate}}</a>
+            @if (isLoggedIn$ | async) {
+            <div class="d-flex align-items-center gap-2 gap-xl-3 profile-section">
+              <a class="nav-link cart-icon-container p-2" (click)="navigateTo('/cart')">
+                <i class="pi pi-shopping-bag icons"></i>
+                @if (cartItemCount > 0) {
+                <span class="cart-badge">{{ cartItemCount }}</span>
+                }
+              </a>
 
-            <!-- Book A Service Button -->
-            <button type="button" class="btn btn-primary primary-bg fw-normal fs-6 ">{{'navbar.bookaservice' |
-              translate}}</button>
+              <div class="dropdown">
+                <a class="nav-link profile-link dropdown-toggle d-flex align-items-center p-2" href="#" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false" id="profileDropdown">
+                  @if ((currentUser$ | async); as user) {
+                  @if (user.profileImageUrl) {
+                  <img [src]="user.profileImageUrl" alt="Profile" class="profile-pic-circle">
+                  } @else {
+                  <i class="pi pi-user icons"></i>
+                  }
+                  }
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end py-2" aria-labelledby="profileDropdown">
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center px-3 py-2"
+                      (click)="navigateWithDropdown('/complete-profile')">
+                      <i class="pi pi-user-edit me-2"></i>
+                      {{'navbar.profile' | translate}}
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider my-2">
+                  </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center px-3 py-2"
+                      (click)="navigateWithDropdown('/wishlist')">
+                      <i class="pi pi-heart me-2"></i>
+                      {{'navbar.wishlist' | translate}}
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider my-2">
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center text-danger px-3 py-2" (click)="logout()">
+                      <i class="pi pi-sign-out me-2"></i>
+                      {{'navbar.logout' | translate}}
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            } @else {
+            <a class="nav-link fw-normal primary-clr fs-6 px-2 px-xl-3 py-2" (click)="navigateTo('/auth/sign-in')">
+              {{'navbar.login' | translate}}
+            </a>
+            }
+
+            <button type="button" class="btn btn-primary primary-bg fw-normal fs-6 px-3 px-xl-4 py-2 book-service-btn"
+              (click)="navigateTo('/appointment-service')">
+              {{'navbar.bookaservice' | translate}}
+            </button>
           </div>
         </div>
 

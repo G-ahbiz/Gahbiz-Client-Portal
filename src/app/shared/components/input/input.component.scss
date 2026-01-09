@@ -71,6 +71,7 @@ button:focus {
 /* ensure dropdown list items scale */
 .phone-dropdown-wrapper {
   min-width: 5%; /* never disappear */
+  z-index: 10;
 }
 
 .phone-dropdown-btn {
@@ -78,6 +79,13 @@ button:focus {
   min-width: 0; /* allow shrink */
   padding: 0 0.25rem;
   font-size: 0.75rem; /* shrink text */
+}
+
+.dropdown-menu {
+  display: block !important;
+  z-index: 9999;
+  position: absolute;
+  background-color: white;
 }
 
 .form-control-wrapper {
@@ -126,9 +134,9 @@ button:focus {
   opacity: 0;
 }
 
-@media (min-height: 760px) {
+@media (min-height: 768px) {
   .error-message {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -152,7 +160,7 @@ button:focus {
 
   .form-label {
     font-size: 0.7rem; /* smaller label */
-    margin-bottom: 0.125rem;
+    margin-bottom: 0px;
   }
 
   .form-error {

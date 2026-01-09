@@ -1,0 +1,179 @@
+<div class="checkout-container container py-md-5" *ngIf="step === 2">
+  <h2 class="text-left fw-semibold mb-5 mb-md-5">{{ 'checkout.documentations' | translate }}</h2>
+
+  <!-- Loading State -->
+  <div *ngIf="orderLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'COMMON.LOADING' | translate }}</span>
+    </div>
+    <p class="mt-3">{{ 'checkout.loading-order-details' | translate }}</p>
+  </div>
+
+  <!-- No Services Found -->
+  <div *ngIf="!orderLoading && orderItems.length === 0" class="alert alert-warning text-center">
+    <i class="bi bi-exclamation-triangle me-2"></i>
+    {{ 'checkout.no-services-found' | translate }}
+  </div>
+
+  <div class="row g-4 g-lg-5 justify-content-center" *ngIf="!orderLoading && orderItems.length > 0">
+    <!-- Service Data Collection Forms -->
+    <div class="col-12">
+      <div *ngFor="let service of orderItems; let serviceIndex = index" class="card shadow-sm mb-4 service-data-card">
+
+        <!-- Header (collapsible toggle) -->
+        <div class="card-header d-flex justify-content-between align-items-center" (click)="toggleService(serviceIndex)"
+          [class.disabled]="serviceSubmitted[serviceIndex]">
+          <h4 class="service-title m-0">
+            <i class="bi bi-file-earmark-text me-2"></i>
+            {{ service.itemName }}
+          </h4>
+          <i class="bi" [ngClass]="{
+           'bi-chevron-down': !expandedStates[serviceIndex],
+           'bi-chevron-up': expandedStates[serviceIndex]
+         }"></i>
+        </div>
+
+        <!-- Collapsible Body -->
+        <div class="collapse-wrapper" [class.show]="expandedStates[serviceIndex]">
+          <div class="card-body px-4 px-md-5">
+            <form [formGroup]="serviceDataForms[serviceIndex]" novalidate>
+              <!-- Dynamic Text Fields Section -->
+              <div class="row g-4 mb-4" *ngIf="getRequiredTextFieldsForService(serviceIndex).length > 0">
+                <!-- Dynamic Text Fields -->
+                <div *ngFor="let textField of getRequiredTextFieldsForService(serviceIndex); let i = index"
+                  [class]="i % 2 === 0 ? 'col-md-6' : 'col-md-6'">
+
+                  <!-- Regular Input Fields (text, number) -->
+                  <ng-container *ngIf="!isSelectField(textField)">
+                    <app-input [formControlName]="textField.key" [id]="textField.key + serviceIndex"
+                      [label]="textField.label"
+                      [placeholder]="'COMMON.ENTER_FIELD' | translate: {field: textField.label}"
+                      [type]="getInputType(textField)" [isInvalid]="isServiceFieldInvalid(serviceIndex, textField.key)"
+                      [errorMessage]="getServiceFieldError(serviceIndex, textField.key)"
+                      [asterisk]="isTextFieldRequired(textField) ? '*' : ''"
+                      [asteriskColorDanger]="isTextFieldRequired(textField) ? 'text-danger' : ''">
+                    </app-input>
+                  </ng-container>
+
+                  <!-- Select/Dropdown Fields -->
+                  <ng-container *ngIf="isSelectField(textField)">
+                    <label [for]="textField.key + serviceIndex" class="form-label">
+                      {{ textField.label }}
+                      <span *ngIf="isTextFieldRequired(textField)" class="text-danger">*</span>
+                    </label>
+                    <select [id]="textField.key + serviceIndex" class="form-select" [formControlName]="textField.key"
+                      [class.is-invalid]="isServiceFieldInvalid(serviceIndex, textField.key)">
+                      <option value="" disabled selected>
+                        {{ 'COMMON.SELECT_PLACEHOLDER' | translate: {field: textField.label} }}
+                      </option>
+                      <option *ngFor="let option of getSelectOptions(textField)" [value]="option">
+                        {{ option }}
+                      </option>
+                    </select>
+                    <div *ngIf="isServiceFieldInvalid(serviceIndex, textField.key)" class="invalid-feedback d-block">
+                      {{ getServiceFieldError(serviceIndex, textField.key) }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <!-- Dynamic File Uploads Section -->
+              <div class="file-uploads-section mt-4 pt-4" *ngIf="getRequiredFilesForService(serviceIndex).length > 0">
+                <div class="row g-4">
+                  <!-- Dynamic Required Files -->
+                  <div *ngFor="let requiredFile of getRequiredFilesForService(serviceIndex); let i = index"
+                    [class]="i % 2 === 0 ? 'col-md-6' : 'col-md-6'">
+                    <div class="mb-4">
+                      <label [for]="'file_' + serviceIndex + '_' + requiredFile.id"
+                        class="form-label file-upload-label-fix">
+                        {{ requiredFile.name }}
+                        <span class="text-danger">*</span>
+                      </label>
+
+                      <div class="file-upload-container"
+                        [class.has-file]="serviceDataForms[serviceIndex].get(getFileFieldName(requiredFile))?.value">
+                        <input type="file" [id]="'file_' + serviceIndex + '_' + requiredFile.id"
+                          class="form-control file-input" [accept]="requiredFile.accept || 'image/*,.pdf'"
+                          (change)="onFileSelected($event, serviceIndex, getFileFieldName(requiredFile), requiredFile)"
+                          #fileInput>
+
+                        <!-- File Preview -->
+                        <div class="file-upload-preview"
+                          *ngIf="serviceDataForms[serviceIndex].get(getFileFieldName(requiredFile))?.value">
+                          <div class="preview-info">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span class="file-name">
+                              {{ getFileName(serviceDataForms[serviceIndex].get(getFileFieldName(requiredFile))?.value)
+                              }}
+                            </span>
+                            <button type="button" class="btn-remove"
+                              (click)="removeFile(serviceIndex, getFileFieldName(requiredFile), fileInput)">
+                              <i class="bi bi-x"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- Upload Placeholder -->
+                        <div class="file-upload-placeholder">
+                          <i class="bi bi-file-earmark-arrow-up"></i>
+                          <span class="upload-text">
+                            {{ 'COMMON.drag-and-drop-or' | translate }}
+                            <span class="browse">{{ 'COMMON.browse' | translate }}</span>
+                          </span>
+                          <!-- Show accepted file types from API -->
+                          <span class="upload-subtext" *ngIf="requiredFile.accept">
+                            {{ 'COMMON.ACCEPTS' | translate: {types: requiredFile.accept} }}
+                          </span>
+                          <span class="upload-subtext" *ngIf="requiredFile.description">
+                            {{ requiredFile.description }}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div *ngIf="isServiceFieldInvalid(serviceIndex, getFileFieldName(requiredFile))"
+                        class="invalid-feedback d-block mt-1">
+                        {{ getServiceFieldError(serviceIndex, getFileFieldName(requiredFile)) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="text-center mt-4" *ngIf="!serviceSubmitted[serviceIndex]">
+                <button type="button" class="btn btn-primary btn-lg px-4"
+                  [disabled]="loading || !serviceDataForms[serviceIndex].valid"
+                  (click)="submitServiceData(serviceIndex)">
+                  <span *ngIf="!loading">{{ 'checkout.submit-service-data' | translate }}</span>
+                  <span *ngIf="loading">
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    {{ 'checkout.processing' | translate }}
+                  </span>
+                </button>
+              </div>
+
+              <!-- Already Submitted Message -->
+              <div *ngIf="serviceSubmitted[serviceIndex]" class="alert alert-success text-center mt-4">
+                <i class="bi bi-check-circle me-2"></i>
+                {{ 'checkout.service-submitted' | translate }}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Services Submitted Message -->
+    <div *ngIf="areAllServicesSubmitted()" class="col-12 mt-4">
+      <div class="alert alert-success text-center">
+        <i class="bi bi-check-circle me-2"></i>
+        {{ 'checkout.all-services-submitted' | translate }}
+        <div class="mt-2">
+          <button type="button" class="btn btn-success" (click)="navigateToStep3()">
+            {{ 'checkout.proceed-to-next-step' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

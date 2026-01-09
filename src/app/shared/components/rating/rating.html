@@ -1,0 +1,9 @@
+<div class="rating d-flex justify-content-start align-items-center gap-1">
+
+  @for (star of [1, 2, 3, 4, 5]; track star) {
+
+  <i class="pi text-warning" [class.pi-star-fill]="rating >= star"
+    [class.pi-star-half-fill]="rating < star && rating >= (star - 0.5)" [class.pi-star]="rating < (star - 0.5)"></i>
+
+  }
+</div>

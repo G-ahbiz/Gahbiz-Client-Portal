@@ -1,0 +1,157 @@
+<div class="d-flex flex-column gap-4 w-100" [class.rtl]="currentLang() === 'ar'">
+  <div class="services-list d-flex flex-column align-items-start gap-4 w-100">
+    <!-- Header with Title and Pagination (unchanged) -->
+    <div
+      class="service-title d-flex flex-column flex-md-row align-items-md-center w-100 gap-3"
+      [class.rtl-layout]="currentLang() === 'ar'"
+    >
+      <h1 class="fs-3 fw-semibold mb-0 flex-grow-1" [attr.aria-label]="title">
+        {{ title }}
+      </h1>
+
+      @if (shouldShowPagination()) {
+      <nav aria-label="Services pagination">
+        <ul
+          class="d-flex justify-content-center align-items-center gap-2 gap-sm-4 list-unstyled mb-0"
+        >
+          <li
+            class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
+            [class.disabled]="!paginationData!.hasPreviousPage"
+            (click)="onPreviousPage()"
+            [attr.aria-disabled]="!paginationData!.hasPreviousPage"
+          >
+            <i
+              class="pi fs-875"
+              [class.pi-chevron-left]="currentLang() !== 'ar'"
+              [class.pi-chevron-right]="currentLang() === 'ar'"
+              aria-hidden="true"
+            ></i>
+            <span class="visually-hidden">{{ 'all-services.previous-page' | translate }}</span>
+          </li>
+
+          <li class="page-item page-number-display">
+            <span class="fw-medium">{{ paginationData!.pageNumber }}</span>
+            <span class="mx-1" aria-hidden="true">-</span>
+            <span class="fw-medium">{{ paginationData!.totalPages }}</span>
+            <span class="visually-hidden">
+              {{ 'all-services.page' | translate }} {{ paginationData!.pageNumber }}
+              {{ 'all-services.of' | translate }}
+              {{ paginationData!.totalPages }}
+            </span>
+          </li>
+
+          <li
+            class="page-item arrow-item p-2 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
+            [class.disabled]="!paginationData!.hasNextPage"
+            (click)="onNextPage()"
+            [attr.aria-disabled]="!paginationData!.hasNextPage"
+          >
+            <i
+              class="pi fs-875"
+              [class.pi-chevron-right]="currentLang() !== 'ar'"
+              [class.pi-chevron-left]="currentLang() === 'ar'"
+              aria-hidden="true"
+            ></i>
+            <span class="visually-hidden">{{ 'all-services.next-page' | translate }}</span>
+          </li>
+        </ul>
+      </nav>
+      }
+    </div>
+
+    <!-- Services Grid -->
+    <div
+      class="service-list-container d-flex flex-wrap justify-content-center justify-content-lg-start gap-4 mt-3 w-100"
+    >
+      @if (serviceList && serviceList.length > 0) { @for (service of serviceList; track
+      trackByServiceId($index, service)) {
+      <div
+        class="card service-card d-flex flex-column flex-sm-row rounded-4"
+        [class.rtl-card]="currentLang() === 'ar'"
+        [attr.aria-label]="service.name"
+        (click)="navigateToServiceDetails(service.id)"
+        style="cursor: pointer"
+      >
+        <!-- Service Image -->
+        <div class="image-container rounded-3 overflow-hidden position-relative flex-shrink-0">
+          <img
+            [src]="getServiceImage(service)"
+            [alt]="service.name"
+            class="w-100 h-100"
+            loading="lazy"
+          />
+
+          @if (service.tags) {
+          <span
+            class="service-tag image-overlay position-absolute"
+            [ngClass]="service.tags.toLowerCase()"
+          >
+            {{ service.tags }}
+          </span>
+          }
+        </div>
+
+        <!-- Service Details -->
+        <div class="card-body d-flex flex-column justify-content-between align-items-start gap-2">
+          <!-- Title and Description -->
+          <div class="service-card-title-subtitle w-100">
+            <h3 class="fs-5 fw-semibold" [class.rtl-text]="currentLang() === 'ar'">
+              {{ service.name }}
+            </h3>
+            <p class="fs-6 fw-medium" [class.rtl-text]="currentLang() === 'ar'">
+              {{ service.description }}
+            </p>
+          </div>
+
+          <!-- Price and Rating -->
+          <div
+            class="d-flex justify-content-between align-items-center w-100"
+            [class.rtl-price-rating]="currentLang() === 'ar'"
+          >
+            <div class="d-flex justify-content-start align-items-center gap-2">
+              <span class="price-offer fw-bold">${{ service.price }}</span>
+              @if (hasDiscount(service)) {
+              <span class="orignal-price text-muted">
+                <del>${{ service.priceBefore }}</del>
+              </span>
+              }
+            </div>
+
+            <div class="rating-container d-flex justify-content-start align-items-center gap-1">
+              <app-rating [rating]="service.rate"></app-rating>
+              <span class="review-count text-muted fw-medium">
+                ({{ service.rateCount || 0 }})
+              </span>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div
+            class="button-container d-flex flex-column flex-md-row justify-content-start align-items-center gap-2 w-100 mt-2"
+            [class.rtl-buttons]="currentLang() === 'ar'"
+          >
+            <button
+              class="btn btn-primary card-btn text-nowrap py-2 px-3 flex-grow-1"
+              [attr.aria-label]="'Buy now ' + service.name"
+              (click)="onBuyNow(service, $event)"
+            >
+              {{ 'all-services.buy-now' | translate }}
+            </button>
+            <button
+              class="btn btn-outline-primary card-btn text-nowrap py-2 px-3 flex-grow-1"
+              [attr.aria-label]="'Add to cart ' + service.name"
+              (click)="onAddToCart(service, $event)"
+            >
+              {{ 'all-services.add-to-cart' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      } } @else {
+      <div class="w-100 text-muted p-4 text-center">
+        <p class="fs-5 mb-0">{{ 'all-services.no-services-in-category' | translate }}</p>
+      </div>
+      }
+    </div>
+  </div>
+</div>

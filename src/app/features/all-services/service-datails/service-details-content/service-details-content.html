@@ -1,0 +1,200 @@
+<div class="breadcump py-3">
+  <nav aria-label="Breadcrumb">
+    <ol class="breadcrumb mb-0 bg-transparent p-0">
+      <li class="breadcrumb-item">
+        <a [routerLink]="home()?.routerLink ?? '/'" class="text-decoration-none breadcrumb-link" aria-label="Home">
+          <i class="pi pi-home" aria-hidden="true"></i>
+        </a>
+      </li>
+
+      @for (item of breadcrumbItems(); track trackByBreadcrumbItem($index, item); let last = $last) {
+      <li class="breadcrumb-item" [class.active]="item.isActive" [attr.aria-current]="item.isActive ? 'page' : null">
+
+        @if (!item.isActive && !last) {
+        <a (click)="item.command ? item.command() : null" (keydown.enter)="item.command ? item.command() : null"
+          [attr.aria-current]="item.isActive ? 'page' : null" [style.cursor]="item.command ? 'pointer' : 'default'"
+          class="text-decoration-none breadcrumb-link" tabindex="0" role="link">
+          {{ item.label }}
+        </a>
+        } @else {
+        <span class="breadcrumb-current">{{ item.label }}</span>
+        }
+      </li>
+      }
+    </ol>
+  </nav>
+</div>
+
+<div class="service-details-container">
+  <!-- Loading State -->
+  @if (isLoading()) {
+  <div class="service-details-content d-flex flex-column flex-lg-row justify-content-center align-items-start gap-4">
+
+    <div class="w-100 w-lg-50">
+      <div class="skeleton-placeholder skeleton-gallery"></div>
+    </div>
+
+    <div class="service-details-info d-flex flex-column align-items-start w-100 w-lg-50">
+      <div class="skeleton-placeholder skeleton-title w-75"></div>
+      <div class="skeleton-placeholder skeleton-text w-25"></div>
+      <div class="skeleton-placeholder skeleton-text w-25"></div>
+      <div class="skeleton-placeholder skeleton-text w-100"></div>
+      <div class="skeleton-placeholder skeleton-text w-100"></div>
+      <div class="skeleton-placeholder skeleton-text w-75"></div>
+
+      <div class="d-flex flex-column align-items-center gap-3 w-100">
+        <div class="skeleton-placeholder skeleton-button" style="max-width: 160px; width: 100%;"></div>
+        <div class="d-flex gap-3 w-100">
+          <div class="skeleton-placeholder skeleton-button flex-fill"></div>
+          <div class="skeleton-placeholder skeleton-button flex-fill"></div>
+        </div>
+      </div>
+
+      <hr class="w-100">
+
+      <div class="d-flex justify-content-between w-100">
+        <div class="skeleton-placeholder skeleton-text w-25"></div>
+        <div class="skeleton-placeholder skeleton-text w-25"></div>
+        <div class="skeleton-placeholder skeleton-text w-25"></div>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (error() && !isLoading()) {
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+    <i class="pi pi-exclamation-triangle me-2" aria-hidden="true"></i>
+    <div>
+      <h4 class="alert-heading mb-2">
+        {{ "REQUIREMENTS.ERRORS.LOAD_SERVICE_FAILED" | translate }}
+      </h4>
+      <p class="mb-2">{{ error() }}</p>
+      <button class="btn btn-outline-danger btn-sm mt-2" (click)="loadServiceDetails()">
+        <i class="pi pi-refresh me-1" aria-hidden="true"></i>
+        {{"COMMON.TRY_AGAIN" | translate}}
+      </button>
+    </div>
+  </div>
+  }
+
+  <!-- Success State -->
+  @if (serviceDetail() && !isLoading() && !error()) {
+  @let service = serviceDetail()!;
+  <div class="service-details-content d-flex flex-column flex-lg-row justify-content-center align-items-start gap-4">
+
+    <!-- Image Gallery -->
+    <div class="w-100 w-lg-50">
+
+      @if (imageUrls() && imageUrls().length > 0) {
+      <app-custom-gallery [images]="imageUrls()" [altText]="service.name" [offerId]="service.id">
+      </app-custom-gallery>
+      } @else {
+      <div class="custom-gallery-placeholder">
+        <img src="assets/images/placeholder.jpg" [alt]="service.name" class="main-image-placeholder" />
+      </div>
+      }
+
+    </div>
+
+    <!-- Service Information -->
+    <div class="service-details-info d-flex flex-column align-items-start w-100 w-lg-50">
+
+      <!-- Title -->
+      <div class="title-container">
+        <h1 class="title">{{ service.name }}</h1>
+      </div>
+
+      <!-- Rating -->
+      <div class="rating-ratings-count-container">
+        <app-rating [rating]="service.rate"></app-rating>
+        <span class="rating-number">{{ service.rate.toFixed(1) }}</span>
+        <span class="ratings-count">({{ service.rateCount }} {{"REVIEWS.COUNT" | translate}})</span>
+      </div>
+
+      <!-- Price -->
+      <div class="price-original-price-container">
+        @if (hasDiscount()) {
+        <span class="orignal-price text-muted">
+          <del>{{ formatPrice(service.priceBefore) }}</del>
+        </span>
+        <span class="price-offer text-danger fw-bold fs-5">
+          {{ formatPrice(service.price) }}
+        </span>
+        <span class="discount-badge badge bg-success ms-2">
+          {{"COMMON.SAVE" | translate}} {{ discountPercentage() }}%
+        </span>
+        } @else {
+        <span class="price-offer fw-bold fs-5">
+          {{ formatPrice(service.price) }}
+        </span>
+        }
+
+        <span class="currency-indicator badge bg-light text-dark ms-2" [attr.title]="currencyInfo().name">
+          {{ service.currency }}
+        </span>
+      </div>
+
+      <!-- Description -->
+      <div class="subtitle-container">
+        <p class="subtitle description-text" [class.description-truncated]="isDescriptionLong()">
+          {{ service.description }}
+        </p>
+
+        @if (isDescriptionLong()) {
+        <div class="read-more-container">
+          <button class="btn btn-link read-more-btn p-0" (click)="navigateToDescriptionTab()">
+            {{"COMMON.READ_MORE" | translate}}
+            <i class="pi pi-arrow-right ms-1" style="font-size: 0.875rem;" aria-hidden="true"></i>
+          </button>
+        </div>
+        }
+      </div>
+
+      <!-- Quantity Selector & Actions -->
+      <div class="buttons-counter-container">
+        <div class="counter-container">
+          <button type="button" class="btn counter-btn" (click)="decrementServiceCounter()"
+            [disabled]="serviceCounter() <= MIN_SERVICE_COUNTER">
+            -
+          </button>
+
+          <span class="counter-value">{{ serviceCounter() }}</span>
+
+          <button type="button" class="btn counter-btn" (click)="incrementServiceCounter()">
+            +
+          </button>
+        </div>
+
+        <div class="buttons-container">
+          <button type="button" class="btn add-to-cart-btn" (click)="onAddToCart($any(service), $event)">
+            {{"all-services.add-to-cart" | translate}}
+          </button>
+
+          <button type="button" class="btn buy-now-btn" (click)="buyNow()">
+            {{"all-services.buy-now" | translate}}
+          </button>
+        </div>
+      </div>
+
+      <hr class="w-100">
+
+      <!-- Delivery Information -->
+      <div class="delivery-container">
+        <div class="delivery-item delivery-label">
+          <i class="pi pi-truck delivery-icon" aria-hidden="true"></i>
+          <span>{{"SERVICE_DETAILS.DELIVERY" | translate}}</span>
+        </div>
+
+        <div class="delivery-item delivery-time">
+          <span>{{ getDeliveryTimeDisplay(service) }}</span>
+        </div>
+
+        <div class="delivery-item delivery-rate">
+          <span>{{ getDeliveryRateDisplay() }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>

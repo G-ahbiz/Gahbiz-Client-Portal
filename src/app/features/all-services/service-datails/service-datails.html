@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid p-0 m-0">
+  <div class="service-details-container p-2 p-md-5">
+
+    <!-- Service Details Top -->
+    <div class="service-details-top">
+      <app-service-details-content #serviceContent>
+      </app-service-details-content>
+    </div>
+
+    <!-- Service Details Body -->
+    <div class="service-details-body">
+      <app-service-details-tabs [service]="serviceContent.serviceDetail()"
+        (refreshServiceDetails)="onReviewSubmitted()">
+      </app-service-details-tabs>
+    </div>
+
+    <!-- Service Details Footer -->
+    <div class="service-details-footer">
+      <app-related-services [categoryId]="serviceContent.serviceDetail()?.categoryId"
+        [currentServiceId]="serviceContent.serviceDetail()?.id">
+      </app-related-services>
+    </div>
+
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -25,13 +25,17 @@ export class InputComponent implements ControlValueAccessor {
   @Input() label = '';
   @Input() placeholder = '';
   @Input() id = '';
+  @Input() asterisk = '';
+  @Input() asteriskColorDanger = 'text-danger';
+  @Input() asteriskColorSuccess = 'text-success';
   @Input() isInvalid = false;
   @Input() errorMessage = '';
   @Input() minlength?: number;
   @Input() maxlength?: number;
   @Input() pattern?: string;
+  @Input() type: string = 'text'; // Add type input property
 
-  /** new: variant controls behavior */
+  /** variant controls behavior */
   @Input() variant: 'text' | 'password' | 'phone' = 'text';
 
   @Output() valueChange = new EventEmitter<string>();
@@ -57,9 +61,13 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   // Close dropdown when clicking outside
-  @HostListener('document:click')
-  closeDropdown() {
-    this.isOpen = false;
+  @HostListener('document:click', ['$event'])
+  handleOutsideClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const clickedInside = target.closest('.phone-dropdown-wrapper');
+    if (!clickedInside) {
+      this.isOpen = false;
+    }
   }
 
   // --- CVA glue ---
@@ -102,7 +110,8 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   // --- Phone logic ---
-  toggleDropdown() {
+  toggleDropdown(event?: MouseEvent) {
+    event?.stopPropagation();
     if (!this.disabled) this.isOpen = !this.isOpen;
   }
 
@@ -137,5 +146,16 @@ export class InputComponent implements ControlValueAccessor {
 
   handleBlur() {
     this.onTouched();
+  }
+
+  // Helper method to get the actual input type
+  getInputType(): string {
+    if (this.variant === 'password') {
+      return this.showPassword ? 'text' : 'password';
+    } else if (this.variant === 'phone') {
+      return 'text';
+    } else {
+      return this.type; // Use the type property for text/number/email etc.
+    }
   }
 }

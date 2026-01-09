@@ -1,0 +1,74 @@
+<!-- <div class="container-fluid p-0 m-0 my-5">
+  <div class="service-details-tabs-container mt-4">
+    <div class="card">
+      <p-tabs value="0">
+        <p-tablist >
+          <p-tab value="0">Description</p-tab>
+          <p-tab value="1">How It Works</p-tab>
+          <p-tab value="2">Requirements</p-tab>
+          <p-tab value="3">Reviews</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+          <p-tabpanel value="0">
+            <p class="m-0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+              fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.
+            </p>
+          </p-tabpanel>
+          <p-tabpanel value="1">
+            <app-how-it-works></app-how-it-works>
+          </p-tabpanel>
+          <p-tabpanel value="2">
+            <p class="m-0">
+              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+              atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique
+              sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum
+              facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil
+              impedit quo minus.
+            </p>
+          </p-tabpanel>
+        </p-tabpanels>
+      </p-tabs>
+    </div> -->
+
+<div class="container-fluid p-0 m-0 my-5">
+  <div class="service-details-tabs-container mt-4">
+    <mat-tab-group (selectedTabChange)="onTabChange($event)" (animationDone)="onAnimationDone()" #tabGroup>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span class="label-text" data-tab="description">{{ 'SERVICE_DETAILS.DESCRIPTION' | translate }}</span>
+        </ng-template>
+        <app-description-tab [service]="service"></app-description-tab>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span class="label-text" data-tab="how-it-works">{{ 'SERVICE_DETAILS.HOW_IT_WORKS' | translate }}</span>
+        </ng-template>
+        <app-how-it-works></app-how-it-works>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span class="label-text" data-tab="requirements">{{ 'SERVICE_DETAILS.REQUIREMENTS' | translate }}</span>
+        </ng-template>
+        <app-requirements-tab [serviceId]="service?.id"></app-requirements-tab>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span class="label-text" data-tab="reviews">{{ 'SERVICE_DETAILS.REVIEWS' | translate }}</span>
+        </ng-template>
+        <ng-template matTabContent>
+          @if(service?.id) {
+          <app-reviews-tab [serviceId]="service?.id" (reviewSubmitted)="onReviewSubmitted()"></app-reviews-tab>
+          }
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

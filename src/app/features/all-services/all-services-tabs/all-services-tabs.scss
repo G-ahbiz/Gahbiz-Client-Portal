@@ -1,0 +1,9 @@
+.active-service {
+  background-color: var(--primary-clr);
+  color: var(--text-light-clr);
+
+  &:hover {
+    background-color: var(--primary-clr-hover);
+    color: var(--text-light-clr);
+  }
+}

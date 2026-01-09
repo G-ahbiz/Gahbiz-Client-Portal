@@ -1,0 +1,137 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid p-0 m-0 all-services-container">
+  <div class="all-services-header w-100 d-flex flex-column justify-content-center align-items-center py-5">
+    <div class="container text-center">
+      <div class="all-services-title">
+        <h1 class="fw-bolder">
+          <span class="txt-clr">
+            {{'all-services.title1'| translate}}
+          </span>
+          <span class="primary-text-clr">
+            {{'all-services.title2'| translate}}
+          </span>
+        </h1>
+      </div>
+      <div class="all-services-subtitle w-100 w-lg-75 mx-auto">
+        <p class="fs-2 fw-light">
+          {{'all-services.subtitle'| translate}}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid px-3 px-md-4 px-lg-5">
+    <div class="breadcump py-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 bg-transparent p-0">
+          <li class="breadcrumb-item">
+            <a [routerLink]="home()?.routerLink ?? '/'" class="text-decoration-none breadcrumb-link"
+              [attr.aria-label]="'Home' | translate">
+              <i class="pi pi-home" aria-hidden="true"></i>
+            </a>
+          </li>
+          @for (item of breadcrumbItems(); track trackByBreadcrumbItem($index, item); let last = $last) {
+          <li class="breadcrumb-item" [class.active]="item.isActive" aria-current="page">
+
+            @if (!item.isActive && !last) {
+            <a (click)="item.command ? item.command() : null" [attr.aria-current]="item.isActive ? 'page' : null"
+              [style.cursor]="item.command ? 'pointer' : 'default'" class="text-decoration-none breadcrumb-link">
+              {{ item.label }}
+            </a>
+            } @else {
+            <span class="breadcrumb-current">{{ item.label }}</span>
+            }
+          </li>
+          }
+        </ol>
+      </nav>
+    </div>
+
+    <div class="tabs-wrapper">
+      <div class="services-tabs d-flex align-items-center gap-4 mt-3 mb-5" role="tablist">
+        <button type="button" class="btn btn-outline-primary service-item"
+          [class.active-service]="activeCategoryId() === null" (click)="onFilterChange(null)" role="tab"
+          [attr.aria-selected]="activeCategoryId() === null">
+          <span class="service-item-title">
+            {{ 'all-services.all-tab' | translate }}
+          </span>
+        </button>
+
+        @for (cat of allCategoryFilters(); track trackByCategoryId($index, cat)) {
+        <button type="button" class="btn btn-outline-primary service-item"
+          [class.active-service]="activeCategoryId() === cat.id" (click)="onFilterChange(cat)" role="tab"
+          [attr.aria-selected]="activeCategoryId() === cat.id">
+          <span class="service-item-title">
+            {{ cat.name }}
+          </span>
+        </button>
+        }
+      </div>
+    </div>
+
+    <div #servicesContainer id="services-content-container"
+      class="d-flex flex-column justify-content-center align-items-center gap-5 py-5">
+      @if (isLoading()) {
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">
+          {{ 'all-services.loading' | translate }}
+        </span>
+      </div>
+      } @else {
+      <div class="d-flex flex-column align-items-start w-100 gap-5">
+        @if (isAllServicesView()) {
+        @if (hasCategoryData()) {
+        @for (category of categoryPagination()!.items; track trackByCategoryId($index, category)) {
+        <app-services-component [title]="category.name" [serviceList]="category.services?.items ?? []"
+          [paginationData]="category.services ?? null" (pageChanged)="onServicePageChange($event, category.id)">
+        </app-services-component>
+        }
+        } @else {
+        <p class="text-muted">{{ 'all-services.no-data' | translate }}</p>
+        }
+
+        }
+        @else {
+        @if (hasSingleCategoryData()) {
+        <app-services-component [title]="singleCategoryTitle()" [serviceList]="singleCategoryServices()!.items"
+          [paginationData]="singleCategoryServices()" (pageChanged)="onServicePageChange($event, activeCategoryId()!)">
+        </app-services-component>
+        } @else {
+        <p class="text-muted">{{ 'all-services.no-data' | translate }}</p>
+        }
+        }
+      </div>
+      @if (isAllServicesView() && shouldShowMainPagination()) {
+      <nav aria-label="Main categories pagination" class="mt-4">
+        <ul class="d-flex justify-content-center align-items-center gap-2 gap-sm-4 list-unstyled mb-0">
+          <li
+            class="page-item arrow-item p-3 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
+            [class.disabled]="!categoryPagination()!.hasPreviousPage" (click)="onCategoryPreviousPage()"
+            [attr.aria-disabled]="!categoryPagination()!.hasPreviousPage">
+            <i [class]="isRTL() ? 'pi pi-chevron-right fs-875' : 'pi pi-chevron-left fs-875'" aria-hidden="true"></i>
+            <span class="visually-hidden">{{ 'all-services.previous-page' | translate }}</span>
+          </li>
+
+          <li class="page-item page-number-display">
+            <span class="fw-medium">{{ categoryPagination()!.pageNumber }}</span>
+            <span class="mx-1">-</span>
+            <span class="fw-medium">{{ categoryPagination()!.totalPages }}</span>
+          </li>
+
+          <li
+            class="page-item arrow-item p-3 rounded-circle d-flex justify-content-center align-items-center cursor-pointer"
+            [class.disabled]="!categoryPagination()!.hasNextPage" (click)="onCategoryNextPage()"
+            [attr.aria-disabled]="!categoryPagination()!.hasNextPage">
+            <i [class]="isRTL() ? 'pi pi-chevron-left fs-875' : 'pi pi-chevron-right fs-875'" aria-hidden="true"></i>
+            <span class="visually-hidden">{{ 'all-services.next-page' | translate }}</span>
+          </li>
+        </ul>
+      </nav>
+      }
+      }
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,277 @@
+// RTL Support Mixins
+@mixin rtl {
+  [dir='rtl'] & {
+    @content;
+  }
+}
+
+@mixin ltr {
+  [dir='ltr'] & {
+    @content;
+  }
+}
+
+// Responsive breakpoints
+$mobile: 576px;
+$tablet: 768px;
+$desktop: 992px;
+
+.reviews-tab-container {
+  border-bottom: 1px solid #eee;
+  gap: 2rem;
+
+  .rating-container,
+  .reviews-container {
+    width: 100%;
+  }
+
+  @media (min-width: $tablet) {
+    gap: 3rem;
+
+    .rating-container {
+      width: 45%;
+      padding-inline-end: 1.5rem;
+
+      @include rtl {
+        padding-inline-end: 0;
+        padding-inline-start: 1.5rem;
+      }
+    }
+
+    .reviews-container {
+      width: 55%;
+      padding-inline-start: 1.5rem;
+      border-inline-start: 1px solid #eee;
+
+      @include rtl {
+        padding-inline-start: 0;
+        padding-inline-end: 1.5rem;
+        border-inline-start: none;
+        border-inline-end: 1px solid #eee;
+      }
+    }
+  }
+
+  @media (min-width: $desktop) {
+    .rating-container {
+      width: 40%;
+    }
+
+    .reviews-container {
+      width: 60%;
+    }
+  }
+
+  // Rating Distribution Bars
+  .rating-item {
+    .range-bar-container {
+      height: 0.85rem;
+      border-radius: 2rem;
+      overflow: hidden;
+      position: relative;
+
+      .range-bar-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #e0e0e0;
+      }
+
+      .range-bar-filled {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: #2a78c1;
+        transition: width 0.3s ease;
+      }
+
+      @include rtl {
+        .range-bar-filled {
+          left: auto;
+          right: 0;
+        }
+      }
+    }
+
+    .min-width-40 {
+      min-width: 40px;
+    }
+  }
+
+  // PrimeNG Rating Fixes - CORRECT CUSTOM COLORS
+  ::ng-deep {
+    .p-rating {
+      display: inline-flex !important;
+      gap: 0.25rem;
+
+      .p-rating-icon {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        // Only target OFF stars (not the on ones)
+        &.p-rating-icon-off {
+          color: #e0e0e0 !important;
+        }
+
+        // Target ON stars
+        &.p-rating-icon-on {
+          color: #ffca19 !important;
+        }
+      }
+
+      // Ensure proper sizing
+      .p-rating-icon {
+        font-size: 1.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
+
+  // Form Styles
+  .form-group {
+    .min-width-120 {
+      min-width: 120px;
+    }
+  }
+}
+
+.reviews-list-container {
+  .list-header {
+    .nowrap {
+      white-space: nowrap;
+    }
+  }
+
+  .review-card {
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}
+
+// Utility Classes
+.text-justify {
+  text-align: justify;
+
+  @include rtl {
+    text-align: right;
+  }
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.min-width-40 {
+  min-width: 40px;
+}
+
+.min-width-120 {
+  min-width: 120px;
+}
+
+// Responsive Text
+@media (max-width: $mobile) {
+  .reviews-tab-container {
+    .rating-header {
+      p.fs-1 {
+        font-size: 2rem !important;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .p-rating {
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    .p-rating-icon {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+    }
+  }
+}
+
+:host {
+  display: block;
+
+  ::ng-deep {
+    .p-rating {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: inline-flex !important;
+
+      .p-rating-icon {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline-block !important;
+      }
+    }
+  }
+}
+
+p-rating {
+  display: inline-flex !important;
+  visibility: visible !important;
+  transform: translateZ(0);
+
+  .p-rating {
+    display: inline-flex !important;
+    gap: 0.25rem;
+
+    .p-rating-icon {
+      display: inline-block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      transform: scale(1) !important;
+      transition: none !important;
+
+      &:not(.p-rating-cancel) {
+        color: #e0e0e0 !important;
+      }
+
+      &.p-rating-icon-on {
+        color: #ffca19 !important;
+      }
+
+      font-size: 1.25rem !important;
+      width: 1.25rem !important;
+      height: 1.25rem !important;
+    }
+  }
+}
+
+// === ADDED: Loading Skeleton Styles ===
+.skeleton-loader {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

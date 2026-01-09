@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+<div class="container-fluid m-0 bg-clr2 py-5 px-2 p-lg-5">
+  <!-- Cart Container -->
+  <div
+    class="cart-container d-flex flex-column justify-content-center align-items-center gap-4 w-100"
+  >
+    <!-- Empty Cart -->
+    <div class="empty-cart-container d-none">
+      <app-empty-cart></app-empty-cart>
+    </div>
+
+    <div class="cart-content-container w-100">
+      <!-- Cart Content Header -->
+      <div class="cart-content-header text-center">
+        <h1 class="fs-3 fw-semibold">
+          {{ 'cart.title' | translate }}
+        </h1>
+      </div>
+
+      <!-- Cart Content Body -->
+      <div
+        class="cart-content-body d-flex flex-column flex-lg-row justify-content-between align-items-start gap-4 my-5 px-lg-4"
+      >
+        <!-- Cart Cards Container -->
+        <div class="cart-cards-container w-100">
+          <app-cart-cards
+            [cartItems]="cartItems()"
+            (cartItemsChanged)="onCartItemsChanged($event)"
+          ></app-cart-cards>
+        </div>
+
+        <!-- Cart Summary Container -->
+        <div class="cart-summary-container w-100">
+          <app-cart-summary [cartItems]="cartItems()"></app-cart-summary>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

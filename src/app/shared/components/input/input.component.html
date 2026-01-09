@@ -1,28 +1,28 @@
 <div class="form-group">
   <!-- Label -->
-  <label [for]="id" class="form-label block font-semibold mb-[var(--space-xs)] text-[var(--font-sm)] 
-                text-light-text dark:text-dark-text transition-all duration-200">
-    {{ label }}
+  <label [for]="id" class="form-label block font-semibold text-[var(--font-sm)]
+                text-light-text transition-all duration-200">
+    {{ label }} <span class="{{asteriskColorDanger}}">{{ asterisk }}</span>
   </label>
 
   <!-- Input Wrapper -->
-  <div class="form-control-wrapper relative flex items-center w-full 
-              min-h-[var(--input-height)] px-[var(--space-md)] rounded-[var(--border-radius)] 
-              border bg-light-input dark:bg-dark-bg transition-[var(--transition-base)]
-              focus-within:ring-2 focus-within:ring-light-primary dark:focus-within:ring-dark-primary
-              focus-within:border-transparent" [ngClass]="isInvalid ? 
-         'border-light-error dark:border-dark-error' : 
-         'border-light-border dark:border-dark-border'">
+  <div class="form-control-wrapper relative flex items-center w-full
+              min-h-[var(--input-height)] px-[var(--space-md)] rounded-[var(--border-radius)]
+              border bg-light-input transition-[var(--transition-base)]
+              focus-within:ring-2 focus-within:ring-light-primary
+              focus-within:border-transparent" [ngClass]="isInvalid ?
+         'border-light-error' :
+         'border-light-border'">
 
     <!-- Phone Dropdown -->
     @if (variant === 'phone') {
     <div class="phone-dropdown-wrapper relative mr-[var(--space-sm)]">
-      <button type="button" class="phone-dropdown-btn flex items-center gap-1 px-[var(--space-sm)] 
-                     py-[var(--space-xs)] bg-transparent text-[var(--font-sm)] 
-                     rounded-[calc(var(--border-radius)-0.125rem)] 
-                     transition-[var(--transition-base)] min-h-[calc(var(--input-height)-0.5rem)] 
-                     hover:bg-light-hover dark:hover:bg-dark-hover"
-        (click)="toggleDropdown(); $event.stopPropagation()" [attr.aria-expanded]="isOpen">
+      <button type="button" class="phone-dropdown-btn flex items-center gap-1 px-[var(--space-sm)]
+                     py-[var(--space-xs)] bg-transparent text-[var(--font-sm)]
+                     rounded-[calc(var(--border-radius)-0.125rem)]
+                     transition-[var(--transition-base)] min-h-[calc(var(--input-height)-0.5rem)]
+                     hover:bg-light-hover" (click)="toggleDropdown($event)"
+        [attr.aria-expanded]="isOpen">
         <span class="fi fi-{{ selectedCountry.iso2 }}"></span>
         <span class="ml-1 text-[var(--font-sm)]">{{ selectedCountry.dialCode }}</span>
         <svg class="w-3 h-3 ml-1 transition-transform duration-200" [class.rotate-180]="isOpen" fill="none"
@@ -32,13 +32,13 @@
       </button>
 
       @if (isOpen) {
-      <ul class="dropdown-menu absolute z-20 w-48 left-0 mt-[var(--space-xs)] 
-                 bg-light-input dark:bg-dark-bg border border-light-border dark:border-dark-border 
-                 rounded-[var(--border-radius)] shadow-lg max-h-60 overflow-y-auto 
+      <ul class="dropdown-menu absolute z-20 w-48 left-0 mt-[var(--space-xs)]
+                 bg-light-input dark:bg-dark-bg border border-light-border dark:border-dark-border
+                 rounded-[var(--border-radius)] shadow-lg max-h-60 overflow-y-auto
                  text-[var(--font-sm)] transition-all duration-200">
         @for (c of countries; track c.iso2) {
         <li (click)="selectCountry(c); $event.stopPropagation()" class="dropdown-item flex items-center gap-2 px-[var(--space-md)] 
-                   py-[var(--space-sm)] hover:bg-light-hover dark:hover:bg-dark-hover 
+                   py-[var(--space-sm)] hover:bg-light-hover  
                    cursor-pointer transition-colors">
           <span class="fi fi-{{ c.iso2 }}"></span>
           <span class="ml-2">{{ c.dialCode }}</span>
@@ -50,8 +50,8 @@
     }
 
     <!-- Main Input -->
-    <input [id]="id" [type]="variant === 'password' ? (showPassword ? 'text' : 'password') : 'text'" class="form-input flex-1 outline-none bg-transparent text-[var(--font-md)] 
-                  min-h-[var(--input-height)] placeholder-light-subtext dark:placeholder-dark-subtext
+    <input [id]="id" [type]="getInputType()" class="form-input flex-1 outline-none bg-transparent text-[var(--font-md)]
+                  min-h-[var(--input-height)] placeholder-light-subtext
                   transition-[var(--transition-base)]" [ngModel]="variant === 'phone' ? phoneNumber : value"
       (ngModelChange)="onInputChange($event)" (blur)="handleBlur()" [attr.placeholder]="placeholder"
       [attr.disabled]="disabled ? true : null" [attr.maxlength]="maxlength" [attr.minlength]="minlength"
@@ -59,7 +59,7 @@
 
     <!-- Password Toggle -->
     @if (variant === 'password') {
-    <app-lock-password class="password-toggle absolute top-1/2 -translate-y-1/2 
+    <app-lock-password class="password-toggle absolute top-1/2 -translate-y-1/2
                               ltr:right-3 rtl:left-14 transition-[var(--transition-base)]"
       [(showPassword)]="showPassword">
     </app-lock-password>
@@ -69,7 +69,7 @@
   <!-- Error Message -->
   <div class="form-error transition-all duration-200" [class.h-0]="!isInvalid" [class.opacity-0]="!isInvalid">
     @if (isInvalid) {
-    <div [id]="errorId" class="error-message text-red-600 dark:text-red-400
+    <div [id]="errorId" class="error-message text-red-600
                 font-medium animate-fadeIn">
       {{ errorMessage }}
     </div>

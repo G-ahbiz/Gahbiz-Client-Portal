@@ -1,5 +1,5 @@
 <header
-  class="bg-white dark:bg-gray-900 shadow-md transition-colors duration-300 sticky top-0 z-50"
+  class="bg-white shadow-md transition-colors duration-300 sticky top-0 z-50"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
@@ -21,8 +21,8 @@
           class="px-3 py-2 rounded-md text-sm font-medium transition-colors"
           [ngClass]="
             isActiveRoute('/')
-              ? 'text-blue-600 dark:text-blue-400'
-              : 'text-gray-700 dark:text-gray-300'
+              ? 'text-blue-600'
+              : 'text-gray-700'
           "
           [attr.aria-current]="isActiveRoute('/') ? 'page' : null"
         >
@@ -35,8 +35,8 @@
           class="px-3 py-2 rounded-md text-sm font-medium transition-colors"
           [ngClass]="
             isActiveRoute(ROUTES.signIn)
-              ? 'text-blue-600 dark:text-blue-400'
-              : 'text-gray-700 dark:text-gray-300'
+              ? 'text-blue-600'
+              : 'text-gray-700'
           "
           [attr.aria-current]="isActiveRoute(ROUTES.signIn) ? 'page' : null"
         >

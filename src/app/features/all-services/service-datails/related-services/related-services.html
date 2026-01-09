@@ -1,0 +1,72 @@
+@if (relatedServices$ | async; as state) {
+
+@if (state.isLoading) {
+<div class="cards-container row g-4 justify-content-center my-5">
+  @for (_ of [1, 2, 3]; track $index) {
+  <div class="col-lg-4 col-md-6 col-12">
+    <div class="skeleton-card card h-100">
+      <div class="skeleton-image"></div>
+      <div class="skeleton-body">
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text short"></div>
+        <div class="skeleton-button"></div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+}
+
+@else if (state.error) {
+<div class="w-100 text-center text-danger my-5">
+  {{ state.error }}
+</div>
+}
+
+@else if (state.services.length > 0) {
+<div class="container-fluid p-0 m-0">
+  <div class="related-services-container">
+
+    <div class="title-container w-100 d-flex justify-content-center align-items-center">
+      <h2 class="title fw-bold">
+        {{'related-services.title' | translate}}
+      </h2>
+    </div>
+
+    <div class="cards-container row g-4 justify-content-center my-5">
+      @for (offer of state.services; track offer.id) {
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="offer-card card h-100 cursor-pointer" (click)="openServiceDetails(offer.id)">
+          <div class="card-header overflow-hidden position-relative p-0 border-0">
+            <img [src]="offer.image?.path || 'assets/images/placeholder.jpg'" [alt]="offer.name" class="img-fluid" />
+            <div class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3">
+
+              <app-favorite-icon [serviceId]="offer.id"></app-favorite-icon>
+
+              <app-copy-link [offerId]="offer.id"></app-copy-link>
+            </div>
+          </div>
+          <div class="card-body px-3">
+            <p class="card-description ">{{ offer.name }}</p>
+            <div class="card-details d-flex justify-content-between align-items-center">
+              <div class="card-price-discount d-flex justify-content-start align-items-center gap-2">
+                <span class="card-price fw-bold">${{ offer.price }}</span>
+                <span class="card-discount">
+                  <del>${{ offer.priceBefore }}</del>
+                </span>
+              </div>
+              <app-rating [rating]="offer.rate"></app-rating>
+            </div>
+            <div class="card-button d-flex justify-content-start align-items-center gap-2 w-100 mt-3">
+              <button class="btn primary-bg-clr w-100 white-text-clr">{{'best-offers.add-to-cart'| translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+  </div>
+</div>
+}
+}

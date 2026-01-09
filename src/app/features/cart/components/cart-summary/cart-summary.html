@@ -1,0 +1,86 @@
+<div class="container-fluid p-0 m-0">
+  <div class="cart-summary-container card px-5 py-4 border-0">
+    <!-- Cart Summary Title -->
+    <h3 class="fs-5 fw-bold mb-4">
+      {{ 'cart.summary.title' | translate }}
+    </h3>
+
+    <!-- Cart Summary Items -->
+    <div class="cart-summary-items">
+      @for (cartItem of cartItems(); track cartItem.id) {
+      <div class="cart-summary-item d-flex justify-content-between align-items-center">
+        <p class="fw-medium">{{ cartItem.name }}</p>
+        <p class="fw-bold">${{ cartItem.price | number : '1.2-2' }}</p>
+      </div>
+      }
+      <hr class="w-100" />
+
+      <!-- Cart Total Price -->
+      <div class="cart-total-price d-flex justify-content-between align-items-center">
+        <p class="fw-bold">{{ 'cart.summary.total' | translate }}</p>
+        <p class="fw-bold">${{ totalPrice() | number : '1.2-2' }}</p>
+      </div>
+
+      <!-- Cart Checkout Button -->
+      <div class="cart-checkout-button">
+        <button
+          class="btn btn-primary primary-bg-clr white-text-clr w-100"
+          [class.d-none]="isButtonDisabled"
+          (click)="proceedToCheckout()"
+        >
+          {{ 'cart.summary.checkout-btn' | translate }}
+        </button>
+        <!-- @if (isProfileComplete()) {
+        } @else {
+        <button
+          class="btn btn-primary primary-bg-clr white-text-clr w-100"
+          [class.d-none]="isButtonDisabled"
+          data-bs-toggle="modal"
+          data-bs-target="#completeProfileModal"
+        >
+          {{ 'cart.summary.checkout-btn' | translate }}
+        </button>
+        } -->
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="completeProfileModal"
+      tabindex="-1"
+      aria-labelledby="completeProfileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+            <!-- Modal Image -->
+            <img src="assets/images/cart/coution.svg" alt="" class="mb-3" />
+
+            <!-- Modal Title -->
+            <h1 class="modal-title fs-3 fw-bold" id="completeProfileModalLabel">
+              {{ 'cart.summary.complete-profile-modal.title' | translate }}
+            </h1>
+
+            <!-- Modal Subtitle -->
+            <p class="subtitle w-75 text-center fw-semibold fs-6">
+              {{ 'cart.summary.complete-profile-modal.subtitle' | translate }}
+            </p>
+          </div>
+
+          <div class="modal-footer">
+            <!-- Close Button -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              {{ 'cart.summary.complete-profile-modal.close-btn' | translate }}
+            </button>
+            <!-- Complete Profile Button -->
+            <button type="button" class="btn btn-primary" (click)="navigateToCompleteProfile()">
+              {{ 'cart.summary.complete-profile-modal.complete-profile-btn' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

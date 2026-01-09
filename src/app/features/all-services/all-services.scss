@@ -1,0 +1,208 @@
+.all-services-container {
+  background-color: var(--bg-clr);
+  overflow-x: hidden;
+}
+
+.all-services-header {
+  background: url('../../../assets/images/All-services/all-service-bg.png') no-repeat center center;
+  background-size: cover;
+  min-height: 70vh;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.txt-clr,
+.primary-text-clr {
+  font-size: clamp(2.25rem, 1.5rem + 3.33vw, 4rem);
+  font-weight: 900;
+}
+
+.tabs-wrapper {
+  position: relative;
+  width: 100%;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    pointer-events: none;
+
+    right: 0;
+    background: linear-gradient(to left, var(--bg-clr), transparent);
+  }
+}
+
+[dir='rtl'] .tabs-wrapper::after {
+  right: auto;
+  left: 0;
+  background: linear-gradient(to right, var(--bg-clr), transparent);
+}
+
+.services-tabs {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  justify-content: flex-start;
+  padding: 0.5rem 1rem;
+  scroll-snap-type: x mandatory;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+
+  @supports (scrollbar-width: none) {
+    scrollbar-width: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: hidden;
+    scroll-snap-type: none;
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .tabs-wrapper::after {
+    display: none;
+  }
+}
+
+.service-item {
+  background: #fff;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  padding: 0.25rem 1.25rem;
+
+  @media screen and (min-width: 768px) {
+    padding: 0.5rem 2.12rem;
+  }
+}
+
+.btn-outline-primary {
+  border: 1px solid var(--primary-clr);
+  color: var(--primary-clr);
+
+  &:hover {
+    background-color: var(--primary-clr);
+    color: var(--text-light-clr);
+  }
+}
+
+.btn-outline-primary.active-service {
+  background-color: var(--primary-clr);
+  color: var(--text-light-clr);
+
+  &:hover {
+    background-color: var(--primary-clr-hover);
+    color: var(--text-light-clr);
+  }
+}
+
+.breadcump {
+  .breadcrumb {
+    background: transparent !important;
+    margin-bottom: 0;
+    --bs-breadcrumb-divider: '/'; // Default divider symbol
+
+    // RTL support
+    [dir='rtl'] & {
+      flex-direction: row-reverse;
+    }
+
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+
+      // spacing before each divider
+      &::before {
+        color: #6c757d !important;
+        opacity: 0.6;
+        font-weight: 500;
+        padding: 0 0.75rem; // nice balanced spacing
+      }
+
+      // RTL adjustments for the divider spacing
+      [dir='rtl'] &::before {
+        padding: 0 0.75rem;
+      }
+
+      a {
+        color: #6c757d !important;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: 500;
+
+        &:hover {
+          color: var(--primary-clr) !important;
+        }
+
+        i.pi-home {
+          color: #6c757d !important;
+          transition: color 0.3s ease;
+          font-size: 1rem;
+        }
+
+        &:hover i.pi-home {
+          color: var(--primary-clr) !important;
+        }
+      }
+
+      &.active {
+        color: #6c757d !important;
+      }
+
+      .breadcrumb-current {
+        color: #6c757d !important;
+        cursor: default;
+        font-weight: 500;
+
+        &:hover {
+          color: #6c757d !important;
+        }
+      }
+    }
+  }
+}
+
+.arrow-item {
+  // Use your primary blue color for the border
+  border: 1px solid var(--primary-clr, #005db5);
+  transition: all 0.2s ease-in-out;
+
+  // Style the icon inside
+  > i {
+    color: var(--primary-clr, #005db5); // Blue icon color
+    transition: all 0.2s ease-in-out;
+  }
+
+  // Add a hover effect
+  &:hover:not(.disabled) {
+    background-color: var(--primary-clr, #005db5);
+
+    > i {
+      color: #fff; // White icon on hover
+    }
+  }
+}
+
+.arrow-item.disabled {
+  border-color: #a0bcca;
+  background-color: #fff;
+  cursor: not-allowed;
+
+  > i {
+    color: #a0bcca !important;
+  }
+}
+
+.page-number-display {
+  color: #6c757d;
+  font-size: 1.50rem;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}

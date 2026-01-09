@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
@@ -8,7 +9,7 @@ import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-transla
   styleUrl: './hero.scss'
 })
 export class Hero implements OnInit {
-  constructor(private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService, private router: Router) { }
   // Language
   isArabic: boolean = false;
   isEnglish: boolean = false;
@@ -44,5 +45,13 @@ export class Hero implements OnInit {
       this.isEnglish = event.lang === 'en';
       this.isSpanish = event.lang === 'sp';
     });
+  }
+
+  navigateToAllServices() {
+    this.router.navigate(['/all-services']);
+  }
+
+  navigateToAppointment() {
+    this.router.navigate(['/appointment-service']);
   }
 }

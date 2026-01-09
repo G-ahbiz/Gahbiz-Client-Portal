@@ -127,15 +127,46 @@ export class TokenService {
     return null;
   }
 
-  setTokenData(tokenData: TokenData, userData: User): void {
-    if (!tokenData || !userData || !tokenData.accessToken || !tokenData.refreshToken) {
-      console.warn('Cannot set token data - missing required fields');
-      return;
+  setTokenData(tokenData: { accessToken: string; refreshToken: string }, userData?: any): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    try {
+      // Save tokens using your defined constants
+      if (tokenData?.accessToken) {
+        localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN_KEY, tokenData.accessToken);
+        this.accessTokenCache = tokenData.accessToken;
+      }
+
+      if (tokenData?.refreshToken) {
+        localStorage.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN_KEY, tokenData.refreshToken);
+        this.refreshTokenCache = tokenData.refreshToken;
+      }
+
+      if (userData) {
+        localStorage.setItem(LOCAL_STORAGE_KEYS.USER_DATA_KEY, JSON.stringify(userData));
+        this.userDataCache = userData;
+        console.log('User data updated in localStorage:', userData);
+      }
+    } catch (error) {
+      console.error('Error setting token data:', error);
+    }
+  }
+
+  getTokenData(): { accessToken: string; refreshToken: string } | null {
+    if (!isPlatformBrowser(this.platformId)) return null;
+
+    try {
+      const accessToken = localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN_KEY);
+      const refreshToken = localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN_KEY);
+
+      if (accessToken && refreshToken) {
+        return { accessToken, refreshToken };
+      }
+    } catch (error) {
+      console.error('Error getting token data:', error);
     }
 
-    this.setAccessToken(tokenData.accessToken);
-    this.setRefreshToken(tokenData.refreshToken);
-    this.setUserData(userData);
+    return null;
   }
 
   hasAccessToken(): boolean {

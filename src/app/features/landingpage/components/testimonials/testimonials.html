@@ -1,0 +1,53 @@
+<div class="container-fluid px-5 py-4">
+  <!-- title and description -->
+  <div class="title-container d-flex flex-column justify-content-center align-items-center gap-3 mb-5">
+    <h1 class="title fw-medium text-center">
+      <span class="txt-clr">{{'testimonials.title1'| translate}}</span>
+      <span class="text-highlight">{{'testimonials.title2'| translate}}</span>
+      <span class="txt-clr">{{'testimonials.title3'| translate}}</span>
+      <span class="text-highlight">{{'testimonials.title4'| translate}}</span>
+    </h1>
+    <p class="description fw-light fs-4 text-center">
+      {{'testimonials.description'| translate}}
+    </p>
+  </div>
+
+  <div
+    class="testimonials-container d-flex flex-column flex-md-row gap-3 justify-content-center align-items-center my-5">
+
+    @for (testimonial of testimonials; track testimonial.id) {
+    <div class="testimonial-card card border-0 mb-2 px-4 py-3 w-100 gap-4">
+      <!-- Card Rate -->
+      <div class="card-rate d-flex justify-content-start align-items-center gap-1">
+        <i class="pi pi-star-fill text-warning"></i>
+        <i class="pi pi-star-fill text-warning"></i>
+        <i class="pi pi-star-fill text-warning"></i>
+        <i class="pi pi-star-fill text-warning"></i>
+        <i class="pi pi-star text-warning"></i>
+      </div>
+
+      <!-- Card body -->
+      <div class="card-testimonials d-flex justify-content-start align-items-center">
+        <span class="card-testimonial fw-normal fs-875">
+          {{ testimonial.testimonial }}
+        </span>
+      </div>
+
+      <!-- Card Details -->
+      <div class="card-details d-flex justify-content-start align-items-center gap-1">
+        <!-- Card Image -->
+        <div
+          class="card-image-container rounded-circle overflow-hidden p-1 d-flex justify-content-center align-items-center">
+          <img src="assets/images/landingpage/testimonials/{{ testimonial.image }}" [alt]="testimonial.name"
+            class="card-image" />
+        </div>
+        <!-- Card Name and Position -->
+        <div class="d-flex flex-column justify-content-start align-items-start gap-1">
+          <span class="card-name fs-875 fw-light">{{ testimonial.name }}</span>
+          <span class="card-position fs-75 fw-light">{{ testimonial.position }}</span>
+        </div>
+      </div>
+
+    </div>
+    }
+  </div>

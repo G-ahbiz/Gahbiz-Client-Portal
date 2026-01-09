@@ -1,117 +1,134 @@
-<footer class="container-fluid p-5">
+<footer class="container-fluid p-4 p-md-5">
+  <!-- Use Bootstrap grid for tablet two-column layout -->
+  <div class="container-fluid">
+    <div class="row g-4 g-lg-5 align-items-start">
+
+      <!-- Logo Section - Full width on tablet -->
+      <div
+        class="col-12 col-md-12 col-lg-4 col-xl-3 d-flex flex-column justify-content-center align-items-center align-items-lg-start gap-3 group-0">
+        <img src="assets/images/logo/logo.png" alt="logo" class="img-fluid footer-logo cursor-pointer"
+          style="max-width: 200px;" onclick="window.location.href='/'">
+        <p class="text-center text-lg-start text-white fs-6 lh-base mb-0">
+          <b class="d-block mb-1">{{'footer.businessnetwork' | translate}}</b>
+          {{'footer.toestablish' | translate}} {{'footer.achieveyourbusiness' | translate}}
+        </p>
+      </div>
+
+      <!-- Two columns for the links on tablet -->
+      <div class="col-12 col-md-6 col-lg-2">
+        <ul class="nav flex-column gap-2">
+          <li class="nav-item">
+            <h5 class="nav-link list-header text-white p-0 mb-1">{{'footer.quicklinks' | translate}}</h5>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.home' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.ourteam' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.contactus' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-2">
+        <ul class="nav flex-column gap-2">
+          <li class="nav-item">
+            <h5 class="nav-link list-header text-white p-0 mb-1">
+              {{'footer.policiesandterms' | translate}}
+            </h5>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.termsAndConditions" (click)="scrollTop()">
+              {{'footer.termsandconditions' | translate}}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.privacyPolicy" (click)="scrollTop()">
+              {{'footer.privacypolicy' | translate}}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" routerLink="/refund-policy" (click)="scrollTop()">
+              {{'footer.refundpolicy' | translate}}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.choiceoptinoptout' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.policymodifications' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-2">
+        <ul class="nav flex-column gap-2">
+          <li class="nav">
+            <h5 class="nav-link list-header text-white p-0 mb-1">{{'footer.earnmoneywithus' | translate}}</h5>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.sellproductsongahbiz' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.advertiseyourservices' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.selfpublishwithus' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.becomeserviceagent' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-2">
+        <ul class="nav flex-column gap-2">
+          <li class="nav">
+            <h5 class="nav-link list-header text-white p-0 mb-1">{{'footer.needhelp' | translate}}</h5>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.your-account' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.your-orders' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.account-settings' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0 py-1" href="#">{{'footer.payments' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container mt-4 mt-md-5">
+    <hr class="border-white my-3 my-md-4">
+  </div>
+
   <div
-    class="container-fluid d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-start text-body">
-
-    <!-- Group 0 -->
-    <div class="d-flex flex-column justify-content-center align-items-center gap-2 group-0 w-100">
-      <img src="assets/images/logo/logo.png" alt="logo" class="img-fluid footer-logo">
-      <p class="text-center text-white">
-        <b>{{'footer.businessnetwork' | translate}}</b> {{'footer.toestablish' | translate}}
-        {{'footer.achieveyourbusiness' | translate}}
-      </p>
+    class="container d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center gap-3">
+    <div class="text-center text-md-start">
+      <p class="text-white fs-6 fw-medium mb-0">© 2025 ServaBest. {{'footer.allrightsreserved' | translate}}</p>
     </div>
 
-    <div class="container d-block d-lg-none">
-      <hr>
-    </div>
-
-    <!-- Useful Links -->
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <h5 class="nav-link list-header text-white">{{'footer.usefullinks' | translate}}</h5>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{'footer.home' | translate}}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{'footer.ourteam' | translate}}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{'footer.contactus' | translate}}</a>
-      </li>
-    </ul>
-
-    <div class="container d-block d-lg-none">
-      <hr>
-    </div>
-
-    <!-- Policies and Terms -->
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <h5 class="nav-link list-header text-white">
-          {{'footer.policiesandterms' | translate}}
-        </h5>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="terms-and-conditions">
-          {{'footer.termsandconditions' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="privacy-policy">
-          {{'footer.privacypolicy' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/refund-policy">
-          {{'footer.refundpolicy' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{'footer.choiceoptinoptout' | translate}}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{'footer.policymodifications' | translate}}</a>
-      </li>
-    </ul>
-
-    <div class="container d-block d-lg-none">
-      <hr>
-    </div>
-
-    <!-- Earn Money with Us -->
-    <ul class="nav flex-column">
-      <li class="nav">
-        <h5 class="nav-link list-header text-white">{{'footer.earnmoneywithus' | translate}}</h5>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{'footer.sellproductsongahbiz' | translate}}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{'footer.advertiseyourservices' | translate}}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{'footer.selfpublishwithus' | translate}}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{'footer.becomeserviceagent' | translate}}</a>
-      </li>
-    </ul>
-
-  </div>
-
-  <div class="container">
-    <hr class="border-white">
-  </div>
-
-  <div class="container d-flex flex-column flex-lg-row justify-content-center align-items-center">
-
-    <div class="w-50">
-      <p class="text-white fs-6 fw-medium">© 2025 ServaBest. {{'footer.allrightsreserved' | translate}}</p>
-    </div>
-
-    <div class="social-media-container container d-flex justify-content-end align-items-center w-50 gap-3 h-100">
-      <a href="" class="text-decoration-none social-media-icon">
-        <i class="pi pi-facebook fs-4 icon-color text-white"></i>
+    <div
+      class="social-media-container d-flex justify-content-center justify-content-md-end align-items-center gap-3 gap-md-4">
+      <a href="#" class="text-decoration-none social-media-icon facebook">
+        <i class="pi pi-facebook fs-5 text-white"></i>
       </a>
-      <a href="" class="text-decoration-none social-media-icon">
-        <i class="pi pi-twitter fs-4 icon-color text-white"></i>
+      <a href="#" class="text-decoration-none social-media-icon twitter">
+        <i class="pi pi-twitter fs-5 text-white"></i>
       </a>
-      <a href="" class="text-decoration-none social-media-icon">
-        <i class="pi pi-instagram fs-4 icon-color text-white"></i>
+      <a href="#" class="text-decoration-none social-media-icon instagram">
+        <i class="pi pi-instagram fs-5 text-white"></i>
       </a>
-      <a href="" class="text-decoration-none social-media-icon">
-        <i class="pi pi-linkedin fs-4 icon-color text-white"></i>
+      <a href="#" class="text-decoration-none social-media-icon linkedin">
+        <i class="pi pi-linkedin fs-5 text-white"></i>
       </a>
     </div>
   </div>
