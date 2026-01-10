@@ -2,7 +2,7 @@ export const environment = {
   production: true,
 
   apiUrl:
-    'https://gahbiz-appserver20260107022828-eza8a4f4e6a9akfu.canadacentral-01.azurewebsites.net',
+    'https://gahbiz-appserver20260107022828-eza8a4f4e6a9akfu.canadacentral-01.azurewebsites.net/api',
   //apiUrl: 'https://localhost:7204/api',
 
   // Google third party auth
