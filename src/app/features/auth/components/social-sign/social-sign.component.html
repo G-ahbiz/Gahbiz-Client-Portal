@@ -1,32 +1,18 @@
 <!-- Google -->
-<button
-  type="button"
+<button type="button"
   class="social-button w-full flex items-center justify-center gap-2 sm:gap-3 border border-light-border rounded-lg transition-colors p-2 bg-light-card text-light-text hover:bg-gray-50 active:scale-95"
-  [attr.aria-label]="'SIGNUP.ARIA.GOOGLE' | translate"
-  (click)="onGoogleRegister.emit()"
->
-  <img
-    src="assets/images/google-icon.png"
-    alt="Google Icon"
-    class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
-  />
+  [attr.aria-label]="'SIGNUP.ARIA.GOOGLE' | translate" (click)="onGoogleRegister.emit()" [disabled]="googleLoading()">
+  <img src="assets/images/google-icon.png" alt="Google Icon" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
   <span class="whitespace-nowrap">
     {{ 'SIGNUP.BUTTONS.GOOGLE' | translate }}
   </span>
 </button>
 
 <!-- Facebook -->
-<button
-  type="button"
+<button type="button"
   class="social-button w-full flex items-center justify-center gap-2 sm:gap-3 border border-light-border rounded-lg transition-colors p-2 bg-light-card text-light-text hover:bg-gray-50 active:scale-95"
-  [attr.aria-label]="'SIGNUP.ARIA.FACEBOOK' | translate"
-  (click)="onFacebookRegister.emit()"
->
-  <img
-    src="assets/images/facebook-icon.png"
-    alt="Facebook Icon"
-    class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
-  />
+  [attr.aria-label]="'SIGNUP.ARIA.FACEBOOK' | translate" (click)="onFacebookRegister.emit()">
+  <img src="assets/images/facebook-icon.png" alt="Facebook Icon" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
   <span class="whitespace-nowrap">
     {{ 'SIGNUP.BUTTONS.FACEBOOK' | translate }}
   </span>

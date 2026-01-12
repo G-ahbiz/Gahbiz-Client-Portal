@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, output, Output } from '@angular/core';
+import { Component, OnInit, output, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -9,6 +9,10 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./social-sign.component.scss'],
 })
 export class SocialSignComponent implements OnInit {
+  // Inputs for loading states
+  googleLoading = input<boolean>(false);
+
+  // Output events
   onGoogleRegister = output<void>();
   onFacebookRegister = output<void>();
 

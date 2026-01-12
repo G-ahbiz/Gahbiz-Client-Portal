@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ROUTES } from '../../../../shared/config/constants';
@@ -25,41 +25,24 @@ export class SignUpPageComponent {
   // Use computed to create a direction signal
   dir = computed(() => (this.languageService.currentLang() === 'ar' ? 'rtl' : 'ltr'));
 
+  // Loading states
+  googleLoading = signal<boolean>(false);
+
   private googleAuthService = inject(GoogleAuthService);
   private authService = inject(AuthService);
   private router = inject(Router);
   private toastService = inject(ToastService);
   private facebookAuthService = inject(FacebookAuthService);
 
-  private googleRegister: OAuthLoginRequest = {} as OAuthLoginRequest;
   private facebookRegister: OAuthLoginRequest = {} as OAuthLoginRequest;
 
   private languageService = inject(LanguageService);
 
   onGoogleRegister() {
-    this.googleAuthService.initializeGoogleSignIn((response: any) => {
-      if (response && response.credential) {
-        this.googleRegister.idToken = response.credential;
-        this.googleRegister.provider = 'Google';
-        this.googleRegister.role = 'Client';
-
-        this.authService.externalLogin(this.googleRegister).subscribe({
-          next: (result) => {
-            if (result.succeeded) {
-              this.router.navigate([ROUTES.home]);
-            } else {
-              this.toastService.error(result.message || 'Login failed. Please try again.');
-            }
-          },
-          error: (error) => {
-            this.toastService.error(error.message || 'Login failed. Please try again.');
-          },
-        });
-      } else {
-        this.toastService.error('Google authentication was canceled or failed.');
-      }
-    });
+    this.googleLoading.set(true);
+    this.googleAuthService.login();
   }
+
   navigateToHome() {
     this.router.navigate([ROUTES.home]);
   }

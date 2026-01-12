@@ -52,6 +52,8 @@ export class SignInFormComponent {
   // Outputs
   onGoogleLogin = output<void>();
 
+  disabled = input<boolean>(false);
+
   // Signals
   rememberMe = signal<boolean>(false);
   showPassword = signal<boolean>(false);
@@ -86,6 +88,7 @@ export class SignInFormComponent {
 
   googleLogin() {
     this.onGoogleLogin.emit();
+    
   }
 
   toggleShowPassword() {

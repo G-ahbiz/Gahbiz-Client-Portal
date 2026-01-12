@@ -1,12 +1,17 @@
 import { Routes } from '@angular/router';
 import { ConfirmEmailGuard } from './guards/confirm-email.guard';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
+import { GoogleCallbackComponent } from '@shared/components/GoogleCallbackComponent/GoogleCallbackComponent.component';
 
 export const AUTH_ROUTES: Routes = [
   {
     path: '',
     redirectTo: 'sign-in',
     pathMatch: 'full',
+  },
+  {
+    path: 'google/callback',
+    component: GoogleCallbackComponent,
   },
   {
     path: 'sign-in',
@@ -61,7 +66,9 @@ export const AUTH_ROUTES: Routes = [
   {
     path: 'new-password/:id',
     loadComponent: () =>
-      import('./components/sign-in/new-password/new-password.component').then((m) => m.NewPasswordComponent),
+      import('./components/sign-in/new-password/new-password.component').then(
+        (m) => m.NewPasswordComponent
+      ),
     data: { hideHeader: true },
   },
 ];
