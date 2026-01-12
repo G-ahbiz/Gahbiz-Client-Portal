@@ -124,21 +124,32 @@ export class AuthService {
       );
   }
 
-  externalLogin(data: OAuthLoginRequest): Observable<ApiResponse<LoginResponse>> {
-    return this.http
-      .post<ApiResponse<LoginResponse>>(`${this.apiUrl}${environment.account.externalLogin}`, data)
-      .pipe(
-        map((response) => {
-          if (response.succeeded && response.data) {
-            this.setAuthData(response.data.token, response.data.user);
-            return response;
-          } else {
-            throw new Error(response.message || 'Google login failed');
-          }
-        }),
-        catchError(this.handleError)
-      );
-  }
+externalLogin(payload: any): Observable<ApiResponse<LoginResponse>> {
+  return this.http
+    .post<ApiResponse<LoginResponse>>(
+      `${this.apiUrl}${environment.account.externalLogin}`,
+      payload
+    )
+    .pipe(
+      map((response) => {
+        if (response.succeeded && response.data) {
+          this.setAuthData(response.data.token, response.data.user);
+          return response;
+        } else {
+          throw new Error(response.message || 'External login failed');
+        }
+      }),
+      catchError((error) => {
+        if (error.status === 400) {
+          return throwError(() => new Error('Invalid authentication data.'));
+        } else if (error.status === 409) {
+          return throwError(() => new Error('This account is already registered with a different method.'));
+        } else {
+          return throwError(() => new Error('Unable to sign in with this provider. Please try again.'));
+        }
+      })
+    );
+}
 
   refreshToken(): Observable<TokenData> {
     const refreshToken = this.tokenService.getRefreshToken();

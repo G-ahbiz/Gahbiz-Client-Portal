@@ -25,6 +25,7 @@
       <div class="flex flex-col sm:flex-row gap-4 mb-1">
         <app-social-sign
           (onGoogleRegister)="onGoogleRegister()"
+          [googleLoading]="googleLoading()"
           (onFacebookRegister)="onFacebookRegister()"
         ></app-social-sign>
       </div>

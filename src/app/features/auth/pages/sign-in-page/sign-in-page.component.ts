@@ -24,6 +24,7 @@ export class SignInPageComponent implements OnDestroy {
   private destroy$ = new Subject<void>();
 
   isLoading = signal<boolean>(false);
+  googleLoading = signal<boolean>(false);
 
   dir = computed(() => (this.languageService.currentLang() === 'ar' ? 'rtl' : 'ltr'));
 
@@ -42,10 +43,14 @@ export class SignInPageComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
+          // Show success toast
+          const userName = response.user?.fullName || response.user?.email || 'User';
+          this.toastService.success(`Welcome back, ${userName}!`);
+
+          // Navigate to home
           this.router.navigate([ROUTES.home]);
         },
         error: (error) => {
-          console.error('Login error:', error);
           this.toastService.error(error.message || 'Login failed. Please try again.');
           this.isLoading.set(false);
         },
@@ -56,33 +61,8 @@ export class SignInPageComponent implements OnDestroy {
   }
 
   onGoogleLogin() {
-    this.googleAuthService.initializeGoogleSignIn((response: any) => {
-      if (response && response.credential) {
-        this.isLoading.set(true);
-        const idToken = response.credential;
-        const loginFormData: OAuthLoginRequest = {
-          idToken: idToken,
-          role: 'Client',
-          provider: 'Google',
-        };
-        this.authService.externalLogin(loginFormData).subscribe({
-          next: (result) => {
-            if (result.succeeded) {
-              this.router.navigate([ROUTES.home]);
-            } else {
-              this.toastService.error(result.message || 'Login failed. Please try again.');
-            }
-            this.isLoading.set(false);
-          },
-          error: (error) => {
-            this.toastService.error(error.message || 'Login failed. Please try again.');
-            this.isLoading.set(false);
-          },
-        });
-      } else {
-        this.toastService.error('Google authentication was canceled or failed.');
-      }
-    });
+    this.googleLoading.set(true);
+    this.googleAuthService.login();
   }
 
   onFacebookLogin() {
@@ -124,6 +104,7 @@ export class SignInPageComponent implements OnDestroy {
   navigateToHome() {
     this.router.navigate([ROUTES.home]);
   }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
