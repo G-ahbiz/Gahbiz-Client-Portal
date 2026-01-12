@@ -53,6 +53,11 @@
                 "output": "/"
               },
               {
+                "glob": "staticwebapp.config.json",
+                "input": "src",
+                "output": "/"
+              },
+              {
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
@@ -63,9 +68,7 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/primeicons/primeicons.css"
             ],
-            "scripts": [
-              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+            "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
           },
           "configurations": {
             "production": {
@@ -130,9 +133,7 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/primeicons/primeicons.css"
             ],
-            "scripts": [
-              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+            "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
           }
         }
       }
