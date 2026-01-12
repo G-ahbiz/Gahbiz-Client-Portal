@@ -37,6 +37,7 @@
           (signInValues)="onSignInValues($event)"
           [isLoading]="isLoading()"
           (onGoogleLogin)="onGoogleLogin()"
+          [disabled]="googleLoading()"
         >
         </app-sign-in-form>
       </div>
