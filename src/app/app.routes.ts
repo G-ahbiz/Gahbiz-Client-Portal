@@ -61,14 +61,12 @@ export const routes: Routes = [
   // All Services
   {
     path: 'all-services',
-    canActivate: [AuthGuard],
     loadComponent: () => import('./features/all-services/all-services').then((m) => m.AllServices),
   },
 
   // Service Details
   {
     path: 'service-details/:id',
-    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./features/all-services/service-datails/service-datails').then(
         (m) => m.ServiceDatails
