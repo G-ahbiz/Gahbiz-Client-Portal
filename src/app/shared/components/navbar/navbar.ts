@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { User } from '@features/auth/interfaces/sign-in/user';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { AllServicePageFacadeService } from '@features/all-services/services/all-service/all-service-page-facade.service';
+import { ROUTES } from '@shared/config/constants';
 
 @Component({
   selector: 'app-navbar',
-  imports: [TranslateModule, CommonModule],
+  imports: [TranslateModule, CommonModule, RouterLink],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
@@ -25,7 +26,7 @@ export class Navbar implements OnInit, OnDestroy {
 
   isLoggedIn$: Observable<boolean>;
   currentUser$: Observable<User | null>;
-
+  readonly ROUTES = ROUTES;
   cartItemCount = 0;
   private cartSub?: Subscription;
 

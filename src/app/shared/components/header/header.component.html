@@ -58,7 +58,17 @@
           {{ 'HEADER.LOG_OUT' | translate }}
         </button>
         }
-
+        <a
+        [routerLink]="ROUTES.privacyPolicy"
+        class="px-3 py-2 rounded-md text-sm font-medium transition-colors"
+        [ngClass]="
+          isActiveRoute(ROUTES.privacyPolicy)
+            ? 'text-blue-600'
+            : 'text-gray-700'
+        "
+      >
+        {{ 'HEADER.PRIVACY_POLICY' | translate }}
+      </a>
         <!-- <app-language-switcher></app-language-switcher>
         <app-theme-toggle /> -->
       </nav>
@@ -190,6 +200,17 @@
           {{ 'LOG_OUT' | translate }}
         </button>
         }
+        <a
+        [routerLink]="ROUTES.privacyPolicy"
+        class="px-3 py-2 rounded-md text-sm font-medium transition-colors"
+        [ngClass]="
+          isActiveRoute(ROUTES.privacyPolicy)
+            ? 'text-blue-600'
+            : 'text-gray-700'
+        "
+      >
+        {{ 'HEADER.PRIVACY_POLICY' | translate }}
+      </a>
       </div>
     </div>
   </div>

@@ -194,7 +194,8 @@
     }
   },
   "HEADER": {
-    "LOG_OUT": "Cerrar sesión"
+    "LOG_OUT": "Cerrar sesión",
+    "PRIVACY_POLICY": "Política de privacidad"
   },
   "navbar": {
     "home": "Inicio",
