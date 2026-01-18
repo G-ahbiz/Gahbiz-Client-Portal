@@ -44,6 +44,17 @@ export const routes: Routes = [
         redirectTo: 'home',
         pathMatch: 'full',
       },
+      // Privacy Policy
+      {
+        path: 'privacy-policy',
+        loadComponent: () => import('./shared/components/privacy/privacy').then((m) => m.Privacy),
+      },
+    
+      // Terms and Conditions
+      {
+        path: 'terms-and-conditions',
+        loadComponent: () => import('./shared/components/terms/terms').then((m) => m.Terms),
+      },
     ],
   },
 
@@ -93,18 +104,6 @@ export const routes: Routes = [
     path: 'cart',
     canActivate: [AuthGuard],
     loadComponent: () => import('./features/cart/pages/cart/cart').then((m) => m.Cart),
-  },
-
-  // Privacy Policy
-  {
-    path: 'privacy-policy',
-    loadComponent: () => import('./shared/components/privacy/privacy').then((m) => m.Privacy),
-  },
-
-  // Terms and Conditions
-  {
-    path: 'terms-and-conditions',
-    loadComponent: () => import('./shared/components/terms/terms').then((m) => m.Terms),
   },
 
   // 404 Error
