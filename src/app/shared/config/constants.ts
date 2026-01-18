@@ -14,6 +14,9 @@ export const ROUTES = {
   allServices: '/all-services',
   termsAndConditions: '/terms-and-conditions',
   privacyPolicy: '/privacy-policy',
+  about: '/about',
+  faq: '/faq',
+  contact: '/contact',
 };
 
 export const COUNTRIES: CountryCodes[] = [

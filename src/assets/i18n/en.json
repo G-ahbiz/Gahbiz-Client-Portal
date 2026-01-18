@@ -194,7 +194,8 @@
     }
   },
   "HEADER": {
-    "LOG_OUT": "Log Out"
+    "LOG_OUT": "Log Out",
+    "PRIVACY_POLICY": "Privacy Policy"
   },
   "navbar": {
     "home": "Home",
