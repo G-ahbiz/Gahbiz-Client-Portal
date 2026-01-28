@@ -1,0 +1,156 @@
+:host {
+  display: block;
+}
+
+.about-page {
+  background-color: var(--bg-clr);
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: 60vh;
+}
+
+// Header Styles
+.about-header {
+  margin-bottom: 3rem;
+}
+
+.about-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  letter-spacing: -0.02em;
+}
+
+.txt-clr {
+  color: var(--text-clr);
+}
+
+.text-highlight {
+  color: var(--primary-clr);
+}
+
+// Decoration underline (matching other pages)
+.decoration-underline {
+  width: 120px;
+  height: 4px;
+  gap: 4px;
+
+  .underline-segment {
+    flex: 1;
+    height: 100%;
+    border-radius: 2px;
+
+    &.primary-bg {
+      background-color: var(--primary-clr);
+    }
+
+    &.accent-bg {
+      background-color: var(--accent-clr);
+    }
+  }
+}
+
+// About Content
+.about-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+// About Card Styles
+.about-card {
+  background: #ffffff;
+  border-radius: var(--border-radius);
+  padding: var(--space-xl) var(--space-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.card-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-clr), var(--primary-clr-hover));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+
+  i {
+    font-size: 2rem;
+    color: #ffffff;
+  }
+}
+
+.about-text {
+  font-size: var(--font-md);
+  line-height: 1.875rem;
+  color: var(--text-mute-clr);
+  max-width: 800px;
+  margin: 0 auto;
+
+  strong {
+    color: var(--primary-clr);
+    font-weight: 600;
+  }
+}
+
+// Services List
+.services-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.service-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-clr2);
+  border-radius: 25px;
+  font-size: var(--font-sm);
+  color: var(--text-clr);
+  transition: all 0.2s ease;
+
+  i {
+    color: var(--accent-clr);
+    font-size: 0.875rem;
+  }
+
+  &:hover {
+    background: rgba(0, 93, 181, 0.1);
+    color: var(--primary-clr);
+  }
+}
+
+// Responsive Adjustments
+@media screen and (max-width: 768px) {
+  .about-page {
+    padding: 1.5rem 1rem;
+  }
+
+  .about-card {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .card-icon-wrapper {
+    width: 70px;
+    height: 70px;
+
+    i {
+      font-size: 1.75rem;
+    }
+  }
+
+  .about-text {
+    font-size: var(--font-sm);
+    line-height: 1.7rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .about-page {
+    padding: 3rem 4rem;
+  }
+}

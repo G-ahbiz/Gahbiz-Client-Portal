@@ -12,11 +12,11 @@ export const ROUTES = {
   appointmentService: '/appointment-service',
   wishlist: '/wishlist',
   allServices: '/all-services',
-  termsAndConditions: '/terms-and-conditions',
-  privacyPolicy: '/privacy-policy',
-  about: '/about',
-  faq: '/faq',
-  contact: '/contact',
+  termsAndConditions: '/info/terms-and-conditions',
+  privacyPolicy: '/info/privacy-policy',
+  about: '/info/about-us',
+  faq: '/info/faq',
+  contact: '/info/contact-us',
 };
 
 export const COUNTRIES: CountryCodes[] = [
