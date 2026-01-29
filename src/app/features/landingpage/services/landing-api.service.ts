@@ -21,10 +21,9 @@ export class LandingApiService {
     return new Observable<Category[]>((observer) => {
       const fetchPage = () => {
         this.http
-          .get<ApiResponse<{ items: Category[]; hasNextPage: boolean }>>(
-            `${this.base}${environment.serviceCategories.getAllServiceCategories}`,
-            { params: { includeServices, pageNumber, pageSize } }
-          )
+          .get<
+            ApiResponse<{ items: Category[]; hasNextPage: boolean }>
+          >(`${this.base}${environment.serviceCategories.getAllServiceCategories}`, { params: { includeServices, pageNumber, pageSize } })
           .subscribe({
             next: (res) => {
               const items = res?.data?.items ?? [];
@@ -48,6 +47,12 @@ export class LandingApiService {
   getBestOffers(): Observable<any[]> {
     return this.http
       .get<ApiResponse<any[]>>(`${this.base}${environment.services.bestOffers}`)
+      .pipe(map((res) => res?.data ?? []));
+  }
+
+  searchServices(text: string): Observable<any[]> {
+    return this.http
+      .get<ApiResponse<any[]>>(`${this.base}${environment.services.searchServices(text)}`)
       .pipe(map((res) => res?.data ?? []));
   }
 }

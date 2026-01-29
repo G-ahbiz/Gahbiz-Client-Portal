@@ -15,11 +15,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckoutItem } from '@features/checkout/interfaces/checkout-item';
-import { CheckoutResponse } from '@features/checkout/interfaces/checkout-response';
 import { ToastService } from '@shared/services/toast.service';
 import { CART_ITEMS, LOCAL_STORAGE_KEYS } from '@shared/config/constants';
 import { ApplyPromoCodeResponse } from '@features/checkout/interfaces/apply-pc-repsonse';
-import { ApplyPromoCodeRequest } from '@features/checkout/interfaces/apply-pc-request';
 import { map } from 'rxjs';
 
 declare global {
@@ -138,10 +136,10 @@ export class Step1Checkout implements OnInit, OnDestroy {
         ItemId: item.id,
         Name: item.name,
         Price: item.price || 0,
-        Quantity: 1,
+        Quantity: item.quantity || 1,
         DeliveryType: 0,
         Shipping: true,
-      })
+      }),
     );
 
     this.form = this.fb.group({
@@ -657,7 +655,7 @@ export class Step1Checkout implements OnInit, OnDestroy {
           this.loading = false;
           this.isSubmitting = false;
           this.toastService.error(
-            this.translate.instant('checkout.payment-failed') || 'Payment failed'
+            this.translate.instant('checkout.payment-failed') || 'Payment failed',
           );
         },
       });
@@ -820,7 +818,7 @@ export class Step1Checkout implements OnInit, OnDestroy {
             return res.data;
           }
           return null;
-        })
+        }),
       )
       .subscribe({
         next: (res: ApplyPromoCodeResponse | null) => {
@@ -852,12 +850,12 @@ export class Step1Checkout implements OnInit, OnDestroy {
             if (res.type === 'percentage' && res.discountAmount) {
               this.promoCodeSuccessMessage = this.translate.instant(
                 'checkout.promo-code-applied-percentage',
-                { percentage: res.discountAmount }
+                { percentage: res.discountAmount },
               );
             } else if (res.type === 'fixed' && res.discountAmount) {
               this.promoCodeSuccessMessage = this.translate.instant(
                 'checkout.promo-code-applied-fixed',
-                { amount: res.discountAmount }
+                { amount: res.discountAmount },
               );
             } else {
               this.promoCodeSuccessMessage = this.translate.instant('checkout.promo-code-applied');

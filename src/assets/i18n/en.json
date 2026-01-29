@@ -217,6 +217,7 @@
     "foodvendorservices": "Food Vendor Services",
     "immigration": "IMMIGRATION",
     "search": "Search",
+    "no-results": "No services found",
     "english": "English",
     "arabic": "Arabic",
     "spanish": "Spanish",
@@ -483,7 +484,9 @@
       "save-for-later-btn": "Save for later",
       "saved-for-later-toast": "Item saved for later",
       "save-for-later-failed": "Failed to save item",
-      "already-saved-toast": "Item is already saved for later"
+      "already-saved-toast": "Item is already saved for later",
+      "quantity": "Quantity",
+      "unit-price": "Unit price"
     }
   },
   "checkout": {

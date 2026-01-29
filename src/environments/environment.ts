@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
 
-  apiUrl: 'https://gahbiz-appserver20260107022828-eza8a4f4e6a9akfu.canadacentral-01.azurewebsites.net/api',
-  //apiUrl: 'https://serva-best.runasp.net/api',
+  // apiUrl: 'https://gahbiz-appserver20260107022828-eza8a4f4e6a9akfu.canadacentral-01.azurewebsites.net/api',
+  apiUrl: 'https://serva-best.runasp.net/api',
 
   // Google third party auth
   googleClientId: '710517406086-vlr501mfdnbmc5o8p8jv07qaks1jvveg.apps.googleusercontent.com',
@@ -58,6 +58,7 @@ export const environment = {
     getServiceByCategory: '/Services/category/',
     getServiceById: '/Services/',
     bestOffers: '/Services/best-offers',
+    searchServices: (text: string) => `/Services/search/${text}`,
   },
   states: {
     getStatesByCountry: '/states/country/',

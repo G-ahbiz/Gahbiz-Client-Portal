@@ -1,33 +1,68 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { BehaviorSubject, filter, switchMap } from 'rxjs';
 import { CartItem } from '../interfaces/cart-item';
+import { AuthService } from '@core/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartFacadeService {
-  private cartSubject = new BehaviorSubject<CartItem[]>(this.loadCart());
+  private readonly authService = inject(AuthService);
+
+  currentUserId = signal<string | undefined>(undefined);
+  private cartSubject = new BehaviorSubject<CartItem[]>([]);
   cart$ = this.cartSubject.asObservable();
 
+  constructor() {
+    this.authService.initialized$
+      .pipe(
+        filter((initialized) => initialized),
+        switchMap(() => this.authService.currentUser$),
+      )
+      .subscribe((user) => {
+        const previousUserId = this.currentUserId();
+        const newUserId = user?.id;
+
+        // If user changed (login, logout, or switch user) clear cart
+        if (previousUserId !== newUserId) {
+          if (previousUserId && !newUserId) {
+            localStorage.removeItem(`cart_${previousUserId}`);
+          }
+
+          this.currentUserId.set(newUserId);
+
+          this.cartSubject.next(this.loadCart());
+        }
+      });
+  }
+
+  private storageKey(): string {
+    const id = this.currentUserId();
+    return id ? `cart_${id}` : 'cart_guest';
+  }
+
   private loadCart(): CartItem[] {
-    return JSON.parse(localStorage.getItem('cart') || '[]');
+    return JSON.parse(localStorage.getItem(this.storageKey()) || '[]');
   }
 
   private saveCart(cart: CartItem[]): void {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem(this.storageKey(), JSON.stringify(cart));
     this.cartSubject.next(cart);
   }
 
   addToCart(cartItem: CartItem): boolean {
     let cart = this.loadCart();
-
-    if (!cart.find((item) => item.id === cartItem.id)) {
+    const existingCartItem = cart.find((item) => item.id === cartItem.id);
+    if (!existingCartItem) {
       cart.push(cartItem);
       this.saveCart(cart);
       return true;
     }
-
-    return false;
+    cart = cart.map((item) =>
+      item.id === existingCartItem.id ? { ...item, quantity: item.quantity + 1 } : item,
+    );
+    this.saveCart(cart);
+    return true;
   }
 
   getCart(): CartItem[] {
@@ -40,7 +75,7 @@ export class CartFacadeService {
   }
 
   clearCart(): void {
-    localStorage.removeItem('cart');
+    localStorage.removeItem(this.storageKey());
     this.cartSubject.next([]);
   }
 }
