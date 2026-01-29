@@ -110,11 +110,48 @@
                 >{{ 'HEADER.PRIVACY_POLICY' | translate }}</a
               >
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2 cursor-pointer">
-                <i class="pi pi-search fs-6"></i>
+            <!-- Search Container -->
+            <li class="nav-item position-relative search-container">
+              <!-- Search Toggle Button -->
+              <a
+                class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2 cursor-pointer"
+                (click)="toggleSearch()"
+              >
+                <i class="pi fs-6" [ngClass]="isSearchOpen ? 'pi-times' : 'pi-search'"></i>
               </a>
-            </li> -->
+
+              <!-- Search Input & Results Dropdown -->
+              @if (isSearchOpen) {
+                <div class="search-dropdown">
+                  <div class="search-input-wrapper">
+                    <input
+                      type="text"
+                      class="form-control search-input"
+                      [placeholder]="'navbar.search' | translate"
+                      [value]="searchQuery"
+                      (input)="onSearchInput($event)"
+                      autofocus
+                    />
+                    @if (isSearching) {
+                      <i class="pi pi-spinner pi-spin search-spinner"></i>
+                    }
+                  </div>
+
+                  <!-- Results -->
+                  @if (searchResults.length > 0) {
+                    <ul class="search-results">
+                      @for (result of searchResults; track result.id) {
+                        <li class="search-result-item" (click)="selectSearchResult(result.id)">
+                          <span class="result-name">{{ result.name }}</span>
+                        </li>
+                      }
+                    </ul>
+                  } @else if (searchQuery.length >= 2 && !isSearching) {
+                    <div class="no-results">{{ 'navbar.no-results' | translate }}</div>
+                  }
+                </div>
+              }
+            </li>
           </ul>
 
           <!-- Actions positioned with proper spacing -->
@@ -183,7 +220,10 @@
 
             @if (isLoggedIn$ | async) {
               <div class="d-flex align-items-center gap-2 gap-xl-3 profile-section">
-                <a class="nav-link cart-icon-container p-2" (click)="navigateTo('/cart')">
+                <a
+                  class="nav-link cart-icon-container p-2 cursor-pointer"
+                  (click)="navigateTo('/cart')"
+                >
                   <i class="pi pi-shopping-bag icons"></i>
                   @if (cartItemCount > 0) {
                     <span class="cart-badge">{{ cartItemCount }}</span>
