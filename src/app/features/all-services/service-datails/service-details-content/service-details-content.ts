@@ -20,7 +20,6 @@ import { CustomGalleryComponent } from '@shared/components/custom-gallery/custom
 import { ServicesDetailsFacadeService } from '../../services/services-details/services-details-facade.service';
 import { ServicesDetailsResponse } from '@features/all-services/interfaces/services-details/services-details-response';
 import { CurrencyService } from '@shared/services/currency.service';
-import { ServiceDetails } from '@features/all-services/interfaces/all-services/service-details';
 import { CartItem } from '@features/cart/interfaces/cart-item';
 import { ToastService } from '@shared/services/toast.service';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
@@ -244,7 +243,7 @@ export class ServiceDetailsContent implements OnInit {
         finalize(() => {
           this.isLoading.set(false);
           this.cdr.markForCheck();
-        })
+        }),
       )
       .subscribe({
         next: (data) => this.handleServiceDetailsSuccess(data),
@@ -471,7 +470,7 @@ export class ServiceDetailsContent implements OnInit {
    */
   decrementServiceCounter(): void {
     this.serviceCounter.update((current) =>
-      current > this.MIN_SERVICE_COUNTER ? current - 1 : this.MIN_SERVICE_COUNTER
+      current > this.MIN_SERVICE_COUNTER ? current - 1 : this.MIN_SERVICE_COUNTER,
     );
   }
 
@@ -493,6 +492,7 @@ export class ServiceDetailsContent implements OnInit {
       rate: service.rate,
       image: service.images[0]?.path ?? '',
       rateCount: service.rateCount,
+      quantity: this.serviceCounter(),
     };
     const result = this.cartFacadeService.addToCart(cartItem);
     if (result) {
