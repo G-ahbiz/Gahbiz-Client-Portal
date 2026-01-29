@@ -1,20 +1,30 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { BehaviorSubject, map } from 'rxjs';
 import { CartItem } from '../interfaces/cart-item';
+import { AuthService } from '@core/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartFacadeService {
+  private readonly authService = inject(AuthService);
+  currentUserId = signal<string | undefined>(undefined);
   private cartSubject = new BehaviorSubject<CartItem[]>(this.loadCart());
   cart$ = this.cartSubject.asObservable();
 
   private loadCart(): CartItem[] {
-    return JSON.parse(localStorage.getItem('cart') || '[]');
+    this.authService.currentUser$
+      .pipe(
+        map((u) => {
+          this.currentUserId.set(u?.id);
+        }),
+      )
+      .subscribe();
+    return JSON.parse(localStorage.getItem(`cart_${this.currentUserId()}`) || '[]');
   }
 
   private saveCart(cart: CartItem[]): void {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem(`cart_${this.currentUserId()}`, JSON.stringify(cart));
     this.cartSubject.next(cart);
   }
 
@@ -40,7 +50,7 @@ export class CartFacadeService {
   }
 
   clearCart(): void {
-    localStorage.removeItem('cart');
+    localStorage.removeItem(`cart_${this.currentUserId()}`);
     this.cartSubject.next([]);
   }
 }
