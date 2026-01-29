@@ -1,5 +1,3 @@
-import { ApiImage } from '@core/interfaces/api-image';
-
 export interface CartItem {
   id: string;
   name: string;
@@ -10,4 +8,5 @@ export interface CartItem {
   rateCount: number;
   image: string;
   metadata?: string;
+  quantity: number;
 }

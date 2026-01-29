@@ -36,7 +36,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
     private wishlistService: WishlistService,
     private servicesDetailsApiService: ServicesDetailsApiService,
     private toast: ToastService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -67,16 +67,16 @@ export class WishlistComponent implements OnInit, OnDestroy {
               catchError((err) => {
                 console.error(`Error loading service ${id}:`, err);
                 return of(null);
-              })
-            )
+              }),
+            ),
           );
 
           return forkJoin(requests);
         }),
         map((services) =>
-          services.filter((s): s is any => s !== null).map((s) => this.mapToServiceDetails(s))
+          services.filter((s): s is any => s !== null).map((s) => this.mapToServiceDetails(s)),
         ),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe({
         next: (items) => {
@@ -113,16 +113,16 @@ export class WishlistComponent implements OnInit, OnDestroy {
               catchError((err) => {
                 console.error(`Error loading service ${id}:`, err);
                 return of(null);
-              })
-            )
+              }),
+            ),
           );
 
           return forkJoin(requests);
         }),
         map((services) =>
-          services.filter((s): s is any => s !== null).map((s) => this.mapToServiceDetails(s))
+          services.filter((s): s is any => s !== null).map((s) => this.mapToServiceDetails(s)),
         ),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe({
         next: (items) => {
@@ -243,6 +243,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
       rate: service.rate,
       image: this.getServiceImage(service),
       rateCount: service.rateCount,
+      quantity: 1,
     };
 
     const result = this.cartFacadeService.addToCart(cartItem);
