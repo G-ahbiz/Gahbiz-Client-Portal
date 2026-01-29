@@ -80,10 +80,14 @@ export class CartSummary implements OnInit, OnDestroy {
 
   // Proceed to checkout
   proceedToCheckout() {
+    const items = this.cartItems() ?? [];
+    if (items.length === 0) {
+      this.toastService.error('Your cart is empty. Add items before checkout.');
+      return;
+    }
+
     // Check if there's an appointment in the cart first
-    const hasAppointment = this.cartItems().some(
-      (item) => item.id === CART_ITEMS.APPOINTMENT_SERVICE,
-    );
+    const hasAppointment = items.some((item) => item.id === CART_ITEMS.APPOINTMENT_SERVICE);
 
     // If profile is incomplete, navigate to complete profile
     if (!this.isProfileComplete()) {
