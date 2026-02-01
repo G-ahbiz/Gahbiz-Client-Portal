@@ -22,6 +22,8 @@ import { ToastService } from '@shared/services/toast.service';
 import { AuthService } from '@core/services/auth.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ROUTES } from '@shared/config/constants';
+import { ProfileFacadeService } from '@features/complete-profile/services/profile-facade.service';
+import { Profile } from '@features/complete-profile/interfaces/profile';
 
 @Component({
   selector: 'app-services-component',
@@ -37,6 +39,7 @@ export class ServicesComponent implements OnDestroy {
   private toastService = inject(ToastService);
   private destroy$ = new Subject<void>();
   private authService = inject(AuthService);
+  private profileFacade = inject(ProfileFacadeService);
 
   readonly isLoggedIn = toSignal(this.authService.isLoggedIn$, {
     initialValue: this.authService.isAuthenticated(),
@@ -138,8 +141,52 @@ export class ServicesComponent implements OnDestroy {
     event.stopPropagation(); // Prevent card click when button is clicked
     if (service) {
       this.onAddToCart(service, new Event('click'));
-      this.router.navigate([ROUTES.checkout]);
+
+      // Check if profile is complete before proceeding to checkout
+      this.profileFacade
+        .getProfile()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response) => {
+            if (response && response.succeeded && response.data) {
+              const profile = response.data as Profile;
+              const isProfileComplete = this.checkProfileComplete(profile);
+
+              if (!isProfileComplete) {
+                this.toastService.error('Please complete your profile to proceed to checkout');
+                this.router.navigate([ROUTES.completeProfile]);
+              } else {
+                this.router.navigate([ROUTES.checkout]);
+              }
+            } else {
+              this.toastService.error('Please complete your profile to proceed to checkout');
+              this.router.navigate([ROUTES.completeProfile]);
+            }
+          },
+          error: (error) => {
+            console.error('Error loading profile:', error);
+            this.toastService.error('Please complete your profile to proceed to checkout');
+            this.router.navigate([ROUTES.completeProfile]);
+          },
+        });
     }
+  }
+
+  /**
+   * Check if user profile is complete
+   */
+  private checkProfileComplete(profile: Profile): boolean {
+    return !!(
+      profile.fullName &&
+      profile.email &&
+      profile.phoneNumber &&
+      profile.nationalId &&
+      profile.dateOfBirth &&
+      profile.country &&
+      profile.state &&
+      profile.postalCode &&
+      profile.profileImageUrl
+    );
   }
 
   onAddToCart(service: ServiceDetails, event: Event): void {
