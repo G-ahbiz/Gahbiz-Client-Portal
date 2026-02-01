@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { Subscription, finalize } from 'rxjs';
 import { ConfirmEmailFacadeService } from '@features/auth/services/confirm-email/confirm-email-facade.service';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '@shared/services/toast.service';
 import { SignUpResponseStorageService } from '@features/auth/services/sign-up/sign-up-response-storage.service';
 import { ROUTES, OTP_CONSTANTS } from '@shared/config/constants';
@@ -16,7 +16,14 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-confirm-email-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, TranslateModule, RouterModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    TranslateModule,
+    RouterModule,
+    NgOptimizedImage,
+  ],
   templateUrl: './confirm-email-form.component.html',
   styleUrls: ['./confirm-email-form.component.scss'],
 })
@@ -45,7 +52,7 @@ export class ConfirmEmailFormComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private translate: TranslateService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
   ) {
     this.confirmEmailForm = this.fb.group({
       otp: [
@@ -86,7 +93,7 @@ export class ConfirmEmailFormComponent implements OnInit, OnDestroy {
         finalize(() => {
           this.isSubmitting = false;
           this.cdr.detectChanges();
-        })
+        }),
       )
       .subscribe({
         next: () => {
@@ -217,7 +224,7 @@ export class ConfirmEmailFormComponent implements OnInit, OnDestroy {
     const value = input.value;
 
     const inputs = Array.from(
-      input.parentElement?.querySelectorAll('input') || []
+      input.parentElement?.querySelectorAll('input') || [],
     ) as HTMLInputElement[];
 
     // Jump to the first empty input before current
@@ -249,7 +256,7 @@ export class ConfirmEmailFormComponent implements OnInit, OnDestroy {
   onOtpKeyDown(event: KeyboardEvent, index: number): void {
     const input = event.target as HTMLInputElement;
     const inputs = Array.from(
-      input.parentElement?.querySelectorAll('input') || []
+      input.parentElement?.querySelectorAll('input') || [],
     ) as HTMLInputElement[];
 
     if (event.key === 'Backspace' && !input.value && index > 0) {
@@ -266,7 +273,7 @@ export class ConfirmEmailFormComponent implements OnInit, OnDestroy {
     this.otp?.setValue(chars.join(''));
 
     const inputs = Array.from(
-      (event.target as HTMLInputElement).parentElement?.querySelectorAll('input') || []
+      (event.target as HTMLInputElement).parentElement?.querySelectorAll('input') || [],
     ) as HTMLInputElement[];
 
     inputs.forEach((inp, i) => (inp.value = chars[i] ?? ''));
@@ -327,4 +334,3 @@ export class ConfirmEmailFormComponent implements OnInit, OnDestroy {
     this._confirmLinkSub?.unsubscribe();
   }
 }
-

@@ -1,5 +1,8 @@
 footer {
   background-color: #005db5;
+  /* Prevent layout shifts */
+  min-height: 300px;
+  contain: layout style;
 }
 
 a {
@@ -69,6 +72,10 @@ a {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
   padding: 4px;
   border-radius: 4px;
+  /* Explicit dimensions to prevent layout shift */
+  width: 200px;
+  height: 89px;
+  aspect-ratio: 200 / 89;
 }
 
 .footer-logo:hover {

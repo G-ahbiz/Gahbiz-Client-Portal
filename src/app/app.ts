@@ -13,9 +13,9 @@ import { ToastContainerComponent } from '@shared/components/toast-container/toas
 export class App implements OnInit, OnDestroy {
   title = 'Gahbiz-Client-Portal';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  ngOnDestroy() { }
+  ngOnDestroy() {}
 }

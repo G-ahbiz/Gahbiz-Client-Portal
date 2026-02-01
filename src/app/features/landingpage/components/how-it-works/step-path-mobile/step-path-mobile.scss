@@ -1,20 +1,65 @@
+:host {
+  display: block;
+}
+
 .step-image {
   width: 4.5rem;
   height: 4.5rem;
+  flex-shrink: 0;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
 }
 
 .vertical-line {
   width: 0.09375rem;
   height: 4rem;
-  background: #bdbdbd;
+  background: linear-gradient(180deg, #bdbdbd 0%, #e0e0e0 100%);
+  flex-shrink: 0;
 }
 
 .captions-container {
   gap: 3rem;
 }
 
+.caption {
+  animation: fadeInUp 0.6s ease-out backwards;
+  animation-delay: calc(var(--step-index, 0) * 0.15s);
+
+  .step-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .step-description {
+    color: var(--text-mute-clr, #6b6b6b);
+    line-height: 1.6;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media screen and (max-width: 320px) {
   .vertical-line {
     height: 6rem;
+  }
+
+  .step-image {
+    width: 3.5rem;
+    height: 3.5rem;
   }
 }

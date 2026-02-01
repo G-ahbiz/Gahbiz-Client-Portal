@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NgClass } from '@angular/common';
+import { NgClass, NgOptimizedImage } from '@angular/common';
 import { ThemeToggleDirective } from '../../directives/theme-toggle.directive';
 import { Router, RouterLink } from '@angular/router';
 import { ThemeService } from '../../../core/services/theme.service';
@@ -10,7 +10,7 @@ import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-header',
-  imports: [ThemeToggleDirective, RouterLink, NgClass, TranslateModule],
+  imports: [ThemeToggleDirective, RouterLink, NgClass, TranslateModule, NgOptimizedImage],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })

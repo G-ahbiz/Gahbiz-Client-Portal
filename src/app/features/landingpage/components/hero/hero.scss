@@ -1,6 +1,22 @@
+:host {
+  display: block;
+  /* Reduce layout recalculation on mobile */
+  contain: layout style;
+}
+
 .hero {
-  padding: 3rem 6.25rem;
+  padding: 1.5rem 1rem;
   /* height: 59.5rem !important; */
+  min-height: auto;
+  /* Prevent layout shifts */
+  contain: layout;
+}
+
+@media screen and (min-width: 768px) {
+  .hero {
+    padding: 3rem 6.25rem;
+    min-height: 500px;
+  }
 }
 
 .hero {
@@ -11,11 +27,33 @@
 .hero-content {
   position: relative;
   z-index: 10; /* above background & hero-back */
+  /* Prevent CLS by reserving space */
+  min-height: auto;
+  contain: layout style;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-content {
+    min-height: 400px;
+  }
 }
 
 .hero-back {
   position: relative;
   z-index: 0; /* behind content */
+  display: flex !important;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  /* Prevent CLS with explicit dimensions */
+  min-height: auto;
+  contain: layout;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-back {
+    min-height: 550px;
+  }
 }
 
 .pattern {
@@ -53,6 +91,60 @@
   width: 9rem;
 }
 
+.start {
+  /* Prevent layout shifts in hero image containers */
+  min-height: auto;
+  contain: layout;
+  /* Additional constraints for stability */
+  flex-shrink: 0;
+}
+
+.end {
+  /* Prevent layout shifts in hero image containers */
+  min-height: auto;
+  contain: layout;
+  /* Additional constraints for stability */
+  flex-shrink: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .start,
+  .end {
+    min-height: 450px;
+  }
+}
+
+.image-wrapper {
+  width: fit-content;
+  height: fit-content;
+  /* Prevent layout shift with explicit constraints */
+  min-width: auto;
+  min-height: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .image-wrapper {
+    min-width: 200px;
+    min-height: 250px;
+  }
+}
+
+.image-wrapper img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* Ensure specific aspect ratios for the hero images */
+.image-wrapper img[width='347'][height='550'] {
+  aspect-ratio: 347 / 550;
+}
+
+.image-wrapper img[width='317'][height='550'] {
+  aspect-ratio: 317 / 550;
+}
+
 .explore-services-btn:hover {
   background-color: var(--primary-clr) !important;
 }
@@ -78,11 +170,42 @@
   .boy {
     width: 13rem;
   }
+
+  .image-wrapper {
+    max-width: 100%;
+  }
+
+  .start,
+  .end {
+    min-height: auto;
+  }
+}
+
+/* Mobile-specific image constraints */
+@media screen and (max-width: 767px) {
+  .image-wrapper {
+    max-width: 180px !important;
+  }
+
+  .start,
+  .end {
+    min-height: auto;
+  }
+}
+
+/* Desktop large screens */
+@media screen and (min-width: 1200px) {
+  .start,
+  .end {
+    min-height: 450px;
+  }
 }
 
 @media screen and (min-width: 1200px) {
   .hero-content {
     width: 45% !important;
+    /* Explicit height to prevent shift */
+    min-height: 450px;
   }
 
   .hero-title {
@@ -92,6 +215,12 @@
 
   .hero-back {
     width: 55% !important;
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    /* Explicit height to prevent shift */
+    min-height: 600px;
   }
 
   .hero-description {

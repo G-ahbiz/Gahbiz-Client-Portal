@@ -1,5 +1,5 @@
 import { Component, inject, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ROUTES } from '../../../../shared/config/constants';
 import { SignUpFormComponent } from '../../components/sign-up/sign-up-form/sign-up-form.component';
@@ -15,7 +15,14 @@ import { LanguageService } from '@core/services/language.service';
 @Component({
   selector: 'app-sign-up-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, SignUpFormComponent, SocialSignComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    SignUpFormComponent,
+    SocialSignComponent,
+    TranslateModule,
+    NgOptimizedImage,
+  ],
   templateUrl: './sign-up-page.component.html',
   styleUrls: ['./sign-up-page.component.scss'],
 })

@@ -8,16 +8,22 @@ import {
   computed,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { REG_EXP } from '@shared/config/constants';
 import { InputComponent } from '@shared/components/input/input.component';
 import { LanguageService } from '@core/services/language.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-new-password',
-  imports: [ReactiveFormsModule, ButtonComponent, MatIconModule, TranslateModule, InputComponent],
+  imports: [
+    ReactiveFormsModule,
+    ButtonComponent,
+    TranslateModule,
+    InputComponent,
+    NgOptimizedImage,
+  ],
   templateUrl: './new-password.component.html',
   styleUrl: './new-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,5 +1,7 @@
 :host {
   display: block;
+  /* Reduce layout recalculation on mobile */
+  contain: layout style;
 }
 
 /* basic theme vars */
@@ -93,7 +95,9 @@
     width: 560px;
     height: 300px;
     transform-origin: center;
-    transition: transform 520ms cubic-bezier(0.22, 0.9, 0.28, 1), opacity 420ms ease;
+    transition:
+      transform 520ms cubic-bezier(0.22, 0.9, 0.28, 1),
+      opacity 420ms ease;
     will-change: transform;
     border-radius: 16px;
     overflow: visible;
@@ -107,7 +111,9 @@
       overflow: hidden;
       border-radius: 16px;
       opacity: var(--image-opacity, 1);
-      transition: opacity 420ms ease, filter 420ms ease;
+      transition:
+        opacity 420ms ease,
+        filter 420ms ease;
     }
 
     .slide-image {
@@ -134,7 +140,9 @@
       justify-content: space-between;
       gap: 1.5rem;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
-      transition: transform 300ms ease, opacity 300ms ease;
+      transition:
+        transform 300ms ease,
+        opacity 300ms ease;
       pointer-events: none;
     }
 
@@ -214,7 +222,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 140ms ease, background 140ms ease;
+      transition:
+        transform 140ms ease,
+        background 140ms ease;
       margin: 0 10px;
 
       &:hover {
@@ -253,9 +263,9 @@
     padding-top: 2rem;
 
     .slider-viewport {
-      height: 420px;
-      margin-bottom: 1.5rem;
-      overflow: hidden;
+      height: 480px;
+      margin-bottom: 2rem;
+      overflow: visible;
       align-items: flex-start;
     }
 
@@ -270,9 +280,9 @@
 
     .details-card {
       width: 90%;
-      bottom: -60px;
+      bottom: -70px;
       padding: 16px;
-      pointer-events: none;
+      pointer-events: auto;
     }
 
     .slider-controls {
@@ -282,10 +292,10 @@
       transform: none;
       width: 100%;
       max-width: none;
-      margin-top: 1.5rem; // Adjusted for better spacing
+      margin-top: 4rem;
       justify-content: center;
       gap: 3rem;
-      padding: 0 20px; // <-- FIX: Prevents controls touching screen edge
+      padding: 0 20px;
     }
   }
 }
@@ -295,7 +305,7 @@
   margin-top: 8rem !important;
 
   @media (max-width: 768px) {
-    margin-top: 0 !important;
+    margin-top: 2rem !important;
   }
 }
 

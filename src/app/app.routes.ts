@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { NoAuthGuard } from '@core/guards/no-auth.guard';
-import { Landingpage } from '@features/landingpage/landingpage';
 import { Layout } from '@features/layout/layout';
 
 export const routes: Routes = [
@@ -20,7 +19,7 @@ export const routes: Routes = [
       // Home/Landing page
       {
         path: 'home',
-        component: Landingpage,
+        loadComponent: () => import('./features/landingpage/landingpage').then(m => m.Landingpage),
       },
 
       // Order Tracking

@@ -1,0 +1,43 @@
+# robots.txt for Servabest
+# https://www.servabest.com/robots.txt
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow crawling of admin, checkout, and user-specific pages
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /complete-profile/
+Disallow: /api/
+Disallow: /auth/login/
+Disallow: /auth/register/
+Disallow: /auth/forgot-password/
+Disallow: /auth/reset-password/
+Disallow: /wishlist/
+
+# Allow crawling of static assets
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.webp$
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.svg$
+
+# Sitemap location
+Sitemap: https://www.servabest.com/sitemap.xml
+
+# Crawl-delay for polite crawlers
+Crawl-delay: 0
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0

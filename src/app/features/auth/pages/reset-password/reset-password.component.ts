@@ -1,6 +1,5 @@
 import { Component, signal, inject, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '@core/services/auth.service';
 import { ResetPasswordRequest } from '@features/auth/interfaces/sign-in/reset-password-request';
@@ -12,7 +11,7 @@ import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-reset-password',
-  imports: [VerifyOtp, NewPasswordComponent, MatIconModule, TranslateModule],
+  imports: [VerifyOtp, NewPasswordComponent, TranslateModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

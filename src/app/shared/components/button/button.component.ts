@@ -1,9 +1,8 @@
 import { Component, EventEmitter, HostBinding, input, Input, OnInit, Output } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-button',
-  imports: [MatIconModule],
+  imports: [],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })

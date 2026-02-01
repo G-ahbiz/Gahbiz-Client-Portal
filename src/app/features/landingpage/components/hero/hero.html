@@ -1,30 +1,31 @@
-<div class="container-fluid p-5 m-0 hero d-flex flex-column h-auto flex-lg-row">
+<div class="container-fluid p-3 p-lg-5 m-0 hero d-flex flex-column h-auto flex-lg-row">
 
   <!-- hero content -->
   <div class="hero-content p-0 m-0 overflow-x-visible position-relative order-1 order-lg-0">
     <!-- Hero Title -->
-    <h1 class="ab-text-start display-3 fw-semibold hero-title z-2 position-relative text-center text-lg-start">
-      {{'hero.title1'| translate}}
-      <span class="primary-clr"> {{'hero.title2'| translate}}
+    <h1 class="display-3 fw-semibold hero-title z-2 position-relative text-center text-lg-start">
+      {{getText('hero.title1', heroText.title1)}}
+      <span class="primary-clr"> {{getText('hero.title2', heroText.title2)}}
       </span>
-      {{'hero.title3'| translate}}
+      {{getText('hero.title3', heroText.title3)}}
     </h1>
 
     <!-- Hero Description -->
-    <p class="ab-text-start hero-description fs-4  mt-3 mb-4 text-center text-lg-start">
-      {{'hero.description'| translate}}
+    <p class="hero-description fs-4  mt-3 mb-4 text-center text-lg-start">
+      {{getText('hero.description', heroText.description)}}
     </p>
 
     <!-- Hero Buttons -->
     <div class="buttons d-flex flex-row gap-3 mt-5 justify-content-center justify-content-lg-start">
       <!-- Book Now Button -->
-      <button class="btn btn-primary primary-bg px-lg-5 py-2 book-now-btn text-nowrap z-1" (click)="navigateToAppointment()">
-        {{'hero.booknow'| translate}}
-      </button>
-      <!-- Explore Services Button -->
-      <button class="btn btn-outline-primary px-lg-5 py-2 explore-services-btn text-nowrap z-1" (click)="navigateToAllServices()">
-        {{'hero.exploreservices'| translate}}
-      </button>
+      <a routerLink="/appointment-service"
+        class="btn btn-primary primary-bg px-lg-5 py-2 book-now-btn text-nowrap z-1 text-decoration-none">
+        {{getText('hero.booknow', heroText.booknow)}}
+      </a>
+      <a routerLink="/all-services"
+        class="btn btn-outline-primary px-lg-5 py-2 explore-services-btn text-nowrap z-1 text-decoration-none">
+        {{getText('hero.exploreservices', heroText.exploreservices)}}
+      </a>
     </div>
 
     <div class="pattern position-absolute w-100 h-100 top-0 left-0 d-flex flex-row gap-3 d-none d-xl-flex">
@@ -34,19 +35,28 @@
   </div>
 
   <!-- hero back -->
-  <div class="hero-back z-0 d-flex flex-row gap-3 order-0 order-lg-1 mb-5 mb-lg-0">
+  <div class="hero-back z-0 d-flex flex-row gap-1 gap-lg-3 order-0 order-lg-1 mb-2 mb-lg-0">
     <!-- start -->
-    <div class="start d-flex flex-column w-50 gap-2">
+    <div class="start d-flex flex-column gap-1 gap-lg-2">
       <!-- Empty Div -->
       <div class="back1 d-none d-xl-block"></div>
-      <img src="assets/images/landingpage/Hero/{{isArabic ? 'Shape 1':'Shape 2'}}.png" alt="{{isArabic ? 'Girl':'Boy'}}"
-        class="">
+      <div class="image-wrapper" style="aspect-ratio: 347 / 550; max-width: 100%; overflow: hidden;">
+        <img [src]="'assets/images/landingpage/Hero/' + (isArabic ? 'Shape 1' : 'Shape 2') + '.webp'"
+          [alt]="isArabic ? 'Girl' : 'Boy'" width="347" height="550" loading="eager" fetchpriority="high"
+          class="img-fluid" style="max-width: 100%; height: auto;"
+          sizes="(max-width: 576px) 180px, (max-width: 768px) 250px, 347px">
+      </div>
     </div>
 
     <!-- end -->
-    <div class="end d-flex flex-column w-50 gap-2">
-      <img src="assets/images/landingpage/Hero/{{isArabic ? 'Shape 2':'Shape 1'}}.png" alt="{{isArabic ? 'Boy':'Girl'}}"
-        class="">
+    <div class="end d-flex flex-column gap-1 gap-lg-2">
+
+      <div class="image-wrapper" style="aspect-ratio: 317 / 550; max-width: 100%; overflow: hidden;">
+        <img [src]="'assets/images/landingpage/Hero/' + (isArabic ? 'Shape 2' : 'Shape 1') + '.webp'"
+          [alt]="isArabic ? 'Boy' : 'Girl'" width="317" height="550" loading="lazy" decoding="async" fetchpriority="low"
+          importance="low" class="img-fluid" style="max-width: 100%; height: auto;"
+          sizes="(max-width: 576px) 165px, (max-width: 768px) 220px, 317px">
+      </div>
       <!-- Empty Div -->
       <div class="back3 d-none d-xl-block"></div>
     </div>
