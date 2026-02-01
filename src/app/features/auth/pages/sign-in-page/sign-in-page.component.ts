@@ -5,17 +5,17 @@ import { AuthService } from '@core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { LoginRequest } from '@features/auth/interfaces/sign-in/login-request';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatIconModule } from '@angular/material/icon';
 import { ROUTES } from '@shared/config/constants';
 import { ToastService } from '@shared/services/toast.service';
 import { GoogleAuthService } from '@core/services/google-auth.service';
 import { OAuthLoginRequest } from '@core/interfaces/oauth-login-request';
 import { FacebookAuthService } from '@core/services/facebook-auth.service';
 import { LanguageService } from '@core/services/language.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-sign-in-page',
-  imports: [SignInFormComponent, TranslateModule, MatIconModule, RouterModule],
+  imports: [SignInFormComponent, TranslateModule, RouterModule, NgOptimizedImage],
   templateUrl: './sign-in-page.component.html',
   styleUrls: ['./sign-in-page.component.scss'],
 })

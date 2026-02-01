@@ -11,7 +11,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Rating } from '@shared/components/rating/rating';
 import { PaginatorModule } from 'primeng/paginator';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CartItem } from '@features/cart/interfaces/cart-item';
@@ -19,10 +18,11 @@ import { Subject } from 'rxjs';
 import { WishlistService } from '@core/services/wishlist.service';
 import { ToastService } from '@shared/services/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DropdownDirective } from '@shared/directives/dropdown.directive';
 
 @Component({
   selector: 'app-cart-cards',
-  imports: [TranslateModule, Rating, PaginatorModule, MatIconModule, CommonModule],
+  imports: [TranslateModule, Rating, PaginatorModule, CommonModule, DropdownDirective],
   templateUrl: './cart-cards.html',
   styleUrl: './cart-cards.scss',
 })
@@ -41,7 +41,7 @@ export class CartCards implements OnInit, OnChanges, OnDestroy {
     private router: Router,
     private wishlistService: WishlistService,
     private toast: ToastService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {

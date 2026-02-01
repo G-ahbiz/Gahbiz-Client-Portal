@@ -3,7 +3,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { routes } from './app.routes';
 
 import {
@@ -25,14 +25,17 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+      withViewTransitions(),
+    ),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
         prefix: 'assets/i18n/',
         suffix: '.json',
       }),
-      fallbackLang: 'en',
     }),
     providePrimeNG({
       theme: {
@@ -41,12 +44,12 @@ export const appConfig: ApplicationConfig = {
           prefix: 'p',
           darkModeSelector: 'system',
           cssLayer: false,
-          ripple: true
-        }
+          ripple: false, // Disable ripple for performance
+        },
       },
       csp: {
-        nonce: '...'
-      }
+        nonce: '...',
+      },
     }),
     {
       provide: HTTP_INTERCEPTORS,

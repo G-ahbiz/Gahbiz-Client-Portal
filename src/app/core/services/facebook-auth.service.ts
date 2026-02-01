@@ -8,48 +8,53 @@ declare const FB: fb.FacebookStatic;
 @Injectable({ providedIn: 'root' })
 export class FacebookAuthService {
   private sdkReady!: Promise<void>;
+  private scriptId = 'facebook-jssdk';
 
-  constructor() {
-    this.sdkReady = this.loadSdk();
+  constructor() {}
+
+  ensureSdkReady(): Promise<void> {
+    if (!this.sdkReady) {
+      this.sdkReady = this.loadSdk();
+    }
+    return this.sdkReady;
   }
 
   /** Load and init Facebook SDK */
   private loadSdk(): Promise<void> {
     return new Promise((resolve, reject) => {
-      const scriptId = 'facebook-jssdk';
-
       const initFacebook = () => {
         if (!(window as any).FB) {
           reject(new Error('FB SDK not available'));
           return;
         }
-        FB.init({
+        (window as any).FB.init({
           appId: environment.facebookAppId,
           cookie: true,
           xfbml: false,
           version: 'v21.0',
         });
-        console.log('✅ FB.init done');
         resolve();
       };
 
-      // If FB already exists, but not initialized → force init
+      // If FB already exists => init immediately
       if ((window as any).FB) {
-        console.log('✅ FB already loaded (manual init)');
         initFacebook();
         return;
       }
 
-      // Normal async load
       (window as any).fbAsyncInit = initFacebook;
 
-      if (!document.getElementById(scriptId)) {
+      if (!document.getElementById(this.scriptId)) {
         const script = document.createElement('script');
-        script.id = scriptId;
+        script.id = this.scriptId;
         script.src = 'https://connect.facebook.net/en_US/sdk.js';
         script.async = true;
         script.defer = true;
-        script.onerror = () => reject(new Error('❌ Failed to load Facebook SDK'));
+        script.crossOrigin = 'anonymous';
+        script.onload = () => {
+          /* FB will call fbAsyncInit */
+        };
+        script.onerror = () => reject(new Error('Failed to load Facebook SDK'));
         document.body.appendChild(script);
       }
     });
@@ -57,46 +62,27 @@ export class FacebookAuthService {
 
   /** Run login flow */
   async login(): Promise<string> {
-    await this.sdkReady; // ensures fbAsyncInit + FB.init are finished
-
+    await this.ensureSdkReady();
     return new Promise((resolve, reject) => {
       if (!(window as any).FB) {
-        reject(new Error('Facebook SDK not loaded. Please refresh the page and try again.'));
+        reject(new Error('Facebook SDK not loaded.'));
         return;
       }
-
-      FB.login(
+      (window as any).FB.login(
         (response: fb.StatusResponse) => {
-          console.log('Facebook login response:', response);
-
           if (response.status === 'connected' && response.authResponse?.accessToken) {
-            console.log('✅ Facebook login successful');
             resolve(response.authResponse.accessToken);
-          } else if (response.status === 'not_authorized') {
-            reject(new Error('Facebook login was not authorized. Please try again.'));
-          } else if (response.status === 'unknown') {
-            reject(new Error('Facebook login failed. Please try again.'));
           } else {
-            reject(new Error('Facebook login was cancelled or failed.'));
+            reject(new Error('Facebook login failed or cancelled'));
           }
         },
-        { scope: 'email,public_profile' }
+        { scope: 'email,public_profile' },
       );
     });
   }
 
-  logout(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if (!(window as any).FB) {
-        console.warn('Facebook SDK not loaded for logout');
-        resolve(); // Don't reject, just resolve silently
-        return;
-      }
-
-      FB.logout((response) => {
-        console.log('📤 FB.logout called:', response);
-        resolve();
-      });
-    });
+  async logout(): Promise<void> {
+    if (!(window as any).FB) return;
+    return new Promise((resolve) => (window as any).FB.logout(() => resolve()));
   }
 }

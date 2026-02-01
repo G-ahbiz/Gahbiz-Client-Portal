@@ -1,11 +1,21 @@
-@use '@angular/material' as mat;
+// @use '@angular/material' as mat; // Commented out - only used in lazy-loaded appointment page
 @use 'flag-icons/sass/variables' as flag with (
   $flag-icons-path: '/assets/flags'
 );
 @use 'flag-icons/sass/flag-icons';
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;600;700&display=swap');
+/* Override bootstrap-icons font-display to swap */
+@font-face {
+  font-family: 'bootstrap-icons';
+  src:
+    url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/fonts/bootstrap-icons.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/fonts/bootstrap-icons.woff')
+      format('woff');
+  font-display: swap;
+}
+
+/* PrimeIcons now loaded via primeicons-swap.css with font-display: swap */
 
 @tailwind base;
 @tailwind components;
@@ -17,12 +27,31 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 
-/* apply smooth transition between modes */
-* {
+/* apply smooth transition only to interactive elements to reduce main-thread work */
+button,
+a,
+.btn,
+.card,
+.nav-link {
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
+
+/* Optimize rendering performance on mobile devices */
+@media (max-width: 768px) {
+  button,
+  a,
+  .btn,
+  .card,
+  .nav-link {
+    /* Reduce transition duration on mobile for better performance */
+    transition:
+      background-color 0.1s ease,
+      color 0.1s ease;
+  }
+}
+
 :root {
   /* === Font Sizes === */
   --font-xs: clamp(0.7rem, 1vw + 0.5vh, 0.85rem);
@@ -47,18 +76,18 @@
   --border-radius: clamp(0.375rem, 0.5vh + 0.2vw, 0.75rem);
   --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
-  @include mat.datepicker-overrides(
-    (
-      calendar-body-label-text-color: orange,
-      calendar-date-selected-state-background-color: red,
-      calendar-date-text-color: grey,
-      calendar-date-today-outline-color: red,
-    )
-  );
+  // Datepicker overrides - will be applied when Material is lazy-loaded
+  // @include mat.datepicker-overrides(
+  //   (
+  //     calendar-body-label-text-color: orange,
+  //     calendar-date-selected-state-background-color: red,
+  //     calendar-date-text-color: grey,
+  //     calendar-date-today-outline-color: red,
+  //   )
+  // );
 
   // General Styles
   --app-font-family: 'Libre Franklin', sans-serif;
-  --app-font-family-ar: 'cairo', sans-serif;
   --app-font-alt: 'Libre Franklin', sans-serif;
   --primary-clr: #005db5;
   --primary-clr-hover: #006edb;
@@ -86,24 +115,21 @@
 html {
   /* Make flag-icons use the copied assets path */
   --fi-path: '/assets/flags';
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
-  );
+  // Material theme - will be applied when lazy-loaded
+  // @include mat.theme(
+  //   (
+  //     color: (
+  //       primary: mat.$azure-palette,
+  //       tertiary: mat.$blue-palette,
+  //     ),
+  //     typography: Roboto,
+  //     density: 0,
+  //   )
+  // );
 }
 
 .font-libre-franklin {
   font-family: var(--app-font-alt);
-}
-
-.font-IBM-Plex-Serif {
-  font-family: 'IBM Plex Serif', serif !important;
 }
 
 html,
@@ -157,9 +183,6 @@ input[type='password']::-webkit-outer-spin-button {
 }
 
 // General Styles Abdelawal
-.ar-font-family {
-  font-family: var(--app-font-family-ar) !important;
-}
 .main-bg-clr {
   background-color: var(--bg-clr) !important;
 }

@@ -11,7 +11,6 @@ import {
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Rating } from '@shared/components/rating/rating';
 import { PaginatorModule } from 'primeng/paginator';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, NgClass } from '@angular/common';
 import { PaginatedServices } from '../interfaces/all-services/paginated-services';
 import { ServiceDetails } from '../interfaces/all-services/service-details';
@@ -26,7 +25,7 @@ import { ROUTES } from '@shared/config/constants';
 
 @Component({
   selector: 'app-services-component',
-  imports: [TranslateModule, Rating, PaginatorModule, MatIconModule, CommonModule, NgClass],
+  imports: [TranslateModule, Rating, PaginatorModule, CommonModule, NgClass],
   templateUrl: './services-component.html',
   styleUrls: ['./services-component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

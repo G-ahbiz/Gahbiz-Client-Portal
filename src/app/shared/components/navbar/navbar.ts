@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -17,10 +17,11 @@ import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { AllServicePageFacadeService } from '@features/all-services/services/all-service/all-service-page-facade.service';
 import { LandingApiService } from '@features/landingpage/services/landing-api.service';
 import { ROUTES } from '@shared/config/constants';
+import { DropdownDirective } from '@shared/directives/dropdown.directive';
 
 @Component({
   selector: 'app-navbar',
-  imports: [TranslateModule, CommonModule, RouterLink],
+  imports: [TranslateModule, CommonModule, RouterLink, DropdownDirective, NgOptimizedImage],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })

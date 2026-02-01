@@ -1,57 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService, LangChangeEvent, TranslateModule } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
-  imports: [TranslateModule],
+  imports: [TranslateModule, CommonModule, RouterLink],
   templateUrl: './hero.html',
-  styleUrl: './hero.scss'
+  styleUrl: './hero.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Hero implements OnInit {
-  constructor(private translateService: TranslateService, private router: Router) { }
-  // Language
-  isArabic: boolean = false;
-  isEnglish: boolean = false;
-  isSpanish: boolean = false;
+export class Hero {
+  @Input() isArabic: boolean = false;
+  @Input() isEnglish: boolean = false;
+  @Input() isSpanish: boolean = false;
 
-  ngOnInit() {
-    this.initializeTranslation();
-  }
+  private translate = inject(TranslateService);
 
-  private initializeTranslation() {
-    // Set default language if not already set
-    if (!localStorage.getItem('servabest-language')) {
-      localStorage.setItem('servabest-language', 'en');
-    }
+  // Inline critical text for immediate LCP render
+  readonly heroText = {
+    title1: 'Find',
+    title2: 'Trusted',
+    title3: 'Professionals for Any Service – From Taxes to Home Needs',
+    description: 'Fast, secure, and reliable bookings for individuals and businesses.',
+    booknow: 'Book Now',
+    exploreservices: 'Explore Services',
+  };
 
-    // Get saved language and set it
-    const savedLang = localStorage.getItem('servabest-language') || 'en';
-    this.translateService.setDefaultLang('en');
-    this.translateService.use(savedLang);
-    if (savedLang === 'en' || savedLang === 'sp') {
-      document.documentElement.style.direction = 'ltr';
-    } else if (savedLang === 'ar') {
-      document.documentElement.style.direction = 'rtl';
-    }
-
-    // Set initial language state
-    this.isArabic = savedLang === 'ar';
-    this.isEnglish = savedLang === 'en';
-    this.isSpanish = savedLang === 'sp';
-    // Subscribe to language changes
-    this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.isArabic = event.lang === 'ar';
-      this.isEnglish = event.lang === 'en';
-      this.isSpanish = event.lang === 'sp';
-    });
-  }
-
-  navigateToAllServices() {
-    this.router.navigate(['/all-services']);
-  }
-
-  navigateToAppointment() {
-    this.router.navigate(['/appointment-service']);
+  // Get text with instant fallback - CRITICAL: always return fallback first to avoid translation HTTP call blocking LCP
+  getText(key: string, fallback: string): string {
+    // Try to get translation instantly (if already loaded), otherwise use fallback
+    const translation = this.translate.instant(key);
+    // If translation key is returned unchanged, use fallback
+    return translation !== key ? translation : fallback;
   }
 }

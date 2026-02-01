@@ -7,7 +7,7 @@
   [class.w-auto]="!fullWidth()">
 
   @if (loading()) {
-  <mat-icon class="animate-spin h-4 w-4 text-white">refresh</mat-icon>
+  <i class="bi bi-arrow-clockwise animate-spin h-4 w-4 text-white"></i>
   <span class="text-[var(--font-sm)]">{{ loadingText() }}</span>
   } @else {
   <span>{{ label() }}</span>

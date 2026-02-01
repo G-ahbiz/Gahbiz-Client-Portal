@@ -8,7 +8,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginRequest } from '../../../interfaces/sign-in/login-request';
 import { REG_EXP, ROUTES } from '@shared/config/constants';
@@ -27,7 +26,6 @@ import { AuthService } from '@core/services/auth.service';
     FormsModule,
     CommonModule,
     RouterModule,
-    MatIconModule,
     TranslateModule,
     InputComponent,
     ButtonComponent,
