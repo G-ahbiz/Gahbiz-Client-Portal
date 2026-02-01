@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-xl px-2 px-sm-3 px-lg-4 p-xl-5 z-5000">
   <div class="container-fluid d-flex justify-content-between align-items-center p-0">
     <!-- Logo -->
-    <a class="navbar-brand logo-container" [routerLink]="'/home'" style="cursor: pointer;">
+    <a class="navbar-brand logo-container" (click)="navigateTo('/home')" style="cursor: pointer;">
       <img ngSrc="assets/images/logo/logo.webp" alt="Logo" class="main-logo" width="200" height="89" priority>
     </a>
 
@@ -49,7 +49,7 @@
             [class.text-nowrap]="isSpanish"
           >
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2" [routerLink]="'/home'">{{'navbar.home' |
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2" [routerLink]="ROUTES.home">{{'navbar.home' |
                 translate}}</a>
             </li>
             <li class="nav-item dropdown">
@@ -137,7 +137,7 @@
             </li>
           </ul>
 
-          <!-- Actions positioned with proper spacing -->
+           <!-- Actions positioned with proper spacing -->
           <div
             class="d-flex justify-content-start align-items-center gap-3 gap-xl-4 navbar-actions"
             [class.cairo]="isArabic"
@@ -145,94 +145,152 @@
             [class.text-nowrap]="isSpanish"
           >
             <div class="btn-group language-btn-group">
-              <button type="button" class="btn gap-2 d-flex align-items-center outline-0 p-2" appDropdown
-                aria-expanded="false" [title]="isEnglish ? 'English' : isArabic ? 'عربي' : isSpanish ? 'Español' : ''">
+              <button
+                type="button"
+                class="btn gap-2 d-flex align-items-center outline-0 p-2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                [title]="isEnglish ? 'English' : isArabic ? 'عربي' : isSpanish ? 'Español' : ''"
+              >
                 <i class="pi pi-globe fs-6"></i>
               </button>
 
               <ul class="dropdown-menu language-dropdown py-2">
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2 px-3 py-2" href="#"
-                    (click)="changeLanguage('en'); $event.preventDefault()">
-                    <img src="assets/images/navbar/language-icons/america.svg" alt="English" class="flag-icon">
-                    <span class="">{{'navbar.english' | translate}}</span>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2 px-3 py-2"
+                    href="javascript:void(0)"
+                    (click)="changeLanguage('en')"
+                  >
+                    <img
+                      src="assets/images/navbar/language-icons/america.svg"
+                      alt=""
+                      class="flag-icon"
+                    />
+                    <span class="">{{ 'navbar.english' | translate }}</span>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2 px-3 py-2" href="#"
-                    (click)="changeLanguage('ar'); $event.preventDefault()">
-                    <img src="assets/images/navbar/language-icons/egypt.svg" alt="Arabic" class="flag-icon">
-                    <span class="">{{'navbar.arabic' | translate}}</span>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2 px-3 py-2"
+                    href="javascript:void(0)"
+                    (click)="changeLanguage('ar')"
+                  >
+                    <img
+                      src="assets/images/navbar/language-icons/egypt.svg"
+                      alt=""
+                      class="flag-icon"
+                    />
+                    <span class="">{{ 'navbar.arabic' | translate }}</span>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2 px-3 py-2" href="#"
-                    (click)="changeLanguage('sp'); $event.preventDefault()">
-                    <img src="assets/images/navbar/language-icons/spain.svg" alt="Spanish" class="flag-icon">
-                    <span class="">{{'navbar.spanish' | translate}}</span>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2 px-3 py-2"
+                    href="javascript:void(0)"
+                    (click)="changeLanguage('sp')"
+                  >
+                    <img
+                      src="assets/images/navbar/language-icons/spain.svg"
+                      alt=""
+                      class="flag-icon"
+                    />
+                    <span class="">{{ 'navbar.spanish' | translate }}</span>
                   </a>
                 </li>
               </ul>
             </div>
 
             @if (isLoggedIn$ | async) {
-            <div class="d-flex align-items-center gap-2 gap-xl-3 profile-section">
-              <a class="nav-link cart-icon-container p-2" [routerLink]="'/cart'">
-                <i class="pi pi-shopping-bag icons"></i>
-                @if (cartItemCount > 0) {
-                <span class="cart-badge">{{ cartItemCount }}</span>
-                }
-              </a>
-
-              <div class="dropdown">
-                <a class="nav-link profile-link dropdown-toggle d-flex align-items-center p-2" href="#" role="button"
-                  appDropdown aria-expanded="false" id="profileDropdown">
-                  @if ((currentUser$ | async); as user) {
-                  @if (user.profileImageUrl) {
-                  <img [src]="user.profileImageUrl" alt="Profile" class="profile-pic-circle">
-                  } @else {
-                  <i class="pi pi-user icons"></i>
-                  }
+              <div class="d-flex align-items-center gap-2 gap-xl-3 profile-section">
+                <a
+                  class="nav-link cart-icon-container p-2 cursor-pointer"
+                  (click)="navigateTo('/cart')"
+                >
+                  <i class="pi pi-shopping-bag icons"></i>
+                  @if (cartItemCount > 0) {
+                    <span class="cart-badge">{{ cartItemCount }}</span>
                   }
                 </a>
 
-                <ul class="dropdown-menu dropdown-menu-end py-2" aria-labelledby="profileDropdown">
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center px-3 py-2" [routerLink]="'/complete-profile'">
-                      <i class="pi pi-user-edit me-2"></i>
-                      {{'navbar.profile' | translate}}
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider my-2">
-                  </li>
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center px-3 py-2" [routerLink]="'/wishlist'">
-                      <i class="pi pi-heart me-2"></i>
-                      {{'navbar.wishlist' | translate}}
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider my-2">
-                  </li>
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center text-danger px-3 py-2" (click)="logout()">
-                      <i class="pi pi-sign-out me-2"></i>
-                      {{'navbar.logout' | translate}}
-                    </button>
-                  </li>
-                </ul>
+                <div class="dropdown">
+                  <a
+                    class="nav-link profile-link dropdown-toggle d-flex align-items-center p-2"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    id="profileDropdown"
+                  >
+                    @if (currentUser$ | async; as user) {
+                      @if (user.profileImageUrl) {
+                        <img
+                          [src]="user.profileImageUrl"
+                          alt="Profile"
+                          class="profile-pic-circle"
+                        />
+                      } @else {
+                        <i class="pi pi-user icons"></i>
+                      }
+                    }
+                  </a>
+
+                  <ul
+                    class="dropdown-menu dropdown-menu-end py-2"
+                    aria-labelledby="profileDropdown"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center px-3 py-2"
+                        (click)="navigateWithDropdown('/complete-profile')"
+                      >
+                        <i class="pi pi-user-edit me-2"></i>
+                        {{ 'navbar.profile' | translate }}
+                      </a>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider my-2" />
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center px-3 py-2"
+                        (click)="navigateWithDropdown('/wishlist')"
+                      >
+                        <i class="pi pi-heart me-2"></i>
+                        {{ 'navbar.wishlist' | translate }}
+                      </a>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider my-2" />
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item d-flex align-items-center text-danger px-3 py-2"
+                        (click)="logout()"
+                      >
+                        <i class="pi pi-sign-out me-2"></i>
+                        {{ 'navbar.logout' | translate }}
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </div>
             } @else {
-            <a class="nav-link fw-normal primary-clr fs-6 px-2 px-xl-3 py-2" [routerLink]="'/auth/sign-in'">
-              {{'navbar.login' | translate}}
-            </a>
+              <a
+                class="nav-link fw-normal primary-clr fs-6 px-2 px-xl-3 py-2 cursor-pointer"
+                (click)="navigateTo('/auth/sign-in')"
+              >
+                {{ 'navbar.login' | translate }}
+              </a>
             }
 
-            <a class="btn btn-primary primary-bg fw-normal fs-6 px-3 px-xl-4 py-2 book-service-btn"
-              [routerLink]="'/appointment-service'">
-              {{'navbar.bookaservice' | translate}}
-            </a>
+            <button
+              type="button"
+              class="btn btn-primary primary-bg fw-normal fs-6 px-3 px-xl-4 py-2 book-service-btn"
+              (click)="navigateTo('/appointment-service')"
+            >
+              {{ 'navbar.bookaservice' | translate }}
+            </button>
           </div>
         </div>
       </div>
