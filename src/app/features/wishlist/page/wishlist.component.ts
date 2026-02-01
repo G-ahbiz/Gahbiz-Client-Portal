@@ -13,6 +13,9 @@ import { ServicesDetailsApiService } from '@features/all-services/services/servi
 import { ToastService } from '@shared/services/toast.service';
 import { Navbar } from '@shared/components/navbar/navbar';
 import { Footer } from '@shared/components/footer/footer';
+import { ProfileFacadeService } from '@features/complete-profile/services/profile-facade.service';
+import { Profile } from '@features/complete-profile/interfaces/profile';
+import { ROUTES } from '@shared/config/constants';
 
 @Component({
   selector: 'app-wishlist',
@@ -37,6 +40,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
     private servicesDetailsApiService: ServicesDetailsApiService,
     private toast: ToastService,
     private translate: TranslateService,
+    private profileFacade: ProfileFacadeService,
   ) {}
 
   ngOnInit() {
@@ -257,7 +261,51 @@ export class WishlistComponent implements OnInit, OnDestroy {
   onBuyNow(service: ServiceDetails, event: Event): void {
     event.stopPropagation();
     this.onAddToCart(service, event);
-    this.router.navigate(['/checkout']);
+
+    // Check if profile is complete before proceeding to checkout
+    this.profileFacade
+      .getProfile()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          if (response && response.succeeded && response.data) {
+            const profile = response.data as Profile;
+            const isProfileComplete = this.checkProfileComplete(profile);
+
+            if (!isProfileComplete) {
+              this.toast.error('Please complete your profile to proceed to checkout');
+              this.router.navigate([ROUTES.completeProfile]);
+            } else {
+              this.router.navigate([ROUTES.checkout]);
+            }
+          } else {
+            this.toast.error('Please complete your profile to proceed to checkout');
+            this.router.navigate([ROUTES.completeProfile]);
+          }
+        },
+        error: (error) => {
+          console.error('Error loading profile:', error);
+          this.toast.error('Please complete your profile to proceed to checkout');
+          this.router.navigate([ROUTES.completeProfile]);
+        },
+      });
+  }
+
+  /**
+   * Check if user profile is complete
+   */
+  private checkProfileComplete(profile: Profile): boolean {
+    return !!(
+      profile.fullName &&
+      profile.email &&
+      profile.phoneNumber &&
+      profile.nationalId &&
+      profile.dateOfBirth &&
+      profile.country &&
+      profile.state &&
+      profile.postalCode &&
+      profile.profileImageUrl
+    );
   }
 
   trackByServiceId(index: number, service: ServiceDetails): string {
