@@ -1,7 +1,23 @@
 <div class="container-fluid p-0 m-0 landingpage">
-  <app-hero></app-hero>
-  <app-our-services></app-our-services>
+  <app-hero [isArabic]="isArabic" [isEnglish]="isEnglish" [isSpanish]="isSpanish"></app-hero>
+
+  <app-our-services [isArabic]="isArabic"></app-our-services>
+
+  @defer (on viewport) {
   <app-how-it-works></app-how-it-works>
-  <app-best-offers></app-best-offers>
-  <app-testimonials></app-testimonials>
+  } @placeholder {
+  <div style="min-height: 400px; background: transparent;"></div>
+  }
+
+  @defer (on viewport) {
+  <app-best-offers [isArabic]="isArabic" [isEnglish]="isEnglish" [isSpanish]="isSpanish"></app-best-offers>
+  } @placeholder {
+  <div style="min-height: 600px; background: transparent;"></div>
+  }
+
+  @defer (on viewport) {
+  <app-testimonials [isArabic]="isArabic" [isEnglish]="isEnglish" [isSpanish]="isSpanish"></app-testimonials>
+  } @placeholder {
+  <div style="min-height: 400px; background: transparent;"></div>
+  }
 </div>

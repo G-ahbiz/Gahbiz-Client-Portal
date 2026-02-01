@@ -1,7 +1,5 @@
-import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -11,6 +9,7 @@ import { InputComponent } from '@shared/components/input/input.component';
 import { Subject, takeUntil } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
 import { LanguageService } from '@core/services/language.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-forget-password-form',
@@ -18,9 +17,9 @@ import { LanguageService } from '@core/services/language.service';
     ButtonComponent,
     ReactiveFormsModule,
     RouterLink,
-    MatIconModule,
     TranslateModule,
     InputComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './forget-password-form.component.html',
   styleUrls: ['./forget-password-form.component.scss'],

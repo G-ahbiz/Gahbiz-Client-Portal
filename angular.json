@@ -64,24 +64,47 @@
               }
             ],
             "styles": [
+              "src/primeicons-swap.css",
               "src/styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/primeicons/primeicons.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
+            "scripts": [
+              {
+                "input": "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+                "inject": false,
+                "bundleName": "bootstrap"
+              }
+            ]
           },
           "configurations": {
             "production": {
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": {
+                  "inline": true
+                }
+              },
+              "sourceMap": true,
+              "namedChunks": false,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1.5MB",
-                  "maximumError": "2MB"
+                  "maximumWarning": "900kB",
+                  "maximumError": "1.2MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "8kB",
+                  "maximumError": "12kB"
+                },
+                {
+                  "type": "bundle",
+                  "maximumWarning": "400kB",
+                  "maximumError": "600kB"
                 }
               ],
               "outputHashing": "all",
@@ -90,7 +113,10 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ]
+              ],
+              "serviceWorker": false,
+              "prerender": false,
+              "ssr": false
             },
             "development": {
               "optimization": false,

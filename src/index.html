@@ -7,20 +7,771 @@
   <base href="/" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Servabest - Your trusted platform for booking professional home services. Find and book the best service providers for cleaning, maintenance, repairs, and more. Quick, reliable, and affordable services at your doorstep." />
+  <meta name="keywords"
+    content="home services, professional services, service booking, cleaning services, maintenance, repairs, home improvement, service providers, Servabest" />
+  <meta name="author" content="Servabest" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://www.servabest.com/" />
+
+  <!-- Language Alternates -->
+  <link rel="alternate" hreflang="en" href="https://www.servabest.com/en" />
+  <link rel="alternate" hreflang="ar" href="https://www.servabest.com/ar" />
+  <link rel="alternate" hreflang="es" href="https://www.servabest.com/sp" />
+  <link rel="alternate" hreflang="x-default" href="https://www.servabest.com/" />
+
+  <!-- Additional SEO Meta Tags -->
+  <meta name="language" content="English" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="rating" content="General" />
+  <meta name="distribution" content="global" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.servabest.com/" />
+  <meta property="og:title" content="Servabest - Professional Home Services at Your Doorstep" />
+  <meta property="og:description"
+    content="Book trusted professional services for your home. Cleaning, maintenance, repairs and more. Quality service providers, affordable prices, quick booking." />
+  <meta property="og:image" content="https://www.servabest.com/assets/images/logo/servabest-og-image.jpg" />
+  <meta property="og:site_name" content="Servabest" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ar_SA" />
+  <meta property="og:locale:alternate" content="es_ES" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Servabest - Professional Home Services" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://www.servabest.com/" />
+  <meta name="twitter:title" content="Servabest - Professional Home Services at Your Doorstep" />
+  <meta name="twitter:description"
+    content="Book trusted professional services for your home. Cleaning, maintenance, repairs and more. Quality service providers, affordable prices, quick booking." />
+  <meta name="twitter:image" content="https://www.servabest.com/assets/images/logo/servabest-og-image.jpg" />
+  <meta name="twitter:image:alt" content="Servabest - Professional Home Services" />
+  <meta name="twitter:creator" content="@servabest" />
+  <meta name="twitter:site" content="@servabest" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Servabest",
+    "url": "https://www.servabest.com",
+    "logo": "https://www.servabest.com/assets/images/logo/servabest-logo.png",
+    "description": "Professional home services platform connecting customers with trusted service providers for cleaning, maintenance, repairs, and more.",
+    "sameAs": [
+      "https://www.facebook.com/servabest",
+      "https://www.twitter.com/servabest",
+      "https://www.instagram.com/servabest",
+      "https://www.linkedin.com/company/servabest"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-XXX-XXX-XXXX",
+      "contactType": "Customer Service",
+      "areaServed": "Worldwide",
+      "availableLanguage": ["English", "Arabic", "Spanish"]
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Servabest",
+    "url": "https://www.servabest.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.servabest.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Performance optimization meta tags -->
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+
+  <!-- Critical preconnects - ordered by priority -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
+  <!-- Preload critical Google Fonts to prevent CLS -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@600;700&display=optional">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+  <!-- Defer API connection - not needed for LCP -->
+  <link rel="dns-prefetch"
+    href="https://gahbiz-appserver20260107022828-eza8a4f4e6a9akfu.canadacentral-01.azurewebsites.net">
+
+  <!-- Preload critical translation file first - needed for FCP -->
+  <link rel="preload" as="fetch" href="assets/i18n/en.json" crossorigin fetchpriority="high">
+
+  <!-- Preload primeicons font to prevent CLS -->
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/primeicons.woff2" crossorigin>
+
+  <!-- Preload critical font for LCP text (H1 hero title) -->
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://fonts.gstatic.com/s/librefranklin/v14/jizDREVItHgc8qDIbSTKq4XkRg8T88bjFuXOnduhLsSUB9rIb-JH1g.woff2"
+    crossorigin>
+
+  <!-- Preload LCP hero images - optimized for mobile viewport -->
+  <link rel="preload" as="image" href="assets/images/landingpage/Hero/Shape 2.webp" fetchpriority="high"
+    type="image/webp" imagesrcset="assets/images/landingpage/Hero/Shape 2.webp 347w"
+    imagesizes="(max-width: 576px) 180px, (max-width: 768px) 250px, 347px">
+  <style>
+    /* Critical CSS for instant FCP - NO custom fonts, only system fonts */
+    * {
+      /* Prevent all elements from shifting */
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      /* Prevent layout shifts at root */
+      overflow-x: hidden;
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: #fafafa;
+      min-height: 100vh;
+      /* Prevent layout shifts during font loading */
+      overflow-x: hidden;
+      /* Aggressive CLS prevention */
+      position: relative;
+    }
+
+    /* Libre Franklin font with size-adjust to match fallback font metrics */
+    @font-face {
+      font-family: 'Libre Franklin Fallback';
+      src: local('Arial'), local('Helvetica');
+      font-display: swap;
+      size-adjust: 106%;
+      ascent-override: 92%;
+      descent-override: 23%;
+      line-gap-override: 0%;
+    }
+
+    /* Use fallback immediately, swap to real font - prevent CLS */
+    body,
+    .hero-title,
+    .hero-description {
+      font-family: 'Libre Franklin', 'Libre Franklin Fallback', system-ui, -apple-system, sans-serif;
+      /* Prevent font-related shifts */
+      text-rendering: optimizeSpeed;
+      -webkit-text-size-adjust: 100%;
+      /* Ensure stable text layout */
+      font-synthesis: none;
+    }
+
+    /* Critical hero title styles for immediate LCP render */
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0;
+      color: #1a1a1a;
+      /* Reserve space to prevent CLS */
+      min-height: 2.4rem;
+      will-change: contents;
+    }
+
+    .hero-description {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      line-height: 1.6;
+      color: #4a4a4a;
+      /* Reserve space to prevent CLS */
+      min-height: 1.6rem;
+    }
+
+    app-root {
+      display: block;
+      min-height: 100vh;
+      /* Prevent app-root shifts - CRITICAL for CLS */
+      width: 100%;
+      position: relative;
+      isolation: isolate;
+      contain: layout style;
+    }
+
+    /* Critical layout utilities */
+    .container-fluid {
+      width: 100%;
+      padding-right: 0.75rem;
+      padding-left: 0.75rem;
+      margin-right: auto;
+      margin-left: auto;
+      /* Prevent layout shifts */
+      position: relative;
+      box-sizing: border-box;
+      contain: layout style;
+    }
+
+    .d-flex {
+      display: flex !important;
+      /* Prevent layout shifts in flex containers */
+      contain: layout;
+    }
+
+    .flex-column {
+      flex-direction: column !important;
+    }
+
+    .flex-row {
+      flex-direction: row !important;
+    }
+
+    .flex-xl-row {
+      /* Reserve space for breakpoint transitions */
+      min-height: inherit;
+    }
+
+    .gap-2 {
+      gap: 0.5rem !important;
+    }
+
+    .gap-3 {
+      gap: 1rem !important;
+    }
+
+    .p-0 {
+      padding: 0 !important;
+    }
+
+    .m-0 {
+      margin: 0 !important;
+    }
+
+    .mt-3 {
+      margin-top: 1rem !important;
+    }
+
+    .mb-4 {
+      margin-bottom: 1.5rem !important;
+    }
+
+    .mt-5 {
+      margin-top: 3rem !important;
+    }
+
+    .text-center {
+      text-align: center !important;
+    }
+
+    .img-fluid {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Hero critical styles */
+    .hero {
+      padding: 1.5rem 1rem;
+      background: #fafafa;
+      min-height: auto;
+      position: relative;
+      z-index: 0;
+      contain: layout;
+    }
+
+    @media screen and (min-width: 768px) {
+      .hero {
+        padding: 3rem 6.25rem;
+        min-height: 500px;
+      }
+    }
+
+    @media screen and (min-width: 1200px) {
+      .hero-content {
+        width: 45% !important;
+        min-height: 450px;
+      }
+
+      .hero-title {
+        width: 145% !important;
+        line-height: 129% !important;
+      }
+
+      .hero-back {
+        width: 55% !important;
+      }
+    }
+
+    .hero-title {
+      color: #121212;
+      font-weight: 600;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.2;
+    }
+
+    .primary-clr {
+      color: #005db5 !important;
+    }
+
+    .btn-primary {
+      background-color: #005db5;
+      border-color: #005db5;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 0.375rem;
+      display: inline-block;
+      min-width: 140px;
+      min-height: 42px;
+      border: 1px solid transparent;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      font-weight: 400;
+      line-height: 1.5;
+      cursor: pointer;
+      user-select: none;
+      /* Prevent button layout shifts */
+      contain: layout style;
+      box-sizing: border-box;
+    }
+
+    .btn-outline-primary {
+      border: 1px solid #005db5;
+      color: #005db5;
+      background-color: transparent;
+      min-width: 140px;
+      min-height: 42px;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      /* Prevent layout shifts */
+      contain: layout style;
+      box-sizing: border-box;
+    }
+
+    /* Prevent layout shift */
+    .landingpage {
+      min-height: 100vh;
+    }
+
+    app-hero {
+      display: block;
+      min-height: auto;
+      contain: layout style;
+    }
+
+    @media screen and (min-width: 768px) {
+      app-hero {
+        min-height: 500px;
+      }
+    }
+
+    /* Footer critical styles to prevent CLS */
+    footer {
+      min-height: 300px;
+      contain: layout style;
+    }
+
+    /* Footer container to prevent shift */
+    footer .container-fluid {
+      min-height: 280px;
+      contain: layout;
+    }
+
+    /* Header critical styles to prevent CLS */
+    header {
+      min-height: 64px;
+      contain: layout style;
+    }
+
+    /* Static hero spacing - mobile 64px, desktop 161px */
+    #static-hero {
+      margin-top: 64px !important;
+    }
+
+    @media (min-width: 768px) {
+      #static-hero {
+        margin-top: 161px !important;
+      }
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 576px) {
+      .hero {
+        padding: 1.5rem 1rem;
+        min-height: auto;
+      }
+
+      app-hero {
+        min-height: auto;
+      }
+
+      .hero-back {
+        min-height: auto;
+      }
+
+      .hero-content {
+        min-height: auto;
+      }
+
+      .start,
+      .end {
+        min-height: auto;
+      }
+
+      /* Prevent app-root shift on mobile */
+      app-root {
+        min-height: 100vh;
+        width: 100%;
+        display: block;
+      }
+    }
+
+    /* Additional critical hero styles for faster LCP */
+    .hero-back {
+      position: relative;
+      z-index: 0;
+      display: flex !important;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      min-height: auto;
+      contain: layout;
+    }
+
+    @media screen and (min-width: 768px) {
+      .hero-back {
+        min-height: 550px;
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      min-height: auto;
+      contain: layout style;
+    }
+
+    @media screen and (min-width: 768px) {
+      .hero-content {
+        min-height: 400px;
+      }
+    }
+
+    /* Prevent layout shifts in start/end containers */
+    .start,
+    .end {
+      min-height: auto;
+      contain: layout;
+      flex-shrink: 0;
+    }
+
+    @media screen and (min-width: 768px) {
+
+      .start,
+      .end {
+        min-height: 450px;
+      }
+    }
+
+    .image-wrapper {
+      width: fit-content;
+      height: fit-content;
+      min-width: auto;
+      min-height: auto;
+    }
+
+    /* Mobile-specific image constraints */
+    @media screen and (max-width: 767px) {
+      .start,
+      .end {
+        min-height: auto;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      .image-wrapper {
+        min-width: 200px;
+        min-height: 250px;
+        max-width: 100%;
+      }
+    }
+
+    .image-wrapper img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Pattern and back elements */
+    .pattern {
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .back1,
+    .back3,
+    .pattern1,
+    .pattern2 {
+      flex-shrink: 0;
+      border-radius: 12.5rem;
+      width: 22.125rem;
+      height: 11.875rem;
+    }
+
+    .back1 {
+      background: #ffca19;
+    }
+
+    .pattern1 {
+      background: rgba(255, 202, 25, 0.2);
+    }
+
+    .pattern1 {
+      background-color: #ffca191a;
+    }
+
+    .back3 {
+      background: #005db5;
+    }
+
+    .pattern2 {
+      background-color: #005db51a;
+    }
+
+    /* Responsive gap utilities */
+    .gap-1 {
+      gap: 0.25rem !important;
+    }
+
+    .gap-2 {
+      gap: 0.5rem !important;
+    }
+
+    @media screen and (min-width: 992px) {
+      .gap-lg-2 {
+        gap: 0.5rem !important;
+      }
+
+      .gap-lg-3 {
+        gap: 1rem !important;
+      }
+    }
+
+    /* Flexbox utilities */
+    .d-flex {
+      display: flex !important
+    }
+
+    .flex-column {
+      flex-direction: column !important
+    }
+
+    .gap-2 {
+      gap: .5rem !important
+    }
+
+    .gap-3 {
+      gap: 1rem !important
+    }
+
+    /* Prevent layout shifts */
+    app-hero {
+      display: block;
+      contain: layout style;
+    }
+
+    @media (min-width: 768px) {
+      app-hero {
+        min-height: 600px;
+      }
+    }
+  </style>
+
+  <!-- DNS prefetch for third-party origins -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+  <!-- Preconnect to API server to reduce critical path latency -->
+  <link rel="preconnect"
+    href="https://gahbiz-appserver20260107022828-eza8a4f4e6a9akfu.canadacentral-01.azurewebsites.net" crossorigin>
+
+  <!-- Defer font loading - use optional display to render text instantly -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@600;700&display=optional"
+    media="print" onload="this.media='all'; this.onload=null">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;600;700&display=optional">
+  </noscript>
+
+  <!-- Async load icons - defer to not block LCP -->
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    onload="setTimeout(() => { this.onload=null; this.rel='stylesheet'; }, 1000)">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  </noscript>
+
+  <!-- PrimeIcons loaded via primeicons-swap.css in angular.json styles array -->
 </head>
 
 <body>
-  <app-root></app-root>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <!-- Minimal static header placeholder to reserve space -->
+  <div id="static-header"
+    style="height: 64px; width: 100%; background: white; position: fixed; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.1); contain: layout size;">
+    <div
+      style="max-width: 1280px; margin: 0 auto; padding: 0 1rem; height: 100%; display: flex; align-items: center; justify-content: space-between;">
+      <img src="assets/images/logo.webp" alt="Logo" width="90" height="40"
+        style="height: 40px; width: 90px; display: block;">
+    </div>
+  </div>
+
+  <!-- Full static hero section - matches Angular hero exactly with navbar space -->
+  <div id="static-hero" class="container-fluid p-3 p-lg-5 m-0 hero d-flex flex-column h-auto flex-lg-row"
+    style="background: #fafafa; position: absolute; margin-top: 64px; width: 100%; z-index: 9999; left: 0; top: 0;">
+
+    <!-- hero content -->
+    <div class="hero-content p-0 m-0 overflow-x-visible position-relative order-1 order-lg-0">
+      <!-- Hero Title -->
+      <h1 class="display-3 fw-semibold hero-title z-2 position-relative text-center text-lg-start"
+        style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        Find <span class="primary-clr">Trusted</span> Professionals for Any Service – From Taxes to Home Needs
+      </h1>
+
+      <!-- Hero Description -->
+      <p class="hero-description fs-4 mt-3 mb-4 text-center text-lg-start"
+        style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        Fast, secure, and reliable bookings for individuals and businesses.
+      </p>
+
+      <!-- Hero Buttons -->
+      <div class="buttons d-flex flex-row gap-3 mt-5 justify-content-center justify-content-lg-start">
+        <a href="/appointment-service"
+          class="btn btn-primary primary-bg px-lg-5 py-2 book-now-btn text-nowrap z-1 text-decoration-none">
+          Book Now
+        </a>
+        <a href="/all-services"
+          class="btn btn-outline-primary px-lg-5 py-2 explore-services-btn text-nowrap z-1 text-decoration-none">
+          Explore Services
+        </a>
+      </div>
+
+      <!-- Pattern divs (desktop only) -->
+      <div class="pattern position-absolute w-100 h-100 top-0 left-0 d-flex flex-row gap-3 d-none d-xl-flex">
+        <div class="pattern1 align-self-start"></div>
+        <div class="pattern2 align-self-end"></div>
+      </div>
+    </div>
+
+    <!-- hero back -->
+    <div class="hero-back z-0 d-flex flex-row gap-1 gap-lg-3 order-0 order-lg-1 mb-2 mb-lg-0">
+      <!-- start -->
+      <div class="start d-flex flex-column gap-1 gap-lg-2">
+        <!-- Empty Div (desktop only) -->
+        <div class="back1 d-none d-xl-block"></div>
+        <div class="image-wrapper" style="aspect-ratio: 347 / 550; max-width: 100%; overflow: hidden;">
+          <img src="assets/images/landingpage/Hero/Shape 2.webp" alt="Boy" width="347" height="550" loading="eager"
+            fetchpriority="high" class="img-fluid" style="max-width: 100%; height: auto;">
+        </div>
+      </div>
+
+      <!-- end -->
+      <div class="end d-flex flex-column gap-1 gap-lg-2">
+        <div class="image-wrapper" style="aspect-ratio: 317 / 550; max-width: 100%; overflow: hidden;">
+          <img src="assets/images/landingpage/Hero/Shape 1.webp" alt="Girl" width="317" height="550" loading="lazy"
+            decoding="async" class="img-fluid" style="max-width: 100%; height: auto;">
+        </div>
+        <!-- Empty Div (desktop only) -->
+        <div class="back3 d-none d-xl-block"></div>
+      </div>
+    </div>
+  </div>
+
+  <app-root style="display: block; min-height: 100vh; width: 100%; position: relative;">
+    <!-- Angular will populate -->
+  </app-root>
+
+  <script>
+    // Only show static hero on home page, hide immediately on other pages
+    const currentPath = window.location.pathname;
+    const staticHero = document.getElementById('static-hero');
+    const staticHeader = document.getElementById('static-header');
+
+    // Hide static hero and header immediately if not on home page
+    if (currentPath !== '/' && currentPath !== '') {
+      if (staticHero) {
+        staticHero.style.display = 'none';
+      }
+      if (staticHeader) {
+        staticHeader.style.display = 'none';
+      }
+    }
+
+    // Keep static hero visible longer to ensure it's recorded as LCP
+    // Only fade it out after Angular hero is fully rendered and painted
+    const observer = new MutationObserver(() => {
+      const angularHero = document.querySelector('app-hero');
+
+      if (angularHero) {
+        // Wait for Angular hero to be fully laid out with content
+        const checkHeroContent = () => {
+          const heroTitle = angularHero.querySelector('.hero-title');
+          const heroImages = angularHero.querySelectorAll('.image-wrapper img');
+
+          // Only proceed if hero has content and images
+          if (heroTitle && heroImages.length >= 2) {
+            // Wait additional frames to ensure complete paint
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  const staticHero = document.getElementById('static-hero');
+                  const staticHeader = document.getElementById('static-header');
+
+                  if (staticHero) {
+                    // Instant removal to prevent double render
+                    staticHero.remove();
+                  }
+
+                  if (staticHeader) {
+                    staticHeader.remove();
+                  }
+                });
+              });
+            });
+            observer.disconnect();
+          } else {
+            // Check again in next frame
+            requestAnimationFrame(checkHeroContent);
+          }
+        };
+        checkHeroContent();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Fallback: remove static hero after 5 seconds if Angular hasn't loaded
+    setTimeout(() => {
+      const staticHero = document.getElementById('static-hero');
+      const staticHeader = document.getElementById('static-header');
+      if (staticHero && staticHero.parentNode) {
+        staticHero.remove();
+      }
+      if (staticHeader && staticHeader.parentNode) {
+        staticHeader.remove();
+      }
+    }, 5000);
+  </script>
 </body>
 
 </html>

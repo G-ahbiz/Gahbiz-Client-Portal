@@ -1,5 +1,11 @@
 @if (isLoading) {
-<div class="text-center">Loading offers...</div>
+<div class="offers-container row g-4 justify-content-center my-5">
+  @for (i of [1,2,3]; track i) {
+  <div class="col-lg-4 col-md-6 col-12">
+    <div class="skeleton-card" style="height: 400px; background: #eee; border-radius: 8px;"></div>
+  </div>
+  }
+</div>
 } @if (error) {
 <div class="text-center text-danger">{{ error }}</div>
 } @if (offers$ | async; as offers) {
@@ -25,11 +31,13 @@
   </div>
 
   <div class="offers-container row g-4 justify-content-center my-5">
-    @for (offer of offers$ | async; track offer.id) {
+    @for (offer of offers$ | async; track offer.id; let index = $index) {
     <div class="col-lg-4 col-md-6 col-12">
       <div class="offer-card card h-100 cursor-pointer" (click)="openServiceDetails(offer.id)">
         <div class="card-header overflow-hidden position-relative p-0">
-          <img [src]="offer.imageUrl ?? 'assets/images/placeholder.jpg'" [alt]="offer.title" class="img-fluid" />
+          <img [src]="offer.imageUrl ?? 'assets/images/placeholder.jpg'" [alt]="offer.title" class="img-fluid"
+            width="400" height="240" [attr.loading]="index < 3 ? 'eager' : 'lazy'"
+            [attr.fetchpriority]="index < 3 ? 'high' : null" />
           <div class="card-icons position-absolute d-flex justify-content-center align-items-center gap-3">
             <app-favorite-icon [serviceId]="offer.id"></app-favorite-icon>
 

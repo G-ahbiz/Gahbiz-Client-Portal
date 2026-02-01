@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -8,10 +8,11 @@ import { Observable, Subscription } from 'rxjs';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { AllServicePageFacadeService } from '@features/all-services/services/all-service/all-service-page-facade.service';
 import { ROUTES } from '@shared/config/constants';
+import { DropdownDirective } from '@shared/directives/dropdown.directive';
 
 @Component({
   selector: 'app-navbar',
-  imports: [TranslateModule, CommonModule, RouterLink],
+  imports: [TranslateModule, CommonModule, RouterLink, DropdownDirective, NgOptimizedImage],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
@@ -35,7 +36,7 @@ export class Navbar implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private allServicePageFacade: AllServicePageFacadeService,
-    private cartFacade: CartFacadeService
+    private cartFacade: CartFacadeService,
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.currentUser$ = this.authService.currentUser$;
@@ -111,7 +112,7 @@ export class Navbar implements OnInit, OnDestroy {
     }
     this.initializeTranslation();
   }
-  
+
   navigateToCategory(categoryId: string) {
     if (!categoryId) return;
 

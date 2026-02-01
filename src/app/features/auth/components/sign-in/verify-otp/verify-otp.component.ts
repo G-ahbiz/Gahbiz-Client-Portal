@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, ActivatedRoute } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '@core/services/auth.service';
 import { ButtonComponent } from '@shared/components/button/button.component';
@@ -19,10 +18,11 @@ import { Subject, takeUntil } from 'rxjs';
 import { OTP_OPERATIONS, REG_EXP, ROUTES } from '@shared/config/constants';
 import { ToastService } from '@shared/services/toast.service';
 import { LanguageService } from '@core/services/language.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-verify-otp',
-  imports: [ButtonComponent, RouterLink, ReactiveFormsModule, MatIconModule, TranslateModule],
+  imports: [ButtonComponent, RouterLink, ReactiveFormsModule, TranslateModule, NgOptimizedImage],
   templateUrl: './verify-otp.component.html',
   styleUrl: './verify-otp.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -75,7 +75,7 @@ export class VerifyOtp implements OnInit, OnDestroy {
     const value = input.value;
 
     const inputs = Array.from(
-      input.parentElement?.querySelectorAll('input') || []
+      input.parentElement?.querySelectorAll('input') || [],
     ) as HTMLInputElement[];
 
     // Find the first empty input before current index
@@ -113,7 +113,7 @@ export class VerifyOtp implements OnInit, OnDestroy {
 
     // Fill the inputs sequentially from the first one
     const inputs = Array.from(
-      (event.target as HTMLInputElement).parentElement?.querySelectorAll('input') || []
+      (event.target as HTMLInputElement).parentElement?.querySelectorAll('input') || [],
     ) as HTMLInputElement[];
 
     const codeArray = ''.padEnd(6, ' ').split('');
@@ -135,7 +135,7 @@ export class VerifyOtp implements OnInit, OnDestroy {
     // Handle backspace
     if (event.key === 'Backspace' && !input.value && index > 0) {
       const prevInput = input.parentElement?.querySelector(
-        `input:nth-child(${index})`
+        `input:nth-child(${index})`,
       ) as HTMLInputElement;
       prevInput?.focus();
     }
@@ -149,7 +149,7 @@ export class VerifyOtp implements OnInit, OnDestroy {
           this.verifyPassForm.get('code')?.setValue(digits);
           // Focus the last input
           const lastInput = input.parentElement?.querySelector(
-            'input:last-child'
+            'input:last-child',
           ) as HTMLInputElement;
           lastInput?.focus();
         }
@@ -178,11 +178,13 @@ export class VerifyOtp implements OnInit, OnDestroy {
       .subscribe({
         next: (response) => {
           if (response.succeeded) {
-            this.toastService.success(this.translate.instant('CONFIRM_EMAIL.MESSAGES.RESEND_SUCCESS_OTP'));
+            this.toastService.success(
+              this.translate.instant('CONFIRM_EMAIL.MESSAGES.RESEND_SUCCESS_OTP'),
+            );
             this.startCooldown();
           } else {
             this.toastService.error(
-              this.translate.instant(response.message || 'Failed to resend code')
+              this.translate.instant(response.message || 'Failed to resend code'),
             );
           }
         },

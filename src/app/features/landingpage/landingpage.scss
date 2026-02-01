@@ -1,3 +1,7 @@
 .landingpage {
   background: #fafafa;
+  /* Optimize rendering performance for mobile */
+  contain: layout style;
+  /* Reserve space to prevent CLS */
+  min-height: 100vh;
 }

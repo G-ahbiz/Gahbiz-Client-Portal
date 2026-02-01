@@ -4,15 +4,12 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['"IBM Plex Sans"', 'ui-sans-serif', 'system-ui'],
-        serif: ['"IBM Plex Serif"', 'ui-serif', 'Georgia'],
-      },
+      fontFamily: {},
       colors: {
-        border: "#B0B0B0",
-        font: "#121212",
-        placeholder: "#888888",
-        primary: "#005DB5",
+        border: '#B0B0B0',
+        font: '#121212',
+        placeholder: '#888888',
+        primary: '#005DB5',
 
         'light-bg': '#004D97',
         'light-card': '#ffffff',
@@ -30,4 +27,16 @@ module.exports = {
     },
   },
   plugins: [],
+  // Optimize for production builds
+  corePlugins: {
+    // Disable unused core plugins to reduce CSS
+    preflight: true,
+    container: true,
+  },
+  // Safelist only essential dynamic classes
+  safelist: [
+    // Add only classes that are dynamically generated
+    'pi',
+    'pi-*', // PrimeIcons classes
+  ],
 };
