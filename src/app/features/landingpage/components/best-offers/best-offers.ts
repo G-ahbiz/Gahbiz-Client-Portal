@@ -73,16 +73,18 @@ export class BestOffers implements OnInit {
       this.toastService.error('Please sign in to add items to your cart', 3000);
       return;
     }
-    const cartItem: any = {
+    const cartItem: CartItem = {
       id: offer.id,
       name: offer.title,
       description: offer.title,
       price: offer.price,
       priceBefore: offer.priceBefore,
       rate: offer.rating,
-      image: offer.imageUrl,
+      image: offer.imageUrl ?? '',
+      rateCount: offer.rating,
+      quantity: 1,
     };
-    const result = this.cartFacadeService.addToCart(cartItem as CartItem);
+    const result = this.cartFacadeService.addToCart(cartItem);
     if (result) {
       this.toastService.success('Item added to cart', 3000);
     } else {

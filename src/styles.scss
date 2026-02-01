@@ -92,6 +92,7 @@ a,
   --primary-clr: #005db5;
   --primary-clr-hover: #006edb;
   --accent-clr: #ffca19;
+  --accent-clr-hover: #e6b517;
   --bg-clr: #fafafa;
   --bg-clr2: #f8f9fa;
   --bg-dark-clr: #121212;
@@ -105,6 +106,7 @@ a,
   --primary-clr: #005db5;
   --primary-clr-hover: #006edb;
   --accent-clr: #ffca19;
+  --accent-clr-hover: #e6b517;
   --bg-clr: #121212;
   --bg-dark-clr: #121212;
   --text-clr: #121212;
@@ -187,6 +189,9 @@ input[type='password']::-webkit-outer-spin-button {
 
 .orange-bg-clr {
   background-color: var(--accent-clr) !important;
+  &:hover {
+    background-color: var(--accent-clr-hover) !important;
+  }
 }
 
 .orange-text-clr {

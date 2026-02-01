@@ -1,34 +1,53 @@
 <nav class="navbar navbar-expand-xl px-2 px-sm-3 px-lg-4 p-xl-5 z-5000">
   <div class="container-fluid d-flex justify-content-between align-items-center p-0">
-
     <!-- Logo -->
     <a class="navbar-brand logo-container" [routerLink]="'/home'" style="cursor: pointer;">
       <img ngSrc="assets/images/logo/logo.webp" alt="Logo" class="main-logo" width="200" height="89" priority>
     </a>
 
-    <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-      aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler p-2"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="offcanvas" [class]="isArabic ? 'offcanvas-end' : 'offcanvas-start'" tabindex="-1" id="offcanvasNavbar"
-      aria-labelledby="offcanvasNavbarLabel">
-
+    <div
+      class="offcanvas"
+      [class]="isArabic ? 'offcanvas-end' : 'offcanvas-start'"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
       <div class="offcanvas-header p-3 p-md-4">
         <div class="offcanvas-logo-container">
           <img ngSrc="assets/images/logo/logo.webp" alt="Logo" class="offcanvas-logo" width="160" height="71">
         </div>
-        <button type="button" class="btn-close text-reset p-3" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close text-reset p-3"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
       </div>
 
       <div class="offcanvas-body">
         <!-- Adjusted to shift navigation left -->
         <div
-          class="container-fluid p-0 m-0 d-flex flex-column flex-xl-row align-items-xl-center gap-3 gap-xl-0 position-relative">
-
+          class="container-fluid p-0 m-0 d-flex flex-column flex-xl-row align-items-xl-center gap-3 gap-xl-0 position-relative"
+        >
           <!-- Navigation shifted left with margin -->
-          <ul class="navbar-nav mb-2 mb-lg-0 gap-3 gap-xl-4 flex-xl-grow-1 navigation-center" [class.cairo]="isArabic"
-            [class.gap-2]="isSpanish" [class.text-nowrap]="isSpanish">
+          <ul
+            class="navbar-nav mb-2 mb-lg-0 gap-3 gap-xl-4 flex-xl-grow-1 navigation-center"
+            [class.cairo]="isArabic"
+            [class.gap-2]="isSpanish"
+            [class.text-nowrap]="isSpanish"
+          >
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2" [routerLink]="'/home'">{{'navbar.home' |
                 translate}}</a>
@@ -38,7 +57,10 @@
                 [routerLink]="ROUTES.allServices" role="button" appDropdown aria-expanded="false">
                 {{'navbar.services' | translate}}
               </a>
-              <ul class="dropdown-menu dropdown-menu-end services-dropdown py-2" aria-labelledby="navbarDropdown">
+              <ul
+                class="dropdown-menu dropdown-menu-end services-dropdown py-2"
+                aria-labelledby="navbarDropdown"
+              >
                 @for (service of services; track service.id) {
                 <li>
                   <a class="dropdown-item px-3 py-2" [href]="'/all-services/' + service.id"
@@ -50,32 +72,78 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
-                [routerLink]="ROUTES.about">{{'navbar.about' | translate}}</a>
+              <a
+                class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
+                [routerLink]="ROUTES.about"
+                >{{ 'navbar.about' | translate }}</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2" [routerLink]="ROUTES.faq">{{'navbar.faq'
                 | translate}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
-                [routerLink]="ROUTES.contact">{{'navbar.contact' | translate}}</a>
+              <a
+                class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
+                [routerLink]="ROUTES.contact"
+                >{{ 'navbar.contact' | translate }}</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
                 [routerLink]="ROUTES.privacyPolicy">{{'HEADER.PRIVACY_POLICY' | translate}}</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2 cursor-pointer">
-                <i class="pi pi-search fs-6"></i>
+            <!-- Search Container -->
+            <li class="nav-item position-relative search-container">
+              <!-- Search Toggle Button -->
+              <a
+                class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2 cursor-pointer"
+                (click)="toggleSearch()"
+              >
+                <i class="pi fs-6" [ngClass]="isSearchOpen ? 'pi-times' : 'pi-search'"></i>
               </a>
+
+              <!-- Search Input & Results Dropdown -->
+              @if (isSearchOpen) {
+                <div class="search-dropdown">
+                  <div class="search-input-wrapper">
+                    <input
+                      type="text"
+                      class="form-control search-input"
+                      [placeholder]="'navbar.search' | translate"
+                      [value]="searchQuery"
+                      (input)="onSearchInput($event)"
+                      autofocus
+                    />
+                    @if (isSearching) {
+                      <i class="pi pi-spinner pi-spin search-spinner"></i>
+                    }
+                  </div>
+
+                  <!-- Results -->
+                  @if (searchResults.length > 0) {
+                    <ul class="search-results">
+                      @for (result of searchResults; track result.id) {
+                        <li class="search-result-item" (click)="selectSearchResult(result.id)">
+                          <span class="result-name">{{ result.name }}</span>
+                        </li>
+                      }
+                    </ul>
+                  } @else if (searchQuery.length >= 2 && !isSearching) {
+                    <div class="no-results">{{ 'navbar.no-results' | translate }}</div>
+                  }
+                </div>
+              }
             </li>
           </ul>
 
           <!-- Actions positioned with proper spacing -->
-          <div class="d-flex justify-content-start align-items-center gap-3 gap-xl-4 navbar-actions"
-            [class.cairo]="isArabic" [class.gap-2]="isSpanish" [class.text-nowrap]="isSpanish">
-
+          <div
+            class="d-flex justify-content-start align-items-center gap-3 gap-xl-4 navbar-actions"
+            [class.cairo]="isArabic"
+            [class.gap-2]="isSpanish"
+            [class.text-nowrap]="isSpanish"
+          >
             <div class="btn-group language-btn-group">
               <button type="button" class="btn gap-2 d-flex align-items-center outline-0 p-2" appDropdown
                 aria-expanded="false" [title]="isEnglish ? 'English' : isArabic ? 'عربي' : isSpanish ? 'Español' : ''">
@@ -155,7 +223,6 @@
                   </li>
                 </ul>
               </div>
-            </div>
             } @else {
             <a class="nav-link fw-normal primary-clr fs-6 px-2 px-xl-3 py-2" [routerLink]="'/auth/sign-in'">
               {{'navbar.login' | translate}}
@@ -168,7 +235,6 @@
             </a>
           </div>
         </div>
-
       </div>
     </div>
   </div>

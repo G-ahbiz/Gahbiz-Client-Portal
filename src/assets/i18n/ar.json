@@ -217,6 +217,7 @@
     "foodvendorservices": "خدمات المطاعم",
     "immigration": "الهجرة",
     "search": "بحث",
+    "no-results": "لم يتم العثور على خدمات",
     "english": "الإنجليزية",
     "arabic": "العربية",
     "spanish": "الإسبانية",
@@ -483,7 +484,9 @@
       "save-for-later-btn": "احفظ لوقت لاحق",
       "saved-for-later-toast": "تم حفظ العنصر لوقت لاحق",
       "save-for-later-failed": "فشل في حفظ العنصر",
-      "already-saved-toast": "العنصر محفوظ بالفعل لوقت لاحق"
+      "already-saved-toast": "العنصر محفوظ بالفعل لوقت لاحق",
+      "quantity": "الكمية",
+      "unit-price": "سعر الوحدة"
     }
   },
   "checkout": {

@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-terms',
+  imports: [],
   templateUrl: './terms.html',
-  styleUrl: './terms.scss'
+  styleUrl: './terms.scss',
 })
-export class Terms {
-
-}
+export class Terms {}

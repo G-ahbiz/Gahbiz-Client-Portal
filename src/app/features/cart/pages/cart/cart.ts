@@ -27,7 +27,10 @@ export class Cart implements OnInit, OnDestroy {
   private toastService = inject(ToastService);
   private destroy$ = new Subject<void>();
 
-  constructor(private router: Router, private allServicesService: AllServicesComponentService) {}
+  constructor(
+    private router: Router,
+    private allServicesService: AllServicesComponentService,
+  ) {}
 
   ngOnInit() {
     this.cartItems.update(() => this.getCartItems());

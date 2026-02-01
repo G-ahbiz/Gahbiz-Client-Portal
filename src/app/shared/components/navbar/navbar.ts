@@ -4,9 +4,18 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { User } from '@features/auth/interfaces/sign-in/user';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Observable, Subscription } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  of,
+  switchMap,
+} from 'rxjs';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { AllServicePageFacadeService } from '@features/all-services/services/all-service/all-service-page-facade.service';
+import { LandingApiService } from '@features/landingpage/services/landing-api.service';
 import { ROUTES } from '@shared/config/constants';
 import { DropdownDirective } from '@shared/directives/dropdown.directive';
 
@@ -31,12 +40,21 @@ export class Navbar implements OnInit, OnDestroy {
   cartItemCount = 0;
   private cartSub?: Subscription;
 
+  // Search
+  isSearchOpen = false;
+  searchQuery = '';
+  searchResults: any[] = [];
+  isSearching = false;
+  private searchSubject = new Subject<string>();
+  private searchSub?: Subscription;
+
   constructor(
     private translateService: TranslateService,
     private router: Router,
     private authService: AuthService,
     private allServicePageFacade: AllServicePageFacadeService,
     private cartFacade: CartFacadeService,
+    private landingApiService: LandingApiService,
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.currentUser$ = this.authService.currentUser$;
@@ -50,6 +68,32 @@ export class Navbar implements OnInit, OnDestroy {
     });
 
     this.loadCategories();
+    this.setupSearch();
+  }
+
+  private setupSearch(): void {
+    this.searchSub = this.searchSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((query) => {
+          if (!query || query.trim().length < 2) {
+            return of([]);
+          }
+          this.isSearching = true;
+          return this.landingApiService.searchServices(query.trim());
+        }),
+      )
+      .subscribe({
+        next: (results) => {
+          this.searchResults = results;
+          this.isSearching = false;
+        },
+        error: () => {
+          this.searchResults = [];
+          this.isSearching = false;
+        },
+      });
   }
 
   loadCategories() {
@@ -57,7 +101,6 @@ export class Navbar implements OnInit, OnDestroy {
       .getCategories(1, 100000, false, 0) // page=1, size=100000, includeServices=false
       .subscribe((res) => {
         if (res?.data?.items) {
-          console.log(res.data.items);
           this.services = res.data.items;
         }
       });
@@ -178,7 +221,34 @@ export class Navbar implements OnInit, OnDestroy {
     }, 200);
   }
 
+  // Search methods
+  toggleSearch(): void {
+    this.isSearchOpen = !this.isSearchOpen;
+    if (!this.isSearchOpen) {
+      this.clearSearch();
+    }
+  }
+
+  onSearchInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchQuery = value;
+    this.searchSubject.next(value);
+  }
+
+  clearSearch(): void {
+    this.searchQuery = '';
+    this.searchResults = [];
+  }
+
+  selectSearchResult(serviceId: string): void {
+    this.isSearchOpen = false;
+    this.clearSearch();
+    this.closeOffcanvasAndRestoreScroll();
+    this.router.navigate(['/service-details', serviceId]);
+  }
+
   ngOnDestroy() {
     this.cartSub?.unsubscribe();
+    this.searchSub?.unsubscribe();
   }
 }

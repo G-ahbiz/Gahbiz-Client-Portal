@@ -28,7 +28,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         loadComponent: () =>
           import('./features/checkout/page/order-tracking/order-tracking').then(
-            (m) => m.OrderTracking
+            (m) => m.OrderTracking,
           ),
       },
       // Checkout
@@ -45,14 +45,8 @@ export const routes: Routes = [
       },
       // Privacy Policy
       {
-        path: 'privacy-policy',
-        loadComponent: () => import('./shared/components/privacy/privacy').then((m) => m.Privacy),
-      },
-    
-      // Terms and Conditions
-      {
-        path: 'terms-and-conditions',
-        loadComponent: () => import('./shared/components/terms/terms').then((m) => m.Terms),
+        path: 'info',
+        loadChildren: () => import('./features/info/info.routes').then((m) => m.INFO_ROUTES),
       },
     ],
   },
@@ -68,7 +62,7 @@ export const routes: Routes = [
     path: 'service-details/:id',
     loadComponent: () =>
       import('./features/all-services/service-datails/service-datails').then(
-        (m) => m.ServiceDatails
+        (m) => m.ServiceDatails,
       ),
   },
 
@@ -77,9 +71,9 @@ export const routes: Routes = [
     path: 'appointment-service',
     canActivate: [AuthGuard],
     loadComponent: () =>
-      import(
-        './features/all-services/appointment-service-component/appointment-service-component'
-      ).then((m) => m.AppointmentServiceComponent),
+      import('./features/all-services/appointment-service-component/appointment-service-component').then(
+        (m) => m.AppointmentServiceComponent,
+      ),
   },
 
   // Complete Profile
@@ -93,7 +87,8 @@ export const routes: Routes = [
   {
     path: 'wishlist',
     canActivate: [AuthGuard],
-    loadComponent: () => import('./features/wishlist/page/wishlist.component').then((m) => m.WishlistComponent),
+    loadComponent: () =>
+      import('./features/wishlist/page/wishlist.component').then((m) => m.WishlistComponent),
   },
 
   // Cart

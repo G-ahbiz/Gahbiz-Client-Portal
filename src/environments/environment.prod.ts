@@ -58,6 +58,7 @@ export const environment = {
     getServiceByCategory: '/Services/category/',
     getServiceById: '/Services/',
     bestOffers: '/Services/best-offers',
+    searchServices: (text: string) => `/Services/search/${text}`,
   },
   states: {
     getStatesByCountry: '/states/country/',

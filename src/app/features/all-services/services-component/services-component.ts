@@ -19,7 +19,6 @@ import { Router } from '@angular/router';
 import { CartItem } from '@features/cart/interfaces/cart-item';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { ToastService } from '@shared/services/toast.service';
-import { ApiImage } from '@core/interfaces/api-image';
 import { AuthService } from '@core/services/auth.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ROUTES } from '@shared/config/constants';
@@ -158,6 +157,7 @@ export class ServicesComponent implements OnDestroy {
       rate: service.rate,
       image: service.image?.path || '',
       rateCount: service.rateCount,
+      quantity: 1,
     };
     const result = this.cartFacadeService.addToCart(cartItem);
     if (result) {

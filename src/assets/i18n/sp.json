@@ -217,6 +217,7 @@
     "foodvendorservices": "Servicios de vendedores de alimentos",
     "immigration": "Inmigración",
     "search": "Buscar",
+    "no-results": "No se encontraron servicios",
     "english": "Inglés",
     "arabic": "Árabe",
     "spanish": "Español",
@@ -483,7 +484,9 @@
       "save-for-later-btn": "Guardar para más tarde",
       "saved-for-later-toast": "Artículo guardado para más tarde",
       "save-for-later-failed": "No se pudo guardar el artículo",
-      "already-saved-toast": "El artículo ya está guardado para más tarde"
+      "already-saved-toast": "El artículo ya está guardado para más tarde",
+      "quantity": "Cant.",
+      "unit-price": "Precio unitario"
     }
   },
   "checkout": {

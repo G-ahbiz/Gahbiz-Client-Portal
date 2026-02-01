@@ -28,21 +28,24 @@ import { ROUTES } from '@shared/config/constants';
 export class CartSummary implements OnInit, OnDestroy {
   private readonly profileFacade = inject(ProfileFacadeService);
   private readonly toastService = inject(ToastService);
+  private readonly router = inject(Router);
 
   cartItems = input<CartItem[]>([]);
   profile = {} as Profile;
   isProfileComplete = signal<boolean>(false);
 
-  // Use computed signal for automatic recalculation
+  // Use computed signal for automatic recalculation (price * quantity)
   totalPrice = computed(
-    () => this.cartItems()?.reduce((total, cartItem) => total + Number(cartItem.price), 0) || 0
+    () =>
+      this.cartItems()?.reduce(
+        (total, cartItem) => total + Number(cartItem.price) * (cartItem.quantity ?? 1),
+        0,
+      ) || 0,
   );
 
   @Input() isButtonDisabled: boolean = false;
 
   private destroy$ = new Subject<void>();
-
-  constructor(private router: Router) {}
 
   ngOnInit() {
     this.loadProfile();
@@ -77,10 +80,14 @@ export class CartSummary implements OnInit, OnDestroy {
 
   // Proceed to checkout
   proceedToCheckout() {
+    const items = this.cartItems() ?? [];
+    if (items.length === 0) {
+      this.toastService.error('Your cart is empty. Add items before checkout.');
+      return;
+    }
+
     // Check if there's an appointment in the cart first
-    const hasAppointment = this.cartItems().some(
-      (item) => item.id === CART_ITEMS.APPOINTMENT_SERVICE
-    );
+    const hasAppointment = items.some((item) => item.id === CART_ITEMS.APPOINTMENT_SERVICE);
 
     // If profile is incomplete, navigate to complete profile
     if (!this.isProfileComplete()) {
