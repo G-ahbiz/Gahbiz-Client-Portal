@@ -34,6 +34,8 @@
   height: 0.18rem;
   width: 10%;
   margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
   .orange-bg-clr {
     background: var(--accent-clr);
   }
@@ -152,11 +154,13 @@
       .service-title {
         font-size: 1.5rem;
         color: #0b2545;
+        word-wrap: break-word;
       }
       .service-count {
         font-size: 1rem;
         font-weight: 400;
         color: #005db5;
+        white-space: nowrap;
       }
       .service-caption {
         font-size: 0.95rem;

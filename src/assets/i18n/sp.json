@@ -245,7 +245,7 @@
     "allrightsreserved": "Todos los derechos reservados.",
     "needhelp": "¿Necesitas ayuda?",
     "your-account": "Tu cuenta",
-    "your-orders": "Tus pedidos",
+    "cart": "Tu Carrito",
     "account-settings": "Configuración de la cuenta",
     "payments": "Pagos"
   },
@@ -306,7 +306,22 @@
     "title2": "confían en nosotros ",
     "title3": "con sus ",
     "title4": "impuestos",
-    "description": "No solo tome nuestra palabra - escuche a clientes satisfechos que confían en nosotros con sus necesidades financieras"
+    "description": "No solo tome nuestra palabra - escuche a clientes satisfechos que confían en nosotros con sus necesidades financieras",
+    "review1": {
+      "name": "Fatima El-Sayed",
+      "position": "Diseñadora Independiente",
+      "text": "¡Servicio excepcional! Servabest me ayudó a optimizar mis finanzas y me ahorró mucho tiempo. Lo recomiendo encarecidamente para cualquier negocio."
+    },
+    "review2": {
+      "name": "Khaled Mansour",
+      "position": "Fundador de Startup",
+      "text": "La consulta que recibí fue invaluable. El equipo de Servabest es proactivo, detallista y realmente se preocupa por el éxito del cliente."
+    },
+    "review3": {
+      "name": "Sara Mounir",
+      "position": "Gerente de Marketing",
+      "text": "Cambiar a Servabest fue la mejor decisión para la contabilidad de nuestra empresa. Todo es claro, oportuno y perfectamente gestionado."
+    }
   },
   "all-services": {
     "title1": "Nuestros ",

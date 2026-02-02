@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'primeicons';
-  font-display: optional;
+  font-display: swap;
   src:
     url('./assets/fonts/primeicons.woff2') format('woff2'),
     url('./assets/fonts/primeicons.woff') format('woff');
