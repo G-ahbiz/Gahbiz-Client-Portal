@@ -25,6 +25,8 @@ import { ToastService } from '@shared/services/toast.service';
 import { CartFacadeService } from '@features/cart/services/cart-facade.service';
 import { AuthService } from '@core/services/auth.service';
 import { ROUTES } from '@shared/config/constants';
+import { ProfileFacadeService } from '@features/complete-profile/services/profile-facade.service';
+import { Profile } from '@features/complete-profile/interfaces/profile';
 
 interface BreadcrumbItem {
   label: string;
@@ -57,6 +59,7 @@ export class ServiceDetailsContent implements OnInit {
   private readonly toaster = inject(ToastService);
   private readonly cartFacadeService = inject(CartFacadeService);
   private readonly authService = inject(AuthService);
+  private readonly profileFacade = inject(ProfileFacadeService);
 
   readonly isLoggedIn = toSignal(this.authService.isLoggedIn$, {
     initialValue: this.authService.isAuthenticated(),
@@ -503,14 +506,58 @@ export class ServiceDetailsContent implements OnInit {
   }
 
   /**
-   * Buy now functionality
+   * Buy now functionality with profile validation
    */
   buyNow(): void {
     const service = this.serviceDetail();
     if (service) {
       this.onAddToCart(service, new Event('click'));
-      this.router.navigate([ROUTES.checkout]);
+
+      // Check if profile is complete before proceeding to checkout
+      this.profileFacade
+        .getProfile()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: (response) => {
+            if (response && response.succeeded && response.data) {
+              const profile = response.data as Profile;
+              const isProfileComplete = this.checkProfileComplete(profile);
+
+              if (!isProfileComplete) {
+                this.toaster.error('Please complete your profile to proceed to checkout');
+                this.router.navigate([ROUTES.completeProfile]);
+              } else {
+                this.router.navigate([ROUTES.checkout]);
+              }
+            } else {
+              this.toaster.error('Please complete your profile to proceed to checkout');
+              this.router.navigate([ROUTES.completeProfile]);
+            }
+          },
+          error: (error) => {
+            console.error('Error loading profile:', error);
+            this.toaster.error('Please complete your profile to proceed to checkout');
+            this.router.navigate([ROUTES.completeProfile]);
+          },
+        });
     }
+  }
+
+  /**
+   * Check if user profile is complete
+   */
+  private checkProfileComplete(profile: Profile): boolean {
+    return !!(
+      profile.fullName &&
+      profile.email &&
+      profile.phoneNumber &&
+      profile.nationalId &&
+      profile.dateOfBirth &&
+      profile.country &&
+      profile.state &&
+      profile.postalCode &&
+      profile.profileImageUrl
+    );
   }
 
   /**
