@@ -3,7 +3,8 @@
   <!-- hero content -->
   <div class="hero-content p-0 m-0 overflow-x-visible position-relative order-1 order-lg-0">
     <!-- Hero Title -->
-    <h1 class="display-3 fw-semibold hero-title z-2 position-relative text-center text-lg-start">
+    <h1
+      [class]="'display-3 fw-semibold hero-title z-2 position-relative text-center ' + (isArabic ? 'text-lg-end' : 'text-lg-start')">
       {{getText('hero.title1', heroText.title1)}}
       <span class="primary-clr"> {{getText('hero.title2', heroText.title2)}}
       </span>
@@ -11,12 +12,13 @@
     </h1>
 
     <!-- Hero Description -->
-    <p class="hero-description fs-4  mt-3 mb-4 text-center text-lg-start">
+    <p [class]="'hero-description fs-4 mt-3 mb-4 text-center ' + (isArabic ? 'text-lg-end' : 'text-lg-start')">
       {{getText('hero.description', heroText.description)}}
     </p>
 
     <!-- Hero Buttons -->
-    <div class="buttons d-flex flex-row gap-3 mt-5 justify-content-center justify-content-lg-start">
+    <div
+      [class]="'buttons d-flex flex-row gap-3 mt-5 justify-content-center ' + (isArabic ? 'justify-content-lg-start' : 'justify-content-lg-start')">
       <!-- Book Now Button -->
       <a routerLink="/appointment-service"
         class="btn btn-primary primary-bg px-lg-5 py-2 book-now-btn text-nowrap z-1 text-decoration-none">
@@ -40,22 +42,24 @@
     <div class="start d-flex flex-column gap-1 gap-lg-2">
       <!-- Empty Div -->
       <div class="back1 d-none d-xl-block"></div>
-      <div class="image-wrapper" style="aspect-ratio: 347 / 550; max-width: 100%; overflow: hidden;">
+      <div class="image-wrapper" [style.aspect-ratio]="isArabic ? '317 / 550' : '347 / 550'"
+        style="max-width: 100%; overflow: hidden;">
         <img [src]="'assets/images/landingpage/Hero/' + (isArabic ? 'Shape 1' : 'Shape 2') + '.webp'"
-          [alt]="isArabic ? 'Girl' : 'Boy'" width="347" height="550" loading="eager" fetchpriority="high"
-          class="img-fluid" style="max-width: 100%; height: auto;"
-          sizes="(max-width: 576px) 180px, (max-width: 768px) 250px, 347px">
+          [alt]="isArabic ? 'Girl' : 'Boy'" [attr.width]="isArabic ? '317' : '347'" height="550" loading="eager"
+          fetchpriority="high" class="img-fluid" style="max-width: 100%; height: auto;"
+          [attr.sizes]="isArabic ? '(max-width: 576px) 165px, (max-width: 768px) 220px, 317px' : '(max-width: 576px) 180px, (max-width: 768px) 250px, 347px'">
       </div>
     </div>
 
     <!-- end -->
     <div class="end d-flex flex-column gap-1 gap-lg-2">
 
-      <div class="image-wrapper" style="aspect-ratio: 317 / 550; max-width: 100%; overflow: hidden;">
+      <div class="image-wrapper" [style.aspect-ratio]="isArabic ? '347 / 550' : '317 / 550'"
+        style="max-width: 100%; overflow: hidden;">
         <img [src]="'assets/images/landingpage/Hero/' + (isArabic ? 'Shape 2' : 'Shape 1') + '.webp'"
-          [alt]="isArabic ? 'Boy' : 'Girl'" width="317" height="550" loading="lazy" decoding="async" fetchpriority="low"
-          importance="low" class="img-fluid" style="max-width: 100%; height: auto;"
-          sizes="(max-width: 576px) 165px, (max-width: 768px) 220px, 317px">
+          [alt]="isArabic ? 'Boy' : 'Girl'" [attr.width]="isArabic ? '347' : '317'" height="550" loading="lazy"
+          decoding="async" fetchpriority="low" importance="low" class="img-fluid" style="max-width: 100%; height: auto;"
+          [attr.sizes]="isArabic ? '(max-width: 576px) 180px, (max-width: 768px) 250px, 347px' : '(max-width: 576px) 165px, (max-width: 768px) 220px, 317px'">
       </div>
       <!-- Empty Div -->
       <div class="back3 d-none d-xl-block"></div>

@@ -232,3 +232,23 @@
     width: 20rem;
   }
 }
+
+/* RTL (Arabic) specific styles */
+[dir='rtl'] {
+  .hero-title,
+  .hero-description {
+    text-align: right !important;
+
+    @media screen and (min-width: 992px) {
+      text-align: right !important;
+    }
+  }
+
+  .buttons {
+    justify-content: center;
+
+    @media screen and (min-width: 992px) {
+      justify-content: flex-end !important;
+    }
+  }
+}

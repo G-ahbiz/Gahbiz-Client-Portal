@@ -22,15 +22,15 @@
             </h5>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.home' | translate }}</a>
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.home">{{ 'footer.home' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.ourteam' | translate }}</a>
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.about">{{ 'footer.ourteam' | translate }}</a>
           </li>
           <li class="nav-item">
             <a [routerLink]="ROUTES.contact" class="nav-link p-0 py-1">{{
               'footer.contactus' | translate
-            }}</a>
+              }}</a>
           </li>
         </ul>
       </div>
@@ -43,11 +43,7 @@
             </h5>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link p-0 py-1"
-              [routerLink]="ROUTES.termsAndConditions"
-              (click)="scrollTop()"
-            >
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.termsAndConditions" (click)="scrollTop()">
               {{ 'footer.termsandconditions' | translate }}
             </a>
           </li>
@@ -57,15 +53,17 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" routerLink="/refund-policy" (click)="scrollTop()">
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.privacyPolicy" (click)="scrollTop()">
               {{ 'footer.refundpolicy' | translate }}
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.choiceoptinoptout' | translate }}</a>
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.privacyPolicy" (click)="scrollTop()">{{
+              'footer.choiceoptinoptout' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.policymodifications' | translate }}</a>
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.privacyPolicy" (click)="scrollTop()">{{
+              'footer.policymodifications' | translate }}</a>
           </li>
         </ul>
       </div>
@@ -78,20 +76,20 @@
             </h5>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.contact">{{
               'footer.sellproductsongahbiz' | translate
-            }}</a>
+              }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.contact">{{
               'footer.advertiseyourservices' | translate
-            }}</a>
+              }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.selfpublishwithus' | translate }}</a>
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.contact">{{ 'footer.selfpublishwithus' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.becomeserviceagent' | translate }}</a>
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.contact">{{ 'footer.becomeserviceagent' | translate }}</a>
           </li>
         </ul>
       </div>
@@ -104,16 +102,19 @@
             </h5>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.your-account' | translate }}</a>
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.completeProfile">{{ 'footer.your-account' | translate
+              }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.your-orders' | translate }}</a>
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.cart">{{ 'footer.cart' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.account-settings' | translate }}</a>
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.completeProfile">{{ 'footer.account-settings' | translate
+              }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-0 py-1" href="#">{{ 'footer.payments' | translate }}</a>
+            <!-- TODO: Create payments help page -->
+            <a class="nav-link p-0 py-1" [routerLink]="ROUTES.contact">{{ 'footer.payments' | translate }}</a>
           </li>
         </ul>
       </div>
@@ -125,8 +126,7 @@
   </div>
 
   <div
-    class="container d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center gap-3"
-  >
+    class="container d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center gap-3">
     <div class="text-center text-md-start">
       <p class="text-white fs-6 fw-medium mb-0">
         © 2025 ServaBest. {{ 'footer.allrightsreserved' | translate }}
@@ -134,27 +134,17 @@
     </div>
 
     <div
-      class="social-media-container d-flex justify-content-center justify-content-md-end align-items-center gap-3 gap-md-4"
-    >
-      <a
-        href="https://www.facebook.com/share/1Mk5R5ky3o"
-        class="text-decoration-none social-media-icon facebook"
-        target="_blank"
-      >
+      class="social-media-container d-flex justify-content-center justify-content-md-end align-items-center gap-3 gap-md-4">
+      <a href="https://www.facebook.com/share/1Mk5R5ky3o" class="text-decoration-none social-media-icon facebook"
+        target="_blank">
         <i class="pi pi-facebook fs-5 text-white"></i>
       </a>
-      <a
-        href="https://www.instagram.com/mogaberus/"
-        class="text-decoration-none social-media-icon instagram"
-        target="_blank"
-      >
+      <a href="https://www.instagram.com/mogaberus/" class="text-decoration-none social-media-icon instagram"
+        target="_blank">
         <i class="pi pi-instagram fs-5 text-white"></i>
       </a>
-      <a
-        href="https://www.linkedin.com/company/servabest/"
-        class="text-decoration-none social-media-icon linkedin"
-        target="_blank"
-      >
+      <a href="https://www.linkedin.com/company/servabest/" class="text-decoration-none social-media-icon linkedin"
+        target="_blank">
         <i class="pi pi-linkedin fs-5 text-white"></i>
       </a>
     </div>

@@ -4,6 +4,19 @@
   contain: layout style;
 }
 
+.txt-clr {
+  color: var(--text-clr);
+}
+
+.text-highlight {
+  color: var(--primary-clr);
+}
+
+.decoration-underline {
+  height: 0.1875rem !important;
+  width: 10% !important;
+}
+
 .how-it-works {
   padding-block-start: 8.5rem !important;
   padding-block-end: 3rem !important;

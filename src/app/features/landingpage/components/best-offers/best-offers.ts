@@ -27,7 +27,7 @@ export class BestOffers implements OnInit {
   @Input() isEnglish: boolean = false;
   @Input() isSpanish: boolean = false;
 
-  offers$!: Observable<Offer[]>;
+  offers: Offer[] = [];
   isLoading: boolean = true;
   error: string = '';
 
@@ -50,17 +50,21 @@ export class BestOffers implements OnInit {
     this.isLoading = true;
     this.error = '';
 
-    this.offers$ = this.landingApiService.getBestOffers().pipe(
-      tap(() => {
-        this.isLoading = false;
-      }),
-      catchError((error) => {
-        console.error('Error fetching best offers:', error);
-        this.error = 'Failed to load best offers';
-        this.isLoading = false;
-        return of([]);
-      }),
-    );
+    this.landingApiService
+      .getBestOffers()
+      .pipe(
+        tap((offers) => {
+          this.offers = offers;
+          this.isLoading = false;
+        }),
+        catchError((error) => {
+          console.error('Error fetching best offers:', error);
+          this.error = 'Failed to load best offers';
+          this.isLoading = false;
+          return of([]);
+        }),
+      )
+      .subscribe();
   }
 
   openServiceDetails(id: string): void {
