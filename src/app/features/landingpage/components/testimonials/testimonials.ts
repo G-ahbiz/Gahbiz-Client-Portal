@@ -24,24 +24,24 @@ export class Testimonials implements OnInit {
     this.testimonials = [
       {
         id: 1,
-        name: 'Fatima El-Sayed',
-        position: 'Freelance Designer',
+        nameKey: 'testimonials.review1.name',
+        positionKey: 'testimonials.review1.position',
         image: 'testimonial.png',
-        testimonial: `“Exceptional service! Servabest helped me streamline my finances and saved me so much time. Highly recommend for any business.”`,
+        testimonialKey: 'testimonials.review1.text',
       },
       {
         id: 2,
-        name: 'Khaled Mansour',
-        position: 'Startup Founder',
+        nameKey: 'testimonials.review2.name',
+        positionKey: 'testimonials.review2.position',
         image: 'testimonial.png',
-        testimonial: `“The consultation I received was invaluable. The team at Servabest is proactive, detail-oriented, and truly cares about client success.”`,
+        testimonialKey: 'testimonials.review2.text',
       },
       {
         id: 3,
-        name: 'Sara Mounir',
-        position: 'Marketing Manager',
+        nameKey: 'testimonials.review3.name',
+        positionKey: 'testimonials.review3.position',
         image: 'testimonial.png',
-        testimonial: `“Switching to Servabest was the best decision for our company's accounting. Everything is clear, timely, and perfectly managed.”`,
+        testimonialKey: 'testimonials.review3.text',
       },
     ];
   }

@@ -306,7 +306,22 @@
     "title2": "trust us ",
     "title3": "with Their ",
     "title4": "Taxes",
-    "description": "Don't just take our word for it - hear from satisfied clients who trust us with their financial needs"
+    "description": "Don't just take our word for it - hear from satisfied clients who trust us with their financial needs",
+    "review1": {
+      "name": "Fatima El-Sayed",
+      "position": "Freelance Designer",
+      "text": "Exceptional service! Servabest helped me streamline my finances and saved me so much time. Highly recommend for any business."
+    },
+    "review2": {
+      "name": "Khaled Mansour",
+      "position": "Startup Founder",
+      "text": "The consultation I received was invaluable. The team at Servabest is proactive, detail-oriented, and truly cares about client success."
+    },
+    "review3": {
+      "name": "Sara Mounir",
+      "position": "Marketing Manager",
+      "text": "Switching to Servabest was the best decision for our company's accounting. Everything is clear, timely, and perfectly managed."
+    }
   },
   "all-services": {
     "title1": "Our ",

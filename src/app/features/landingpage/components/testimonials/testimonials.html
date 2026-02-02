@@ -23,13 +23,13 @@
         <i class="pi pi-star-fill text-warning"></i>
         <i class="pi pi-star-fill text-warning"></i>
         <i class="pi pi-star-fill text-warning"></i>
-        <i class="pi pi-star text-warning"></i>
+        <i class="pi pi-star-fill text-warning"></i>
       </div>
 
       <!-- Card body -->
       <div class="card-testimonials d-flex justify-content-start align-items-center">
         <span class="card-testimonial fw-normal fs-875">
-          {{ testimonial.testimonial }}
+          {{ testimonial.testimonialKey | translate }}
         </span>
       </div>
 
@@ -38,13 +38,13 @@
         <!-- Card Image -->
         <div
           class="card-image-container rounded-circle overflow-hidden p-1 d-flex justify-content-center align-items-center">
-          <img src="assets/images/landingpage/testimonials/{{ testimonial.image }}" loading="lazy" [alt]="testimonial.name"
-            class="card-image" />
+          <img src="assets/images/landingpage/testimonials/{{ testimonial.image }}" loading="lazy"
+            [alt]="testimonial.nameKey | translate" class="card-image" />
         </div>
         <!-- Card Name and Position -->
         <div class="d-flex flex-column justify-content-start align-items-start gap-1">
-          <span class="card-name fs-875 fw-light">{{ testimonial.name }}</span>
-          <span class="card-position fs-75 fw-light">{{ testimonial.position }}</span>
+          <span class="card-name fs-875 fw-light">{{ testimonial.nameKey | translate }}</span>
+          <span class="card-position fs-75 fw-light">{{ testimonial.positionKey | translate }}</span>
         </div>
       </div>
 
