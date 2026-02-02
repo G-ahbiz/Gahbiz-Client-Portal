@@ -245,7 +245,7 @@
     "allrightsreserved": "All rights reserved.",
     "needhelp": "Need Help?",
     "your-account": "Your Account",
-    "your-orders": "Your Orders",
+    "cart": "Your Cart",
     "account-settings": "Account Settings",
     "payments": "Payments"
   },
@@ -271,7 +271,7 @@
     "serviceCount": "(has {{count}} Services)"
   },
   "how-it-works": {
-    "title1": "How It",
+    "title1": "How It ",
     "title2": " Works",
     "description": "Our streamlined process makes getting professional tax and business services simple and stress-free",
     "step1": {

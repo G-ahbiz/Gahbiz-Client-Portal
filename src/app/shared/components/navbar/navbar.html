@@ -1,55 +1,35 @@
 <nav class="navbar navbar-expand-xl px-2 px-sm-3 px-lg-4 p-xl-5 z-5000">
   <div class="container-fluid d-flex justify-content-between align-items-center p-0">
     <!-- Logo -->
-    <a class="navbar-brand logo-container" (click)="navigateTo('/home')" style="cursor: pointer;">
+    <a class="navbar-brand logo-container" href="/home" (click)="navigateTo('/home'); $event.preventDefault()"
+      style="cursor: pointer;">
       <img ngSrc="assets/images/logo/logo.webp" alt="Logo" class="main-logo" width="200" height="89" priority>
     </a>
 
-    <button
-      class="navbar-toggler p-2"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasNavbar"
-      aria-controls="offcanvasNavbar"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div
-      class="offcanvas"
-      [class]="isArabic ? 'offcanvas-end' : 'offcanvas-start'"
-      tabindex="-1"
-      id="offcanvasNavbar"
-      aria-labelledby="offcanvasNavbarLabel"
-    >
+    <div class="offcanvas" [class]="isArabic ? 'offcanvas-end' : 'offcanvas-start'" tabindex="-1" id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header p-3 p-md-4">
         <div class="offcanvas-logo-container">
           <img ngSrc="assets/images/logo/logo.webp" alt="Logo" class="offcanvas-logo" width="160" height="71">
         </div>
-        <button
-          type="button"
-          class="btn-close text-reset p-3"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close text-reset p-3" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
 
       <div class="offcanvas-body">
         <!-- Adjusted to shift navigation left -->
         <div
-          class="container-fluid p-0 m-0 d-flex flex-column flex-xl-row align-items-xl-center gap-3 gap-xl-0 position-relative"
-        >
+          class="container-fluid p-0 m-0 d-flex flex-column flex-xl-row align-items-xl-center gap-3 gap-xl-0 position-relative">
           <!-- Navigation shifted left with margin -->
-          <ul
-            class="navbar-nav mb-2 mb-lg-0 gap-3 gap-xl-4 flex-xl-grow-1 navigation-center"
-            [class.cairo]="isArabic"
-            [class.gap-2]="isSpanish"
-            [class.text-nowrap]="isSpanish"
-          >
+          <ul class="navbar-nav mb-2 mb-lg-0 gap-3 gap-xl-4 flex-xl-grow-1 navigation-center" [class.cairo]="isArabic"
+            [class.gap-2]="isSpanish" [class.text-nowrap]="isSpanish">
             <li class="nav-item">
-              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2" [routerLink]="ROUTES.home">{{'navbar.home' |
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
+                [routerLink]="ROUTES.home">{{'navbar.home' |
                 translate}}</a>
             </li>
             <li class="nav-item dropdown">
@@ -57,10 +37,7 @@
                 [routerLink]="ROUTES.allServices" role="button" appDropdown aria-expanded="false">
                 {{'navbar.services' | translate}}
               </a>
-              <ul
-                class="dropdown-menu dropdown-menu-end services-dropdown py-2"
-                aria-labelledby="navbarDropdown"
-              >
+              <ul class="dropdown-menu dropdown-menu-end services-dropdown py-2" aria-labelledby="navbarDropdown">
                 @for (service of services; track service.id) {
                 <li>
                   <a class="dropdown-item px-3 py-2" [href]="'/all-services/' + service.id"
@@ -72,22 +49,16 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
-                [routerLink]="ROUTES.about"
-                >{{ 'navbar.about' | translate }}</a
-              >
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2" [routerLink]="ROUTES.about">{{
+                'navbar.about' | translate }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2" [routerLink]="ROUTES.faq">{{'navbar.faq'
                 | translate}}</a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
-                [routerLink]="ROUTES.contact"
-                >{{ 'navbar.contact' | translate }}</a
-              >
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2" [routerLink]="ROUTES.contact">{{
+                'navbar.contact' | translate }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2"
@@ -96,105 +67,67 @@
             <!-- Search Container -->
             <li class="nav-item position-relative search-container">
               <!-- Search Toggle Button -->
-              <a
-                class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2 cursor-pointer"
-                (click)="toggleSearch()"
-              >
+              <a class="nav-link fw-medium orange-hover fs-6 px-2 px-xl-3 py-2 cursor-pointer" href="#"
+                (click)="toggleSearch(); $event.preventDefault()">
                 <i class="pi fs-6" [ngClass]="isSearchOpen ? 'pi-times' : 'pi-search'"></i>
               </a>
 
               <!-- Search Input & Results Dropdown -->
               @if (isSearchOpen) {
-                <div class="search-dropdown">
-                  <div class="search-input-wrapper">
-                    <input
-                      type="text"
-                      class="form-control search-input"
-                      [placeholder]="'navbar.search' | translate"
-                      [value]="searchQuery"
-                      (input)="onSearchInput($event)"
-                      autofocus
-                    />
-                    @if (isSearching) {
-                      <i class="pi pi-spinner pi-spin search-spinner"></i>
-                    }
-                  </div>
-
-                  <!-- Results -->
-                  @if (searchResults.length > 0) {
-                    <ul class="search-results">
-                      @for (result of searchResults; track result.id) {
-                        <li class="search-result-item" (click)="selectSearchResult(result.id)">
-                          <span class="result-name">{{ result.name }}</span>
-                        </li>
-                      }
-                    </ul>
-                  } @else if (searchQuery.length >= 2 && !isSearching) {
-                    <div class="no-results">{{ 'navbar.no-results' | translate }}</div>
+              <div class="search-dropdown">
+                <div class="search-input-wrapper">
+                  <input type="text" class="form-control search-input" [placeholder]="'navbar.search' | translate"
+                    [value]="searchQuery" (input)="onSearchInput($event)" autofocus />
+                  @if (isSearching) {
+                  <i class="pi pi-spinner pi-spin search-spinner"></i>
                   }
                 </div>
+
+                <!-- Results -->
+                @if (searchResults.length > 0) {
+                <ul class="search-results">
+                  @for (result of searchResults; track result.id) {
+                  <li class="search-result-item" (click)="selectSearchResult(result.id)">
+                    <span class="result-name">{{ result.name }}</span>
+                  </li>
+                  }
+                </ul>
+                } @else if (searchQuery.length >= 2 && !isSearching) {
+                <div class="no-results">{{ 'navbar.no-results' | translate }}</div>
+                }
+              </div>
               }
             </li>
           </ul>
 
-           <!-- Actions positioned with proper spacing -->
-          <div
-            class="d-flex justify-content-start align-items-center gap-3 gap-xl-4 navbar-actions"
-            [class.cairo]="isArabic"
-            [class.gap-2]="isSpanish"
-            [class.text-nowrap]="isSpanish"
-          >
+          <!-- Actions positioned with proper spacing -->
+          <div class="d-flex justify-content-start align-items-center gap-3 gap-xl-4 navbar-actions"
+            [class.cairo]="isArabic" [class.gap-2]="isSpanish" [class.text-nowrap]="isSpanish">
             <div class="btn-group language-btn-group">
-              <button
-                type="button"
-                class="btn gap-2 d-flex align-items-center outline-0 p-2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                [title]="isEnglish ? 'English' : isArabic ? 'عربي' : isSpanish ? 'Español' : ''"
-              >
+              <button type="button" class="btn gap-2 d-flex align-items-center outline-0 p-2" data-bs-toggle="dropdown"
+                aria-expanded="false" [title]="isEnglish ? 'English' : isArabic ? 'عربي' : isSpanish ? 'Español' : ''">
                 <i class="pi pi-globe fs-6"></i>
               </button>
 
               <ul class="dropdown-menu language-dropdown py-2">
                 <li>
-                  <a
-                    class="dropdown-item d-flex align-items-center gap-2 px-3 py-2"
-                    href="javascript:void(0)"
-                    (click)="changeLanguage('en')"
-                  >
-                    <img
-                      src="assets/images/navbar/language-icons/america.svg"
-                      alt=""
-                      class="flag-icon"
-                    />
+                  <a class="dropdown-item d-flex align-items-center gap-2 px-3 py-2" href="#"
+                    (click)="changeLanguage('en'); $event.preventDefault()">
+                    <img src="assets/images/navbar/language-icons/america.svg" alt="" class="flag-icon" />
                     <span class="">{{ 'navbar.english' | translate }}</span>
                   </a>
                 </li>
                 <li>
-                  <a
-                    class="dropdown-item d-flex align-items-center gap-2 px-3 py-2"
-                    href="javascript:void(0)"
-                    (click)="changeLanguage('ar')"
-                  >
-                    <img
-                      src="assets/images/navbar/language-icons/egypt.svg"
-                      alt=""
-                      class="flag-icon"
-                    />
+                  <a class="dropdown-item d-flex align-items-center gap-2 px-3 py-2" href="#"
+                    (click)="changeLanguage('ar'); $event.preventDefault()">
+                    <img src="assets/images/navbar/language-icons/egypt.svg" alt="" class="flag-icon" />
                     <span class="">{{ 'navbar.arabic' | translate }}</span>
                   </a>
                 </li>
                 <li>
-                  <a
-                    class="dropdown-item d-flex align-items-center gap-2 px-3 py-2"
-                    href="javascript:void(0)"
-                    (click)="changeLanguage('sp')"
-                  >
-                    <img
-                      src="assets/images/navbar/language-icons/spain.svg"
-                      alt=""
-                      class="flag-icon"
-                    />
+                  <a class="dropdown-item d-flex align-items-center gap-2 px-3 py-2" href="#"
+                    (click)="changeLanguage('sp'); $event.preventDefault()">
+                    <img src="assets/images/navbar/language-icons/spain.svg" alt="" class="flag-icon" />
                     <span class="">{{ 'navbar.spanish' | translate }}</span>
                   </a>
                 </li>
@@ -202,93 +135,66 @@
             </div>
 
             @if (isLoggedIn$ | async) {
-              <div class="d-flex align-items-center gap-2 gap-xl-3 profile-section">
-                <a
-                  class="nav-link cart-icon-container p-2 cursor-pointer"
-                  (click)="navigateTo('/cart')"
-                >
-                  <i class="pi pi-shopping-bag icons"></i>
-                  @if (cartItemCount > 0) {
-                    <span class="cart-badge">{{ cartItemCount }}</span>
+            <div class="d-flex align-items-center gap-2 gap-xl-3 profile-section">
+              <a class="nav-link cart-icon-container p-2 cursor-pointer" href="/cart"
+                (click)="navigateTo('/cart'); $event.preventDefault()">
+                <i class="pi pi-shopping-bag icons"></i>
+                @if (cartItemCount > 0) {
+                <span class="cart-badge">{{ cartItemCount }}</span>
+                }
+              </a>
+
+              <div class="dropdown">
+                <a class="nav-link profile-link dropdown-toggle d-flex align-items-center p-2" href="#" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false" id="profileDropdown">
+                  @if (currentUser$ | async; as user) {
+                  @if (user.profileImageUrl) {
+                  <img [src]="user.profileImageUrl" alt="Profile" class="profile-pic-circle" />
+                  } @else {
+                  <i class="pi pi-user icons"></i>
+                  }
                   }
                 </a>
 
-                <div class="dropdown">
-                  <a
-                    class="nav-link profile-link dropdown-toggle d-flex align-items-center p-2"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    id="profileDropdown"
-                  >
-                    @if (currentUser$ | async; as user) {
-                      @if (user.profileImageUrl) {
-                        <img
-                          [src]="user.profileImageUrl"
-                          alt="Profile"
-                          class="profile-pic-circle"
-                        />
-                      } @else {
-                        <i class="pi pi-user icons"></i>
-                      }
-                    }
-                  </a>
-
-                  <ul
-                    class="dropdown-menu dropdown-menu-end py-2"
-                    aria-labelledby="profileDropdown"
-                  >
-                    <li>
-                      <a
-                        class="dropdown-item d-flex align-items-center px-3 py-2"
-                        (click)="navigateWithDropdown('/complete-profile')"
-                      >
-                        <i class="pi pi-user-edit me-2"></i>
-                        {{ 'navbar.profile' | translate }}
-                      </a>
-                    </li>
-                    <li>
-                      <hr class="dropdown-divider my-2" />
-                    </li>
-                    <li>
-                      <a
-                        class="dropdown-item d-flex align-items-center px-3 py-2"
-                        (click)="navigateWithDropdown('/wishlist')"
-                      >
-                        <i class="pi pi-heart me-2"></i>
-                        {{ 'navbar.wishlist' | translate }}
-                      </a>
-                    </li>
-                    <li>
-                      <hr class="dropdown-divider my-2" />
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item d-flex align-items-center text-danger px-3 py-2"
-                        (click)="logout()"
-                      >
-                        <i class="pi pi-sign-out me-2"></i>
-                        {{ 'navbar.logout' | translate }}
-                      </button>
-                    </li>
-                  </ul>
-                </div>
+                <ul class="dropdown-menu dropdown-menu-end py-2" aria-labelledby="profileDropdown">
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center px-3 py-2" href="/complete-profile"
+                      (click)="navigateWithDropdown('/complete-profile'); $event.preventDefault()">
+                      <i class="pi pi-user-edit me-2"></i>
+                      {{ 'navbar.profile' | translate }}
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider my-2" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center px-3 py-2" href="/wishlist"
+                      (click)="navigateWithDropdown('/wishlist'); $event.preventDefault()">
+                      <i class="pi pi-heart me-2"></i>
+                      {{ 'navbar.wishlist' | translate }}
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider my-2" />
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center text-danger px-3 py-2" (click)="logout()">
+                      <i class="pi pi-sign-out me-2"></i>
+                      {{ 'navbar.logout' | translate }}
+                    </button>
+                  </li>
+                </ul>
               </div>
+            </div>
             } @else {
-              <a
-                class="nav-link fw-normal primary-clr fs-6 px-2 px-xl-3 py-2 cursor-pointer"
-                (click)="navigateTo('/auth/sign-in')"
-              >
-                {{ 'navbar.login' | translate }}
-              </a>
+            <a class="nav-link fw-normal primary-clr fs-6 px-2 px-xl-3 py-2 cursor-pointer" href="/auth/sign-in"
+              (click)="navigateTo('/auth/sign-in'); $event.preventDefault()">
+              {{ 'navbar.login' | translate }}
+            </a>
             }
 
-            <button
-              type="button"
-              class="btn btn-primary primary-bg fw-normal fs-6 px-3 px-xl-4 py-2 book-service-btn"
-              (click)="navigateTo('/appointment-service')"
-            >
+            <button type="button" class="btn btn-primary primary-bg fw-normal fs-6 px-3 px-xl-4 py-2 book-service-btn"
+              (click)="navigateTo('/appointment-service')">
               {{ 'navbar.bookaservice' | translate }}
             </button>
           </div>

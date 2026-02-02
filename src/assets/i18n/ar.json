@@ -245,7 +245,7 @@
     "allrightsreserved": "جميع الحقوق محفوظة.",
     "needhelp": "تحتاج للمساعدة؟",
     "your-account": "حسابك",
-    "your-orders": "طلباتك",
+    "cart": "عربة التسوق",
     "account-settings": "إعدادات الحساب",
     "payments": "الدفعات"
   },
@@ -271,7 +271,7 @@
     "serviceCount": "({{count}} خدمات)"
   },
   "how-it-works": {
-    "title1": "كيف",
+    "title1": "كيف ",
     "title2": " تعمل ",
     "description": "عملنا المبسط يجعل الحصول على خدمات مهنية من الضرائب والأعمال بسهولة وبدون إجهاد",
     "step1": {

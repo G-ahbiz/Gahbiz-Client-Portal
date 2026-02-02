@@ -11,6 +11,7 @@ export const ROUTES = {
   completeProfile: '/complete-profile',
   appointmentService: '/appointment-service',
   wishlist: '/wishlist',
+  cart: '/cart',
   allServices: '/all-services',
   termsAndConditions: '/info/terms-and-conditions',
   privacyPolicy: '/info/privacy-policy',

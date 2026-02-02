@@ -35,9 +35,19 @@
   }
 }
 
+.captions-container {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  max-width: max-content;
+  margin: 0 auto;
+}
+
 .caption {
   animation: fadeInUp 0.6s ease-out backwards;
   animation-delay: calc(var(--step-index, 0) * 0.15s);
+  width: 10rem;
+  flex-shrink: 0;
 
   .step-title {
     margin-bottom: 0.75rem;
@@ -46,6 +56,10 @@
   .step-description {
     color: var(--text-mute-clr, #6b6b6b);
     line-height: 1.6;
+  }
+
+  &:not(:last-child) {
+    margin-inline-end: calc(4rem - 5.5rem);
   }
 }
 
@@ -66,6 +80,10 @@
     width: 4rem;
   }
 
+  .caption:not(:last-child) {
+    margin-inline-end: calc(4rem - 5.5rem);
+  }
+
   .step-title span {
     font-size: 1rem !important;
   }
@@ -76,18 +94,22 @@
 }
 
 @media screen and (min-width: 768px) {
-  .captions-container {
-    width: 95%;
-  }
-
   .herozontal-line {
     width: 6.75rem;
+  }
+
+  .caption:not(:last-child) {
+    margin-inline-end: calc(6.75rem - 5.5rem);
   }
 }
 
 @media screen and (min-width: 992px) {
   .herozontal-line {
     width: 9.75rem;
+  }
+
+  .caption:not(:last-child) {
+    margin-inline-end: calc(9.75rem - 5.5rem);
   }
 
   .step-title span {
@@ -103,11 +125,9 @@
   .herozontal-line {
     width: 12.75rem;
   }
-}
 
-@media screen and (min-width: 1280px) {
-  .herozontal-line {
-    width: 13.75rem;
+  .caption:not(:last-child) {
+    margin-inline-end: calc(12.75rem - 5.5rem);
   }
 }
 
@@ -115,16 +135,38 @@
   .herozontal-line {
     width: 16rem;
   }
+
+  .caption:not(:last-child) {
+    margin-inline-end: calc(16rem - 5.5rem);
+  }
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1600px) {
   .herozontal-line {
-    width: 17.5rem;
+    width: 19rem;
+  }
+
+  .caption:not(:last-child) {
+    margin-inline-end: calc(19rem - 5.5rem);
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .herozontal-line {
+    width: 24rem;
+  }
+
+  .caption:not(:last-child) {
+    margin-inline-end: calc(24rem - 5.5rem);
   }
 }
 
 @media screen and (min-width: 2560px) {
   .herozontal-line {
     width: 33rem;
+  }
+
+  .caption:not(:last-child) {
+    margin-inline-end: calc(33rem - 5.5rem);
   }
 }
